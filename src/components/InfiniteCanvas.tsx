@@ -95,9 +95,10 @@ const InfiniteCanvas = () => {
   const navigateToSection = (sectionId: string) => {
     const section = sections.find(s => s.id === sectionId);
     if (section) {
+      // Calculate the position to center the section card on screen
       setViewportPosition({
-        x: -section.position.x + window.innerWidth / 2,
-        y: -section.position.y + window.innerHeight / 2
+        x: -section.position.x,
+        y: -section.position.y
       });
       setCurrentSection(sectionId);
     }
