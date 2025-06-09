@@ -1,8 +1,7 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, ArrowLeft, ArrowUp, ArrowDown } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ArrowUp, ArrowDown, ExternalLink } from 'lucide-react';
 
 interface Position {
   x: number;
@@ -59,13 +58,13 @@ const InfiniteCanvas = () => {
       direction: 'up'
     },
     {
-      id: 'fitness',
-      title: 'Fitness Journey',
-      subtitle: 'From Skinny Fat to Fit',
+      id: 'projects',
+      title: 'Personal Projects',
+      subtitle: 'Code & Creativity',
       position: { x: 0, y: 800 },
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
-      icon: '💪',
+      icon: '🚀',
       direction: 'down'
     }
   ];
@@ -159,7 +158,7 @@ const InfiniteCanvas = () => {
           navigateToSection('keto');
           break;
         case 'ArrowDown':
-          navigateToSection('fitness');
+          navigateToSection('projects');
           break;
         case 'Escape':
         case 'Home':
@@ -309,6 +308,26 @@ const InfiniteCanvas = () => {
                   <p className="text-sm sm:text-base text-slate-300">{section.subtitle}</p>
                 </div>
                 
+                {/* Hometown Images */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 sm:mb-6">
+                  <div className="bg-slate-800/50 p-3 rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=300&h=200&fit=crop" 
+                      alt="Beautiful landscape representing Alwar" 
+                      className="w-full h-32 object-cover rounded-lg mb-2"
+                    />
+                    <h4 className="text-sm font-semibold text-white">Natural Beauty</h4>
+                  </div>
+                  <div className="bg-slate-800/50 p-3 rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=300&h=200&fit=crop" 
+                      alt="Wildlife around Alwar" 
+                      className="w-full h-32 object-cover rounded-lg mb-2"
+                    />
+                    <h4 className="text-sm font-semibold text-white">Sariska Wildlife</h4>
+                  </div>
+                </div>
+                
                 <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
                     <h3 className="text-base sm:text-lg font-semibold text-white mb-2">City Palace & Heritage</h3>
@@ -348,6 +367,26 @@ const InfiniteCanvas = () => {
                   <p className="text-sm sm:text-base text-slate-300">{section.subtitle}</p>
                 </div>
                 
+                {/* Cat Images */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 sm:mb-6">
+                  <div className="bg-slate-800/50 p-3 rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop" 
+                      alt="Orange tabby cat like Keto" 
+                      className="w-full h-32 object-cover rounded-lg mb-2"
+                    />
+                    <h4 className="text-sm font-semibold text-white">Keto's Relaxation Time</h4>
+                  </div>
+                  <div className="bg-slate-800/50 p-3 rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop&sat=-100" 
+                      alt="Another adorable photo of Keto" 
+                      className="w-full h-32 object-cover rounded-lg mb-2 grayscale"
+                    />
+                    <h4 className="text-sm font-semibold text-white">Portrait Mode</h4>
+                  </div>
+                </div>
+                
                 <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
                     <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Personality</h3>
@@ -379,7 +418,7 @@ const InfiniteCanvas = () => {
               </Card>
             )}
 
-            {section.id === 'fitness' && (
+            {section.id === 'projects' && (
               <Card className={`p-4 sm:p-6 ${section.gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
                 <div className="text-center mb-4 sm:mb-6">
                   <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{section.icon}</span>
@@ -389,32 +428,61 @@ const InfiniteCanvas = () => {
                 
                 <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">The Starting Point</h3>
-                    <p className="text-slate-300 text-sm">Like many developers, I struggled with the "skinny fat" physique - looking slim but lacking muscle definition and strength.</p>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Interactive Portfolio</h3>
+                    <p className="text-slate-300 text-sm">This infinite canvas portfolio you're currently exploring! Built with React, TypeScript, and Tailwind CSS.</p>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      <Badge className="text-xs">React</Badge>
+                      <Badge className="text-xs">TypeScript</Badge>
+                      <Badge className="text-xs">Canvas API</Badge>
+                    </div>
                   </div>
                   
                   <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">The Journey</h3>
-                    <p className="text-slate-300 text-sm">Started with basic bodyweight exercises, gradually progressed to weight training, and learned about proper nutrition.</p>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Task Management App</h3>
+                    <p className="text-slate-300 text-sm">A full-stack productivity app with real-time collaboration features and advanced filtering options.</p>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      <Badge className="text-xs">Next.js</Badge>
+                      <Badge className="text-xs">PostgreSQL</Badge>
+                      <Badge className="text-xs">WebSockets</Badge>
+                    </div>
                   </div>
                   
                   <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Current Focus</h3>
-                    <p className="text-slate-300 text-sm">Building lean muscle, improving strength, and maintaining consistency while balancing a demanding coding schedule.</p>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Weather Dashboard</h3>
+                    <p className="text-slate-300 text-sm">Beautiful weather visualization with interactive charts and location-based forecasts.</p>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      <Badge className="text-xs">Vue.js</Badge>
+                      <Badge className="text-xs">Chart.js</Badge>
+                      <Badge className="text-xs">Weather API</Badge>
+                    </div>
                   </div>
                   
                   <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
-                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Lessons Learned</h3>
-                    <p className="text-slate-300 text-sm">Consistency beats perfection, progressive overload is key, and taking care of your body enhances mental performance.</p>
+                    <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Open Source Contributions</h3>
+                    <p className="text-slate-300 text-sm">Contributing to various open source projects, focusing on accessibility improvements and performance optimizations.</p>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      <Badge className="text-xs">GitHub</Badge>
+                      <Badge className="text-xs">Accessibility</Badge>
+                      <Badge className="text-xs">Performance</Badge>
+                    </div>
                   </div>
                 </div>
                 
-                <button 
-                  onClick={navigateHome}
-                  className="px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block text-sm touch-manipulation"
-                >
-                  ← Back to Home
-                </button>
+                <div className="flex gap-2 justify-center mb-4">
+                  <button 
+                    onClick={() => navigateToSection('work')}
+                    className="px-4 py-3 bg-blue-500/20 hover:bg-blue-500/30 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation flex items-center gap-2"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View Work Experience
+                  </button>
+                  <button 
+                    onClick={navigateHome}
+                    className="px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation"
+                  >
+                    ← Back to Home
+                  </button>
+                </div>
               </Card>
             )}
           </div>
