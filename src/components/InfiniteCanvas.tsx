@@ -1,0 +1,404 @@
+
+import React, { useState, useRef, useEffect } from 'react';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight, ArrowLeft, ArrowUp, ArrowDown } from 'lucide-react';
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface Section {
+  id: string;
+  title: string;
+  subtitle: string;
+  position: Position;
+  color: string;
+  gradient: string;
+  icon: string;
+  direction: 'right' | 'left' | 'up' | 'down';
+}
+
+const InfiniteCanvas = () => {
+  const [viewportPosition, setViewportPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [lastMousePos, setLastMousePos] = useState<Position>({ x: 0, y: 0 });
+  const [currentSection, setCurrentSection] = useState<string>('home');
+  const canvasRef = useRef<HTMLDivElement>(null);
+
+  const sections: Section[] = [
+    {
+      id: 'work',
+      title: 'Work Experience',
+      subtitle: 'Professional Journey & Projects',
+      position: { x: 800, y: 0 },
+      color: 'from-blue-500 to-cyan-500',
+      gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
+      icon: '💼',
+      direction: 'right'
+    },
+    {
+      id: 'alwar',
+      title: 'Alwar City Life',
+      subtitle: 'My Hometown Adventures',
+      position: { x: -800, y: 0 },
+      color: 'from-green-500 to-emerald-500',
+      gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
+      icon: '🏛️',
+      direction: 'left'
+    },
+    {
+      id: 'keto',
+      title: 'Meet Keto',
+      subtitle: 'My Beloved Cat',
+      position: { x: 0, y: -800 },
+      color: 'from-purple-500 to-pink-500',
+      gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
+      icon: '🐱',
+      direction: 'up'
+    },
+    {
+      id: 'fitness',
+      title: 'Fitness Journey',
+      subtitle: 'From Skinny Fat to Fit',
+      position: { x: 0, y: 800 },
+      color: 'from-orange-500 to-red-500',
+      gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
+      icon: '💪',
+      direction: 'down'
+    }
+  ];
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setLastMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+
+    const deltaX = e.clientX - lastMousePos.x;
+    const deltaY = e.clientY - lastMousePos.y;
+
+    setViewportPosition(prev => ({
+      x: prev.x + deltaX,
+      y: prev.y + deltaY
+    }));
+
+    setLastMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const navigateToSection = (sectionId: string) => {
+    const section = sections.find(s => s.id === sectionId);
+    if (section) {
+      setViewportPosition({
+        x: -section.position.x + window.innerWidth / 2,
+        y: -section.position.y + window.innerHeight / 2
+      });
+      setCurrentSection(sectionId);
+    }
+  };
+
+  const navigateHome = () => {
+    setViewportPosition({ x: 0, y: 0 });
+    setCurrentSection('home');
+  };
+
+  const getArrowIcon = (direction: string) => {
+    switch (direction) {
+      case 'right': return <ArrowRight className="w-6 h-6" />;
+      case 'left': return <ArrowLeft className="w-6 h-6" />;
+      case 'up': return <ArrowUp className="w-6 h-6" />;
+      case 'down': return <ArrowDown className="w-6 h-6" />;
+      default: return <ArrowRight className="w-6 h-6" />;
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowRight':
+          navigateToSection('work');
+          break;
+        case 'ArrowLeft':
+          navigateToSection('alwar');
+          break;
+        case 'ArrowUp':
+          navigateToSection('keto');
+          break;
+        case 'ArrowDown':
+          navigateToSection('fitness');
+          break;
+        case 'Escape':
+        case 'Home':
+          navigateHome();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  return (
+    <div 
+      ref={canvasRef}
+      className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 cursor-grab active:cursor-grabbing relative"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
+      {/* Stars background */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(100)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-60 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Canvas content */}
+      <div
+        className="absolute transition-transform duration-300 ease-out"
+        style={{
+          transform: `translate(${viewportPosition.x}px, ${viewportPosition.y}px)`,
+          left: '50%',
+          top: '50%'
+        }}
+      >
+        {/* Home/Landing section */}
+        <div className="absolute -translate-x-1/2 -translate-y-1/2">
+          <Card className="p-12 bg-gradient-to-br from-slate-800/90 to-slate-700/90 backdrop-blur-sm border-slate-600/50 text-center max-w-2xl">
+            <div className="mb-8">
+              <h1 className="text-6xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-4">
+                Welcome to My Universe
+              </h1>
+              <p className="text-xl text-slate-300 mb-8">
+                Navigate through different dimensions of my life
+              </p>
+              <div className="text-sm text-slate-400 mb-6">
+                Use arrow keys or click & drag to explore
+              </div>
+            </div>
+
+            {/* Navigation hints */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => navigateToSection(section.id)}
+                  className={`p-4 rounded-lg border border-slate-600/50 hover:border-slate-400/50 transition-all duration-300 hover:scale-105 ${section.gradient} backdrop-blur-sm group`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-2xl">{section.icon}</span>
+                    <div className="opacity-70 group-hover:opacity-100 transition-opacity">
+                      {getArrowIcon(section.direction)}
+                    </div>
+                  </div>
+                  <div className="text-left">
+                    <div className="font-semibold text-white">{section.title}</div>
+                    <div className="text-sm text-slate-300">{section.subtitle}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <Badge variant="secondary" className="text-xs">
+              Press ESC to return home
+            </Badge>
+          </Card>
+        </div>
+
+        {/* Section pages */}
+        {sections.map((section) => (
+          <div
+            key={section.id}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{
+              left: section.position.x,
+              top: section.position.y
+            }}
+          >
+            {section.id === 'work' && (
+              <Card className={`p-8 ${section.gradient} backdrop-blur-sm border-slate-600/50 max-w-4xl`}>
+                <div className="text-center mb-8">
+                  <span className="text-6xl mb-4 block">{section.icon}</span>
+                  <h2 className="text-4xl font-bold text-white mb-2">{section.title}</h2>
+                  <p className="text-slate-300">{section.subtitle}</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Frontend Development</h3>
+                    <p className="text-slate-300 mb-4">Building modern, responsive web applications with React, TypeScript, and modern CSS frameworks.</p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge>React</Badge>
+                      <Badge>TypeScript</Badge>
+                      <Badge>Tailwind CSS</Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">UI/UX Design</h3>
+                    <p className="text-slate-300 mb-4">Creating intuitive user experiences and beautiful interfaces that users love to interact with.</p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge>Figma</Badge>
+                      <Badge>Design Systems</Badge>
+                      <Badge>Prototyping</Badge>
+                    </div>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={navigateHome}
+                  className="mt-8 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block"
+                >
+                  ← Back to Home
+                </button>
+              </Card>
+            )}
+
+            {section.id === 'alwar' && (
+              <Card className={`p-8 ${section.gradient} backdrop-blur-sm border-slate-600/50 max-w-4xl`}>
+                <div className="text-center mb-8">
+                  <span className="text-6xl mb-4 block">{section.icon}</span>
+                  <h2 className="text-4xl font-bold text-white mb-2">{section.title}</h2>
+                  <p className="text-slate-300">{section.subtitle}</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">City Palace & Heritage</h3>
+                    <p className="text-slate-300">Growing up surrounded by the rich history of Alwar, from the majestic City Palace to the ancient Bala Quila fort.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Sariska Tiger Reserve</h3>
+                    <p className="text-slate-300">Weekend adventures in one of India's most beautiful tiger reserves, just a short drive from home.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Local Culture</h3>
+                    <p className="text-slate-300">The vibrant markets, delicious street food, and warm community that shaped my values and perspective.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Memories</h3>
+                    <p className="text-slate-300">From school days to family gatherings, Alwar holds countless precious memories that continue to inspire me.</p>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={navigateHome}
+                  className="mt-8 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block"
+                >
+                  ← Back to Home
+                </button>
+              </Card>
+            )}
+
+            {section.id === 'keto' && (
+              <Card className={`p-8 ${section.gradient} backdrop-blur-sm border-slate-600/50 max-w-4xl`}>
+                <div className="text-center mb-8">
+                  <span className="text-6xl mb-4 block">{section.icon}</span>
+                  <h2 className="text-4xl font-bold text-white mb-2">{section.title}</h2>
+                  <p className="text-slate-300">{section.subtitle}</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Personality</h3>
+                    <p className="text-slate-300">Keto is the most curious and playful cat you'll ever meet. Always getting into mischief and making us laugh.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Favorite Activities</h3>
+                    <p className="text-slate-300">Chasing laser dots, napping in sunbeams, and somehow always knowing when it's treat time.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Special Talents</h3>
+                    <p className="text-slate-300">Master of opening doors, professional lap warmer, and expert at judging my coding skills from across the room.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Life Lessons</h3>
+                    <p className="text-slate-300">Keto has taught me the importance of curiosity, rest, and finding joy in simple moments.</p>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={navigateHome}
+                  className="mt-8 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block"
+                >
+                  ← Back to Home
+                </button>
+              </Card>
+            )}
+
+            {section.id === 'fitness' && (
+              <Card className={`p-8 ${section.gradient} backdrop-blur-sm border-slate-600/50 max-w-4xl`}>
+                <div className="text-center mb-8">
+                  <span className="text-6xl mb-4 block">{section.icon}</span>
+                  <h2 className="text-4xl font-bold text-white mb-2">{section.title}</h2>
+                  <p className="text-slate-300">{section.subtitle}</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">The Starting Point</h3>
+                    <p className="text-slate-300">Like many developers, I struggled with the "skinny fat" physique - looking slim but lacking muscle definition and strength.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">The Journey</h3>
+                    <p className="text-slate-300">Started with basic bodyweight exercises, gradually progressed to weight training, and learned about proper nutrition.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Current Focus</h3>
+                    <p className="text-slate-300">Building lean muscle, improving strength, and maintaining consistency while balancing a demanding coding schedule.</p>
+                  </div>
+                  
+                  <div className="bg-slate-800/50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold text-white mb-3">Lessons Learned</h3>
+                    <p className="text-slate-300">Consistency beats perfection, progressive overload is key, and taking care of your body enhances mental performance.</p>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={navigateHome}
+                  className="mt-8 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block"
+                >
+                  ← Back to Home
+                </button>
+                </Card>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation indicator */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+        <div className="bg-slate-800/80 backdrop-blur-sm px-4 py-2 rounded-full text-slate-300 text-sm">
+          {currentSection === 'home' ? 'Home Base' : sections.find(s => s.id === currentSection)?.title}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default InfiniteCanvas;
