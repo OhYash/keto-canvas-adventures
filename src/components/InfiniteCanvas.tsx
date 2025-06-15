@@ -25,11 +25,15 @@ const InfiniteCanvas = () => {
     allSections,
     currentSection,
     navigationHistory,
+    getBreadcrumbPath,
     getCurrentSectionFromPosition,
     updateCurrentSection,
     navigateToSection,
     navigateHome,
   } = useSectionManagement();
+
+  // Get the proper breadcrumb path for the current section
+  const breadcrumbPath = getBreadcrumbPath(currentSection);
 
   const handlePositionChange = useCallback((deltaX: number, deltaY: number) => {
     setViewportPosition(prev => {
@@ -105,6 +109,7 @@ const InfiniteCanvas = () => {
       <NavigationBreadcrumb
         currentSection={currentSection}
         navigationHistory={navigationHistory.slice(0, -1)}
+        breadcrumbPath={breadcrumbPath}
         onNavigate={handleNavigateToSection}
         onNavigateHome={handleNavigateHome}
       />

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Breadcrumb,
@@ -12,6 +13,7 @@ import { Home } from 'lucide-react';
 interface NavigationBreadcrumbProps {
   currentSection: string;
   navigationHistory: string[];
+  breadcrumbPath: string[];
   onNavigate: (sectionId: string) => void;
   onNavigateHome: () => void;
 }
@@ -19,6 +21,7 @@ interface NavigationBreadcrumbProps {
 const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
   currentSection,
   navigationHistory,
+  breadcrumbPath,
   onNavigate,
   onNavigateHome,
 }) => {
@@ -28,14 +31,13 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
       work: 'Work Experience',
       personal: 'Personal Life',
       keto: 'Meet Keto',
+      hobbies: 'Hobbies & Projects',
       projects: 'Personal Projects',
       now: 'What I\'m Doing Now',
+      travel: 'Travel Stories',
     };
     return sectionNames[sectionId] || sectionId;
   };
-
-  // Create breadcrumb path - always include Home, then current section if not home
-  const breadcrumbPath = currentSection === 'home' ? ['home'] : ['home', currentSection];
 
   const handleNavigation = (sectionId: string) => {
     if (sectionId === 'home') {

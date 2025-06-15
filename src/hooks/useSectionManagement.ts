@@ -14,6 +14,7 @@ interface Section {
   gradient: string;
   icon: string;
   direction: 'right' | 'left' | 'up' | 'down';
+  parent?: string; // Add parent relationship
 }
 
 export const useSectionManagement = () => {
@@ -84,7 +85,8 @@ export const useSectionManagement = () => {
       color: 'from-teal-500 to-blue-600',
       gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
       icon: '✈️',
-      direction: 'left'
+      direction: 'left',
+      parent: 'personal'
     },
     {
       id: 'projects',
@@ -94,9 +96,26 @@ export const useSectionManagement = () => {
       color: 'from-indigo-500 to-purple-500',
       gradient: 'bg-gradient-to-br from-indigo-500/20 to-purple-500/20',
       icon: '🚀',
-      direction: 'down'
+      direction: 'down',
+      parent: 'hobbies'
     }
   ], [sections]);
+
+  // Helper function to get the breadcrumb path for a section
+  const getBreadcrumbPath = useCallback((sectionId: string): string[] => {
+    if (sectionId === 'home') return ['home'];
+    
+    const section = allSections.find(s => s.id === sectionId);
+    if (!section) return ['home'];
+    
+    const path = ['home'];
+    if (section.parent) {
+      path.push(section.parent);
+    }
+    path.push(sectionId);
+    
+    return path;
+  }, [allSections]);
 
   const getCurrentSectionFromPosition = useCallback((position: Position) => {
     const threshold = 400;
@@ -180,6 +199,7 @@ export const useSectionManagement = () => {
     allSections, // All sections including travel and projects for navigation
     currentSection,
     navigationHistory,
+    getBreadcrumbPath,
     getCurrentSectionFromPosition,
     updateCurrentSection,
     navigateToSection,
