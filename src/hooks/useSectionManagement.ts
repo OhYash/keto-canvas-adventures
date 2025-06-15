@@ -1,3 +1,4 @@
+
 import { useState, useCallback, useMemo } from 'react';
 
 interface Position {
@@ -69,6 +70,16 @@ export const useSectionManagement = () => {
       color: 'from-yellow-500 to-amber-500',
       gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
       icon: '⚡',
+      direction: 'down'
+    },
+    {
+      id: 'travel',
+      title: 'Travel Stories',
+      subtitle: 'Adventures Around the World',
+      position: { x: -1000, y: 1000 },
+      color: 'from-teal-500 to-blue-600',
+      gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
+      icon: '✈️',
       direction: 'down'
     }
   ], []);

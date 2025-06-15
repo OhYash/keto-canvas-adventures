@@ -1,3 +1,4 @@
+
 import React, { useCallback } from 'react';
 import WorkSection from '../sections/WorkSection';
 import PersonalSection from '../sections/PersonalSection';
@@ -5,6 +6,7 @@ import KetoSection from '../sections/KetoSection';
 import ProjectsSection from '../sections/ProjectsSection';
 import HomeSection from '../sections/HomeSection';
 import NowSection from '../sections/NowSection';
+import TravelStoriesSection from '../sections/TravelStoriesSection';
 
 interface Position {
   x: number;
@@ -53,6 +55,8 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
         return <ProjectsSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'now':
         return <NowSection {...commonProps} />;
+      case 'travel':
+        return <TravelStoriesSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       default:
         return null;
     }
