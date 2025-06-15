@@ -45,7 +45,7 @@ export const useSectionManagement = () => {
       id: 'travel',
       title: 'Travel Stories',
       subtitle: 'Adventures Around the World',
-      position: { x: -2400, y: 0 },
+      position: { x: -2000, y: 0 },
       color: 'from-teal-500 to-blue-600',
       gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
       icon: '✈️',
