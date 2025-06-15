@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useCallback } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import StarBackground from './canvas/StarBackground';
@@ -88,7 +87,7 @@ const InfiniteCanvas = () => {
           handleNavigateToSection('keto');
           break;
         case 'ArrowDown':
-          handleNavigateToSection('projects');
+          handleNavigateToSection('hobbies');
           break;
         case 'Escape':
         case 'Home':

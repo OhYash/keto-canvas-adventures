@@ -52,13 +52,13 @@ export const useSectionManagement = () => {
       direction: 'up'
     },
     {
-      id: 'projects',
-      title: 'Personal Projects',
-      subtitle: 'Code & Creativity',
+      id: 'hobbies',
+      title: 'Hobbies & Projects',
+      subtitle: 'What I Love To Do',
       position: { x: 0, y: 1000 },
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
-      icon: '🚀',
+      icon: '🎨',
       direction: 'down'
     },
     {
@@ -73,7 +73,7 @@ export const useSectionManagement = () => {
     }
   ], []);
 
-  // Define all sections including travel for navigation purposes
+  // Define all sections including travel and projects subsection for navigation purposes
   const allSections: Section[] = useMemo(() => [
     ...sections,
     {
@@ -85,6 +85,16 @@ export const useSectionManagement = () => {
       gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
       icon: '✈️',
       direction: 'left'
+    },
+    {
+      id: 'projects',
+      title: 'Personal Projects',
+      subtitle: 'Code & Creativity',
+      position: { x: 0, y: 2000 },
+      color: 'from-indigo-500 to-purple-500',
+      gradient: 'bg-gradient-to-br from-indigo-500/20 to-purple-500/20',
+      icon: '🚀',
+      direction: 'down'
     }
   ], [sections]);
 
@@ -167,7 +177,7 @@ export const useSectionManagement = () => {
 
   return {
     sections, // Only main sections for Home page
-    allSections, // All sections including travel for navigation
+    allSections, // All sections including travel and projects for navigation
     currentSection,
     navigationHistory,
     getCurrentSectionFromPosition,
