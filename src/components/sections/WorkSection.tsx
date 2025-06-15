@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Briefcase, Code } from 'lucide-react';
 
 interface WorkSectionProps {
   gradient: string;
@@ -19,45 +19,87 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   subtitle,
   onNavigateHome,
 }) => {
-  return (
-    <Card className={`p-4 sm:p-6 ${gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
-      <div className="flex items-center justify-between mb-4">
-        <button
-          onClick={onNavigateHome}
-          className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors bg-slate-800/50 hover:bg-slate-700/50 px-3 py-2 rounded-lg"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Home
-        </button>
-        <div className="text-2xl sm:text-3xl">{icon}</div>
-      </div>
+  const workAreas = [
+    {
+      category: "Frontend Development",
+      description: "Building modern, responsive web applications with React, TypeScript, and modern CSS frameworks.",
+      skills: ["React", "TypeScript", "Tailwind CSS"]
+    },
+    {
+      category: "UI/UX Design",
+      description: "Creating intuitive user experiences and beautiful interfaces that users love to interact with.",
+      skills: ["Figma", "Design Systems", "Prototyping"]
+    }
+  ];
 
-      <div className="text-center mb-4 sm:mb-6">
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{title}</h2>
-        <p className="text-sm sm:text-base text-slate-300">{subtitle}</p>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-3 sm:gap-4">
-        <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
-          <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Frontend Development</h3>
-          <p className="text-slate-300 mb-3 text-sm">Building modern, responsive web applications with React, TypeScript, and modern CSS frameworks.</p>
-          <div className="flex flex-wrap gap-1">
-            <Badge className="text-xs">React</Badge>
-            <Badge className="text-xs">TypeScript</Badge>
-            <Badge className="text-xs">Tailwind CSS</Badge>
-          </div>
+  return (
+    <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
+      <CardHeader className="pb-6">
+        <div className="flex items-center justify-between mb-6">
+          <button
+            onClick={onNavigateHome}
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-4 py-2 rounded-lg font-medium shadow-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Home
+          </button>
+          <div className="text-3xl sm:text-4xl">{icon}</div>
         </div>
         
-        <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
-          <h3 className="text-base sm:text-lg font-semibold text-white mb-2">UI/UX Design</h3>
-          <p className="text-slate-300 mb-3 text-sm">Creating intuitive user experiences and beautiful interfaces that users love to interact with.</p>
-          <div className="flex flex-wrap gap-1">
-            <Badge className="text-xs">Figma</Badge>
-            <Badge className="text-xs">Design Systems</Badge>
-            <Badge className="text-xs">Prototyping</Badge>
-          </div>
+        <div className="text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+            {title}
+          </h1>
+          <p className="text-slate-700 text-base sm:text-lg mb-6 font-medium">
+            {subtitle}
+          </p>
         </div>
-      </div>
+      </CardHeader>
+
+      <CardContent className="space-y-8">
+        <div className="space-y-6">
+          <div className="flex items-center gap-3 mb-6">
+            <Briefcase className="w-6 h-6 text-slate-800" />
+            <h2 className="text-xl font-bold text-slate-900">Professional Experience</h2>
+          </div>
+
+          {workAreas.map((area, index) => (
+            <div
+              key={index}
+              className="bg-white/90 backdrop-blur-sm rounded-xl p-6 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
+            >
+              <div className="mb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <Code className="w-5 h-5 text-slate-700" />
+                  <h3 className="text-lg font-bold text-slate-900">{area.category}</h3>
+                </div>
+                <p className="text-slate-700 font-medium leading-relaxed mb-4">
+                  {area.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {area.skills.map((skill, skillIndex) => (
+                    <Badge key={skillIndex} variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 p-6 bg-white/80 rounded-xl border border-slate-300/50">
+          <p className="text-slate-700 text-base italic text-center font-medium leading-relaxed">
+            "Passionate about creating exceptional digital experiences through clean code and thoughtful design."
+          </p>
+        </div>
+
+        <div className="text-center pt-6">
+          <Badge variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
+            Available for new opportunities
+          </Badge>
+        </div>
+      </CardContent>
     </Card>
   );
 };
