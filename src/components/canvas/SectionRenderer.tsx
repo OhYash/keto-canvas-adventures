@@ -1,3 +1,4 @@
+
 import React, { useCallback } from 'react';
 import WorkSection from '../sections/WorkSection';
 import PersonalSection from '../sections/PersonalSection';
@@ -50,7 +51,7 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       case 'work':
         return <WorkSection {...commonProps} />;
       case 'personal':
-        return <PersonalSection {...commonProps} />;
+        return <PersonalSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'keto':
         return <KetoSection {...commonProps} />;
       case 'hobbies':
