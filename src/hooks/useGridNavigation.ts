@@ -31,6 +31,18 @@ export const useGridNavigation = ({
   currentSection,
   onNavigateToSection,
 }: GridNavigationProps) => {
+  // Create a proper home section object
+  const homeSection = useMemo(() => ({
+    id: 'home',
+    title: 'Home',
+    subtitle: 'Welcome',
+    position: { x: 0, y: 0 },
+    color: 'from-slate-500 to-slate-600',
+    gradient: 'bg-gradient-to-br from-slate-500/20 to-slate-600/20',
+    icon: '🏠',
+    direction: 'right' as const
+  }), []);
+
   // Get all navigable sections based on current context
   const getNavigableSections = useCallback(() => {
     if (currentSection === 'home') {
@@ -43,16 +55,16 @@ export const useGridNavigation = ({
       // Get parent and its subsections
       const parentSection = allSections.find(s => s.id === currentSectionData.parent);
       const siblingSubsections = allSections.filter(s => s.parent === currentSectionData.parent);
-      return parentSection ? [parentSection, ...siblingSubsections] : siblingSubsections;
+      // Always include home in navigation from subsections
+      return parentSection ? [homeSection, parentSection, ...siblingSubsections] : [homeSection, ...siblingSubsections];
     }
     
     // If we're in a main section, we can navigate to home, other main sections, and its subsections
     const subsections = allSections.filter(s => s.parent === currentSection);
     const mainSections = sections;
-    const homeSection = { id: 'home', position: { x: 0, y: 0 } };
     
     return [homeSection, ...mainSections, ...subsections];
-  }, [sections, allSections, currentSection]);
+  }, [sections, allSections, currentSection, homeSection]);
 
   // Find the closest section in a given direction
   const findSectionInDirection = useCallback((direction: 'left' | 'right' | 'up' | 'down') => {
@@ -75,19 +87,19 @@ export const useGridNavigation = ({
 
       switch (direction) {
         case 'right':
-          isInDirection = deltaX > 0 && Math.abs(deltaY) < Math.abs(deltaX);
+          isInDirection = deltaX > 0 && Math.abs(deltaY) <= Math.abs(deltaX);
           distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
           break;
         case 'left':
-          isInDirection = deltaX < 0 && Math.abs(deltaY) < Math.abs(deltaX);
+          isInDirection = deltaX < 0 && Math.abs(deltaY) <= Math.abs(deltaX);
           distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
           break;
         case 'up':
-          isInDirection = deltaY < 0 && Math.abs(deltaX) < Math.abs(deltaY);
+          isInDirection = deltaY < 0 && Math.abs(deltaX) <= Math.abs(deltaY);
           distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
           break;
         case 'down':
-          isInDirection = deltaY > 0 && Math.abs(deltaX) < Math.abs(deltaY);
+          isInDirection = deltaY > 0 && Math.abs(deltaX) <= Math.abs(deltaY);
           distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
           break;
       }
