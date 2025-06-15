@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useMemo } from 'react';
 
 interface Position {
@@ -26,7 +25,7 @@ export const useSectionManagement = () => {
       id: 'work',
       title: 'Work Experience',
       subtitle: 'Professional Journey & Projects',
-      position: { x: 800, y: 0 },
+      position: { x: 1200, y: 0 },
       color: 'from-blue-500 to-cyan-500',
       gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
       icon: '💼',
@@ -36,7 +35,7 @@ export const useSectionManagement = () => {
       id: 'personal',
       title: 'Personal Life',
       subtitle: 'About Me & My Adventures',
-      position: { x: -800, y: 0 },
+      position: { x: -1200, y: 0 },
       color: 'from-green-500 to-emerald-500',
       gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
       icon: '🧍‍♂️',
@@ -46,7 +45,7 @@ export const useSectionManagement = () => {
       id: 'keto',
       title: 'Meet Keto',
       subtitle: 'My Beloved Cat',
-      position: { x: 0, y: -800 },
+      position: { x: 0, y: -1200 },
       color: 'from-purple-500 to-pink-500',
       gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
       icon: '🐱',
@@ -56,7 +55,7 @@ export const useSectionManagement = () => {
       id: 'projects',
       title: 'Personal Projects',
       subtitle: 'Code & Creativity',
-      position: { x: 0, y: 800 },
+      position: { x: 0, y: 1200 },
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
       icon: '🚀',
@@ -66,7 +65,7 @@ export const useSectionManagement = () => {
       id: 'now',
       title: 'What I\'m Doing Now',
       subtitle: 'Current Focus & Plans',
-      position: { x: 800, y: 800 },
+      position: { x: 1200, y: 1200 },
       color: 'from-yellow-500 to-amber-500',
       gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
       icon: '⚡',
