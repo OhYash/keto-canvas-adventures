@@ -46,7 +46,7 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
   };
 
   return (
-    <div className="bg-slate-800/90 backdrop-blur-sm border-b border-slate-600/50 px-4 py-3">
+    <div className="relative z-20 bg-slate-800/90 backdrop-blur-sm border-b border-slate-600/50 px-4 py-3">
       <Breadcrumb>
         <BreadcrumbList>
           {breadcrumbPath.map((sectionId, index) => (

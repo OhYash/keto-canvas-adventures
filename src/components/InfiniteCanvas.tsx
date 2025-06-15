@@ -290,7 +290,7 @@ const InfiniteCanvas = () => {
                 <Card className={`p-4 sm:p-6 ${section.gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
                   <div className="text-center mb-4 sm:mb-6">
                     <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{section.icon}</span>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">{section.title}</h2>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{section.title}</h2>
                     <p className="text-sm sm:text-base text-slate-300">{section.subtitle}</p>
                   </div>
                   
@@ -329,7 +329,7 @@ const InfiniteCanvas = () => {
                 <Card className={`p-4 sm:p-6 ${section.gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
                   <div className="text-center mb-4 sm:mb-6">
                     <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{section.icon}</span>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">{section.title}</h2>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{section.title}</h2>
                     <p className="text-sm sm:text-base text-slate-300">{section.subtitle}</p>
                   </div>
                   
@@ -388,7 +388,7 @@ const InfiniteCanvas = () => {
                 <Card className={`p-4 sm:p-6 ${section.gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
                   <div className="text-center mb-4 sm:mb-6">
                     <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{section.icon}</span>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">{section.title}</h2>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{section.title}</h2>
                     <p className="text-sm sm:text-base text-slate-300">{section.subtitle}</p>
                   </div>
                   
@@ -447,7 +447,7 @@ const InfiniteCanvas = () => {
                 <Card className={`p-4 sm:p-6 ${section.gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
                   <div className="text-center mb-4 sm:mb-6">
                     <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{section.icon}</span>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2">{section.title}</h2>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{section.title}</h2>
                     <p className="text-sm sm:text-base text-slate-300">{section.subtitle}</p>
                   </div>
                   
