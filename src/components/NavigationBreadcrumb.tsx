@@ -34,8 +34,8 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
     return sectionNames[sectionId] || sectionId;
   };
 
-  // Create breadcrumb path from navigation history
-  const breadcrumbPath = [...new Set([...navigationHistory, currentSection])];
+  // Create breadcrumb path - always include Home, then current section if not home
+  const breadcrumbPath = currentSection === 'home' ? ['home'] : ['home', currentSection];
 
   const handleNavigation = (sectionId: string) => {
     if (sectionId === 'home') {

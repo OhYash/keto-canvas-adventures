@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import WorkSection from './sections/WorkSection';
@@ -79,25 +78,40 @@ const InfiniteCanvas = () => {
 
   // Helper function to determine current section based on viewport position
   const getCurrentSectionFromPosition = useCallback((position: Position) => {
-    const threshold = 100; // Tolerance for being "close" to a section
+    const threshold = 400; // Increased threshold for better detection when viewing sections
 
     // Check if we're at home (0, 0)
-    if (Math.abs(position.x) < threshold && Math.abs(position.y) < threshold) {
+    if (Math.abs(position.x) < 200 && Math.abs(position.y) < 200) {
       return 'home';
     }
 
-    // Check if we're at any section position
+    // Check which section is most prominently in view
     for (const section of sections) {
       const targetX = -section.position.x;
       const targetY = -section.position.y;
       
+      // Check if the section is prominently in view (closer threshold for better UX)
       if (Math.abs(position.x - targetX) < threshold && Math.abs(position.y - targetY) < threshold) {
         return section.id;
       }
     }
 
-    // If we're not close to any known position, we're in "manual" territory
-    return 'manual';
+    // If we're not close to any known position, return the closest section
+    let closestSection = 'home';
+    let closestDistance = Infinity;
+    
+    for (const section of sections) {
+      const targetX = -section.position.x;
+      const targetY = -section.position.y;
+      const distance = Math.sqrt(Math.pow(position.x - targetX, 2) + Math.pow(position.y - targetY, 2));
+      
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestSection = section.id;
+      }
+    }
+    
+    return closestSection;
   }, [sections]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
