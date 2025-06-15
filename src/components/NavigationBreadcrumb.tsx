@@ -28,7 +28,8 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
   const getSectionDisplayName = (sectionId: string) => {
     const sectionNames: Record<string, string> = {
       home: 'Home',
-      work: 'Work Experience',
+      work: 'Work',
+      'work-experience': 'Work Experience',
       personal: 'Personal Life',
       keto: 'Meet Keto',
       hobbies: 'Hobbies & Projects',
