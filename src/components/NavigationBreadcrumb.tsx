@@ -14,12 +14,14 @@ interface NavigationBreadcrumbProps {
   currentSection: string;
   navigationHistory: string[];
   onNavigate: (sectionId: string) => void;
+  onNavigateHome: () => void;
 }
 
 const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
   currentSection,
   navigationHistory,
   onNavigate,
+  onNavigateHome,
 }) => {
   const getSectionDisplayName = (sectionId: string) => {
     const sectionNames: Record<string, string> = {
@@ -35,6 +37,14 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
   // Create breadcrumb path from navigation history
   const breadcrumbPath = [...new Set([...navigationHistory, currentSection])];
 
+  const handleNavigation = (sectionId: string) => {
+    if (sectionId === 'home') {
+      onNavigateHome();
+    } else {
+      onNavigate(sectionId);
+    }
+  };
+
   return (
     <div className="bg-slate-800/90 backdrop-blur-sm border-b border-slate-600/50 px-4 py-3">
       <Breadcrumb>
@@ -49,7 +59,7 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
                   </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink
-                    onClick={() => onNavigate(sectionId)}
+                    onClick={() => handleNavigation(sectionId)}
                     className="text-slate-300 hover:text-white cursor-pointer flex items-center gap-2 transition-colors"
                   >
                     {sectionId === 'home' && <Home className="w-4 h-4" />}

@@ -193,6 +193,7 @@ const InfiniteCanvas = () => {
         currentSection={currentSection}
         navigationHistory={navigationHistory.slice(0, -1)} // Exclude current section from history
         onNavigate={navigateToSection}
+        onNavigateHome={navigateHome}
       />
 
       {/* Main Canvas */}
