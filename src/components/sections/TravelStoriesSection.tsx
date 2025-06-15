@@ -1,8 +1,9 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, MapPin, Calendar, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, MapPin, Calendar, Clock, BookOpen } from 'lucide-react';
+import DetailedStoryView from './DetailedStoryView';
 
 interface TravelStory {
   id: string;
@@ -32,6 +33,8 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
   subtitle,
   onNavigateHome,
 }) => {
+  const [selectedStory, setSelectedStory] = useState<TravelStory | null>(null);
+
   const travelStories: TravelStory[] = [
     {
       id: 'japan-2023',
@@ -101,10 +104,27 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
     }
   ];
 
-  const handleStoryClick = (storyId: string) => {
-    // For now, just log - in the future this could navigate to a detailed story view
-    console.log(`Clicked on story: ${storyId}`);
+  const handleReadMore = (story: TravelStory) => {
+    setSelectedStory(story);
   };
+
+  const handleBackToList = () => {
+    setSelectedStory(null);
+  };
+
+  if (selectedStory) {
+    return (
+      <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
+        <CardContent className="p-6">
+          <DetailedStoryView
+            story={selectedStory}
+            onBack={handleBackToList}
+            gradient={gradient}
+          />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
@@ -133,19 +153,18 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
       <CardContent className="space-y-4">
         <div className="grid gap-4">
           {travelStories.map((story) => (
-            <button
+            <div
               key={story.id}
-              onClick={() => handleStoryClick(story.id)}
-              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md text-left group w-full"
+              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
             >
               <div className="flex items-start gap-4">
-                <div className="text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                <div className="text-3xl flex-shrink-0">
                   {story.image}
                 </div>
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-slate-700 transition-colors">
+                    <h3 className="text-base font-bold text-slate-900">
                       {story.title}
                     </h3>
                   </div>
@@ -169,27 +188,38 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
                     {story.description}
                   </p>
                   
-                  <div className="flex flex-wrap gap-1">
-                    {story.highlights.slice(0, 3).map((highlight, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
-                        {highlight}
-                      </Badge>
-                    ))}
-                    {story.highlights.length > 3 && (
-                      <Badge variant="secondary" className="text-xs bg-slate-600 text-white">
-                        +{story.highlights.length - 3} more
-                      </Badge>
-                    )}
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1">
+                      {story.highlights.slice(0, 3).map((highlight, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
+                          {highlight}
+                        </Badge>
+                      ))}
+                      {story.highlights.length > 3 && (
+                        <Badge variant="secondary" className="text-xs bg-slate-600 text-white">
+                          +{story.highlights.length - 3} more
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <Button
+                      onClick={() => handleReadMore(story)}
+                      size="sm"
+                      className="bg-slate-800 hover:bg-slate-700 text-white"
+                    >
+                      <BookOpen className="w-3 h-3 mr-1" />
+                      Read More
+                    </Button>
                   </div>
                 </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
 
         <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
           <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "Every journey teaches us something new about the world and ourselves. Click on any story to dive deeper into the adventure."
+            "Every journey teaches us something new about the world and ourselves. Click 'Read More' to dive deeper into each adventure."
           </p>
         </div>
 

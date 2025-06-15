@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useCallback } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import StarBackground from './canvas/StarBackground';
@@ -121,6 +120,23 @@ const InfiniteCanvas = () => {
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
+      <style jsx>{`
+        @keyframes slide-in-right {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        
+        .animate-slide-in-right {
+          animation: slide-in-right 0.3s ease-out;
+        }
+      `}</style>
+
       <NavigationBreadcrumb
         currentSection={currentSection}
         navigationHistory={navigationHistory.slice(0, -1)}
