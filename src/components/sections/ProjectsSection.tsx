@@ -74,14 +74,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       <div className="flex gap-2 justify-center mb-4">
         <button 
           onClick={() => onNavigateToSection('work')}
-          className="px-4 py-3 bg-blue-500/20 hover:bg-blue-500/30 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation flex items-center gap-2"
+          className="px-4 py-3 bg-blue-500/30 hover:bg-blue-500/40 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation flex items-center gap-2"
         >
           <ExternalLink className="w-4 h-4" />
           View Work Experience
         </button>
         <button 
           onClick={onNavigateHome}
-          className="px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation"
+          className="px-4 py-3 bg-white/30 hover:bg-white/40 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation"
         >
           ← Back to Home
         </button>

@@ -69,7 +69,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
       
       <button 
         onClick={onNavigateHome}
-        className="px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block text-sm touch-manipulation"
+        className="px-4 py-3 bg-white/30 hover:bg-white/40 text-white rounded-lg transition-all duration-300 mx-auto block text-sm touch-manipulation"
       >
         ← Back to Home
       </button>

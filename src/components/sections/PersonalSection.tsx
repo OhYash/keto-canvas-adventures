@@ -100,7 +100,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         </p>
         <button 
           onClick={() => console.log('Navigate to travel stories')}
-          className="w-full px-4 py-3 bg-emerald-500/20 hover:bg-emerald-500/30 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation flex items-center justify-center gap-2"
+          className="w-full px-4 py-3 bg-emerald-500/30 hover:bg-emerald-500/40 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation flex items-center justify-center gap-2"
         >
           <Camera className="w-4 h-4" />
           View Travel Stories
@@ -110,7 +110,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
       
       <button 
         onClick={onNavigateHome}
-        className="px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 mx-auto block text-sm touch-manipulation"
+        className="px-4 py-3 bg-white/30 hover:bg-white/40 text-white rounded-lg transition-all duration-300 mx-auto block text-sm touch-manipulation"
       >
         ← Back to Home
       </button>
