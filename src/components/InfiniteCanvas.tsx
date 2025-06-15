@@ -4,7 +4,6 @@ import NavigationBreadcrumb from './NavigationBreadcrumb';
 import StarBackground from './canvas/StarBackground';
 import SectionRenderer from './canvas/SectionRenderer';
 import NavigationIndicator from './canvas/NavigationIndicator';
-import { ThemeToggle } from './ThemeToggle';
 import { useViewport } from '../hooks/useViewport';
 import { useSectionManagement } from '../hooks/useSectionManagement';
 import { useCanvasEvents } from '../hooks/useCanvasEvents';
@@ -121,19 +120,14 @@ const InfiniteCanvas = () => {
   }, [navigateInDirection, handleNavigateHome]);
 
   return (
-    <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex flex-col">
-      {/* Top panel with navigation and theme toggle */}
-      <div className="flex items-center justify-between px-4 py-2 bg-slate-800/50 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-700/30 dark:border-slate-600/30">
-        <NavigationBreadcrumb
-          currentSection={currentSection}
-          navigationHistory={navigationHistory.slice(0, -1)}
-          breadcrumbPath={breadcrumbPath}
-          onNavigate={handleNavigateToSection}
-          onNavigateHome={handleNavigateHome}
-        />
-        
-        <ThemeToggle />
-      </div>
+    <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
+      <NavigationBreadcrumb
+        currentSection={currentSection}
+        navigationHistory={navigationHistory.slice(0, -1)}
+        breadcrumbPath={breadcrumbPath}
+        onNavigate={handleNavigateToSection}
+        onNavigateHome={handleNavigateHome}
+      />
 
       <div 
         ref={canvasRef}
