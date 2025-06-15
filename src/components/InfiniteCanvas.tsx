@@ -23,6 +23,7 @@ const InfiniteCanvas = () => {
 
   const {
     sections,
+    allSections,
     currentSection,
     navigationHistory,
     getCurrentSectionFromPosition,
@@ -135,6 +136,7 @@ const InfiniteCanvas = () => {
         >
           <SectionRenderer
             sections={sections}
+            allSections={allSections}
             onNavigateHome={handleNavigateHome}
             onNavigateToSection={handleNavigateToSection}
           />

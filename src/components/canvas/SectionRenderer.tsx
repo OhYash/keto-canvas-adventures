@@ -26,12 +26,14 @@ interface Section {
 
 interface SectionRendererProps {
   sections: Section[];
+  allSections: Section[];
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
 }
 
 const SectionRenderer: React.FC<SectionRendererProps> = ({
   sections,
+  allSections,
   onNavigateHome,
   onNavigateToSection,
 }) => {
@@ -69,8 +71,8 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
         <HomeSection sections={sections} onNavigateToSection={onNavigateToSection} />
       </div>
 
-      {/* Section pages */}
-      {sections.map((section) => (
+      {/* Section pages - render all sections including travel */}
+      {allSections.map((section) => (
         <div
           key={section.id}
           className="absolute -translate-x-1/2 -translate-y-1/2"

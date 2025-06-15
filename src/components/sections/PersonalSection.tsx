@@ -138,7 +138,11 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
             Explore my journey around the world through stories and photos from various destinations.
           </p>
           <button 
-            onClick={() => console.log('Navigate to travel stories')}
+            onClick={() => {
+              // Navigate to travel section
+              const event = new CustomEvent('navigateToTravel');
+              window.dispatchEvent(event);
+            }}
             className="w-full px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-emerald-400/30"
           >
             <Camera className="w-4 h-4" />

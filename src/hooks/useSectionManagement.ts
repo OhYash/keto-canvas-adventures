@@ -42,16 +42,6 @@ export const useSectionManagement = () => {
       direction: 'left'
     },
     {
-      id: 'travel',
-      title: 'Travel Stories',
-      subtitle: 'Adventures Around the World',
-      position: { x: -2000, y: 0 },
-      color: 'from-teal-500 to-blue-600',
-      gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
-      icon: '✈️',
-      direction: 'left'
-    },
-    {
       id: 'keto',
       title: 'Meet Keto',
       subtitle: 'My Beloved Cat',
@@ -83,6 +73,21 @@ export const useSectionManagement = () => {
     }
   ], []);
 
+  // Define all sections including travel for navigation purposes
+  const allSections: Section[] = useMemo(() => [
+    ...sections,
+    {
+      id: 'travel',
+      title: 'Travel Stories',
+      subtitle: 'Adventures Around the World',
+      position: { x: -2000, y: 0 },
+      color: 'from-teal-500 to-blue-600',
+      gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
+      icon: '✈️',
+      direction: 'left'
+    }
+  ], [sections]);
+
   const getCurrentSectionFromPosition = useCallback((position: Position) => {
     const threshold = 400;
 
@@ -90,7 +95,7 @@ export const useSectionManagement = () => {
       return 'home';
     }
 
-    for (const section of sections) {
+    for (const section of allSections) {
       const targetX = -section.position.x;
       const targetY = -section.position.y;
       
@@ -102,7 +107,7 @@ export const useSectionManagement = () => {
     let closestSection = 'home';
     let closestDistance = Infinity;
     
-    for (const section of sections) {
+    for (const section of allSections) {
       const targetX = -section.position.x;
       const targetY = -section.position.y;
       const distance = Math.sqrt(Math.pow(position.x - targetX, 2) + Math.pow(position.y - targetY, 2));
@@ -114,7 +119,7 @@ export const useSectionManagement = () => {
     }
     
     return closestSection;
-  }, [sections]);
+  }, [allSections]);
 
   const updateCurrentSection = useCallback((newSection: string) => {
     if (newSection !== currentSection) {
@@ -133,7 +138,7 @@ export const useSectionManagement = () => {
   }, [currentSection]);
 
   const navigateToSection = useCallback((sectionId: string) => {
-    const section = sections.find(s => s.id === sectionId);
+    const section = allSections.find(s => s.id === sectionId);
     if (section) {
       setCurrentSection(sectionId);
       
@@ -152,7 +157,7 @@ export const useSectionManagement = () => {
       };
     }
     return null;
-  }, [sections]);
+  }, [allSections]);
 
   const navigateHome = useCallback(() => {
     setCurrentSection('home');
@@ -161,7 +166,8 @@ export const useSectionManagement = () => {
   }, []);
 
   return {
-    sections,
+    sections, // Only main sections for Home page
+    allSections, // All sections including travel for navigation
     currentSection,
     navigationHistory,
     getCurrentSectionFromPosition,
