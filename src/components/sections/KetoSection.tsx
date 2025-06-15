@@ -40,11 +40,11 @@ const KetoSection: React.FC<KetoSectionProps> = ({
 
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
-      <CardHeader className="pb-6">
-        <div className="flex items-center justify-between mb-6">
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between mb-4">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-4 py-2 rounded-lg font-medium shadow-sm"
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
@@ -53,38 +53,38 @@ const KetoSection: React.FC<KetoSectionProps> = ({
         </div>
         
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-700 text-base sm:text-lg mb-6 font-medium">
+          <p className="text-slate-700 text-base sm:text-lg mb-4 font-medium">
             {subtitle}
           </p>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-8">
+      <CardContent className="space-y-5">
         {/* Cat Images */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
             <img 
               src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop" 
               alt="Orange tabby cat like Keto" 
-              className="w-full h-32 object-cover rounded-lg mb-3"
+              className="w-full h-28 object-cover rounded-lg mb-2"
             />
             <h4 className="text-base font-bold text-slate-900">Keto's Relaxation Time</h4>
           </div>
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
             <img 
               src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop&sat=-100" 
               alt="Another adorable photo of Keto" 
-              className="w-full h-32 object-cover rounded-lg mb-3 grayscale"
+              className="w-full h-28 object-cover rounded-lg mb-2 grayscale"
             />
             <h4 className="text-base font-bold text-slate-900">Portrait Mode</h4>
           </div>
         </div>
         
-        <div className="space-y-6">
-          <div className="flex items-center gap-3 mb-6">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-3">
             <Heart className="w-6 h-6 text-slate-800" />
             <h2 className="text-xl font-bold text-slate-900">All About Keto</h2>
           </div>
@@ -92,9 +92,9 @@ const KetoSection: React.FC<KetoSectionProps> = ({
           {ketoTraits.map((trait, index) => (
             <div
               key={index}
-              className="bg-white/90 backdrop-blur-sm rounded-xl p-6 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
+              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
             >
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center gap-3 mb-2">
                 <Star className="w-5 h-5 text-slate-700" />
                 <h3 className="text-lg font-bold text-slate-900">{trait.title}</h3>
               </div>
@@ -105,13 +105,13 @@ const KetoSection: React.FC<KetoSectionProps> = ({
           ))}
         </div>
 
-        <div className="mt-8 p-6 bg-white/80 rounded-xl border border-slate-300/50">
+        <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
           <p className="text-slate-700 text-base italic text-center font-medium leading-relaxed">
             "In a world full of chaos, Keto reminds me that sometimes the best thing to do is find a sunny spot and take a nap."
           </p>
         </div>
 
-        <div className="text-center pt-6">
+        <div className="text-center pt-3">
           <Badge variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
             The goodest cat · Professional napper
           </Badge>

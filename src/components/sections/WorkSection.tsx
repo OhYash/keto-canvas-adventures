@@ -34,11 +34,11 @@ const WorkSection: React.FC<WorkSectionProps> = ({
 
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
-      <CardHeader className="pb-6">
-        <div className="flex items-center justify-between mb-6">
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between mb-4">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-4 py-2 rounded-lg font-medium shadow-sm"
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
@@ -47,18 +47,18 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         </div>
         
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-700 text-base sm:text-lg mb-6 font-medium">
+          <p className="text-slate-700 text-base sm:text-lg mb-4 font-medium">
             {subtitle}
           </p>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-8">
-        <div className="space-y-6">
-          <div className="flex items-center gap-3 mb-6">
+      <CardContent className="space-y-4">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
             <Briefcase className="w-6 h-6 text-slate-800" />
             <h2 className="text-xl font-bold text-slate-900">Professional Experience</h2>
           </div>
@@ -66,14 +66,14 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           {workAreas.map((area, index) => (
             <div
               key={index}
-              className="bg-white/90 backdrop-blur-sm rounded-xl p-6 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
+              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
             >
-              <div className="mb-4">
-                <div className="flex items-center gap-3 mb-3">
+              <div className="mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <Code className="w-5 h-5 text-slate-700" />
                   <h3 className="text-lg font-bold text-slate-900">{area.category}</h3>
                 </div>
-                <p className="text-slate-700 font-medium leading-relaxed mb-4">
+                <p className="text-slate-700 font-medium leading-relaxed mb-3">
                   {area.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -88,13 +88,13 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           ))}
         </div>
 
-        <div className="mt-8 p-6 bg-white/80 rounded-xl border border-slate-300/50">
+        <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
           <p className="text-slate-700 text-base italic text-center font-medium leading-relaxed">
             "Passionate about creating exceptional digital experiences through clean code and thoughtful design."
           </p>
         </div>
 
-        <div className="text-center pt-6">
+        <div className="text-center pt-3">
           <Badge variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
             Available for new opportunities
           </Badge>
