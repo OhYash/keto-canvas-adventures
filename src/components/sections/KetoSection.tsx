@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
 
 interface KetoSectionProps {
   gradient: string;
@@ -19,8 +19,18 @@ const KetoSection: React.FC<KetoSectionProps> = ({
 }) => {
   return (
     <Card className={`p-4 sm:p-6 ${gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
+      <div className="flex items-center justify-between mb-4">
+        <button
+          onClick={onNavigateHome}
+          className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors bg-slate-800/50 hover:bg-slate-700/50 px-3 py-2 rounded-lg"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Home
+        </button>
+        <div className="text-2xl sm:text-3xl">{icon}</div>
+      </div>
+
       <div className="text-center mb-4 sm:mb-6">
-        <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{icon}</span>
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{title}</h2>
         <p className="text-sm sm:text-base text-slate-300">{subtitle}</p>
       </div>
@@ -45,7 +55,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
         </div>
       </div>
       
-      <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-4 sm:mb-6">
+      <div className="grid grid-cols-1 gap-3 sm:gap-4">
         <div className="bg-slate-800/50 p-3 sm:p-4 rounded-lg">
           <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Personality</h3>
           <p className="text-slate-300 text-sm">Keto is the most curious and playful cat you'll ever meet. Always getting into mischief and making us laugh.</p>
@@ -66,13 +76,6 @@ const KetoSection: React.FC<KetoSectionProps> = ({
           <p className="text-slate-300 text-sm">Keto has taught me the importance of curiosity, rest, and finding joy in simple moments.</p>
         </div>
       </div>
-      
-      <button 
-        onClick={onNavigateHome}
-        className="px-4 py-3 bg-white/30 hover:bg-white/40 text-white rounded-lg transition-all duration-300 mx-auto block text-sm touch-manipulation"
-      >
-        ← Back to Home
-      </button>
     </Card>
   );
 };

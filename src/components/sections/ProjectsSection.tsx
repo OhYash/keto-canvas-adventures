@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ArrowLeft } from 'lucide-react';
 
 interface ProjectsSectionProps {
   gradient: string;
@@ -23,8 +22,18 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 }) => {
   return (
     <Card className={`p-4 sm:p-6 ${gradient} backdrop-blur-sm border-slate-600/50 w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto`}>
+      <div className="flex items-center justify-between mb-4">
+        <button
+          onClick={onNavigateHome}
+          className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors bg-slate-800/50 hover:bg-slate-700/50 px-3 py-2 rounded-lg"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Home
+        </button>
+        <div className="text-2xl sm:text-3xl">{icon}</div>
+      </div>
+
       <div className="text-center mb-4 sm:mb-6">
-        <span className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3 block">{icon}</span>
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-2">{title}</h2>
         <p className="text-sm sm:text-base text-slate-300">{subtitle}</p>
       </div>
@@ -71,19 +80,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         </div>
       </div>
       
-      <div className="flex gap-2 justify-center mb-4">
+      <div className="flex gap-2 justify-center">
         <button 
           onClick={() => onNavigateToSection('work')}
           className="px-4 py-3 bg-blue-500/30 hover:bg-blue-500/40 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation flex items-center gap-2"
         >
           <ExternalLink className="w-4 h-4" />
           View Work Experience
-        </button>
-        <button 
-          onClick={onNavigateHome}
-          className="px-4 py-3 bg-white/30 hover:bg-white/40 text-white rounded-lg transition-all duration-300 text-sm touch-manipulation"
-        >
-          ← Back to Home
         </button>
       </div>
     </Card>
