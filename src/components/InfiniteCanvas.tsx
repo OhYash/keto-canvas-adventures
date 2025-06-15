@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import WorkSection from './sections/WorkSection';
@@ -76,6 +77,29 @@ const InfiniteCanvas = () => {
     }
   ], []);
 
+  // Helper function to determine current section based on viewport position
+  const getCurrentSectionFromPosition = useCallback((position: Position) => {
+    const threshold = 100; // Tolerance for being "close" to a section
+
+    // Check if we're at home (0, 0)
+    if (Math.abs(position.x) < threshold && Math.abs(position.y) < threshold) {
+      return 'home';
+    }
+
+    // Check if we're at any section position
+    for (const section of sections) {
+      const targetX = -section.position.x;
+      const targetY = -section.position.y;
+      
+      if (Math.abs(position.x - targetX) < threshold && Math.abs(position.y - targetY) < threshold) {
+        return section.id;
+      }
+    }
+
+    // If we're not close to any known position, we're in "manual" territory
+    return 'manual';
+  }, [sections]);
+
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     setIsDragging(true);
     setLastMousePos({ x: e.clientX, y: e.clientY });
@@ -87,13 +111,33 @@ const InfiniteCanvas = () => {
     const deltaX = e.clientX - lastMousePos.x;
     const deltaY = e.clientY - lastMousePos.y;
 
-    setViewportPosition(prev => ({
-      x: prev.x + deltaX,
-      y: prev.y + deltaY
-    }));
+    setViewportPosition(prev => {
+      const newPosition = {
+        x: prev.x + deltaX,
+        y: prev.y + deltaY
+      };
+      
+      // Update current section based on new position
+      const newSection = getCurrentSectionFromPosition(newPosition);
+      if (newSection !== currentSection) {
+        setCurrentSection(newSection);
+        if (newSection !== 'manual') {
+          setNavigationHistory(prev => {
+            const newHistory = [...prev];
+            const existingIndex = newHistory.indexOf(newSection);
+            if (existingIndex !== -1) {
+              newHistory.splice(existingIndex, 1);
+            }
+            return [...newHistory, newSection];
+          });
+        }
+      }
+      
+      return newPosition;
+    });
 
     setLastMousePos({ x: e.clientX, y: e.clientY });
-  }, [isDragging, lastMousePos]);
+  }, [isDragging, lastMousePos, getCurrentSectionFromPosition, currentSection]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -132,10 +176,30 @@ const InfiniteCanvas = () => {
       const moveDeltaX = touch.clientX - lastMousePos.x;
       const moveDeltaY = touch.clientY - lastMousePos.y;
 
-      setViewportPosition(prev => ({
-        x: prev.x + moveDeltaX,
-        y: prev.y + moveDeltaY
-      }));
+      setViewportPosition(prev => {
+        const newPosition = {
+          x: prev.x + moveDeltaX,
+          y: prev.y + moveDeltaY
+        };
+        
+        // Update current section based on new position
+        const newSection = getCurrentSectionFromPosition(newPosition);
+        if (newSection !== currentSection) {
+          setCurrentSection(newSection);
+          if (newSection !== 'manual') {
+            setNavigationHistory(prev => {
+              const newHistory = [...prev];
+              const existingIndex = newHistory.indexOf(newSection);
+              if (existingIndex !== -1) {
+                newHistory.splice(existingIndex, 1);
+              }
+              return [...newHistory, newSection];
+            });
+          }
+        }
+        
+        return newPosition;
+      });
 
       setLastMousePos({ x: touch.clientX, y: touch.clientY });
 
@@ -143,7 +207,7 @@ const InfiniteCanvas = () => {
       e.preventDefault();
     }
     // If vertical movement, allow normal scrolling by not preventing default
-  }, [touchStartPos, touchDirection, isPanning, lastMousePos]);
+  }, [touchStartPos, touchDirection, isPanning, lastMousePos, getCurrentSectionFromPosition, currentSection]);
 
   const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
@@ -302,7 +366,9 @@ const InfiniteCanvas = () => {
         {/* Navigation indicator with fade animation */}
         <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 pointer-events-none">
           <div className="bg-slate-800/80 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full text-slate-300 text-xs sm:text-sm transition-opacity duration-200">
-            {currentSection === 'home' ? 'Home Base' : sections.find(s => s.id === currentSection)?.title}
+            {currentSection === 'home' ? 'Home Base' : 
+             currentSection === 'manual' ? 'Custom Location' :
+             sections.find(s => s.id === currentSection)?.title}
           </div>
         </div>
       </div>
