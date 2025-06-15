@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useCallback } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import StarBackground from './canvas/StarBackground';
@@ -6,6 +7,7 @@ import NavigationIndicator from './canvas/NavigationIndicator';
 import { useViewport } from '../hooks/useViewport';
 import { useSectionManagement } from '../hooks/useSectionManagement';
 import { useCanvasEvents } from '../hooks/useCanvasEvents';
+import { useGridNavigation } from '../hooks/useGridNavigation';
 
 const InfiniteCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -78,23 +80,36 @@ const InfiniteCanvas = () => {
     setViewportPosition(newPosition);
   }, [navigateHome, setViewportPosition]);
 
+  // Grid-based navigation
+  const { navigateInDirection } = useGridNavigation({
+    sections,
+    allSections,
+    currentSection,
+    onNavigateToSection: handleNavigateToSection,
+  });
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case 'ArrowRight':
-          handleNavigateToSection('work');
+          e.preventDefault();
+          navigateInDirection('right');
           break;
         case 'ArrowLeft':
-          handleNavigateToSection('personal');
+          e.preventDefault();
+          navigateInDirection('left');
           break;
         case 'ArrowUp':
-          handleNavigateToSection('keto');
+          e.preventDefault();
+          navigateInDirection('up');
           break;
         case 'ArrowDown':
-          handleNavigateToSection('hobbies');
+          e.preventDefault();
+          navigateInDirection('down');
           break;
         case 'Escape':
         case 'Home':
+          e.preventDefault();
           handleNavigateHome();
           break;
       }
@@ -102,7 +117,7 @@ const InfiniteCanvas = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNavigateToSection, handleNavigateHome]);
+  }, [navigateInDirection, handleNavigateHome]);
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
