@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import WorkSection from './sections/WorkSection';
 import PersonalSection from './sections/PersonalSection';
@@ -30,7 +31,7 @@ const InfiniteCanvas = () => {
   const [navigationHistory, setNavigationHistory] = useState<string[]>(['home']);
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  const sections: Section[] = [
+  const sections: Section[] = useMemo(() => [
     {
       id: 'work',
       title: 'Work Experience',
@@ -71,14 +72,14 @@ const InfiniteCanvas = () => {
       icon: '🚀',
       direction: 'down'
     }
-  ];
+  ], []);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
     setIsDragging(true);
     setLastMousePos({ x: e.clientX, y: e.clientY });
-  };
+  }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!isDragging) return;
 
     const deltaX = e.clientX - lastMousePos.x;
@@ -90,20 +91,20 @@ const InfiniteCanvas = () => {
     }));
 
     setLastMousePos({ x: e.clientX, y: e.clientY });
-  };
+  }, [isDragging, lastMousePos]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (e.touches.length === 1) {
       setIsDragging(true);
       setLastMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
     }
-  };
+  }, []);
 
-  const handleTouchMove = (e: React.TouchEvent) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (!isDragging || e.touches.length !== 1) return;
 
     const deltaX = e.touches[0].clientX - lastMousePos.x;
@@ -115,13 +116,13 @@ const InfiniteCanvas = () => {
     }));
 
     setLastMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-  };
+  }, [isDragging, lastMousePos]);
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
-  const navigateToSection = (sectionId: string) => {
+  const navigateToSection = useCallback((sectionId: string) => {
     const section = sections.find(s => s.id === sectionId);
     if (section) {
       setViewportPosition({
@@ -139,15 +140,15 @@ const InfiniteCanvas = () => {
         return [...newHistory, sectionId];
       });
     }
-  };
+  }, [sections]);
 
-  const navigateHome = () => {
+  const navigateHome = useCallback(() => {
     setViewportPosition({ x: 0, y: 0 });
     setCurrentSection('home');
     setNavigationHistory(['home']);
-  };
+  }, []);
 
-  const renderSectionContent = (section: Section) => {
+  const renderSectionContent = useCallback((section: Section) => {
     const commonProps = {
       gradient: section.gradient,
       icon: section.icon,
@@ -168,7 +169,21 @@ const InfiniteCanvas = () => {
       default:
         return null;
     }
-  };
+  }, [navigateHome, navigateToSection]);
+
+  // Simplified star background with fewer stars and no animation
+  const starBackground = useMemo(() => (
+    [...Array(20)].map((_, i) => (
+      <div
+        key={i}
+        className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full opacity-40"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+      />
+    ))
+  ), []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -194,7 +209,7 @@ const InfiniteCanvas = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [navigateToSection, navigateHome]);
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
@@ -216,27 +231,16 @@ const InfiniteCanvas = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Stars background */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(50)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full opacity-60 animate-pulse"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
-              }}
-            />
-          ))}
+        {/* Simplified stars background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {starBackground}
         </div>
 
         {/* Canvas content */}
         <div
-          className="absolute transition-transform duration-300 ease-out"
+          className="absolute will-change-transform"
           style={{
-            transform: `translate(${viewportPosition.x}px, ${viewportPosition.y}px)`,
+            transform: `translate3d(${viewportPosition.x}px, ${viewportPosition.y}px, 0)`,
             left: '50%',
             top: '50%'
           }}
@@ -262,7 +266,7 @@ const InfiniteCanvas = () => {
         </div>
 
         {/* Navigation indicator */}
-        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4">
+        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 pointer-events-none">
           <div className="bg-slate-800/80 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full text-slate-300 text-xs sm:text-sm">
             {currentSection === 'home' ? 'Home Base' : sections.find(s => s.id === currentSection)?.title}
           </div>
