@@ -171,15 +171,17 @@ const InfiniteCanvas = () => {
     }
   }, [navigateHome, navigateToSection]);
 
-  // Simplified star background with fewer stars and no animation
+  // Enhanced star background with subtle animation
   const starBackground = useMemo(() => (
-    [...Array(20)].map((_, i) => (
+    [...Array(30)].map((_, i) => (
       <div
         key={i}
-        className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full opacity-40"
+        className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full opacity-40 animate-pulse"
         style={{
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 3}s`,
+          animationDuration: `${2 + Math.random() * 2}s`,
         }}
       />
     ))
@@ -231,14 +233,14 @@ const InfiniteCanvas = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Simplified stars background */}
+        {/* Enhanced stars background with subtle animation */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {starBackground}
         </div>
 
-        {/* Canvas content */}
+        {/* Canvas content with smooth transitions */}
         <div
-          className="absolute will-change-transform"
+          className="absolute will-change-transform transition-transform duration-200 ease-out"
           style={{
             transform: `translate3d(${viewportPosition.x}px, ${viewportPosition.y}px, 0)`,
             left: '50%',
@@ -265,9 +267,9 @@ const InfiniteCanvas = () => {
           ))}
         </div>
 
-        {/* Navigation indicator */}
+        {/* Navigation indicator with fade animation */}
         <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 pointer-events-none">
-          <div className="bg-slate-800/80 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full text-slate-300 text-xs sm:text-sm">
+          <div className="bg-slate-800/80 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full text-slate-300 text-xs sm:text-sm transition-opacity duration-200">
             {currentSection === 'home' ? 'Home Base' : sections.find(s => s.id === currentSection)?.title}
           </div>
         </div>
