@@ -1,339 +1,119 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+
+import React, { useRef, useEffect, useCallback } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
-import WorkSection from './sections/WorkSection';
-import PersonalSection from './sections/PersonalSection';
-import KetoSection from './sections/KetoSection';
-import ProjectsSection from './sections/ProjectsSection';
-import HomeSection from './sections/HomeSection';
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface Section {
-  id: string;
-  title: string;
-  subtitle: string;
-  position: Position;
-  color: string;
-  gradient: string;
-  icon: string;
-  direction: 'right' | 'left' | 'up' | 'down';
-}
+import StarBackground from './canvas/StarBackground';
+import SectionRenderer from './canvas/SectionRenderer';
+import NavigationIndicator from './canvas/NavigationIndicator';
+import { useViewport } from '../hooks/useViewport';
+import { useSectionManagement } from '../hooks/useSectionManagement';
+import { useCanvasEvents } from '../hooks/useCanvasEvents';
 
 const InfiniteCanvas = () => {
-  const [viewportPosition, setViewportPosition] = useState<Position>({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [lastMousePos, setLastMousePos] = useState<Position>({ x: 0, y: 0 });
-  const [currentSection, setCurrentSection] = useState<string>('home');
-  const [navigationHistory, setNavigationHistory] = useState<string[]>(['home']);
-  const [touchStartPos, setTouchStartPos] = useState<Position>({ x: 0, y: 0 });
-  const [touchDirection, setTouchDirection] = useState<'horizontal' | 'vertical' | 'none'>('none');
-  const [isPanning, setIsPanning] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
+  
+  const {
+    viewportPosition,
+    setViewportPosition,
+    isDragging,
+    lastMousePos,
+    startDragging,
+    stopDragging,
+    updateLastMousePos,
+  } = useViewport();
 
-  const sections: Section[] = useMemo(() => [
-    {
-      id: 'work',
-      title: 'Work Experience',
-      subtitle: 'Professional Journey & Projects',
-      position: { x: 800, y: 0 },
-      color: 'from-blue-500 to-cyan-500',
-      gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
-      icon: '💼',
-      direction: 'right'
-    },
-    {
-      id: 'personal',
-      title: 'Personal Life',
-      subtitle: 'About Me & My Adventures',
-      position: { x: -800, y: 0 },
-      color: 'from-green-500 to-emerald-500',
-      gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
-      icon: '🧍‍♂️',
-      direction: 'left'
-    },
-    {
-      id: 'keto',
-      title: 'Meet Keto',
-      subtitle: 'My Beloved Cat',
-      position: { x: 0, y: -800 },
-      color: 'from-purple-500 to-pink-500',
-      gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
-      icon: '🐱',
-      direction: 'up'
-    },
-    {
-      id: 'projects',
-      title: 'Personal Projects',
-      subtitle: 'Code & Creativity',
-      position: { x: 0, y: 800 },
-      color: 'from-orange-500 to-red-500',
-      gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
-      icon: '🚀',
-      direction: 'down'
-    }
-  ], []);
+  const {
+    sections,
+    currentSection,
+    navigationHistory,
+    getCurrentSectionFromPosition,
+    updateCurrentSection,
+    navigateToSection,
+    navigateHome,
+  } = useSectionManagement();
 
-  // Helper function to determine current section based on viewport position
-  const getCurrentSectionFromPosition = useCallback((position: Position) => {
-    const threshold = 400; // Increased threshold for better detection when viewing sections
-
-    // Check if we're at home (0, 0)
-    if (Math.abs(position.x) < 200 && Math.abs(position.y) < 200) {
-      return 'home';
-    }
-
-    // Check which section is most prominently in view
-    for (const section of sections) {
-      const targetX = -section.position.x;
-      const targetY = -section.position.y;
-      
-      // Check if the section is prominently in view (closer threshold for better UX)
-      if (Math.abs(position.x - targetX) < threshold && Math.abs(position.y - targetY) < threshold) {
-        return section.id;
-      }
-    }
-
-    // If we're not close to any known position, return the closest section
-    let closestSection = 'home';
-    let closestDistance = Infinity;
-    
-    for (const section of sections) {
-      const targetX = -section.position.x;
-      const targetY = -section.position.y;
-      const distance = Math.sqrt(Math.pow(position.x - targetX, 2) + Math.pow(position.y - targetY, 2));
-      
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestSection = section.id;
-      }
-    }
-    
-    return closestSection;
-  }, [sections]);
-
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    setIsDragging(true);
-    setLastMousePos({ x: e.clientX, y: e.clientY });
-  }, []);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging) return;
-
-    const deltaX = e.clientX - lastMousePos.x;
-    const deltaY = e.clientY - lastMousePos.y;
-
+  const handlePositionChange = useCallback((deltaX: number, deltaY: number) => {
     setViewportPosition(prev => {
       const newPosition = {
         x: prev.x + deltaX,
         y: prev.y + deltaY
       };
       
-      // Update current section based on new position
       const newSection = getCurrentSectionFromPosition(newPosition);
-      if (newSection !== currentSection) {
-        setCurrentSection(newSection);
-        if (newSection !== 'manual') {
-          setNavigationHistory(prev => {
-            const newHistory = [...prev];
-            const existingIndex = newHistory.indexOf(newSection);
-            if (existingIndex !== -1) {
-              newHistory.splice(existingIndex, 1);
-            }
-            return [...newHistory, newSection];
-          });
-        }
-      }
+      updateCurrentSection(newSection);
       
       return newPosition;
     });
+  }, [setViewportPosition, getCurrentSectionFromPosition, updateCurrentSection]);
 
-    setLastMousePos({ x: e.clientX, y: e.clientY });
-  }, [isDragging, lastMousePos, getCurrentSectionFromPosition, currentSection]);
+  const {
+    isPanning,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+  } = useCanvasEvents({
+    isDragging,
+    lastMousePos,
+    startDragging,
+    stopDragging,
+    updateLastMousePos,
+    onPositionChange: handlePositionChange,
+  });
 
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
-
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      const touch = e.touches[0];
-      setTouchStartPos({ x: touch.clientX, y: touch.clientY });
-      setLastMousePos({ x: touch.clientX, y: touch.clientY });
-      setTouchDirection('none');
-      setIsPanning(false);
+  const handleNavigateToSection = useCallback((sectionId: string) => {
+    const newPosition = navigateToSection(sectionId);
+    if (newPosition) {
+      setViewportPosition(newPosition);
     }
-  }, []);
+  }, [navigateToSection, setViewportPosition]);
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length !== 1) return;
-
-    const touch = e.touches[0];
-    const deltaX = touch.clientX - touchStartPos.x;
-    const deltaY = touch.clientY - touchStartPos.y;
-
-    // Determine touch direction if not already determined
-    if (touchDirection === 'none' && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
-      const isMoreHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
-      setTouchDirection(isMoreHorizontal ? 'horizontal' : 'vertical');
-    }
-
-    // Only allow panning if the movement is primarily horizontal
-    if (touchDirection === 'horizontal') {
-      if (!isPanning) {
-        setIsPanning(true);
-        setIsDragging(true);
-      }
-
-      const moveDeltaX = touch.clientX - lastMousePos.x;
-      const moveDeltaY = touch.clientY - lastMousePos.y;
-
-      setViewportPosition(prev => {
-        const newPosition = {
-          x: prev.x + moveDeltaX,
-          y: prev.y + moveDeltaY
-        };
-        
-        // Update current section based on new position
-        const newSection = getCurrentSectionFromPosition(newPosition);
-        if (newSection !== currentSection) {
-          setCurrentSection(newSection);
-          if (newSection !== 'manual') {
-            setNavigationHistory(prev => {
-              const newHistory = [...prev];
-              const existingIndex = newHistory.indexOf(newSection);
-              if (existingIndex !== -1) {
-                newHistory.splice(existingIndex, 1);
-              }
-              return [...newHistory, newSection];
-            });
-          }
-        }
-        
-        return newPosition;
-      });
-
-      setLastMousePos({ x: touch.clientX, y: touch.clientY });
-
-      // Prevent default scrolling when panning horizontally
-      e.preventDefault();
-    }
-    // If vertical movement, allow normal scrolling by not preventing default
-  }, [touchStartPos, touchDirection, isPanning, lastMousePos, getCurrentSectionFromPosition, currentSection]);
-
-  const handleTouchEnd = useCallback(() => {
-    setIsDragging(false);
-    setIsPanning(false);
-    setTouchDirection('none');
-  }, []);
-
-  const navigateToSection = useCallback((sectionId: string) => {
-    const section = sections.find(s => s.id === sectionId);
-    if (section) {
-      setViewportPosition({
-        x: -section.position.x,
-        y: -section.position.y
-      });
-      setCurrentSection(sectionId);
-      
-      setNavigationHistory(prev => {
-        const newHistory = [...prev];
-        const existingIndex = newHistory.indexOf(sectionId);
-        if (existingIndex !== -1) {
-          newHistory.splice(existingIndex, 1);
-        }
-        return [...newHistory, sectionId];
-      });
-    }
-  }, [sections]);
-
-  const navigateHome = useCallback(() => {
-    setViewportPosition({ x: 0, y: 0 });
-    setCurrentSection('home');
-    setNavigationHistory(['home']);
-  }, []);
-
-  const renderSectionContent = useCallback((section: Section) => {
-    const commonProps = {
-      gradient: section.gradient,
-      icon: section.icon,
-      title: section.title,
-      subtitle: section.subtitle,
-      onNavigateHome: navigateHome,
-    };
-
-    switch (section.id) {
-      case 'work':
-        return <WorkSection {...commonProps} />;
-      case 'personal':
-        return <PersonalSection {...commonProps} />;
-      case 'keto':
-        return <KetoSection {...commonProps} />;
-      case 'projects':
-        return <ProjectsSection {...commonProps} onNavigateToSection={navigateToSection} />;
-      default:
-        return null;
-    }
-  }, [navigateHome, navigateToSection]);
-
-  // Enhanced star background with subtle animation
-  const starBackground = useMemo(() => (
-    [...Array(30)].map((_, i) => (
-      <div
-        key={i}
-        className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-white rounded-full opacity-40 animate-pulse"
-        style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 3}s`,
-          animationDuration: `${2 + Math.random() * 2}s`,
-        }}
-      />
-    ))
-  ), []);
+  const handleNavigateHome = useCallback(() => {
+    const newPosition = navigateHome();
+    setViewportPosition(newPosition);
+  }, [navigateHome, setViewportPosition]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case 'ArrowRight':
-          navigateToSection('work');
+          handleNavigateToSection('work');
           break;
         case 'ArrowLeft':
-          navigateToSection('personal');
+          handleNavigateToSection('personal');
           break;
         case 'ArrowUp':
-          navigateToSection('keto');
+          handleNavigateToSection('keto');
           break;
         case 'ArrowDown':
-          navigateToSection('projects');
+          handleNavigateToSection('projects');
           break;
         case 'Escape':
         case 'Home':
-          navigateHome();
+          handleNavigateHome();
           break;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigateToSection, navigateHome]);
+  }, [handleNavigateToSection, handleNavigateHome]);
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
       <NavigationBreadcrumb
         currentSection={currentSection}
         navigationHistory={navigationHistory.slice(0, -1)}
-        onNavigate={navigateToSection}
-        onNavigateHome={navigateHome}
+        onNavigate={handleNavigateToSection}
+        onNavigateHome={handleNavigateHome}
       />
 
       <div 
         ref={canvasRef}
         className="flex-1 cursor-grab active:cursor-grabbing relative touch-pan-x touch-pan-y"
         style={{ 
-          touchAction: isPanning ? 'none' : 'pan-y' // Allow vertical scrolling unless actively panning
+          touchAction: isPanning ? 'none' : 'pan-y'
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -343,12 +123,8 @@ const InfiniteCanvas = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Enhanced stars background with subtle animation */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {starBackground}
-        </div>
+        <StarBackground />
 
-        {/* Canvas content with smooth transitions */}
         <div
           className="absolute will-change-transform transition-transform duration-200 ease-out"
           style={{
@@ -357,34 +133,17 @@ const InfiniteCanvas = () => {
             top: '50%'
           }}
         >
-          {/* Home/Landing section */}
-          <div className="absolute -translate-x-1/2 -translate-y-1/2">
-            <HomeSection sections={sections} onNavigateToSection={navigateToSection} />
-          </div>
-
-          {/* Section pages */}
-          {sections.map((section) => (
-            <div
-              key={section.id}
-              className="absolute -translate-x-1/2 -translate-y-1/2"
-              style={{
-                left: section.position.x,
-                top: section.position.y
-              }}
-            >
-              {renderSectionContent(section)}
-            </div>
-          ))}
+          <SectionRenderer
+            sections={sections}
+            onNavigateHome={handleNavigateHome}
+            onNavigateToSection={handleNavigateToSection}
+          />
         </div>
 
-        {/* Navigation indicator with fade animation */}
-        <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 pointer-events-none">
-          <div className="bg-slate-800/80 backdrop-blur-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full text-slate-300 text-xs sm:text-sm transition-opacity duration-200">
-            {currentSection === 'home' ? 'Home Base' : 
-             currentSection === 'manual' ? 'Custom Location' :
-             sections.find(s => s.id === currentSection)?.title}
-          </div>
-        </div>
+        <NavigationIndicator
+          currentSection={currentSection}
+          sections={sections}
+        />
       </div>
     </div>
   );
