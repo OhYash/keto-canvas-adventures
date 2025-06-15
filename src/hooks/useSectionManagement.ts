@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useMemo } from 'react';
 
 interface Position {
