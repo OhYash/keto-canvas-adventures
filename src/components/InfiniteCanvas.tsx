@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import WorkSection from './sections/WorkSection';
@@ -29,6 +28,9 @@ const InfiniteCanvas = () => {
   const [lastMousePos, setLastMousePos] = useState<Position>({ x: 0, y: 0 });
   const [currentSection, setCurrentSection] = useState<string>('home');
   const [navigationHistory, setNavigationHistory] = useState<string[]>(['home']);
+  const [touchStartPos, setTouchStartPos] = useState<Position>({ x: 0, y: 0 });
+  const [touchDirection, setTouchDirection] = useState<'horizontal' | 'vertical' | 'none'>('none');
+  const [isPanning, setIsPanning] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
 
   const sections: Section[] = useMemo(() => [
@@ -99,27 +101,54 @@ const InfiniteCanvas = () => {
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (e.touches.length === 1) {
-      setIsDragging(true);
-      setLastMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+      const touch = e.touches[0];
+      setTouchStartPos({ x: touch.clientX, y: touch.clientY });
+      setLastMousePos({ x: touch.clientX, y: touch.clientY });
+      setTouchDirection('none');
+      setIsPanning(false);
     }
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging || e.touches.length !== 1) return;
+    if (e.touches.length !== 1) return;
 
-    const deltaX = e.touches[0].clientX - lastMousePos.x;
-    const deltaY = e.touches[0].clientY - lastMousePos.y;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - touchStartPos.x;
+    const deltaY = touch.clientY - touchStartPos.y;
 
-    setViewportPosition(prev => ({
-      x: prev.x + deltaX,
-      y: prev.y + deltaY
-    }));
+    // Determine touch direction if not already determined
+    if (touchDirection === 'none' && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
+      const isMoreHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+      setTouchDirection(isMoreHorizontal ? 'horizontal' : 'vertical');
+    }
 
-    setLastMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-  }, [isDragging, lastMousePos]);
+    // Only allow panning if the movement is primarily horizontal
+    if (touchDirection === 'horizontal') {
+      if (!isPanning) {
+        setIsPanning(true);
+        setIsDragging(true);
+      }
+
+      const moveDeltaX = touch.clientX - lastMousePos.x;
+      const moveDeltaY = touch.clientY - lastMousePos.y;
+
+      setViewportPosition(prev => ({
+        x: prev.x + moveDeltaX,
+        y: prev.y + moveDeltaY
+      }));
+
+      setLastMousePos({ x: touch.clientX, y: touch.clientY });
+
+      // Prevent default scrolling when panning horizontally
+      e.preventDefault();
+    }
+    // If vertical movement, allow normal scrolling by not preventing default
+  }, [touchStartPos, touchDirection, isPanning, lastMousePos]);
 
   const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
+    setIsPanning(false);
+    setTouchDirection('none');
   }, []);
 
   const navigateToSection = useCallback((sectionId: string) => {
@@ -225,6 +254,9 @@ const InfiniteCanvas = () => {
       <div 
         ref={canvasRef}
         className="flex-1 cursor-grab active:cursor-grabbing relative touch-pan-x touch-pan-y"
+        style={{ 
+          touchAction: isPanning ? 'none' : 'pan-y' // Allow vertical scrolling unless actively panning
+        }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
