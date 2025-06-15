@@ -61,6 +61,16 @@ export const useSectionManagement = () => {
       gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
       icon: '🚀',
       direction: 'down'
+    },
+    {
+      id: 'now',
+      title: 'What I\'m Doing Now',
+      subtitle: 'Current Focus & Plans',
+      position: { x: 800, y: 800 },
+      color: 'from-yellow-500 to-amber-500',
+      gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
+      icon: '⚡',
+      direction: 'down'
     }
   ], []);
 
