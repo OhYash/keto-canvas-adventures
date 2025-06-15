@@ -22,7 +22,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
   const personalCategories = [
     {
       title: "Physical Stats",
-      icon: <User className="w-5 h-5" />,
+      icon: <User className="w-4 h-4" />,
       items: [
         { label: "Height", value: "5'10\" (178 cm)" },
         { label: "Weight", value: "165 lbs (75 kg)" },
@@ -31,7 +31,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
     },
     {
       title: "Food Preferences",
-      icon: <Heart className="w-5 h-5" />,
+      icon: <Heart className="w-4 h-4" />,
       items: [
         { label: "🍕", value: "Pizza lover" },
         { label: "🍜", value: "Asian cuisine enthusiast" },
@@ -41,7 +41,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
     },
     {
       title: "Sports & Activities",
-      icon: <Heart className="w-5 h-5" />,
+      icon: <Heart className="w-4 h-4" />,
       items: [
         { label: "🏸", value: "Badminton player" },
         { label: "🏃‍♂️", value: "Running enthusiast" },
@@ -51,7 +51,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
     },
     {
       title: "Lifestyle",
-      icon: <Heart className="w-5 h-5" />,
+      icon: <Heart className="w-4 h-4" />,
       items: [
         { label: "🌅", value: "Early riser" },
         { label: "📚", value: "Avid reader" },
@@ -67,19 +67,19 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg font-medium shadow-sm"
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
           </button>
-          <div className="text-3xl sm:text-4xl">{icon}</div>
+          <div className="text-2xl sm:text-3xl">{icon}</div>
         </div>
         
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-700 text-base sm:text-lg mb-4 font-medium">
+          <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
         </div>
@@ -94,15 +94,15 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
               alt="Full body profile" 
               className="w-28 h-40 sm:w-32 sm:h-48 object-cover rounded-lg mx-auto mb-2"
             />
-            <p className="text-sm text-slate-600 text-center font-medium">Wii character style standing pose</p>
+            <p className="text-xs text-slate-600 text-center">Wii character style standing pose</p>
           </div>
         </div>
         
         {/* Personal Facts */}
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
-            <User className="w-6 h-6 text-slate-800" />
-            <h2 className="text-xl font-bold text-slate-900">About Me</h2>
+            <User className="w-5 h-5 text-slate-800" />
+            <h2 className="text-lg font-bold text-slate-900">About Me</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -113,13 +113,13 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="text-slate-700">{category.icon}</div>
-                  <h3 className="text-lg font-bold text-slate-900">{category.title}</h3>
+                  <h3 className="text-base font-bold text-slate-900">{category.title}</h3>
                 </div>
                 <div className="space-y-1.5">
                   {category.items.map((item, itemIndex) => (
                     <div key={itemIndex} className="flex justify-between items-center">
-                      <span className="text-slate-700 font-medium">{item.label}</span>
-                      <span className="text-slate-600">{item.value}</span>
+                      <span className="text-slate-700 text-sm">{item.label}</span>
+                      <span className="text-slate-600 text-sm">{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -131,15 +131,15 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         {/* Travel Adventures */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3 mb-3">
-            <MapPin className="w-6 h-6 text-slate-700" />
-            <h3 className="text-xl font-bold text-slate-900">Travel Adventures</h3>
+            <MapPin className="w-5 h-5 text-slate-700" />
+            <h3 className="text-lg font-bold text-slate-900">Travel Adventures</h3>
           </div>
-          <p className="text-slate-700 font-medium leading-relaxed mb-3">
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
             Explore my journey around the world through stories and photos from various destinations.
           </p>
           <button 
             onClick={() => console.log('Navigate to travel stories')}
-            className="w-full px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-slate-800 rounded-lg transition-all duration-300 font-semibold touch-manipulation flex items-center justify-center gap-2 border border-emerald-400/30"
+            className="w-full px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-emerald-400/30"
           >
             <Camera className="w-4 h-4" />
             View Travel Stories
@@ -147,13 +147,13 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         </div>
 
         <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
-          <p className="text-slate-700 text-base italic text-center font-medium leading-relaxed">
+          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
             "Life is about collecting moments, not things. Every experience shapes who we become."
           </p>
         </div>
 
         <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
+          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
             Always exploring · Always learning
           </Badge>
         </div>

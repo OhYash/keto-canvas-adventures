@@ -50,19 +50,19 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg font-medium shadow-sm"
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
           </button>
-          <div className="text-3xl sm:text-4xl">{icon}</div>
+          <div className="text-2xl sm:text-3xl">{icon}</div>
         </div>
         
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-700 text-base sm:text-lg mb-4 font-medium">
+          <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
         </div>
@@ -71,8 +71,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       <CardContent className="space-y-4">
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
-            <Folder className="w-6 h-6 text-slate-800" />
-            <h2 className="text-xl font-bold text-slate-900">Featured Projects</h2>
+            <Folder className="w-5 h-5 text-slate-800" />
+            <h2 className="text-lg font-bold text-slate-900">Featured Projects</h2>
           </div>
 
           {projects.map((project, index) => (
@@ -82,15 +82,15 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             >
               <div className="mb-3">
                 <div className="flex items-center gap-3 mb-2">
-                  <Code className="w-5 h-5 text-slate-700" />
-                  <h3 className="text-lg font-bold text-slate-900">{project.title}</h3>
+                  <Code className="w-4 h-4 text-slate-700" />
+                  <h3 className="text-base font-bold text-slate-900">{project.title}</h3>
                 </div>
-                <p className="text-slate-700 font-medium leading-relaxed mb-3">
+                <p className="text-slate-700 text-sm leading-relaxed mb-3">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700">
+                    <Badge key={techIndex} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
                       {tech}
                     </Badge>
                   ))}
@@ -102,15 +102,15 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3 mb-3">
-            <ExternalLink className="w-6 h-6 text-slate-700" />
-            <h3 className="text-xl font-bold text-slate-900">Explore More</h3>
+            <ExternalLink className="w-5 h-5 text-slate-700" />
+            <h3 className="text-lg font-bold text-slate-900">Explore More</h3>
           </div>
-          <p className="text-slate-700 font-medium leading-relaxed mb-3">
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
             Want to see more details about my professional work experience and technical skills?
           </p>
           <button 
             onClick={() => onNavigateToSection('work')}
-            className="w-full px-4 py-2.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 font-semibold touch-manipulation flex items-center justify-center gap-2 border border-blue-400/30"
+            className="w-full px-4 py-2.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-blue-400/30"
           >
             <ExternalLink className="w-4 h-4" />
             View Work Experience
@@ -118,13 +118,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         </div>
 
         <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
-          <p className="text-slate-700 text-base italic text-center font-medium leading-relaxed">
+          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
             "Every project is an opportunity to learn something new and create something meaningful."
           </p>
         </div>
 
         <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
+          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
             Always building · Always improving
           </Badge>
         </div>

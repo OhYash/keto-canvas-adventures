@@ -44,19 +44,19 @@ const KetoSection: React.FC<KetoSectionProps> = ({
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg font-medium shadow-sm"
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
           </button>
-          <div className="text-3xl sm:text-4xl">{icon}</div>
+          <div className="text-2xl sm:text-3xl">{icon}</div>
         </div>
         
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-700 text-base sm:text-lg mb-4 font-medium">
+          <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
         </div>
@@ -71,7 +71,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               alt="Orange tabby cat like Keto" 
               className="w-full h-28 object-cover rounded-lg mb-2"
             />
-            <h4 className="text-base font-bold text-slate-900">Keto's Relaxation Time</h4>
+            <h4 className="text-sm font-bold text-slate-900">Keto's Relaxation Time</h4>
           </div>
           <div className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
             <img 
@@ -79,14 +79,14 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               alt="Another adorable photo of Keto" 
               className="w-full h-28 object-cover rounded-lg mb-2 grayscale"
             />
-            <h4 className="text-base font-bold text-slate-900">Portrait Mode</h4>
+            <h4 className="text-sm font-bold text-slate-900">Portrait Mode</h4>
           </div>
         </div>
         
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
-            <Heart className="w-6 h-6 text-slate-800" />
-            <h2 className="text-xl font-bold text-slate-900">All About Keto</h2>
+            <Heart className="w-5 h-5 text-slate-800" />
+            <h2 className="text-lg font-bold text-slate-900">All About Keto</h2>
           </div>
 
           {ketoTraits.map((trait, index) => (
@@ -95,10 +95,10 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
             >
               <div className="flex items-center gap-3 mb-2">
-                <Star className="w-5 h-5 text-slate-700" />
-                <h3 className="text-lg font-bold text-slate-900">{trait.title}</h3>
+                <Star className="w-4 h-4 text-slate-700" />
+                <h3 className="text-base font-bold text-slate-900">{trait.title}</h3>
               </div>
-              <p className="text-slate-700 font-medium leading-relaxed">
+              <p className="text-slate-700 text-sm leading-relaxed">
                 {trait.description}
               </p>
             </div>
@@ -106,13 +106,13 @@ const KetoSection: React.FC<KetoSectionProps> = ({
         </div>
 
         <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
-          <p className="text-slate-700 text-base italic text-center font-medium leading-relaxed">
+          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
             "In a world full of chaos, Keto reminds me that sometimes the best thing to do is find a sunny spot and take a nap."
           </p>
         </div>
 
         <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-sm font-semibold bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
+          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
             The goodest cat · Professional napper
           </Badge>
         </div>
