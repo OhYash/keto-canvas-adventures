@@ -45,7 +45,7 @@ const InfiniteCanvas = () => {
       };
       
       const newSection = getCurrentSectionFromPosition(newPosition);
-      updateCurrentSection(newSection);
+      updateCurrentSection(newSection, 'mouse');
       
       return newPosition;
     });
@@ -76,7 +76,16 @@ const InfiniteCanvas = () => {
   }, []);
 
   const handleNavigateToSection = useCallback((sectionId: string) => {
-    const newPosition = navigateToSection(sectionId);
+    const newPosition = navigateToSection(sectionId, 'direct');
+    if (newPosition) {
+      setViewportPosition(newPosition);
+      // Reset scroll positions after navigation
+      setTimeout(resetScrollPositions, 0);
+    }
+  }, [navigateToSection, setViewportPosition, resetScrollPositions]);
+
+  const handleKeyboardNavigateToSection = useCallback((sectionId: string) => {
+    const newPosition = navigateToSection(sectionId, 'keyboard');
     if (newPosition) {
       setViewportPosition(newPosition);
       // Reset scroll positions after navigation
@@ -96,7 +105,7 @@ const InfiniteCanvas = () => {
     sections,
     allSections,
     currentSection,
-    onNavigateToSection: handleNavigateToSection,
+    onNavigateToSection: handleKeyboardNavigateToSection,
   });
 
   useEffect(() => {
