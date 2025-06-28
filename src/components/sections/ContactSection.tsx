@@ -22,10 +22,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   const [emailRevealed, setEmailRevealed] = useState(false);
   
   const revealEmail = () => {
-    const email = atob("eWFzaHlhZGF2LjcxMEBvdXRsb29rLmNvbQ==");
     setEmailRevealed(true);
-    // Also navigate to mailto
-    window.location.href = `mailto:${email}`;
+  };
+
+  const handleEmailClick = () => {
+    if (emailRevealed) {
+      const email = atob("eWFzaHlhZGF2LjcxMEBvdXRsb29rLmNvbQ==");
+      window.location.href = `mailto:${email}`;
+    } else {
+      revealEmail();
+    }
   };
 
   const contactMethods = [
@@ -33,7 +39,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       icon: <Mail className="w-5 h-5" />,
       label: "Email",
       value: emailRevealed ? atob("eWFzaHlhZGF2LjcxMEBvdXRsb29rLmNvbQ==") : "Click to reveal",
-      action: revealEmail,
+      action: handleEmailClick,
       description: "Best for professional inquiries",
       isBlurred: !emailRevealed
     },
@@ -41,7 +47,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       icon: <MessageCircle className="w-5 h-5" />,
       label: "Telegram",
       value: "@OhYash",
-      action: "https://t.me/OhYash",
+      action: () => window.open("https://t.me/OhYash", '_blank'),
       description: "Quick messages and calls"
     }
   ];
@@ -117,7 +123,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             {contactMethods.map((method, index) => (
               <div
                 key={index}
-                onClick={typeof method.action === 'function' ? method.action : () => window.open(method.action, '_blank')}
+                onClick={method.action}
                 className="block bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md group cursor-pointer"
               >
                 <div className="flex items-center gap-4">
@@ -128,14 +134,18 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold text-slate-900">{method.label}</h3>
-                        <p className={`text-slate-700 text-sm ${method.isBlurred ? 'filter blur-sm relative' : ''}`}>
-                          {method.value}
+                        <div className="relative">
+                          <p className={`text-slate-700 text-sm ${method.isBlurred ? 'filter blur-sm select-none' : ''}`}>
+                            {method.value}
+                          </p>
                           {method.isBlurred && (
-                            <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-slate-900 bg-white/80 rounded">
-                              reveal
-                            </span>
+                            <div className="absolute inset-0 flex items-center justify-start">
+                              <span className="text-xs font-medium text-slate-900 bg-white/90 px-2 py-1 rounded shadow-sm border">
+                                Click to reveal
+                              </span>
+                            </div>
                           )}
-                        </p>
+                        </div>
                       </div>
                     </div>
                     <p className="text-slate-600 text-xs mt-1">{method.description}</p>
