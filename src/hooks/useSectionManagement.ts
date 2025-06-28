@@ -184,14 +184,17 @@ export const useSectionManagement = () => {
     if (newSection !== currentSection) {
       const previousSection = currentSection;
       
-      // Record visit tracking
-      recordSectionVisit(newSection);
-      
-      // Get visit count for analytics
-      const visitData = getSectionVisits(newSection);
-      
-      // Track with Umami
-      trackSectionVisit(newSection, visitData.visitCount, method);
+      // Only track section visits for non-home sections
+      if (newSection !== 'home') {
+        // Record visit tracking
+        recordSectionVisit(newSection);
+        
+        // Get visit count for analytics
+        const visitData = getSectionVisits(newSection);
+        
+        // Track with Umami
+        trackSectionVisit(newSection, visitData.visitCount, method);
+      }
       
       // Track navigation flow if not the first visit
       if (previousSection && previousSection !== 'home' && newSection !== 'home') {
