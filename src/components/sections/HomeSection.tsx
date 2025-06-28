@@ -32,16 +32,6 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
     }
   };
 
-  const getVisitIndicator = (sectionId: string) => {
-    const visits = getSectionVisits(sectionId);
-    if (visits.visitCount === 0) return null;
-    
-    return (
-      <div className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-        {visits.visitCount > 99 ? '99+' : visits.visitCount}
-      </div>
-    );
-  };
 
   return (
     <Card className="w-[95vw] sm:w-[90vw] md:w-[600px] max-w-[600px] max-h-[85vh] overflow-y-auto bg-gradient-to-br from-slate-800/90 to-slate-700/90 backdrop-blur-sm border-slate-600/50">
@@ -71,9 +61,8 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
             <button
               key={section.id}
               onClick={() => onNavigateToSection(section.id)}
-              className="relative bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-105 group touch-manipulation"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-105 group touch-manipulation"
             >
-              {getVisitIndicator(section.id)}
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xl">{section.icon}</span>
                 <div className="opacity-70 group-hover:opacity-100 transition-opacity text-slate-300 group-hover:text-white">
@@ -93,28 +82,32 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
           <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl p-4 border border-blue-500/30">
             <div className="flex items-center gap-2 mb-3">
               <Eye className="w-4 h-4 text-blue-400" />
-              <h3 className="text-white font-semibold text-sm">Your Journey So Far</h3>
+              <h3 className="text-white font-semibold text-sm">Pages You've Visited</h3>
             </div>
             <div className="grid grid-cols-2 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-white">{getTotalVisits()}</div>
-                <div className="text-xs text-slate-300">Total Visits</div>
+                <div className="text-xs text-slate-300">Total Page Visits</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-white">{getMostVisitedSections(1)[0]?.visitCount || 0}</div>
-                <div className="text-xs text-slate-300">Most Visited</div>
+                <div className="text-xs text-slate-300">Most Visited Page</div>
               </div>
             </div>
             {getMostVisitedSections(3).length > 0 && (
               <div className="mt-3 pt-3 border-t border-white/10">
-                <div className="text-xs text-slate-300 mb-2">Popular Sections:</div>
+                <div className="text-xs text-slate-300 mb-2">Your Most Visited Pages:</div>
                 <div className="flex flex-wrap gap-2">
                   {getMostVisitedSections(3).map(({ sectionId, visitCount }) => {
                     const section = sections.find(s => s.id === sectionId);
                     return section ? (
-                      <Badge key={sectionId} variant="secondary" className="text-xs bg-white/10 text-white border-0">
+                      <button
+                        key={sectionId}
+                        onClick={() => onNavigateToSection(sectionId)}
+                        className="text-xs bg-white/10 hover:bg-white/20 text-white border-0 px-2 py-1 rounded-md transition-colors duration-200 cursor-pointer"
+                      >
                         {section.icon} {section.title} ({visitCount})
-                      </Badge>
+                      </button>
                     ) : null;
                   })}
                 </div>
