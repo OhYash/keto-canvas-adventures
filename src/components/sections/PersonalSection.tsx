@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, User, MapPin, Camera, Heart } from 'lucide-react';
+import { ArrowLeft, User, MapPin, Camera, Heart, Mail } from 'lucide-react';
 
 interface PersonalSectionProps {
   gradient: string;
@@ -145,6 +144,24 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           >
             <Camera className="w-4 h-4" />
             View Travel Stories
+          </button>
+        </div>
+
+        {/* Contact Me */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <Mail className="w-5 h-5 text-slate-700" />
+            <h3 className="text-lg font-bold text-slate-900">Get In Touch</h3>
+          </div>
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
+            Want to connect? Find all my contact information and social links in one place.
+          </p>
+          <button 
+            onClick={() => onNavigateToSection?.('contact')}
+            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
+          >
+            <Mail className="w-4 h-4" />
+            Contact Me
           </button>
         </div>
 

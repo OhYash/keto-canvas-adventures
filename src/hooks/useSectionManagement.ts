@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useMemo } from 'react';
 
 interface Position {
@@ -15,7 +14,7 @@ interface Section {
   gradient: string;
   icon: string;
   direction: 'right' | 'left' | 'up' | 'down';
-  parent?: string; // Add parent relationship
+  parent?: string;
 }
 
 export const useSectionManagement = () => {
@@ -71,6 +70,16 @@ export const useSectionManagement = () => {
       color: 'from-yellow-500 to-amber-500',
       gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
       icon: '⚡',
+      direction: 'down'
+    },
+    {
+      id: 'contact',
+      title: 'Contact Me',
+      subtitle: 'Let\'s Connect & Collaborate',
+      position: { x: -1000, y: 1000 },
+      color: 'from-indigo-500 to-violet-500',
+      gradient: 'bg-gradient-to-br from-indigo-500/20 to-violet-500/20',
+      icon: '📧',
       direction: 'down'
     }
   ], []);
@@ -207,8 +216,8 @@ export const useSectionManagement = () => {
   }, []);
 
   return {
-    sections, // Only main sections for Home page
-    allSections, // All sections including travel and projects for navigation
+    sections,
+    allSections,
     currentSection,
     navigationHistory,
     getBreadcrumbPath,
