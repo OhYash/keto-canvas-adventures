@@ -25,18 +25,17 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
       title: "Physical Stats",
       icon: <User className="w-4 h-4" />,
       items: [
-        { label: "Height", value: "5'10\" (178 cm)" },
-        { label: "Weight", value: "165 lbs (75 kg)" },
-        { label: "Build", value: "Athletic" }
+        { label: "Height", value: "5'11\" (181 cm)" },
+        { label: "Weight", value: "72 KG (159 lbs)" },
+        { label: "Build", value: "Tall skinny fat, slight athletic" }
       ]
     },
     {
       title: "Food Preferences",
       icon: <Heart className="w-4 h-4" />,
       items: [
-        { label: "🍕", value: "Pizza lover" },
-        { label: "🍜", value: "Asian cuisine enthusiast" },
-        { label: "☕", value: "Coffee addict" },
+        { label: "🍜", value: "Masala over bland" },
+        { label: "☕", value: "Chai over Coffee" },
         { label: "🥗", value: "Health-conscious eater" }
       ]
     },
@@ -44,19 +43,16 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
       title: "Sports & Activities",
       icon: <Heart className="w-4 h-4" />,
       items: [
-        { label: "🏸", value: "Badminton player" },
-        { label: "🏃‍♂️", value: "Running enthusiast" },
-        { label: "🏊‍♂️", value: "Swimming" },
-        { label: "🧘‍♂️", value: "Yoga practitioner" }
+        { label: "🏋🏽‍♂️", value: "Gym" },
+        { label: "🏃‍♂️", value: "Runs on wednesdays" },
       ]
     },
     {
       title: "Lifestyle",
       icon: <Heart className="w-4 h-4" />,
       items: [
-        { label: "🌅", value: "Early riser" },
-        { label: "📚", value: "Avid reader" },
-        { label: "🎵", value: "Music lover" },
+        { label: "🌅", value: "Late riser" },
+        { label: "🎵", value: "Rock and Metal" },
         { label: "🌍", value: "Travel enthusiast" }
       ]
     }
@@ -91,11 +87,11 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         <div className="flex justify-center">
           <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
             <img 
-              src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=200&h=300&fit=crop" 
+              src="/personal/yash_loading_dp.jpg" 
               alt="Full body profile" 
               className="w-28 h-40 sm:w-32 sm:h-48 object-cover rounded-lg mx-auto mb-2"
             />
-            <p className="text-xs text-slate-600 text-center">Wii character style standing pose</p>
+            <p className="text-xs text-slate-600 text-center">Its a me!</p>
           </div>
         </div>
         
