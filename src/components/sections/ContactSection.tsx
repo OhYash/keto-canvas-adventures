@@ -1,8 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Mail, Phone, MapPin, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Mail, MapPin, Github, Linkedin, MessageCircle, Twitter, Instagram } from 'lucide-react';
 
 interface ContactSectionProps {
   gradient: string;
@@ -19,26 +19,29 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   subtitle,
   onNavigateHome,
 }) => {
+  const [emailRevealed, setEmailRevealed] = useState(false);
+  
+  const revealEmail = () => {
+    const email = atob("eWFzaHlhZGF2LjcxMEBvdXRsb29rLmNvbQ==");
+    setEmailRevealed(true);
+    // Also navigate to mailto
+    window.location.href = `mailto:${email}`;
+  };
+
   const contactMethods = [
     {
       icon: <Mail className="w-5 h-5" />,
       label: "Email",
-      value: "hello@example.com",
-      action: "mailto:hello@example.com",
-      description: "Best for professional inquiries"
-    },
-    {
-      icon: <Phone className="w-5 h-5" />,
-      label: "Phone",
-      value: "+1 (555) 123-4567",
-      action: "tel:+15551234567",
-      description: "Available Mon-Fri, 9AM-5PM"
+      value: emailRevealed ? atob("eWFzaHlhZGF2LjcxMEBvdXRsb29rLmNvbQ==") : "Click to reveal",
+      action: revealEmail,
+      description: "Best for professional inquiries",
+      isBlurred: !emailRevealed
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
-      label: "WhatsApp",
-      value: "+1 (555) 123-4567",
-      action: "https://wa.me/15551234567",
+      label: "Telegram",
+      value: "@OhYash",
+      action: "https://t.me/OhYash",
       description: "Quick messages and calls"
     }
   ];
@@ -55,6 +58,18 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       label: "LinkedIn",
       username: "Your Name",
       url: "https://linkedin.com/in/yourprofile"
+    },
+    {
+      icon: <Twitter className="w-5 h-5" />,
+      label: "Twitter",
+      username: "@yourusername",
+      url: "https://twitter.com/yourusername"
+    },
+    {
+      icon: <Instagram className="w-5 h-5" />,
+      label: "Instagram",
+      username: "@yourusername",
+      url: "https://instagram.com/yourusername"
     }
   ];
 
@@ -100,10 +115,10 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           <h2 className="text-lg font-bold text-slate-900 text-center">Get In Touch</h2>
           <div className="space-y-3">
             {contactMethods.map((method, index) => (
-              <a
+              <div
                 key={index}
-                href={method.action}
-                className="block bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md group"
+                onClick={typeof method.action === 'function' ? method.action : () => window.open(method.action, '_blank')}
+                className="block bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md group cursor-pointer"
               >
                 <div className="flex items-center gap-4">
                   <div className="text-slate-700 group-hover:text-slate-900 transition-colors">
@@ -113,13 +128,20 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold text-slate-900">{method.label}</h3>
-                        <p className="text-slate-700 text-sm">{method.value}</p>
+                        <p className={`text-slate-700 text-sm ${method.isBlurred ? 'filter blur-sm relative' : ''}`}>
+                          {method.value}
+                          {method.isBlurred && (
+                            <span className="absolute inset-0 flex items-center justify-center text-xs font-medium text-slate-900 bg-white/80 rounded">
+                              reveal
+                            </span>
+                          )}
+                        </p>
                       </div>
                     </div>
                     <p className="text-slate-600 text-xs mt-1">{method.description}</p>
                   </div>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
