@@ -1,0 +1,23 @@
+Portfolio website:
+  This is a portfolio website developed by the lovable within 15 minutes. This file should be used to list and perform the todos.
+
+Data todo:
+  Self edited, added.
+  ☐ Add projects
+  ☐ Add correct Keto pics
+  ☐ Update personal profile
+  ☐ Update Work experience (current and past)
+  ☐ List some travel stories
+  ☐ Update page title
+
+Personal code todo:
+  ☐ Add visitor tracking
+  ☐ User page flow tracking (Which direction they went into)
+
+Loveable code todo:
+  ✔ Add borders to the canvas (or always allow user to get to home) @done (25-06-28 03:03)
+  ✔ Prevent moving the canvas if the user is scrolling (on phone) @done (25-06-28 03:04)
+  ☐ Add chain in each direction, go deeper
+  ☐ Add contact me page
+  ☐ Link to Social handles + Telegram self-blog
+  

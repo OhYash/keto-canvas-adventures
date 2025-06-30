@@ -1,5 +1,6 @@
-
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
+import { useVisitTracking } from './useVisitTracking';
+import { useUmamiTracking } from './useUmamiTracking';
 
 interface Position {
   x: number;
@@ -21,6 +22,13 @@ interface Section {
 export const useSectionManagement = () => {
   const [currentSection, setCurrentSection] = useState<string>('home');
   const [navigationHistory, setNavigationHistory] = useState<string[]>(['home']);
+  
+  // Visit tracking hooks
+  const { recordSectionVisit, getSectionVisits } = useVisitTracking();
+  const { trackSectionVisit, trackNavigationFlow } = useUmamiTracking();
+  
+  // Track navigation method for analytics
+  const navigationMethodRef = useRef<'keyboard' | 'mouse' | 'direct'>('direct');
 
   const sections: Section[] = useMemo(() => [
     {
@@ -150,8 +158,27 @@ export const useSectionManagement = () => {
     return closestSection;
   }, [allSections]);
 
-  const updateCurrentSection = useCallback((newSection: string) => {
+  const updateCurrentSection = useCallback((newSection: string, method: 'keyboard' | 'mouse' | 'direct' = 'direct') => {
     if (newSection !== currentSection) {
+      const previousSection = currentSection;
+      
+      // Only track section visits for non-home sections
+      if (newSection !== 'home') {
+        // Record visit tracking
+        recordSectionVisit(newSection);
+        
+        // Get visit count for analytics
+        const visitData = getSectionVisits(newSection);
+        
+        // Track with Umami
+        trackSectionVisit(newSection, visitData.visitCount, method);
+      }
+      
+      // Track navigation flow if not the first visit
+      if (previousSection && previousSection !== 'home' && newSection !== 'home') {
+        trackNavigationFlow(previousSection, newSection, method);
+      }
+      
       setCurrentSection(newSection);
       if (newSection !== 'manual') {
         setNavigationHistory(prev => {
@@ -164,21 +191,13 @@ export const useSectionManagement = () => {
         });
       }
     }
-  }, [currentSection]);
+  }, [currentSection, recordSectionVisit, getSectionVisits, trackSectionVisit, trackNavigationFlow]);
 
-  const navigateToSection = useCallback((sectionId: string) => {
+  const navigateToSection = useCallback((sectionId: string, method: 'keyboard' | 'mouse' | 'direct' = 'direct') => {
     const section = allSections.find(s => s.id === sectionId);
     if (section) {
-      setCurrentSection(sectionId);
-      
-      setNavigationHistory(prev => {
-        const newHistory = [...prev];
-        const existingIndex = newHistory.indexOf(sectionId);
-        if (existingIndex !== -1) {
-          newHistory.splice(existingIndex, 1);
-        }
-        return [...newHistory, sectionId];
-      });
+      // Update current section with tracking
+      updateCurrentSection(sectionId, method);
 
       return {
         x: -section.position.x,
@@ -186,12 +205,16 @@ export const useSectionManagement = () => {
       };
     }
     return null;
-  }, [allSections]);
+  }, [allSections, updateCurrentSection]);
 
   const navigateHome = useCallback(() => {
-    setCurrentSection('home');
-    setNavigationHistory(['home']);
+    updateCurrentSection('home', 'direct');
     return { x: 0, y: 0 };
+  }, [updateCurrentSection]);
+
+  // Expose method to set navigation method for external callers
+  const setNavigationMethod = useCallback((method: 'keyboard' | 'mouse' | 'direct') => {
+    navigationMethodRef.current = method;
   }, []);
 
   return {
@@ -204,5 +227,7 @@ export const useSectionManagement = () => {
     updateCurrentSection,
     navigateToSection,
     navigateHome,
+    setNavigationMethod,
+    getSectionVisits,
   };
 };

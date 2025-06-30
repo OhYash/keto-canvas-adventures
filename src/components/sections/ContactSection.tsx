@@ -56,26 +56,26 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     {
       icon: <Github className="w-5 h-5" />,
       label: "GitHub",
-      username: "@yourusername",
-      url: "https://github.com/yourusername"
+      username: "ohyash",
+      url: "https://github.com/ohyash"
     },
     {
       icon: <Linkedin className="w-5 h-5" />,
       label: "LinkedIn",
-      username: "Your Name",
-      url: "https://linkedin.com/in/yourprofile"
+      username: "ohyash",
+      url: "https://linkedin.com/in/ohyash"
     },
     {
       icon: <Twitter className="w-5 h-5" />,
       label: "Twitter",
-      username: "@yourusername",
-      url: "https://twitter.com/yourusername"
+      username: "@OhY4sh",
+      url: "https://twitter.com/OhY4sh"
     },
     {
       icon: <Instagram className="w-5 h-5" />,
       label: "Instagram",
-      username: "@yourusername",
-      url: "https://instagram.com/yourusername"
+      username: "@OhY4sh",
+      url: "https://instagram.com/OhY4sh"
     }
   ];
 
@@ -140,7 +140,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                           </p>
                           {method.isBlurred && (
                             <div className="absolute inset-0 flex items-center justify-start">
-                              <span className="text-xs font-medium text-slate-900 bg-white/90 px-2 py-1 rounded shadow-sm border">
+                              <span className="text-xs font-medium text-slate-900">
                                 Click to reveal
                               </span>
                             </div>

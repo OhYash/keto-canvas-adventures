@@ -1,8 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Building, MapPin, Calendar } from 'lucide-react';
+import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface WorkSectionProps {
   gradient: string;
@@ -21,35 +21,76 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   onNavigateHome,
   onNavigateToSection,
 }) => {
+  const [showAllExperience, setShowAllExperience] = useState(false);
   const currentRole = {
-    title: "Senior Frontend Developer",
-    company: "Tech Innovation Corp",
-    location: "San Francisco, CA",
-    startDate: "January 2023",
+    title: "Senior Backend Engineer",
+    company: "TestGorilla",
+    location: "Remote",
+    startDate: "October 2022",
     type: "Full-time",
-    description: "Leading frontend development initiatives and building scalable web applications using modern technologies."
+    description: "Fixed bugs and improved code test coverage while working on scalable assessment platform solutions."
   };
 
-  const currentProjects = [
+  const careerJourney = [
     {
-      name: "Customer Portal Redesign",
-      description: "Complete overhaul of the customer-facing portal with improved UX and performance",
-      technologies: ["React", "TypeScript", "Next.js"],
-      status: "In Progress"
+      title: "Senior Backend Engineer",
+      company: "TestGorilla",
+      period: "October 2022 - Present",
+      achievements: [
+        "Fixed bugs and improved code test coverage",
+        "Enhanced assessment platform reliability"
+      ]
     },
     {
-      name: "Design System Implementation",
-      description: "Building and maintaining a comprehensive design system for consistent UI across products",
-      technologies: ["Storybook", "Figma", "CSS-in-JS"],
-      status: "Ongoing"
+      title: "Software Engineer",
+      company: "Digital Guardian Pvt. Ltd.",
+      period: "March 2021 - September 2022",
+      achievements: [
+        "Built performance profiling tool with minimal runtime overhead",
+        "Identified 54% performance boost in product",
+        "Developed JS-based UI summary viewer",
+        "Led SDK port from Linux to FreeBSD",
+        "Fixed memory issues, enabling 70% performance improvement",
+        "Improved data protection by introducing IBAN detection",
+        "Sole owner of Windows Agent, handling bug fixes and feature enhancements"
+      ]
+    },
+    {
+      title: "Software Engineer",
+      company: "MAQ Software Pvt. Ltd.",
+      period: "April 2019 - March 2021",
+      achievements: [
+        "Transformed monolithic architecture to microservices",
+        "Subject Matter Expert for Mock/Unit testing",
+        "Developed Azure cloud web jobs",
+        "Created CI/CD pipelines",
+        "Developed multilingual HTML marketing emails"
+      ]
+    },
+    {
+      title: "Software Development Intern",
+      company: "Odessa Technologies Pvt. Ltd.",
+      period: "August 2018 - December 2018",
+      achievements: [
+        "Improved Odessa Build Platform",
+        "Conducted performance profiling for Lease Wave project"
+      ]
     }
   ];
 
+  const technicalSkills = [
+    { category: "Performance", skills: ["Performance Optimization", "Memory Management", "Profiling"] },
+    { category: "Architecture", skills: ["Microservices", "SDK Development", "System Design"] },
+    { category: "Cloud & DevOps", skills: ["Azure", "CI/CD Pipelines", "Web Jobs"] },
+    { category: "Development", skills: ["UI Development", "Testing Methodologies", "Bug Fixing"] },
+    { category: "Platforms", skills: ["Linux", "FreeBSD", "Windows"] }
+  ];
+
   const dailyTasks = [
-    "Code reviews and mentoring junior developers",
-    "Architecture planning for new features",
-    "Collaboration with design and product teams",
-    "Performance optimization and bug fixes"
+    "Performance optimization and system reliability",
+    "Bug fixing and code quality improvements",
+    "Architecture design and implementation",
+    "Test coverage enhancement and code reviews"
   ];
 
   return (
@@ -110,24 +151,66 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           </div>
         </div>
 
-        {/* Current Projects */}
+        {/* Career Journey */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-          <h3 className="text-lg font-bold text-slate-900 mb-3">Current Projects</h3>
+          <h3 className="text-lg font-bold text-slate-900 mb-3">Career Journey</h3>
           
-          <div className="space-y-3">
-            {currentProjects.map((project, index) => (
+          <div className="space-y-4">
+            {careerJourney.slice(0, showAllExperience ? careerJourney.length : 2).map((role, index) => (
               <div key={index} className="border-l-4 border-blue-400 pl-4 py-2">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-slate-900">{project.name}</h4>
+                  <div>
+                    <h4 className="font-semibold text-slate-900">{role.title}</h4>
+                    <p className="text-slate-600 text-sm">{role.company}</p>
+                  </div>
                   <Badge variant="outline" className="text-xs">
-                    {project.status}
+                    {role.period}
                   </Badge>
                 </div>
-                <p className="text-slate-700 text-sm mb-2">{project.description}</p>
+                <ul className="space-y-1">
+                  {role.achievements.map((achievement, achIndex) => (
+                    <li key={achIndex} className="flex items-start gap-2 text-xs text-slate-700">
+                      <span className="text-blue-500 mt-1">•</span>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            
+            {careerJourney.length > 2 && (
+              <button
+                onClick={() => setShowAllExperience(!showAllExperience)}
+                className="w-full mt-3 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all duration-200 text-sm font-medium flex items-center justify-center gap-2 border border-slate-300"
+              >
+                {showAllExperience ? (
+                  <>
+                    <ChevronUp className="w-4 h-4" />
+                    Show Less
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4" />
+                    View Earlier Experience ({careerJourney.length - 2} more roles)
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Technical Skills */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
+          <h3 className="text-lg font-bold text-slate-900 mb-3">Technical Skills</h3>
+          
+          <div className="space-y-3">
+            {technicalSkills.map((skillGroup, index) => (
+              <div key={index}>
+                <h4 className="font-semibold text-slate-800 text-sm mb-2">{skillGroup.category}</h4>
                 <div className="flex flex-wrap gap-1">
-                  {project.technologies.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="secondary" className="text-xs bg-slate-200 text-slate-700">
-                      {tech}
+                  {skillGroup.skills.map((skill, skillIndex) => (
+                    <Badge key={skillIndex} variant="secondary" className="text-xs bg-blue-100 text-blue-800">
+                      {skill}
                     </Badge>
                   ))}
                 </div>

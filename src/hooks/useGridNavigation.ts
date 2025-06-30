@@ -73,7 +73,7 @@ export const useGridNavigation = ({
       ? { x: 0, y: 0 }
       : allSections.find(s => s.id === currentSection)?.position || { x: 0, y: 0 };
 
-    let candidates: Array<{ section: any; distance: number }> = [];
+    const candidates: Array<{ section: { id: string; position: { x: number; y: number } }; distance: number }> = [];
 
     navigableSections.forEach(section => {
       if (section.id === currentSection) return;

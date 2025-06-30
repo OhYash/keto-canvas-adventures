@@ -45,7 +45,7 @@ const InfiniteCanvas = () => {
       };
       
       const newSection = getCurrentSectionFromPosition(newPosition);
-      updateCurrentSection(newSection);
+      updateCurrentSection(newSection, 'mouse');
       
       return newPosition;
     });
@@ -68,24 +68,44 @@ const InfiniteCanvas = () => {
     onPositionChange: handlePositionChange,
   });
 
+  const resetScrollPositions = useCallback(() => {
+    // Reset scroll position for all scrollable section containers
+    document.querySelectorAll('[class*="overflow-y-auto"]').forEach(element => {
+      element.scrollTop = 0;
+    });
+  }, []);
+
   const handleNavigateToSection = useCallback((sectionId: string) => {
-    const newPosition = navigateToSection(sectionId);
+    const newPosition = navigateToSection(sectionId, 'direct');
     if (newPosition) {
       setViewportPosition(newPosition);
+      // Reset scroll positions after navigation
+      setTimeout(resetScrollPositions, 0);
     }
-  }, [navigateToSection, setViewportPosition]);
+  }, [navigateToSection, setViewportPosition, resetScrollPositions]);
+
+  const handleKeyboardNavigateToSection = useCallback((sectionId: string) => {
+    const newPosition = navigateToSection(sectionId, 'keyboard');
+    if (newPosition) {
+      setViewportPosition(newPosition);
+      // Reset scroll positions after navigation
+      setTimeout(resetScrollPositions, 0);
+    }
+  }, [navigateToSection, setViewportPosition, resetScrollPositions]);
 
   const handleNavigateHome = useCallback(() => {
     const newPosition = navigateHome();
     setViewportPosition(newPosition);
-  }, [navigateHome, setViewportPosition]);
+    // Reset scroll positions after navigation
+    setTimeout(resetScrollPositions, 0);
+  }, [navigateHome, setViewportPosition, resetScrollPositions]);
 
   // Grid-based navigation
   const { navigateInDirection } = useGridNavigation({
     sections,
     allSections,
     currentSection,
-    onNavigateToSection: handleNavigateToSection,
+    onNavigateToSection: handleKeyboardNavigateToSection,
   });
 
   useEffect(() => {

@@ -21,26 +21,38 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   onNavigateHome,
   onNavigateToSection,
 }) => {
-  const projects = [
+  const projects: Array<{
+    title: string;
+    description: string;
+    technologies: string[];
+    url?: string;
+  }> = [
     {
-      title: "Interactive Portfolio",
-      description: "This infinite canvas portfolio you're currently exploring! Built with React, TypeScript, and Tailwind CSS.",
-      technologies: ["React", "TypeScript", "Canvas API"]
+      title: "Tenor Cards",
+      description: "Serverless web application for producing designer cards to share short messages. A lightweight platform for creating and sharing beautiful message cards.",
+      technologies: ["HTML5", "CSS", "JavaScript", "Tailwind CSS"],
+      url: "https://tenor.cards/"
     },
     {
-      title: "Task Management App",
-      description: "A full-stack productivity app with real-time collaboration features and advanced filtering options.",
-      technologies: ["Next.js", "PostgreSQL", "WebSockets"]
+      title: "Knowledge•Day",
+      description: "Blog-cum-newsletter platform that brings uncommon knowledge in 3-minute reads. Features custom email newsletter functionality and educational content curation.",
+      technologies: ["Jekyll", ".NET Core", "Email Platform"],
+      url: "https://knowledgeday.in/"
     },
     {
-      title: "Weather Dashboard",
-      description: "Beautiful weather visualization with interactive charts and location-based forecasts.",
-      technologies: ["Vue.js", "Chart.js", "Weather API"]
+      title: "Ava.js Test Library Enhancement",
+      description: "Open source contribution enhancing the timeout() functionality in the popular JavaScript testing library. Improved testing capabilities for the developer community.",
+      technologies: ["JavaScript", "Open Source", "Testing"]
     },
     {
-      title: "Open Source Contributions",
-      description: "Contributing to various open source projects, focusing on accessibility improvements and performance optimizations.",
-      technologies: ["GitHub", "Accessibility", "Performance"]
+      title: "Sailfish OS Port for YU Yuphoria",
+      description: "Non-Android OS port for an Android device. Adapted device kernel configurations to run alternative mobile operating system using Hybris adaptation layer.",
+      technologies: ["Hybris", "Linux Kernel", "Mobile OS"]
+    },
+    {
+      title: "Image Stitching Software",
+      description: "Console-based panorama generator developed during a 48-hour hackathon. Creates seamless panoramic images from multiple input photos using advanced stitching algorithms.",
+      technologies: ["C++", "OpenCV", "Computer Vision"]
     }
   ];
 
@@ -80,21 +92,36 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               key={index}
               className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
             >
-              <div className="mb-3">
-                <div className="flex items-center gap-3 mb-2">
-                  <Code className="w-4 h-4 text-slate-700" />
-                  <h3 className="text-base font-bold text-slate-900">{project.title}</h3>
+              <div className="flex justify-between items-start gap-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Code className="w-4 h-4 text-slate-700" />
+                    <h3 className="text-base font-bold text-slate-900">{project.title}</h3>
+                  </div>
+                  <p className="text-slate-700 text-sm leading-relaxed mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech, techIndex) => (
+                      <Badge key={techIndex} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-slate-700 text-sm leading-relaxed mb-3">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
+                {project.url && (
+                  <div className="flex-shrink-0">
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-xs font-semibold border border-blue-400/30"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      Visit Project
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}
