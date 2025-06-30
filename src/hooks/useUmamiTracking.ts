@@ -1,3 +1,4 @@
+
 import { useCallback } from 'react';
 
 // Extend the Window interface to include umami
@@ -16,6 +17,8 @@ interface UmamiEventData {
   timestamp?: number;
   session_duration?: number;
   navigation_method?: 'keyboard' | 'mouse' | 'direct';
+  from_section?: string;
+  to_section?: string;
 }
 
 export const useUmamiTracking = () => {
