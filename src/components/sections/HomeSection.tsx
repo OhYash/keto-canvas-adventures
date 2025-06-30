@@ -32,6 +32,23 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
     }
   };
 
+  // Update the sections to change "Personal Life" to "About Me" and reorder them
+  const displaySections = sections.map(section => {
+    if (section.id === 'personal') {
+      return { ...section, title: 'About Me' };
+    }
+    return section;
+  });
+
+  // Reorder sections: now -> work -> personal -> keto -> hobbies -> contact
+  const reorderedSections = [
+    displaySections.find(s => s.id === 'now'),
+    displaySections.find(s => s.id === 'work'),
+    displaySections.find(s => s.id === 'personal'),
+    displaySections.find(s => s.id === 'keto'),
+    displaySections.find(s => s.id === 'hobbies'),
+    displaySections.find(s => s.id === 'contact')
+  ].filter(Boolean) as Section[];
 
   return (
     <Card className="w-[95vw] sm:w-[90vw] md:w-[600px] max-w-[600px] max-h-[85vh] overflow-y-auto bg-gradient-to-br from-slate-800/90 to-slate-700/90 backdrop-blur-sm border-slate-600/50">
@@ -57,7 +74,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
       <CardContent className="space-y-6">
         {/* Navigation Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {sections.map((section) => (
+          {reorderedSections.map((section) => (
             <button
               key={section.id}
               onClick={() => onNavigateToSection(section.id)}

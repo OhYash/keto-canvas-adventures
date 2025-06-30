@@ -93,6 +93,10 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     "Test coverage enhancement and code reviews"
   ];
 
+  const handleOpportunitiesClick = () => {
+    onNavigateToSection?.('contact');
+  };
+
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
       <CardHeader className="pb-4">
@@ -233,7 +237,11 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         </div>
 
         <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
+          <Badge 
+            variant="secondary" 
+            className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 cursor-pointer"
+            onClick={handleOpportunitiesClick}
+          >
             Currently employed · Open to opportunities
           </Badge>
         </div>

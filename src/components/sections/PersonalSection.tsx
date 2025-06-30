@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, User, MapPin, Camera, Heart, Mail } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface PersonalSectionProps {
   gradient: string;
@@ -57,6 +59,13 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
       ]
     }
   ];
+
+  const handleTravelStoriesClick = () => {
+    toast.info("Travel Stories feature is not available at the moment", {
+      description: "This feature is currently under development and will be available soon.",
+      duration: 4000,
+    });
+  };
 
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
@@ -135,7 +144,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
             Explore my journey around the world through stories and photos from various destinations.
           </p>
           <button 
-            onClick={() => onNavigateToSection?.('travel')}
+            onClick={handleTravelStoriesClick}
             className="w-full px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-emerald-400/30"
           >
             <Camera className="w-4 h-4" />
