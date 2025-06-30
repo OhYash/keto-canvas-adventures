@@ -32,16 +32,6 @@ export const useSectionManagement = () => {
 
   const sections: Section[] = useMemo(() => [
     {
-      id: 'work',
-      title: 'Work',
-      subtitle: 'Current Job & Professional Life',
-      position: { x: 1000, y: 0 },
-      color: 'from-blue-500 to-cyan-500',
-      gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
-      icon: '💼',
-      direction: 'right'
-    },
-    {
       id: 'personal',
       title: 'Personal Life',
       subtitle: 'About Me & My Adventures',
@@ -50,6 +40,16 @@ export const useSectionManagement = () => {
       gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
       icon: '🧍‍♂️',
       direction: 'left'
+    },
+    {
+      id: 'now',
+      title: 'What I\'m Doing Now',
+      subtitle: 'Current Focus & Plans',
+      position: { x: 1000, y: 1000 },
+      color: 'from-yellow-500 to-amber-500',
+      gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
+      icon: '⚡',
+      direction: 'down'
     },
     {
       id: 'keto',
@@ -72,14 +72,14 @@ export const useSectionManagement = () => {
       direction: 'down'
     },
     {
-      id: 'now',
-      title: 'What I\'m Doing Now',
-      subtitle: 'Current Focus & Plans',
-      position: { x: 1000, y: 1000 },
-      color: 'from-yellow-500 to-amber-500',
-      gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
-      icon: '⚡',
-      direction: 'down'
+      id: 'work',
+      title: 'Work',
+      subtitle: 'Current Job & Professional Life',
+      position: { x: 1000, y: 0 },
+      color: 'from-blue-500 to-cyan-500',
+      gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
+      icon: '💼',
+      direction: 'right'
     },
     {
       id: 'contact',

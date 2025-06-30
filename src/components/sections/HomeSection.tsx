@@ -40,13 +40,13 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
     return section;
   });
 
-  // Reorder sections: now -> work -> personal -> keto -> hobbies -> contact
+  // Reorder sections: personal -> now -> keto -> hobbies -> work -> contact
   const reorderedSections = [
-    displaySections.find(s => s.id === 'now'),
-    displaySections.find(s => s.id === 'work'),
     displaySections.find(s => s.id === 'personal'),
+    displaySections.find(s => s.id === 'now'),
     displaySections.find(s => s.id === 'keto'),
     displaySections.find(s => s.id === 'hobbies'),
+    displaySections.find(s => s.id === 'work'),
     displaySections.find(s => s.id === 'contact')
   ].filter(Boolean) as Section[];
 

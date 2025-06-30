@@ -61,9 +61,9 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
   ];
 
   const handleTravelStoriesClick = () => {
-    toast.info("Travel Stories feature is not available at the moment", {
-      description: "This feature is currently under development and will be available soon.",
-      duration: 4000,
+    toast.info("Travel Stories are not available at the moment", {
+      description: "I'm preparing the stories and photos for you to see.",
+      duration: 3000,
     });
   };
 
