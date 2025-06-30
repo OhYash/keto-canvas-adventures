@@ -1,3 +1,4 @@
+
 import { useState, useCallback, useMemo } from 'react';
 
 interface Position {
@@ -84,20 +85,9 @@ export const useSectionManagement = () => {
     }
   ], []);
 
-  // Define all sections including travel and projects subsections but excluding work-experience
+  // Define all sections including projects subsection but excluding travel and work-experience
   const allSections: Section[] = useMemo(() => [
     ...sections,
-    {
-      id: 'travel',
-      title: 'Travel Stories',
-      subtitle: 'Adventures Around the World',
-      position: { x: -2000, y: 0 },
-      color: 'from-teal-500 to-blue-600',
-      gradient: 'bg-gradient-to-br from-teal-500/20 to-blue-600/20',
-      icon: '✈️',
-      direction: 'left',
-      parent: 'personal'
-    },
     {
       id: 'projects',
       title: 'Personal Projects',
