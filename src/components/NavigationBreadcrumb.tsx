@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Breadcrumb,
@@ -28,7 +29,6 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
     const sectionNames: Record<string, string> = {
       home: 'Home',
       work: 'Work',
-      'work-experience': 'Work Experience',
       personal: 'Personal Life',
       keto: 'Meet Keto',
       hobbies: 'Hobbies & Projects',
