@@ -21,19 +21,24 @@ const NowSection: React.FC<NowSectionProps> = ({
 }) => {
   const currentPlans = [
     {
+      category: "Waiting",
+      item: "Schengen visa application response to plan next travel",
+      lastUpdated: "2025-06-30"
+    },
+    {
       category: "Exploring",
-      item: "AI agents",
-      lastUpdated: "2025-06-10"
+      item: "AI agents in free time",
+      lastUpdated: "2025-06-30"
     },
     {
-      category: "Planning",
-      item: "Hiking plans for July",
-      lastUpdated: "2025-06-08"
+      category: "Building",
+      item: "This website - ground for next iteration of tenor.cards",
+      lastUpdated: "2025-06-30"
     },
     {
-      category: "Reading",
-      item: "'The Pragmatic Programmer'",
-      lastUpdated: "2025-06-05"
+      category: "Running",
+      item: "Every Wednesday - crossed 10k last-to-last Wednesday",
+      lastUpdated: "2025-06-30"
     }
   ];
 
