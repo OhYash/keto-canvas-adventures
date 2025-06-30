@@ -232,24 +232,6 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           </ul>
         </div>
 
-        {/* Work Experience Link */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
-          <div className="flex items-center gap-3 mb-3">
-            <ExternalLink className="w-5 h-5 text-slate-700" />
-            <h3 className="text-lg font-bold text-slate-900">Professional Background</h3>
-          </div>
-          <p className="text-slate-700 text-sm leading-relaxed mb-3">
-            Explore my complete professional journey, skills, and career highlights.
-          </p>
-          <button 
-            onClick={() => onNavigateToSection?.('work-experience')}
-            className="w-full px-4 py-2.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-blue-400/30"
-          >
-            <ExternalLink className="w-4 h-4" />
-            View Work Experience
-          </button>
-        </div>
-
         <div className="text-center pt-3">
           <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
             Currently employed · Open to opportunities
