@@ -1,0 +1,171 @@
+
+# Project Context Documentation
+
+## Project Overview
+This is a personal portfolio website built with React, TypeScript, Vite, and Tailwind CSS. The site features an infinite canvas interface where users can navigate between different sections to learn about the person, their work, hobbies, travel experiences, and contact information.
+
+## Technology Stack
+- **Framework**: React 18.3.1 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS with shadcn/ui components
+- **State Management**: React hooks (useState, useCallback, useMemo)
+- **Data Fetching**: @tanstack/react-query 5.56.2
+- **Routing**: React Router DOM 6.26.2
+- **Icons**: Lucide React 0.462.0
+- **Charts**: Recharts 2.12.7
+
+## Project Structure
+
+### Core Components
+- **InfiniteCanvas**: Main container that manages the canvas navigation and viewport
+- **SectionRenderer**: Renders different sections based on navigation state
+- **NavigationBreadcrumb**: Shows current location and navigation history
+- **HomeSection**: Landing page with navigation to all sections
+
+### Section Components
+1. **WorkSection**: Professional work overview with navigation to work experience
+2. **WorkExperienceSection**: Detailed work experience and skills
+3. **PersonalSection**: Personal information with navigation to travel stories
+4. **KetoSection**: About the person's cat
+5. **HobbiesSection**: Hobbies and interests with navigation to projects
+6. **ProjectsSection**: Personal projects showcase
+7. **NowSection**: Current activities and focus
+8. **TravelStoriesSection**: Travel experiences with detailed story views
+9. **ContactSection**: Contact information and social links
+
+### Hooks
+- **useSectionManagement**: Manages section navigation, history, and positioning
+- **useGridNavigation**: Handles directional navigation between sections
+- **useCanvasEvents**: Manages canvas interaction events
+- **useViewport**: Handles viewport calculations and responsive behavior
+
+### Data Management
+- **travelStories.ts**: Contains travel story data with locations, dates, and descriptions
+- **TravelStory interface**: Type definition for travel story objects
+
+## Key Features
+
+### Navigation System
+- **Infinite Canvas**: Users can navigate through sections positioned on a 2D plane
+- **Directional Navigation**: Arrow key support for moving between sections
+- **Breadcrumb Navigation**: Shows current path and allows clicking to navigate back
+- **Section Hierarchy**: Main sections have subsections (e.g., Work → Work Experience)
+
+### Section Layout
+- **Main Sections** (positioned around center):
+  - Work (right): x: 1000, y: 0
+  - Personal (left): x: -1000, y: 0
+  - Keto (up): x: 0, y: -1000
+  - Hobbies (down): x: 0, y: 1000
+  - Now (bottom-right): x: 1000, y: 1000
+  - Contact (bottom-left): x: -1000, y: 1000
+
+- **Subsections**:
+  - Travel Stories: x: -2000, y: 0 (child of Personal)
+  - Projects: x: 0, y: 2000 (child of Hobbies)
+  - Work Experience: x: 2000, y: 0 (child of Work)
+
+### Contact Section Features
+- **Email Protection**: Email address is base64 encoded and initially blurred
+- **Progressive Disclosure**: Email reveals on first click, opens mailto on second click
+- **Social Links**: GitHub, LinkedIn, Twitter, Instagram with placeholder URLs
+- **Communication Methods**: Email and Telegram with descriptions
+- **Location Information**: Shows current location and remote work availability
+
+### Travel Stories Features
+- **Story List View**: Cards showing travel destinations with highlights
+- **Detailed Story View**: Full story content with navigation back to list
+- **Story Data**: Includes location, country, date, duration, description, and highlights
+- **Interactive Elements**: "Read More" buttons to expand story details
+
+### Responsive Design
+- **Mobile-First**: Responsive breakpoints for different screen sizes
+- **Flexible Layout**: Cards adjust width based on viewport (95vw on mobile, 90vw on tablet, 700px max on desktop)
+- **Touch-Friendly**: Appropriate spacing and touch targets for mobile devices
+
+## Styling System
+- **Gradient Backgrounds**: Each section has unique gradient color schemes
+- **Glass Morphism**: Backdrop blur effects with semi-transparent backgrounds
+- **Consistent Typography**: Slate color palette with proper contrast
+- **Interactive States**: Hover effects and transitions for better UX
+- **Card-Based Layout**: Consistent card design across all sections
+
+## State Management
+- **Current Section Tracking**: Knows which section user is currently viewing
+- **Navigation History**: Maintains history for breadcrumb navigation
+- **Modal States**: Manages detailed views (like travel story details)
+- **Email Reveal State**: Tracks whether email has been revealed in contact section
+
+## Performance Considerations
+- **Lazy Loading**: Components render only when needed
+- **Memoization**: useCallback and useMemo for expensive operations
+- **Efficient Navigation**: Position-based navigation calculations
+- **Minimal Re-renders**: Careful state management to prevent unnecessary updates
+
+## File Organization
+```
+src/
+├── components/
+│   ├── canvas/
+│   │   ├── NavigationIndicator.tsx
+│   │   ├── SectionRenderer.tsx
+│   │   └── StarBackground.tsx
+│   ├── sections/
+│   │   ├── travel/
+│   │   │   ├── TravelSectionHeader.tsx
+│   │   │   ├── TravelStoryCard.tsx
+│   │   │   └── TravelStoryList.tsx
+│   │   ├── ContactSection.tsx
+│   │   ├── TravelStoriesSection.tsx
+│   │   ├── WorkExperienceSection.tsx
+│   │   └── [other sections...]
+│   ├── ui/ (shadcn/ui components)
+│   ├── InfiniteCanvas.tsx
+│   └── NavigationBreadcrumb.tsx
+├── hooks/
+│   ├── useSectionManagement.ts
+│   ├── useGridNavigation.ts
+│   └── [other hooks...]
+├── data/
+│   └── travelStories.ts
+├── types/
+│   └── travelStory.ts
+└── pages/
+    ├── Index.tsx
+    └── NotFound.tsx
+```
+
+## Environment & Build
+- **Development**: npm run dev (Vite dev server)
+- **Build**: npm run build (TypeScript compilation + Vite build)
+- **Preview**: npm run preview (Preview production build)
+
+## Future Enhancement Areas
+- **Content Management**: Could integrate with a CMS for dynamic content
+- **Performance**: Could add lazy loading for images and content
+- **Accessibility**: Could enhance keyboard navigation and screen reader support
+- **SEO**: Could add meta tags and structured data
+- **Analytics**: Could integrate analytics tracking
+- **Progressive Web App**: Could add PWA features for offline support
+
+## Design Principles
+- **Simplicity**: Clean, minimal design with focus on content
+- **Interactivity**: Engaging navigation with smooth transitions
+- **Personality**: Reflects personal brand through content and design choices
+- **Accessibility**: Considerate of different users and devices
+- **Performance**: Fast loading and smooth interactions
+
+## Known Technical Debt
+- **ContactSection.tsx**: 217 lines - could be refactored into smaller components
+- **useSectionManagement.ts**: 230 lines - could be split into multiple hooks
+- **Hard-coded Data**: Travel stories and personal info are hard-coded (could be externalized)
+- **Error Handling**: Limited error boundaries and error handling
+- **Testing**: No test coverage currently implemented
+
+## Configuration Files
+- **tailwind.config.ts**: Tailwind CSS configuration with custom colors and animations
+- **vite.config.ts**: Vite build configuration
+- **tsconfig.json**: TypeScript configuration
+- **package.json**: Dependencies and scripts configuration
+
+This documentation provides a comprehensive overview of the project structure, functionality, and implementation details for future reference and development.
