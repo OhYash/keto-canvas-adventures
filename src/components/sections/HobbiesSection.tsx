@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Palette, Music, Camera, Code, Gamepad2, Book } from 'lucide-react';
+import { ArrowLeft, Palette, Music, Camera, Code, Gamepad2, Book, Terminal, Cpu, Bike, Activity } from 'lucide-react';
 
 interface HobbiesSectionProps {
   gradient: string;
@@ -23,34 +23,28 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
 }) => {
   const hobbies = [
     {
-      title: "Photography",
-      description: "Capturing moments and exploring the world through my lens. Street photography and landscapes are my favorites.",
-      icon: <Camera className="w-5 h-5" />,
-      tags: ["Street Photography", "Landscapes", "Travel"]
+      title: "Linux & Open Source",
+      description: "Exploring different Linux distributions, tinkering with system configurations, and diving deep into open source technologies.",
+      icon: <Terminal className="w-5 h-5" />,
+      tags: ["Linux", "Open Source", "System Admin", "CLI Tools"]
     },
     {
-      title: "Music Production",
-      description: "Creating electronic music and experimenting with different sounds and genres in my home studio.",
-      icon: <Music className="w-5 h-5" />,
-      tags: ["Electronic", "Ambient", "Beat Making"]
+      title: "Silicon Hardware",
+      description: "Following the latest developments in processor architecture, silicon manufacturing, and emerging hardware technologies.",
+      icon: <Cpu className="w-5 h-5" />,
+      tags: ["CPU Architecture", "Silicon Tech", "Hardware News", "Semiconductors"]
     },
     {
-      title: "Digital Art",
-      description: "Creating digital illustrations and experimenting with various design tools and techniques.",
-      icon: <Palette className="w-5 h-5" />,
-      tags: ["Illustration", "UI Design", "Concept Art"]
+      title: "Motorbike Videos",
+      description: "Watching motorcycle reviews, track days, and riding adventures. Love everything from sportbikes to adventure touring.",
+      icon: <Bike className="w-5 h-5" />,
+      tags: ["Motorcycle Reviews", "Track Days", "Riding Adventures", "Bike Tech"]
     },
     {
-      title: "Gaming",
-      description: "Passionate about indie games, puzzle games, and exploring virtual worlds with unique storytelling.",
-      icon: <Gamepad2 className="w-5 h-5" />,
-      tags: ["Indie Games", "Puzzle", "Adventure"]
-    },
-    {
-      title: "Reading",
-      description: "Always diving into books about technology, philosophy, and science fiction to expand my perspective.",
-      icon: <Book className="w-5 h-5" />,
-      tags: ["Sci-Fi", "Philosophy", "Tech"]
+      title: "Long Distance Running",
+      description: "Regular long runs to clear the mind and stay fit. There's something meditative about finding your rhythm on a long run.",
+      icon: <Activity className="w-5 h-5" />,
+      tags: ["Long Runs", "Endurance", "Fitness", "Mindfulness"]
     }
   ];
 
@@ -129,13 +123,13 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
 
         <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
           <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "Creativity is intelligence having fun. Every hobby teaches us something new about ourselves."
+            "The intersection of technology, movement, and curiosity - where the mind stays sharp and the body stays strong."
           </p>
         </div>
 
         <div className="text-center pt-3">
           <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
-            Always creating · Always exploring
+            Always learning · Always running
           </Badge>
         </div>
       </CardContent>
