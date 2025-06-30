@@ -1,4 +1,3 @@
-
 import React, { useCallback } from 'react';
 import WorkSection from '../sections/WorkSection';
 import WorkExperienceSection from '../sections/WorkExperienceSection';
@@ -32,7 +31,6 @@ interface SectionRendererProps {
   allSections: Section[];
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
-  isZoomedOut?: boolean;
 }
 
 const SectionRenderer: React.FC<SectionRendererProps> = ({
@@ -40,7 +38,6 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
   allSections,
   onNavigateHome,
   onNavigateToSection,
-  isZoomedOut = false,
 }) => {
   const renderSectionContent = useCallback((section: Section) => {
     const commonProps = {
@@ -50,20 +47,6 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       subtitle: section.subtitle,
       onNavigateHome,
     };
-
-    // When zoomed out, render simplified preview cards
-    if (isZoomedOut) {
-      return (
-        <div 
-          className={`w-[300px] h-[200px] rounded-xl ${section.gradient} backdrop-blur-sm border border-slate-500/30 p-6 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center justify-center text-center`}
-          onClick={() => onNavigateToSection(section.id)}
-        >
-          <span className="text-4xl mb-3">{section.icon}</span>
-          <h3 className="font-bold text-white text-lg mb-2">{section.title}</h3>
-          <p className="text-slate-300 text-sm">{section.subtitle}</p>
-        </div>
-      );
-    }
 
     switch (section.id) {
       case 'work':
@@ -87,24 +70,13 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       default:
         return null;
     }
-  }, [onNavigateHome, onNavigateToSection, isZoomedOut]);
+  }, [onNavigateHome, onNavigateToSection]);
 
   return (
     <>
       {/* Home/Landing section */}
       <div className="absolute -translate-x-1/2 -translate-y-1/2">
-        {isZoomedOut ? (
-          <div 
-            className="w-[300px] h-[200px] rounded-xl bg-gradient-to-br from-slate-800/90 to-slate-700/90 backdrop-blur-sm border border-slate-600/50 p-6 cursor-pointer hover:scale-105 transition-transform duration-200 flex flex-col items-center justify-center text-center"
-            onClick={() => onNavigateToSection('home')}
-          >
-            <span className="text-4xl mb-3">🏠</span>
-            <h3 className="font-bold text-white text-lg mb-2">Home</h3>
-            <p className="text-slate-300 text-sm">Welcome to My Universe</p>
-          </div>
-        ) : (
-          <HomeSection sections={sections} onNavigateToSection={onNavigateToSection} />
-        )}
+        <HomeSection sections={sections} onNavigateToSection={onNavigateToSection} />
       </div>
 
       {/* Section pages - render all sections including travel */}
