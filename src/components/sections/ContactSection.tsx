@@ -189,7 +189,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             <h3 className="text-lg font-bold text-slate-900">Location</h3>
           </div>
           <p className="text-slate-700 text-sm">
-            Based in San Francisco, CA
+            Based in Rajasthan, India
           </p>
           <p className="text-slate-600 text-xs mt-1">
             Available for remote work worldwide
