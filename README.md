@@ -87,6 +87,10 @@ src/
 └── pages/              # Route components
 ```
 
+## Development
+
+This project was built with [Lovable](https://lovable.dev) and [Claude Code](https://claude.ai/code) for AI-assisted development.
+
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
