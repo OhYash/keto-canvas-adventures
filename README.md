@@ -1,73 +1,92 @@
-# Welcome to your Lovable project
+# Everything Yash
 
-## Project info
+An infinite canvas portfolio interface built with React and TypeScript that showcases personal content through an interactive 2D navigation experience.
 
-**URL**: https://lovable.dev/projects/485a0fb0-f48e-4f10-85f2-6b78b4861772
+## Features
 
-## How can I edit this code?
+- **Infinite Canvas Interface**: Navigate through different portfolio sections positioned on a virtual 2D grid
+- **Smooth Navigation**: Arrow key controls and mouse/touch panning with fluid animations
+- **Interactive Sections**: Home, Work, Projects, Travel Stories, Personal info, and more
+- **Responsive Design**: Mobile-first approach with glass morphism design elements
+- **Travel Stories**: Detailed travel experiences with rich content and navigation
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/485a0fb0-f48e-4f10-85f2-6b78b4861772) and start prompting.
+- Node.js (recommended to install via [nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
+- npm or yarn
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
+```bash
+# Clone the repository
+git clone <repository-url>
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+# Navigate to the project directory
+cd everything-yash
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Install dependencies
+npm install
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Available Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+# Start development server with hot reload
+npm run dev
 
-**Use GitHub Codespaces**
+# Build for production
+npm run build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Build in development mode
+npm run build:dev
 
-## What technologies are used for this project?
+# Run linting
+npm run lint
 
-This project is built with:
+# Preview production build
+npm run preview
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Technology Stack
 
-## How can I deploy this project?
+- **Framework**: React 18.3.1 with TypeScript
+- **Build Tool**: Vite with SWC for fast compilation
+- **UI Library**: shadcn/ui components built on Radix UI primitives
+- **Styling**: Tailwind CSS with custom animations
+- **Routing**: React Router DOM
+- **State Management**: @tanstack/react-query for server state
+- **Icons**: Lucide React
+- **Charts**: Recharts
 
-Simply open [Lovable](https://lovable.dev/projects/485a0fb0-f48e-4f10-85f2-6b78b4861772) and click on Share -> Publish.
+## Architecture
 
-## Can I connect a custom domain to my Lovable project?
+This application implements an infinite canvas interface where different portfolio sections are positioned on a virtual 2D grid. Key architectural components include:
 
-Yes, you can!
+- **InfiniteCanvas System**: Main container managing viewport positioning and navigation
+- **Hook-Based Architecture**: Separated concerns with custom hooks for viewport, section management, canvas events, and grid navigation
+- **Section System**: Modular React components for each portfolio section
+- **Navigation Features**: Arrow key navigation, mouse/touch panning, breadcrumb navigation
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Project Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```
+src/
+├── components/
+│   ├── canvas/           # Canvas-specific components
+│   ├── sections/         # Portfolio section components
+│   ├── ui/              # shadcn/ui components
+│   └── InfiniteCanvas.tsx
+├── hooks/               # Custom React hooks
+├── data/               # Static data files
+├── types/              # TypeScript type definitions
+└── pages/              # Route components
+```
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
