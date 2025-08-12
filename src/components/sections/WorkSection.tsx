@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface WorkSectionProps {
   gradient: string;
@@ -97,6 +98,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     onNavigateToSection?.('contact');
   };
 
+
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
       <CardHeader className="pb-4">
@@ -108,7 +110,13 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             <ArrowLeft className="w-4 h-4" />
             Home
           </button>
-          <div className="text-2xl sm:text-3xl">{icon}</div>
+          <button
+            onClick={handleCopyUrl}
+            className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
+            title="Copy page link"
+          >
+            {icon}
+          </button>
         </div>
         
         <div className="text-center">

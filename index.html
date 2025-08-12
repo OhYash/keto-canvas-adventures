@@ -19,7 +19,16 @@
 
   <body>
     <div id="root"></div>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="3c5dc21e-5b59-4e65-88f9-f9c78b402a8d"></script>
+    <script>
+      // Only load Umami in production
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = 'https://cloud.umami.is/script.js';
+        script.setAttribute('data-website-id', '3c5dc21e-5b59-4e65-88f9-f9c78b402a8d');
+        document.head.appendChild(script);
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
