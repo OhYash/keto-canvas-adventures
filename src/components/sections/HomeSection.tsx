@@ -117,7 +117,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({
         </div>
 
         {/* Visit Statistics - Hidden but code preserved */}
-        {getTotalVisits() > 0 && (
+        {false && getTotalVisits() > 0 && (
           <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl p-4 border border-blue-500/30">
             <div className="flex items-center gap-2 mb-3">
               <Eye className="w-4 h-4 text-blue-400" />
@@ -178,7 +178,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({
           <h3 className="text-base font-bold text-white text-center mb-4">
             Where would you like to start?
           </h3>
-          
+
           {/* For friends & the curious */}
           <div className="space-y-3">
             <h4 className="text-sm font-semibold text-slate-300 text-left">
