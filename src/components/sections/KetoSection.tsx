@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Heart, Star } from 'lucide-react';
+import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface KetoSectionProps {
   gradient: string;
@@ -64,7 +65,13 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               <ArrowLeft className="w-4 h-4" />
               Home
             </button>
-            <div className="text-2xl sm:text-3xl">{icon}</div>
+            <button
+              onClick={handleCopyUrl}
+              className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
+              title="Copy page link"
+            >
+              {icon}
+            </button>
           </div>
           
           <div className="text-center">
