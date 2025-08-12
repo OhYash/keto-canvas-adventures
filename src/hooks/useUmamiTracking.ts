@@ -23,8 +23,11 @@ interface UmamiEventData {
 
 export const useUmamiTracking = () => {
   const trackEvent = useCallback((eventName: string, data?: UmamiEventData) => {
+    // Only track in production environments
+    const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    
     // Check if umami is available and loaded
-    if (typeof window !== 'undefined' && window.umami) {
+    if (typeof window !== 'undefined' && window.umami && isProduction) {
       try {
         const eventData = {
           ...data,
