@@ -33,8 +33,8 @@ export const useSectionManagement = () => {
   const sections: Section[] = useMemo(() => [
     {
       id: 'personal',
-      title: 'Personal Life',
-      subtitle: 'About Me & My Adventures',
+      title: 'Who I Am',
+      subtitle: 'A little about me, my journey, and what makes me tick.',
       position: { x: -1000, y: 0 },
       color: 'from-green-500 to-emerald-500',
       gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
@@ -43,8 +43,8 @@ export const useSectionManagement = () => {
     },
     {
       id: 'now',
-      title: 'What I\'m Doing Now',
-      subtitle: 'Current Focus & Plans',
+      title: 'What I\'m Up To',
+      subtitle: 'Current focus, projects, and what\'s on my plate lately.',
       position: { x: 1000, y: 1000 },
       color: 'from-yellow-500 to-amber-500',
       gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
@@ -53,8 +53,8 @@ export const useSectionManagement = () => {
     },
     {
       id: 'keto',
-      title: 'Meet Keto',
-      subtitle: 'My Beloved Cat',
+      title: 'My Cat, Keto',
+      subtitle: 'Yes, he\'s real. Yes, he runs the show here.',
       position: { x: 0, y: -1000 },
       color: 'from-purple-500 to-pink-500',
       gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
@@ -63,8 +63,8 @@ export const useSectionManagement = () => {
     },
     {
       id: 'hobbies',
-      title: 'Hobbies & Projects',
-      subtitle: 'What I Love To Do',
+      title: 'Just for Fun',
+      subtitle: 'Things I build, explore, and obsess over outside work.',
       position: { x: 0, y: 1000 },
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
@@ -73,8 +73,8 @@ export const useSectionManagement = () => {
     },
     {
       id: 'work',
-      title: 'Work',
-      subtitle: 'Current Job & Professional Life',
+      title: 'My Work Life',
+      subtitle: 'What I do professionally, and how I think about tech.',
       position: { x: 1000, y: 0 },
       color: 'from-blue-500 to-cyan-500',
       gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
@@ -83,8 +83,8 @@ export const useSectionManagement = () => {
     },
     {
       id: 'contact',
-      title: 'Contact Me',
-      subtitle: 'Let\'s Connect & Collaborate',
+      title: 'Let\'s Talk',
+      subtitle: 'Say hi, collaborate, or just share a meme.',
       position: { x: -1000, y: 1000 },
       color: 'from-indigo-500 to-violet-500',
       gradient: 'bg-gradient-to-br from-indigo-500/20 to-violet-500/20',

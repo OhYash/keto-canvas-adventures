@@ -57,17 +57,12 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
           <div className="flex items-center justify-center gap-3 mb-4">
             <Compass className="w-6 h-6 text-white" />
             <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-              Welcome to My Universe
+              👋 Hey, I'm Yash — welcome!
             </h1>
           </div>
           <p className="text-slate-300 text-sm sm:text-base mb-6">
-            Navigate through different dimensions of my life
+            Dive into the different sides of who I am - from code to curiosity, work to wanderlust
           </p>
-          <div className="bg-white/10 rounded-lg px-4 py-2 inline-block">
-            <p className="text-slate-300 text-xs">
-              Use arrow keys, tap cards, or drag to explore
-            </p>
-          </div>
         </div>
       </CardHeader>
 
@@ -95,7 +90,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
         </div>
 
         {/* Visit Statistics - Hidden but code preserved */}
-        {false && getTotalVisits() > 0 && (
+        {getTotalVisits() > 0 && (
           <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-xl p-4 border border-blue-500/30">
             <div className="flex items-center gap-2 mb-3">
               <Eye className="w-4 h-4 text-blue-400" />
@@ -140,24 +135,45 @@ const HomeSection: React.FC<HomeSectionProps> = ({ sections, onNavigateToSection
           </p>
         </div>
 
-        {/* Navigation Instructions */}
+        {/* Not sure where to start */}
         <div className="space-y-3">
-          <h3 className="text-base font-bold text-white text-center mb-4">Quick Navigation</h3>
-          <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="text-slate-300">Arrow Keys</div>
-              <div className="text-slate-400 text-xs">Keyboard navigation</div>
-            </div>
-            <div className="bg-white/5 rounded-lg p-3 text-center">
-              <div className="text-slate-300">Drag & Pan</div>
-              <div className="text-slate-400 text-xs">Mouse or touch</div>
-            </div>
+          <h3 className="text-base font-bold text-white text-center mb-4">Not sure where to start?</h3>
+          <div className="text-sm text-slate-300 space-y-3">
+            <p className="mb-3 text-center text-slate-400">Try these:</p>
+            <button
+              onClick={() => onNavigateToSection('personal')}
+              className="block w-full text-left bg-white/5 hover:bg-white/10 rounded-lg p-3 transition-colors duration-200 group"
+            >
+              <span className="text-slate-300 group-hover:text-white">👉 Just curious? </span>
+              <span className="text-blue-400 group-hover:text-blue-300 underline">Start with "Who I Am"</span>
+            </button>
+            <button
+              onClick={() => onNavigateToSection('work')}
+              className="block w-full text-left bg-white/5 hover:bg-white/10 rounded-lg p-3 transition-colors duration-200 group"
+            >
+              <span className="text-slate-300 group-hover:text-white">🧑‍💻 From LinkedIn? </span>
+              <span className="text-blue-400 group-hover:text-blue-300 underline">Check out "My Work Life"</span>
+            </button>
+            <button
+              onClick={() => onNavigateToSection('keto')}
+              className="block w-full text-left bg-white/5 hover:bg-white/10 rounded-lg p-3 transition-colors duration-200 group"
+            >
+              <span className="text-slate-300 group-hover:text-white">🐾 Followed for Keto? </span>
+              <span className="text-blue-400 group-hover:text-blue-300 underline">Say hi to him here</span>
+            </button>
+            <button
+              onClick={() => onNavigateToSection('hobbies')}
+              className="block w-full text-left bg-white/5 hover:bg-white/10 rounded-lg p-3 transition-colors duration-200 group"
+            >
+              <span className="text-slate-300 group-hover:text-white">🧪 Into side projects? </span>
+              <span className="text-blue-400 group-hover:text-blue-300 underline">See what I'm building</span>
+            </button>
           </div>
         </div>
 
         <div className="text-center pt-4">
           <Badge variant="secondary" className="text-xs bg-white/20 text-white hover:bg-white/30 px-4 py-2 border-0">
-            Press ESC to return home anytime
+            🌀 Lost? No worries—tap "Home" anytime to re-center.
           </Badge>
         </div>
       </CardContent>
