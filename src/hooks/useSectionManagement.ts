@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useVisitTracking } from './useVisitTracking';
 import { useUmamiTracking } from './useUmamiTracking';
 
@@ -22,6 +22,7 @@ interface Section {
 export const useSectionManagement = () => {
   const [currentSection, setCurrentSection] = useState<string>('home');
   const [navigationHistory, setNavigationHistory] = useState<string[]>(['home']);
+  const [screenDimensions, setScreenDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
   
   // Visit tracking hooks
   const { recordSectionVisit, getSectionVisits } = useVisitTracking();
@@ -30,84 +31,140 @@ export const useSectionManagement = () => {
   // Track navigation method for analytics
   const navigationMethodRef = useRef<'keyboard' | 'mouse' | 'direct'>('direct');
 
-  const sections: Section[] = useMemo(() => [
-    {
-      id: 'personal',
-      title: 'Who I Am',
-      subtitle: 'A little about me, my journey, and what makes me tick.',
-      position: { x: -1000, y: 0 },
-      color: 'from-green-500 to-emerald-500',
-      gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
-      icon: '🧍‍♂️',
-      direction: 'left'
-    },
-    {
-      id: 'now',
-      title: 'What I\'m Up To',
-      subtitle: 'Current focus, projects, and what\'s on my plate lately.',
-      position: { x: 1000, y: 1000 },
-      color: 'from-yellow-500 to-amber-500',
-      gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
-      icon: '⚡',
-      direction: 'down'
-    },
-    {
-      id: 'keto',
-      title: 'My Cat, Keto',
-      subtitle: 'Yes, he\'s real. Yes, he runs the show here.',
-      position: { x: 0, y: -1000 },
-      color: 'from-purple-500 to-pink-500',
-      gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
-      icon: '🐱',
-      direction: 'up'
-    },
-    {
-      id: 'hobbies',
-      title: 'Just for Fun',
-      subtitle: 'Things I build, explore, and obsess over outside work.',
-      position: { x: 0, y: 1000 },
-      color: 'from-orange-500 to-red-500',
-      gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
-      icon: '🎨',
-      direction: 'down'
-    },
-    {
-      id: 'work',
-      title: 'My Work Life',
-      subtitle: 'What I do professionally, and how I think about tech.',
-      position: { x: 1000, y: 0 },
-      color: 'from-blue-500 to-cyan-500',
-      gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
-      icon: '💼',
-      direction: 'right'
-    },
-    {
-      id: 'contact',
-      title: 'Let\'s Talk',
-      subtitle: 'Say hi, collaborate, or just share a meme.',
-      position: { x: -1000, y: 1000 },
-      color: 'from-indigo-500 to-violet-500',
-      gradient: 'bg-gradient-to-br from-indigo-500/20 to-violet-500/20',
-      icon: '📧',
-      direction: 'down'
-    }
-  ], []);
+  // Update screen dimensions on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
 
-  // Define all sections including projects subsection but excluding travel and work-experience
-  const allSections: Section[] = useMemo(() => [
-    ...sections,
-    {
-      id: 'projects',
-      title: 'Personal Projects',
-      subtitle: 'Code & Creativity',
-      position: { x: 0, y: 2000 },
-      color: 'from-indigo-500 to-purple-500',
-      gradient: 'bg-gradient-to-br from-indigo-500/20 to-purple-500/20',
-      icon: '🚀',
-      direction: 'down',
-      parent: 'hobbies'
-    }
-  ], [sections]);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Calculate responsive spacing based on screen size
+  const getResponsiveSpacing = useCallback(() => {
+    const baseSpacing = 1000;
+    const minSpacing = 800;
+    const maxSpacing = 1600;
+    
+    // Scale based on viewport width, with a reasonable range
+    // For 1080p (1920px): ~1000px spacing
+    // For 1440p (2560px): ~1333px spacing  
+    // For 4K (3840px): ~1600px spacing (capped)
+    const scaleFactor = Math.min(screenDimensions.width / 1920, maxSpacing / baseSpacing);
+    const spacing = Math.max(minSpacing, Math.min(maxSpacing, baseSpacing * scaleFactor));
+    
+    return Math.round(spacing);
+  }, [screenDimensions.width]);
+
+  const sections: Section[] = useMemo(() => {
+    const spacing = getResponsiveSpacing();
+    
+    return [
+      {
+        id: 'personal',
+        title: 'Who I Am',
+        subtitle: 'A little about me, my journey, and what makes me tick.',
+        position: { x: -spacing, y: 0 },
+        color: 'from-green-500 to-emerald-500',
+        gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20',
+        icon: '🧍‍♂️',
+        direction: 'left'
+      },
+      {
+        id: 'now',
+        title: 'What I\'m Up To',
+        subtitle: 'Current focus, projects, and what\'s on my plate lately.',
+        position: { x: spacing, y: spacing },
+        color: 'from-yellow-500 to-amber-500',
+        gradient: 'bg-gradient-to-br from-yellow-500/20 to-amber-500/20',
+        icon: '⚡',
+        direction: 'down'
+      },
+      {
+        id: 'keto',
+        title: 'My Cat, Keto',
+        subtitle: 'Yes, he\'s real. Yes, he runs the show here.',
+        position: { x: 0, y: -spacing },
+        color: 'from-purple-500 to-pink-500',
+        gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20',
+        icon: '🐱',
+        direction: 'up'
+      },
+      {
+        id: 'hobbies',
+        title: 'Just for Fun',
+        subtitle: 'Things I build, explore, and obsess over outside work.',
+        position: { x: 0, y: spacing },
+        color: 'from-orange-500 to-red-500',
+        gradient: 'bg-gradient-to-br from-orange-500/20 to-red-500/20',
+        icon: '🎨',
+        direction: 'down'
+      },
+      {
+        id: 'work',
+        title: 'My Work Life',
+        subtitle: 'What I do professionally, and how I think about tech.',
+        position: { x: spacing, y: 0 },
+        color: 'from-blue-500 to-cyan-500',
+        gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20',
+        icon: '💼',
+        direction: 'right'
+      },
+      {
+        id: 'contact',
+        title: 'Let\'s Talk',
+        subtitle: 'Say hi, collaborate, or just share a meme.',
+        position: { x: -spacing, y: spacing },
+        color: 'from-indigo-500 to-violet-500',
+        gradient: 'bg-gradient-to-br from-indigo-500/20 to-violet-500/20',
+        icon: '📧',
+        direction: 'down'
+      }
+    ];
+  }, [getResponsiveSpacing]);
+
+  // Define all sections including subsections with responsive positioning  
+  const allSections: Section[] = useMemo(() => {
+    const spacing = getResponsiveSpacing();
+    
+    return [
+      ...sections,
+      {
+        id: 'projects',
+        title: 'Personal Projects',
+        subtitle: 'Code & Creativity',
+        position: { x: 0, y: spacing * 2 },
+        color: 'from-indigo-500 to-purple-500',
+        gradient: 'bg-gradient-to-br from-indigo-500/20 to-purple-500/20',
+        icon: '🚀',
+        direction: 'down',
+        parent: 'hobbies'
+      },
+      {
+        id: 'travel',
+        title: 'Travel Stories',
+        subtitle: 'Adventures & Memories',
+        position: { x: -spacing * 2, y: 0 },
+        color: 'from-green-500 to-teal-500',
+        gradient: 'bg-gradient-to-br from-green-500/20 to-teal-500/20',
+        icon: '✈️',
+        direction: 'left',
+        parent: 'personal'
+      },
+      {
+        id: 'work-experience',
+        title: 'Work Experience',
+        subtitle: 'Professional Journey',
+        position: { x: spacing * 2, y: 0 },
+        color: 'from-blue-500 to-indigo-500',
+        gradient: 'bg-gradient-to-br from-blue-500/20 to-indigo-500/20',
+        icon: '💼',
+        direction: 'right',
+        parent: 'work'
+      }
+    ];
+  }, [sections, getResponsiveSpacing]);
 
   // Helper function to get the breadcrumb path for a section
   const getBreadcrumbPath = useCallback((sectionId: string): string[] => {
