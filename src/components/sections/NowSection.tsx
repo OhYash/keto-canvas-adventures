@@ -28,8 +28,14 @@ const NowSection: React.FC<NowSectionProps> = ({
     },
     {
       category: "Building",
-      item: "This infinite canvas website",
-      lastUpdated: "2025-08-08"
+      item: "AI-based Mental Health support app with a team of 5 people",
+      lastUpdated: "2025-08-25"
+    },
+    {
+      category: "Learning",
+      item: "Problem First AI course on Maven",
+      lastUpdated: "2025-08-25",
+      link: "https://maven.com/aishwarya-kiriti/genai-system-design"
     },
     {
       category: "Building",
@@ -118,9 +124,20 @@ const NowSection: React.FC<NowSectionProps> = ({
                       {plan.category}
                     </Badge>
                   </div>
-                  <p className="text-slate-900 font-semibold text-base leading-relaxed">
-                    {plan.item}
-                  </p>
+                  {plan.link ? (
+                    <a 
+                      href={plan.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2"
+                    >
+                      {plan.item}
+                    </a>
+                  ) : (
+                    <p className="text-slate-900 font-semibold text-base leading-relaxed">
+                      {plan.item}
+                    </p>
+                  )}
                 </div>
                 <div className="text-right">
                   <div className="text-xs text-slate-700 mb-1">
