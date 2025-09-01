@@ -23,18 +23,19 @@ const NowSection: React.FC<NowSectionProps> = ({
   const currentPlans = [
     {
       category: "Planning",
-      item: "Next travel with Schengen visa - exploring destinations",
-      lastUpdated: "2025-08-08"
+      item: "Going to travel to Seville, Montenegro and more in September-October",
+      lastUpdated: "2025-09-01"
     },
     {
       category: "Building",
-      item: "AI-based Mental Health support app with a team of 5 people",
-      lastUpdated: "2025-08-25"
+      item: "AI-based Mental Health support app with a team of 5 people - Demo accessible at mindcare-ai.surge.sh",
+      lastUpdated: "2025-09-01",
+      link: "https://mindcare-ai.surge.sh/"
     },
     {
       category: "Learning",
-      item: "Problem First AI course on Maven",
-      lastUpdated: "2025-08-25",
+      item: "Problem First AI course on Maven - Finished (3.5/5)",
+      lastUpdated: "2025-09-01",
       link: "https://maven.com/aishwarya-kiriti/genai-system-design"
     },
     {
@@ -44,8 +45,8 @@ const NowSection: React.FC<NowSectionProps> = ({
     },
     {
       category: "Running",
-      item: "Every Wednesday - crossed 10k last-to-last Wednesday",
-      lastUpdated: "2025-06-30"
+      item: "Every Wednesday - longest run so far is 11.2 KMs",
+      lastUpdated: "2025-09-01"
     }
   ];
 
