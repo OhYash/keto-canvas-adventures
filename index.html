@@ -20,6 +20,36 @@
   <body>
     <div id="root"></div>
     <script>
+      // GitHub Pages SPA redirect handler
+      // Decode the path from the 404 redirect and restore it using History API
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+
+      // Check for redirect parameter
+      (function() {
+        var query = window.location.search.substring(1);
+        var parts = query.split('&');
+        var redirect = null;
+
+        for (var i = 0; i < parts.length; i++) {
+          var param = parts[i].split('=');
+          if (param[0] === 'p') {
+            redirect = decodeURIComponent(param[1].replace(/~and~/g, '&'));
+            break;
+          }
+        }
+
+        if (redirect) {
+          sessionStorage.redirect = redirect;
+          history.replaceState(null, null, redirect);
+        }
+      })();
+
       // Only load Umami in production
       if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
         const script = document.createElement('script');
