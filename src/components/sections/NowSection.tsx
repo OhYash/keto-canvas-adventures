@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Calendar, Activity } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
+import nowData from '@/data/nowData.json';
 
 interface NowSectionProps {
   gradient: string;
@@ -20,35 +21,7 @@ const NowSection: React.FC<NowSectionProps> = ({
   subtitle,
   onNavigateHome,
 }) => {
-  const currentPlans = [
-    {
-      category: "Planning",
-      item: "Going to travel to Seville, Montenegro and more in September-October",
-      lastUpdated: "2025-09-01"
-    },
-    {
-      category: "Building",
-      item: "AI-based Mental Health support app with a team of 5 people - Demo accessible at mindcare-ai.surge.sh",
-      lastUpdated: "2025-09-01",
-      link: "https://mindcare-ai.surge.sh/"
-    },
-    {
-      category: "Learning",
-      item: "Problem First AI course on Maven - Finished (3.5/5)",
-      lastUpdated: "2025-09-01",
-      link: "https://maven.com/aishwarya-kiriti/genai-system-design"
-    },
-    {
-      category: "Building",
-      item: "Personal finance management app (reinventing the wheel :p)",
-      lastUpdated: "2025-08-08"
-    },
-    {
-      category: "Running",
-      item: "Every Wednesday - longest run so far is 11.2 KMs",
-      lastUpdated: "2025-09-01"
-    }
-  ];
+  const { currentPlans } = nowData;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
