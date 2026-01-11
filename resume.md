@@ -1,6 +1,6 @@
 # Yash Yadav
 
-**Senior Software Engineer**  
+**Senior Backend Engineer**  
 India | yashyadav.710@outlook.com | +91 810 427 1666 | [[LinkedIn]](https://linkedin.com/in/ohyash/) | https://ohya.sh/
 
 ---
@@ -10,14 +10,13 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 ---
 ## Experience
 
-**Senior Software Engineer – TestGorilla**
+**Senior Backend Engineer – TestGorilla**
 *Remote | October 2022 – Present*
 
-- Architected and delivered a high-complexity assessment system achieving zero customer support tickets and 99% production stability over 10 months, handling critical evaluation workflows for enterprise clients
-- Designed and implemented a "minimum-intrusiveness" architectural framework that unified two disparate applications without requiring system rewrites, saving months of engineering effort and reducing technical debt
-- Led operational excellence initiatives by formalizing department-wide release management processes and mentoring 3+ engineers to full autonomy, eliminating single points of failure in deployment cycles
-- Engineered the company's first Internationalization (i18n) support system to restore a core revenue-generating feature, resolving complex containerization and font rendering issues at the infrastructure level
-- Established technical design standards and PR review protocols that were formally adopted as corporate engineering benchmarks, improving code quality and team velocity across the organization
+- Architected high-complexity assessment system achieving zero support tickets and 99% stability over 10 months
+- Unified two disparate applications via "minimum-intrusiveness" framework, avoiding rewrites and saving months of effort
+- Built company's first i18n support, restoring core revenue feature by resolving containerization and font rendering issues
+- Formalized release management processes and mentored 3+ engineers to autonomy; established PR standards adopted company-wide
 
 **Software Engineer – Digital Guardian**
 *Remote (Hyderabad, India) | March 2021 – September 2022*
@@ -38,9 +37,9 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 ## Projects
 
 **AI-Powered Mental Health Platform**
-- Architected and developed secure backend systems for an AI-assisted mental health platform serving hospitals and therapists, supporting multi-role portals (Patient, Therapist, Admin) with role-based access control
-- Built HIPAA-compliant architecture using Supabase for secure data handling, OpenAI API for AI assistance, and scalable REST APIs designed for healthcare regulatory environments
-- Platform-agnostic AI integration enabling therapeutic workflow automation while maintaining strict patient data privacy and security standards
+- Built backend for AI-assisted mental health platform serving hospitals and therapists with multi-role portals (Patient, Therapist, Admin) and role-based access control
+- Designed with HIPAA compliance principles.
+- Integrated OpenAI API with Supabase for secure therapeutic workflow automation, maintaining strict patient data privacy standards
 
 ---
 ## Skills
@@ -49,14 +48,14 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 
 **Frameworks / Libraries**: Django, LangChain, Node.js, .NET/ASP.NET
 
-**Systems / Concepts**: RAG (Retrieval-Augmented Generation), Prompt Engineering, Vector Embeddings, Microservices Architecture, API Design, Performance Optimization
+**AI / ML Systems**: RAG (Retrieval-Augmented Generation), LangChain, Vector Embeddings, Prompt Engineering, OpenAI API
 
 **Cloud / Infra / Tools**: AWS, Docker, Git, OpenAI API, Supabase, NoSQL, CI/CD, PostgreSQL, Redis
 
 ---
 ## Education
 
-**B.Tech Computer Science** | CGPA: 8.69   
+**B.Tech in Computer Science** | CGPA: 8.69   
 *Lovely Professional University, Punjab, India | 2015 – 2019*
 
 ---
