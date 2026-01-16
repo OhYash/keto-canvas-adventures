@@ -52,12 +52,8 @@ const InfiniteCanvas = () => {
     if (sectionId === 'travel') {
       return 'travel';
     }
-    if (sectionId === 'work-experience') {
-      return 'work-experience';
-    }
-    
     // Check if it's a valid section
-    const validSections = ['personal', 'work', 'keto', 'hobbies', 'projects', 'now', 'contact', 'travel', 'work-experience'];
+    const validSections = ['personal', 'work', 'keto', 'hobbies', 'projects', 'now', 'contact', 'travel'];
     if (validSections.includes(sectionId)) {
       return sectionId;
     }

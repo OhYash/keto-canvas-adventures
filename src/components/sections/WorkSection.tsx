@@ -29,7 +29,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     location: "Remote",
     startDate: "October 2022",
     type: "Full-time",
-    description: "Fixed bugs and improved code test coverage while working on scalable assessment platform solutions."
+    description: "Building scalable, performance-critical assessment systems. Architecting solutions that maintain 99% production stability while mentoring engineers and establishing engineering standards adopted company-wide."
   };
 
   const careerJourney = [
@@ -38,8 +38,10 @@ const WorkSection: React.FC<WorkSectionProps> = ({
       company: "TestGorilla",
       period: "October 2022 - Present",
       achievements: [
-        "Fixed bugs and improved code test coverage",
-        "Enhanced assessment platform reliability"
+        "Architected high-complexity assessment system with zero support tickets and 99% stability over 10 months",
+        "Unified two disparate applications via \"minimum-intrusiveness\" framework, saving months of engineering effort",
+        "Engineered company's first i18n support, restoring core revenue feature by resolving containerization issues",
+        "Formalized release management and mentored 3+ engineers to autonomy; established PR standards adopted company-wide"
       ]
     },
     {
@@ -61,11 +63,10 @@ const WorkSection: React.FC<WorkSectionProps> = ({
       company: "MAQ Software Pvt. Ltd.",
       period: "April 2019 - March 2021",
       achievements: [
-        "Transformed monolithic architecture to microservices",
+        "Developed backend services for microservices-based web applications using Azure cloud-native technologies",
+        "Contributed to Microsoft's learning platform modularization initiative, supporting a rebuild-from-scratch architecture",
         "Subject Matter Expert for Mock/Unit testing",
-        "Developed Azure cloud web jobs",
-        "Created CI/CD pipelines",
-        "Developed multilingual HTML marketing emails"
+        "Created CI/CD pipelines and Azure cloud web jobs"
       ]
     },
     {
@@ -80,18 +81,18 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   ];
 
   const technicalSkills = [
-    { category: "Performance", skills: ["Performance Optimization", "Memory Management", "Profiling"] },
-    { category: "Architecture", skills: ["Microservices", "SDK Development", "System Design"] },
-    { category: "Cloud & DevOps", skills: ["Azure", "CI/CD Pipelines", "Web Jobs"] },
-    { category: "Development", skills: ["UI Development", "Testing Methodologies", "Bug Fixing"] },
+    { category: "Languages", skills: ["Python", "TypeScript", "C#", "SQL"] },
+    { category: "Frameworks", skills: ["Django", "LangChain", "Node.js", ".NET/ASP.NET"] },
+    { category: "AI / ML", skills: ["RAG", "Vector Embeddings", "Prompt Engineering", "OpenAI API"] },
+    { category: "Cloud & Infra", skills: ["AWS", "Docker", "PostgreSQL", "Redis", "CI/CD"] },
     { category: "Platforms", skills: ["Linux", "FreeBSD", "Windows"] }
   ];
 
   const dailyTasks = [
-    "Performance optimization and system reliability",
-    "Bug fixing and code quality improvements",
-    "Architecture design and implementation",
-    "Test coverage enhancement and code reviews"
+    "System architecture design and scalability planning",
+    "Code reviews and engineering standards enforcement",
+    "Performance optimization and reliability improvements",
+    "Mentoring engineers and knowledge sharing"
   ];
 
   const handleOpportunitiesClick = () => {

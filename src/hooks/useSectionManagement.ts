@@ -151,17 +151,6 @@ export const useSectionManagement = () => {
         icon: '✈️',
         direction: 'left',
         parent: 'personal'
-      },
-      {
-        id: 'work-experience',
-        title: 'Work Experience',
-        subtitle: 'Professional Journey',
-        position: { x: spacing * 2, y: 0 },
-        color: 'from-blue-500 to-indigo-500',
-        gradient: 'bg-gradient-to-br from-blue-500/20 to-indigo-500/20',
-        icon: '💼',
-        direction: 'right',
-        parent: 'work'
       }
     ];
   }, [sections, getResponsiveSpacing]);

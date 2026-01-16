@@ -19,7 +19,6 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/personal" element={<Index />} />
           <Route path="/work" element={<Index />} />
-          <Route path="/work-experience" element={<Index />} />
           <Route path="/keto" element={<Index />} />
           <Route path="/hobbies" element={<Index />} />
           <Route path="/projects" element={<Index />} />
