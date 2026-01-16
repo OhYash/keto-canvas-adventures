@@ -1,7 +1,7 @@
 # Yash Yadav
 
 **Senior Backend Engineer**  
-India | yashyadav.710@outlook.com | +91 810 427 1666 | [[LinkedIn]](https://linkedin.com/in/ohyash/) | https://ohya.sh/
+India | yashyadav.710@outlook.com | +91-81042 71666 | linkedin.com/in/ohyash/ | ohya.sh/
 
 ---
 ## Summary
@@ -10,22 +10,22 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 ---
 ## Experience
 
-**Senior Backend Engineer – TestGorilla**
-*Remote | October 2022 – Present*
+**Senior Backend Engineer – TestGorilla**  
+*Remote (Delhi, India) | October 2022 – Present*
 
 - Architected high-complexity assessment system achieving zero support tickets and 99% stability over 10 months
 - Unified two disparate applications via "minimum-intrusiveness" framework, avoiding rewrites and saving months of effort
-- Built company's first i18n support, restoring core revenue feature by resolving containerization and font rendering issues
+- Laid out company's initial i18n support, restoring core revenue feature by resolving containerization and font rendering issues
 - Formalized release management processes and mentored 3+ engineers to autonomy; established PR standards adopted company-wide
 
-**Software Engineer – Digital Guardian**
+**Software Engineer – Digital Guardian**  
 *Remote (Hyderabad, India) | March 2021 – September 2022*
 
 - Built a performance profiling library integrated into runtime products, identifying and achieving a 54% performance boost in production systems
 - Led the SDK port from Linux to FreeBSD, including ownership of Windows Agent maintenance, bug fixes, and feature enhancements
 - Resolved critical memory issues in the FreeBSD port, enabling compiler optimizations that delivered up to 70% performance improvement
 
-**Software Engineer 1 – MAQ Software**
+**Software Engineer – MAQ Software**  
 *Mumbai, India | April 2019 – March 2021*
 
 - Developed backend services for a microservices-based web application using Azure cloud-native technologies
@@ -40,6 +40,8 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 - Built backend for AI-assisted mental health platform serving hospitals and therapists with multi-role portals (Patient, Therapist, Admin) and role-based access control
 - Designed with HIPAA compliance principles.
 - Integrated OpenAI API with Supabase for secure therapeutic workflow automation, maintaining strict patient data privacy standards
+
+*Additional projects available at https://ohya.sh/projects*
 
 ---
 ## Skills
