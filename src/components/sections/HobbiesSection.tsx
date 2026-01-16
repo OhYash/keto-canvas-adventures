@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Palette, Music, Camera, Code, Gamepad2, Book, Terminal, Cpu, Bike, Activity } from 'lucide-react';
+import { ArrowLeft, Palette, Music, Camera, Code, Gamepad2, Book, Terminal, Cpu, Bike, Activity, Waves } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface HobbiesSectionProps {
@@ -42,10 +42,16 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
       tags: ["Motorcycle Reviews", "Track Days", "Riding Adventures", "Bike Tech"]
     },
     {
-      title: "Long Distance Running",
-      description: "Regular long runs to clear the mind and stay fit. There's something meditative about finding your rhythm on a long run.",
-      icon: <Activity className="w-5 h-5" />,
-      tags: ["Long Runs", "Endurance", "Fitness", "Mindfulness"]
+      title: "Surfing",
+      description: "New found interest! Took 4 lessons in Goa during the first week of the year. Managed to stand up a couple of times.",
+      icon: <Waves className="w-5 h-5" />,
+      tags: ["Surfing", "Goa", "Water Sports", "Learning"]
+    },
+    {
+      title: "Concerts",
+      description: "Love attending live concerts. Currently on a break from those, but always looking forward to the next one.",
+      icon: <Music className="w-5 h-5" />,
+      tags: ["Live Music", "Concerts", "Events"]
     }
   ];
 

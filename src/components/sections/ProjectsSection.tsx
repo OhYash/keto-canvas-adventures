@@ -29,6 +29,17 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     url?: string;
   }> = [
     {
+      title: "AI-Powered Mental Health Platform",
+      description: "Backend for AI-assisted mental health platform serving hospitals and therapists. Features multi-role portals (Patient, Therapist, Admin) with role-based access control, designed with HIPAA compliance principles. Integrated OpenAI API with Supabase for secure therapeutic workflow automation.",
+      technologies: ["Python", "OpenAI API", "Supabase", "HIPAA Compliance"],
+      url: "https://mindcare-ai.surge.sh/"
+    },
+    {
+      title: "Finance Compass (WIP)",
+      description: "Personal finance management app with multi-account support (bank, credit card, cash, investment). Features predefined category-based expense classification with hierarchical structure, budget planning and tracking with threshold-based alerts, and CSV import for transaction data.",
+      technologies: ["Personal Finance", "Budget Tracking", "Account Management"]
+    },
+    {
       title: "Tenor Cards",
       description: "Serverless web application for producing designer cards to share short messages. A lightweight platform for creating and sharing beautiful message cards.",
       technologies: ["HTML5", "CSS", "JavaScript", "Tailwind CSS"],
@@ -38,7 +49,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "Knowledge•Day",
       description: "Blog-cum-newsletter platform that brings uncommon knowledge in 3-minute reads. Features custom email newsletter functionality and educational content curation.",
       technologies: ["Jekyll", ".NET Core", "Email Platform"],
-      url: "https://knowledgeday.in/"
+      url: "https://kd_dev.surge.sh/"
     },
     {
       title: "Ava.js Test Library Enhancement",

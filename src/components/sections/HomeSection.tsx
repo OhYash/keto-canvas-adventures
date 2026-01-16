@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft } from "lucide-react";
 
 /**
  * TODO (Future work):
@@ -31,28 +31,28 @@ const compassLayout = {
     title: "Work",
     subtitle: "Projects & Experience",
     icon: "💼",
-    Arrow: ArrowUp,
+    Arrow: ArrowRight,
   },
   south: {
     id: "personal",
     title: "About Me",
     subtitle: "Background & Journey",
     icon: "🧠",
-    Arrow: ArrowDown,
+    Arrow: ArrowLeft,
   },
   east: {
     id: "contact",
     title: "Contact Me",
     subtitle: "Get in Touch",
     icon: "📡",
-    Arrow: ArrowRight,
+    Arrow: ArrowDownLeft,
   },
   west: {
     id: "now",
     title: "Now",
     subtitle: "What I'm Up To",
     icon: "⚡",
-    Arrow: ArrowLeft,
+    Arrow: ArrowDownRight,
   },
 };
 

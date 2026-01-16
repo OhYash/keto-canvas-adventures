@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, User, MapPin, Camera, Heart, Mail } from 'lucide-react';
+import { ArrowLeft, User, MapPin, Camera, Heart, Mail, Cat, Palette } from 'lucide-react';
 import { toast } from 'sonner';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
@@ -160,6 +160,42 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           </button>
         </div>
 
+        {/* Meet Keto */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <Cat className="w-5 h-5 text-slate-700" />
+            <h3 className="text-lg font-bold text-slate-900">Meet Keto</h3>
+          </div>
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
+            The furry companion who keeps me company. Come say hi!
+          </p>
+          <button
+            onClick={() => onNavigateToSection?.('keto')}
+            className="w-full px-4 py-2.5 bg-orange-500/20 hover:bg-orange-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-orange-400/30"
+          >
+            <Cat className="w-4 h-4" />
+            Meet Keto
+          </button>
+        </div>
+
+        {/* Hobbies */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <Palette className="w-5 h-5 text-slate-700" />
+            <h3 className="text-lg font-bold text-slate-900">Hobbies & Interests</h3>
+          </div>
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
+            What I do when I'm not working. From tech tinkering to outdoor adventures.
+          </p>
+          <button
+            onClick={() => onNavigateToSection?.('hobbies')}
+            className="w-full px-4 py-2.5 bg-purple-500/20 hover:bg-purple-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-purple-400/30"
+          >
+            <Palette className="w-4 h-4" />
+            View Hobbies
+          </button>
+        </div>
+
         {/* Contact Me */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3 mb-3">
@@ -169,7 +205,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           <p className="text-slate-700 text-sm leading-relaxed mb-3">
             Want to connect? Find all my contact information and social links in one place.
           </p>
-          <button 
+          <button
             onClick={() => onNavigateToSection?.('contact')}
             className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
           >
@@ -180,7 +216,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
 
         <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
           <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "Life is about collecting moments, not things. Every experience shapes who we become."
+            "Every little action of the common day makes or unmakes a character"
           </p>
         </div>
 

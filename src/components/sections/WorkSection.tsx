@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp, Code } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface WorkSectionProps {
@@ -243,6 +243,24 @@ const WorkSection: React.FC<WorkSectionProps> = ({
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Personal Projects Link */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <Code className="w-5 h-5 text-slate-700" />
+            <h3 className="text-lg font-bold text-slate-900">Personal Projects</h3>
+          </div>
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
+            Beyond work, I build side projects to explore new technologies and solve problems I care about.
+          </p>
+          <button
+            onClick={() => onNavigateToSection?.('projects')}
+            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
+          >
+            <Code className="w-4 h-4" />
+            View Personal Projects
+          </button>
         </div>
 
         <div className="text-center pt-3">
