@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp, Code } from 'lucide-react';
+import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp, Code, Download } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface WorkSectionProps {
@@ -263,14 +263,22 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           </button>
         </div>
 
-        <div className="text-center pt-3">
-          <Badge 
-            variant="secondary" 
+        <div className="flex items-center justify-center gap-4 pt-3">
+          <Badge
+            variant="secondary"
             className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 cursor-pointer"
             onClick={handleOpportunitiesClick}
           >
             Currently employed · Open to opportunities
           </Badge>
+          <a
+            href="/personal/Yash-resume-work.pdf"
+            download
+            className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-xs transition-colors"
+          >
+            <Download className="w-3 h-3" />
+            <span>Resume</span>
+          </a>
         </div>
       </CardContent>
     </Card>

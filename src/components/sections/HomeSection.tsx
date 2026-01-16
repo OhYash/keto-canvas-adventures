@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft, Download } from "lucide-react";
 
 /**
  * TODO (Future work):
@@ -140,6 +140,18 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               <south.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
             </div>
           </button>
+        </div>
+
+        {/* Resume Download */}
+        <div className="pt-2 flex justify-end">
+          <a
+            href="/personal/Yash-resume-work.pdf"
+            download
+            className="flex items-center gap-2 text-slate-400 hover:text-white text-xs transition-colors"
+          >
+            <Download className="w-3 h-3" />
+            <span>Download Resume</span>
+          </a>
         </div>
       </CardContent>
     </Card>
