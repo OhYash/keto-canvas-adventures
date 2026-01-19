@@ -1,7 +1,7 @@
 # Yash Yadav
 
 **Senior Backend Engineer**  
-India | yashyadav.710@outlook.com | +91-81042 71666 | linkedin.com/in/ohyash/ | ohya.sh/
+India | yashyadav.710@outlook.com | +91-81042 71666 | [linkedin.com/in/ohyash/](https://linkedin.com/in/ohyash/) | [ohya.sh/](https://ohya.sh/)
 
 ---
 ## Summary
@@ -31,7 +31,7 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 - Developed backend services for a microservices-based web application using Azure cloud-native technologies
 - Contributed to backend development for Microsoft's learning platform modularization initiative, supporting a rebuild-from-scratch architecture
 
-*Additional work experience available at https://ohya.sh/work*
+*Additional work experience available at [ohya.sh/work/](https://ohya.sh/work/)*
 
 ---
 ## Projects
@@ -41,7 +41,7 @@ Senior Backend Engineer with 7+ years building scalable, performance-critical sy
 - Designed with HIPAA compliance principles.
 - Integrated OpenAI API with Supabase for secure therapeutic workflow automation, maintaining strict patient data privacy standards
 
-*Additional projects available at https://ohya.sh/projects*
+*Additional projects available at [ohya.sh/projects/](https://ohya.sh/projects/)*
 
 ---
 ## Skills

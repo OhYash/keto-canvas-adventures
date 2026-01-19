@@ -142,7 +142,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
           </button>
         </div>
 
-        {/* Resume Download */}
+        {/* Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
         <div className="pt-2 flex justify-end">
           <a
             href="/personal/Yash-resume-work.pdf"
