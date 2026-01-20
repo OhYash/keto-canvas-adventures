@@ -272,7 +272,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             Currently employed · Open to opportunities
           </Badge>
           <a
-            href="/personal/Yash-resume-work.pdf"
+            href="/personal/Yash-resume-b.pdf"
             download
             className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-xs transition-colors"
           >
