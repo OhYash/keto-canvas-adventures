@@ -43,7 +43,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "Tenor Cards",
       description: "Serverless web application for producing designer cards to share short messages. A lightweight platform for creating and sharing beautiful message cards.",
       technologies: ["HTML5", "CSS", "JavaScript", "Tailwind CSS"],
-      url: "https://tenor.cards/"
+      url: "https://tenor-cards.surge.sh"
     },
     {
       title: "Knowledge•Day",
