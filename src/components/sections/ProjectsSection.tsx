@@ -37,7 +37,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     {
       title: "Finance Compass (WIP)",
       description: "Personal finance management app with multi-account support (bank, credit card, cash, investment). Features predefined category-based expense classification with hierarchical structure, budget planning and tracking with threshold-based alerts, and CSV import for transaction data.",
-      technologies: ["Personal Finance", "Budget Tracking", "Account Management"]
+      technologies: ["Personal Finance", "Budget Tracking", "Account Management"],
+      url: "https://finance-compass-dev.surge.sh/"
     },
     {
       title: "Tenor Cards",
