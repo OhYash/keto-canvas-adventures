@@ -1,3 +1,5 @@
+.PHONY: up build dist surge
+
 up: ## run the project
 	npm run dev
 
