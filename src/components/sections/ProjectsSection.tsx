@@ -163,17 +163,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           </button>
         </div>
 
-        <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
-          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "Every project is an opportunity to learn something new and create something meaningful."
-          </p>
-        </div>
-
-        <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
-            Always building · Always improving
-          </Badge>
-        </div>
       </CardContent>
     </Card>
   );

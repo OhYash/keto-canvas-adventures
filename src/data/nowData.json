@@ -1,36 +1,27 @@
 {
-  "lastUpdated": "2026-01-17",
+  "lastUpdated": "2026-05-23",
+  "teaser": "Alwar summer, heads-down at work, fresh keys to a Scrambler.",
   "currentPlans": [
     {
       "category": "Location",
-      "item": "Alwar. Working from home, it's winters. Peaceful.",
-      "lastUpdated": "2026-01-17"
+      "item": "Alwar. Working from home through the summer — days are hitting 43°C, and we just clocked the hottest May night on record at ~32°C.",
+      "lastUpdated": "2026-05-23"
     },
     {
-      "category": "Learning",
-      "item": "Keeping up with the daily flood of AI advancements.",
-      "lastUpdated": "2026-01-17"
+      "category": "Work",
+      "item": "Heads-down at work — in the middle of an intensive new-feature development cycle, and most of my focused hours are going here.",
+      "lastUpdated": "2026-05-23"
     },
     {
-      "category": "Building",
-      "item": "AI-based Mental Health support app with a team of 5 people - Demo accessible at mindcare-ai.surge.sh",
-      "lastUpdated": "2025-09-01",
-      "link": "https://mindcare-ai.surge.sh/"
+      "category": "Routine",
+      "item": "Trying to hit the gym in the morning.",
+      "lastUpdated": "2026-05-23"
     },
     {
-      "category": "Building",
-      "item": "The personal finance app I started is currently on the back burner. I'm letting it sit while I regain some creative energy.",
-      "lastUpdated": "2025-12-31"
-    },
-    {
-      "category": "Focus",
-      "item": "Trying to recalibrate my sleep schedule (3 AM nights have become too frequent) and re-introducing Pomodoro timers to manage screen fatigue.",
-      "lastUpdated": "2025-12-31"
-    },
-    {
-      "category": "Tech",
-      "item": "Recently switched to a Samsung Galaxy Fold 5. It is an interesting shift in form factor that I'm still getting used to.",
-      "lastUpdated": "2025-12-31"
+      "category": "Riding",
+      "item": "Picked up a Triumph Scrambler 400X. Rode the Distinguished Gentleman's Ride on May 17 — donations went to Movember for men's mental health.",
+      "lastUpdated": "2026-05-23",
+      "link": "https://www.gentlemansride.com/"
     }
   ]
 }

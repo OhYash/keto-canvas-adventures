@@ -25,19 +25,31 @@ const KetoSection: React.FC<KetoSectionProps> = ({
   const ketoTraits = [
     {
       title: "Personality",
-      description: "Keto is a beautiful golden Persian cat who's quite shy and afraid of people. Despite his timid nature, he has the most expressive eyes and a gentle soul."
+      description: "Keto is shy. He's afraid of basically everyone, including me sometimes. Golden Persian, gentle, big eyes, prefers the people who ignore him."
+    },
+    {
+      title: "Origin Story",
+      description: "Met my aunt at my grandmother's house — she asked if I wanted a cat. Who says no to a cat offer? He was at our door within 12 hours."
+    },
+    {
+      title: "The Name",
+      description: "Mom wanted to call him Kittu — Hindi nickname from kitten, despite him being a full-grown cat when we met. I countered with Keto. Sounds like the diet; has nothing to do with it."
     },
     {
       title: "Favorite Activities",
-      description: "Keto absolutely loves spending time on the terrace - it's his sanctuary. He hates going outside anywhere else but finds peace and joy in his terrace kingdom."
+      description: "The terrace is his entire winter world — sun, breeze, pigeons to plot against. By Alwar summer the heat keeps him cooped up inside, slipping into proper feline depression mode until the weather turns."
     },
     {
       title: "Daily Mission",
-      description: "Every single day, Keto attempts to catch pigeons on the terrace. Despite failing every time, he never gives up and approaches each attempt with the same determination."
+      description: "Every morning he tries to catch pigeons. Strike rate: 0%. Enthusiasm: undented."
+    },
+    {
+      title: "Co-Worker",
+      description: "Around 5 PM tea time he climbs onto my keyboard — his way of telling me work has had enough of my attention. If I step away, he claims the chair. Quiet, steady resistance to me getting too much done."
     },
     {
       title: "Life Lessons",
-      description: "Keto has taught me about perseverance through his daily pigeon-catching attempts. His unwavering dedication despite constant failure is a beautiful reminder to never give up on our dreams."
+      description: "If you have a safe square of ground you love and one thing you keep showing up for, that's most of the bar cleared."
     }
   ];
 

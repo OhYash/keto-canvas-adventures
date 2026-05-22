@@ -126,17 +126,6 @@ const NowSection: React.FC<NowSectionProps> = ({
           ))}
         </div>
 
-        <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
-          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "What I'm focused on right now, what's capturing my attention, and what I'm working towards."
-          </p>
-        </div>
-
-        <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
-            Updated regularly · Check back for changes
-          </Badge>
-        </div>
       </CardContent>
     </Card>
   );

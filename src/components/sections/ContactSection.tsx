@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Mail, MapPin, Github, Linkedin, MessageCircle, Twitter, Instagram } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
@@ -41,7 +40,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       label: "Email",
       value: emailRevealed ? atob("eWFzaHlhZGF2LjcxMEBvdXRsb29rLmNvbQ==") : "Click to reveal",
       action: handleEmailClick,
-      description: "Best for professional inquiries",
+      description: "Email me for the real stuff.",
       isBlurred: !emailRevealed
     },
     {
@@ -49,7 +48,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       label: "Telegram",
       value: "@OhYash",
       action: () => window.open("https://t.me/OhYash", '_blank'),
-      description: "Quick messages and calls"
+      description: "Telegram for everything else."
     }
   ];
 
@@ -111,18 +110,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {/* Profile Image */}
-        <div className="flex justify-center">
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-            <img 
-              src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=200&h=200&fit=crop&crop=face" 
-              alt="Contact profile" 
-              className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-full mx-auto mb-2"
-            />
-            <p className="text-xs text-slate-600 text-center">Ready to connect!</p>
-          </div>
-        </div>
-
         {/* Contact Methods */}
         <div className="space-y-4">
           <h2 className="text-lg font-bold text-slate-900 text-center">Get In Touch</h2>
@@ -203,18 +190,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </p>
         </div>
 
-        {/* Call to Action */}
-        <div className="bg-white/80 rounded-xl p-4 border border-slate-300/50">
-          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "I'm always excited to connect with like-minded people. Whether it's about work, travel, or just sharing stories - don't hesitate to reach out!"
-          </p>
-        </div>
-
-        <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
-            Let's build something amazing together
-          </Badge>
-        </div>
+        <p className="text-slate-600 text-sm text-center pt-2">
+          If any of this resonated, write.
+        </p>
       </CardContent>
     </Card>
   );

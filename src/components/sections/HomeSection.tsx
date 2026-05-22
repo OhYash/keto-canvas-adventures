@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft, Download } from "lucide-react";
+import nowData from "@/data/nowData.json";
 
 /**
  * TODO (Future work):
@@ -29,28 +30,28 @@ const compassLayout = {
   north: {
     id: "work",
     title: "Work",
-    subtitle: "Projects & Experience",
+    subtitle: "Senior backend engineer at TestGorilla.",
     icon: "💼",
     Arrow: ArrowRight,
   },
   south: {
     id: "personal",
     title: "About Me",
-    subtitle: "Background & Journey",
+    subtitle: "A little about me, my journey, and what makes me tick.",
     icon: "🧠",
     Arrow: ArrowLeft,
   },
   east: {
     id: "contact",
-    title: "Contact Me",
-    subtitle: "Get in Touch",
+    title: "Say hi",
+    subtitle: "Email, Telegram, or just lurk.",
     icon: "📡",
     Arrow: ArrowDownLeft,
   },
   west: {
     id: "now",
-    title: "Now",
-    subtitle: "What I'm Up To",
+    title: "Right now",
+    subtitle: nowData.teaser,
     icon: "⚡",
     Arrow: ArrowDownRight,
   },
@@ -64,11 +65,10 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
       <CardHeader className="pb-8">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            I'm Yash. This is my Digital Brain.
+            I'm Yash — a backend engineer at TestGorilla.
           </h1>
           <p className="text-slate-400 text-sm">
-            A non-linear portfolio. Navigate spatially to explore my work, my
-            interests, and what I'm building right now.
+            This is my Digital Brain. Pick a direction.
           </p>
         </div>
       </CardHeader>
@@ -141,6 +141,10 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
             </div>
           </button>
         </div>
+
+        <p className="text-slate-500 text-[11px] text-center pt-1">
+          tip: ↑ ↓ ← → to explore, or just click
+        </p>
 
         {/* Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
         <div className="pt-2 flex justify-end">

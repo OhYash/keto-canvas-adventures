@@ -89,10 +89,10 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   ];
 
   const dailyTasks = [
-    "System architecture design and scalability planning",
-    "Code reviews and engineering standards enforcement",
-    "Performance optimization and reliability improvements",
-    "Mentoring engineers and knowledge sharing"
+    "Reviewing a PR and pushing back on a half-baked API contract",
+    "Fixing something I shipped on Friday",
+    "Mentoring an engineer through a tricky refactor",
+    "Drawing boxes and arrows for a system that's about to get bigger"
   ];
 
   const handleOpportunitiesClick = () => {
@@ -234,7 +234,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
 
         {/* Daily Responsibilities */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-          <h3 className="text-lg font-bold text-slate-900 mb-3">Daily Responsibilities</h3>
+          <h3 className="text-lg font-bold text-slate-900 mb-3">On a normal Tuesday</h3>
           <ul className="space-y-2">
             {dailyTasks.map((task, index) => (
               <li key={index} className="flex items-start gap-2 text-sm text-slate-700">

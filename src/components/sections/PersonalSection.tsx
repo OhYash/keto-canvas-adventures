@@ -1,9 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, User, MapPin, Camera, Heart, Mail, Cat, Palette } from 'lucide-react';
-import { toast } from 'sonner';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface PersonalSectionProps {
@@ -47,7 +45,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
       icon: <Heart className="w-4 h-4" />,
       items: [
         { label: "🏋🏽‍♂️", value: "Gym" },
-        { label: "🏃‍♂️", value: "Runs on wednesdays" },
+        { label: "🏃‍♂️", value: "Runs on Wednesdays" },
       ]
     },
     {
@@ -62,10 +60,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
   ];
 
   const handleTravelStoriesClick = () => {
-    toast.info("Travel Stories are not available at the moment", {
-      description: "I'm preparing the stories and photos for you to see.",
-      duration: 3000,
-    });
+    onNavigateToSection?.('travel');
   };
 
 
@@ -103,12 +98,11 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         {/* Profile Image Section */}
         <div className="flex justify-center">
           <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-            <img 
-              src="/personal/yash_loading_dp.jpg" 
-              alt="Full body profile" 
-              className="w-28 h-40 sm:w-32 sm:h-48 object-cover rounded-lg mx-auto mb-2"
+            <img
+              src="/personal/yash_loading_dp.jpg"
+              alt="Full body profile"
+              className="w-28 h-40 sm:w-32 sm:h-48 object-cover rounded-lg mx-auto"
             />
-            <p className="text-xs text-slate-600 text-center">Its a me!</p>
           </div>
         </div>
         
@@ -214,17 +208,6 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           </button>
         </div>
 
-        <div className="mt-4 p-4 bg-white/80 rounded-xl border border-slate-300/50">
-          <p className="text-slate-700 text-sm italic text-center leading-relaxed">
-            "Every little action of the common day makes or unmakes a character"
-          </p>
-        </div>
-
-        <div className="text-center pt-3">
-          <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2">
-            Always exploring · Always learning
-          </Badge>
-        </div>
       </CardContent>
     </Card>
   );
