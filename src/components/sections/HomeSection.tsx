@@ -149,7 +149,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
         {/* Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
         <div className="pt-2 flex justify-end">
           <a
-            href="/personal/Yash-resume-s.pdf"
+            href="/personal/Yash-resume-s2.pdf"
             download
             className="flex items-center gap-2 text-slate-400 hover:text-white text-xs transition-colors"
           >
