@@ -1,0 +1,89 @@
+# OhYa.sh Portfolio — Development Tracker
+Last updated: 2026-07-08
+
+This is the ONLY place for work items (see CLAUDE.md). Sections: DONE, PENDING,
+NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
+Content critiques and research live in dev/research/, referenced from items here.
+
+---
+
+## DONE
+
+### Infrastructure & Code
+- [x] Infinite canvas system — InfiniteCanvas + useViewport / useSectionManagement /
+      useCanvasEvents / useGridNavigation hook split
+- [x] GitHub Pages deploy on push to main (.github/workflows/deploy.yml); surge preview via `make surge`
+- [x] Visitor tracking — useVisitTracking hook, localStorage-backed
+- [x] Canvas borders / always able to return home (2025-06-28)
+- [x] Prevent canvas movement while scrolling on phone (2025-06-28)
+- [x] Contact page with email protection, social handles, and Telegram link
+- [x] Now section content-as-data — src/data/nowData.json + HOW_TO_UPDATE_NOW.md
+- [x] Page title ("OhYa.sh – Everything Yash. Filtered.")
+- [x] Resume variants in repo; download links point to s2 variant
+
+### Content & Voice (from the 2025-05-23 voice audit — dev/research/)
+- [x] Travel Stories shipped — "not available" toast removed, section reachable
+- [x] Boilerplate purge — "Always X · Always Y" badges and fortune-cookie quotes
+      removed (Keto's quote intentionally kept)
+- [x] Contact section stock photo / "Ready to connect!" removed
+- [x] Welcoming text refactor on home (commit 978c737)
+
+---
+
+## PENDING
+
+### Content
+- [ ] Replace Unsplash stock photos with real Keto pics — KetoSection.tsx and
+      DetailedStoryView.tsx still use unsplash URLs; biggest credibility leak on the site
+- [ ] Rewrite travel stories in DetailedStoryView.tsx with real first-person memories
+      (one specific thing, one weird thing, one thing that went wrong) — or cut
+      destinations not actually visited (see NEEDS INPUT)
+- [ ] Add real projects to ProjectsSection
+- [ ] Update personal profile content
+- [ ] Update work experience (current and past roles)
+- [ ] Add page for Ataco (see NEEDS INPUT)
+
+### Code
+- [ ] Page-flow tracking — which direction visitors pan/navigate; integration point is
+      updateCurrentSection in useSectionManagement (see LEARNINGS)
+- [ ] Subsection discoverability — Travel (under Personal), Projects (under Hobbies) are
+      invisible until you're inside the parent; add "deeper ↓ / more →" micro-hints on
+      parent cards
+- [ ] Surface the good subtitles from useSectionManagement's sections array onto the
+      homepage cards (voice exists in the data layer, hidden from the home screen)
+- [ ] Add chain in each direction — go deeper than one subsection level
+- [ ] Extract remaining hard-coded content (work, personal, projects) into src/data/
+      like nowData.json — prerequisite for easy content updates
+- [ ] Quality gate — add `npx tsc --noEmit` + lint as pre-commit habit; no test setup
+      exists yet (vitest later, if ever)
+- [ ] Refactor ContactSection.tsx (~217 lines) into smaller components
+- [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
+- [ ] Add error boundaries around section rendering
+
+---
+
+## NEEDS INPUT
+- Ataco page — what is the content/purpose? Blocked on owner.
+- Travel stories — which destinations have you actually visited? Needed to decide
+  rewrite vs. cut per story.
+- "Recently" rule — Now items older than ~2 months should drop the word "recently";
+  adopt as a content rule?
+
+---
+
+## LEARNINGS
+- Touch events conflict with browser navigation/scroll on mobile — canvas panning must
+  stand down while the user is scrolling; be careful with preventDefault in useCanvasEvents.
+- All navigation flows through updateCurrentSection in useSectionManagement — the single
+  integration point for any tracking or navigation feature.
+- Voice is the product: specific first-person copy ("Tall skinny fat, slight athletic",
+  the Now section) is what works; template phrasing reads as Lovable boilerplate.
+  Full critiques: dev/research/23May26_claude_idea.md and 23May26_gemini_ideas.txt.
+- Axis mental model for future sections: professional content on the horizontal axis,
+  personal on the vertical. Don't rearrange existing sections; apply when adding new ones.
+
+---
+
+## PLANS
+None yet. Create dev/plans/<slug>.md before non-trivial multi-step work
+(template in dev/Agents.md) and list it here.
