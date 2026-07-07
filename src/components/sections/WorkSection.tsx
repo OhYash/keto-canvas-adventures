@@ -29,7 +29,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     location: "Remote",
     startDate: "October 2022",
     type: "Full-time",
-    description: "Building scalable, performance-critical assessment systems. Architecting solutions that maintain 99% production stability while mentoring engineers and establishing engineering standards adopted company-wide."
+    description: "Owning a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden. Taking features from 0 to 1, driving architectural decisions under real product constraints, and shipping reliable systems with minimal operational overhead."
   };
 
   const careerJourney = [
@@ -38,10 +38,13 @@ const WorkSection: React.FC<WorkSectionProps> = ({
       company: "TestGorilla",
       period: "October 2022 - Present",
       achievements: [
-        "Architected high-complexity assessment system with zero support tickets and 99% stability over 10 months",
-        "Unified two disparate applications via \"minimum-intrusiveness\" framework, saving months of engineering effort",
-        "Engineered company's first i18n support, restoring core revenue feature by resolving containerization issues",
-        "Formalized release management and mentored 3+ engineers to autonomy; established PR standards adopted company-wide"
+        "Own a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden",
+        "Designed the self-serve assessment flow, shifting the platform from customer-initiated to candidate-initiated — scaled to 52K+ candidates at a 78% completion rate with near-zero post-launch defects",
+        "Engineered company's first localization support, resolving container-level font rendering, PDF generation, and headless Chrome issues that were blocking international expansion",
+        "Designed feature-flag-driven cohorts and A/B testing infrastructure, enabling faster experimentation without redeployments",
+        "Raised and addressed security risks in identity verification workflows; proposed multi-layered account-blocking measures to reduce fraud",
+        "Solo-built a fully functional ATS demo integrated with the TestGorilla app in a 2-day company-wide hackathon",
+        "Winner of the company-wide Ideathon (Croatia, 2024); formalized release management and mentored 3+ engineers to autonomy with PR standards adopted company-wide"
       ]
     },
     {
