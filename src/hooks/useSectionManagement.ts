@@ -151,6 +151,17 @@ export const useSectionManagement = () => {
         icon: '✈️',
         direction: 'left',
         parent: 'personal'
+      },
+      {
+        id: 'ataco',
+        title: 'Ataco',
+        subtitle: 'My first motorcycle — a khaki green Triumph Scrambler 400X.',
+        position: { x: 0, y: -spacing * 2 },
+        color: 'from-lime-500 to-emerald-600',
+        gradient: 'bg-gradient-to-br from-lime-500/20 to-emerald-600/20',
+        icon: '🏍️',
+        direction: 'up',
+        parent: 'keto'
       }
     ];
   }, [sections, getResponsiveSpacing]);

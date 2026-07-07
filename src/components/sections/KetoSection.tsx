@@ -11,6 +11,7 @@ interface KetoSectionProps {
   title: string;
   subtitle: string;
   onNavigateHome: () => void;
+  onNavigateToSection?: (sectionId: string) => void;
 }
 
 const KetoSection: React.FC<KetoSectionProps> = ({
@@ -19,6 +20,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
   title,
   subtitle,
   onNavigateHome,
+  onNavigateToSection,
 }) => {
   const [showRunningCat, setShowRunningCat] = useState(false);
 
@@ -153,6 +155,13 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               Golden Persian · Terrace King · Professional Pigeon Stalker
             </Badge>
           </div>
+
+          <button
+            onClick={() => onNavigateToSection?.('ataco')}
+            className="w-full bg-white/80 hover:bg-white/95 rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/60 transition-all duration-200 hover:shadow-md text-sm text-slate-700"
+          >
+            Keto isn't the only one around here with a name — meet Ataco ↑
+          </button>
         </CardContent>
       </Card>
     </>

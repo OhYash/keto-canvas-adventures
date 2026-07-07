@@ -7,6 +7,7 @@ import HobbiesSection from '../sections/HobbiesSection';
 import HomeSection from '../sections/HomeSection';
 import NowSection from '../sections/NowSection';
 import TravelStoriesSection from '../sections/TravelStoriesSection';
+import AtacoSection from '../sections/AtacoSection';
 import ContactSection from '../sections/ContactSection';
 
 interface Position {
@@ -53,7 +54,9 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       case 'personal':
         return <PersonalSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'keto':
-        return <KetoSection {...commonProps} />;
+        return <KetoSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+      case 'ataco':
+        return <AtacoSection {...commonProps} />;
       case 'hobbies':
         return <HobbiesSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'projects':

@@ -34,6 +34,8 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
       projects: 'Personal Projects',
       now: 'What I\'m Doing Now',
       contact: 'Contact Me',
+      travel: 'Travel Stories',
+      ataco: 'Ataco',
     };
     return sectionNames[sectionId] || sectionId;
   };

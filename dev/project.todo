@@ -27,6 +27,9 @@ Content critiques and research live in dev/research/, referenced from items here
       removed (Keto's quote intentionally kept)
 - [x] Contact section stock photo / "Ready to connect!" removed
 - [x] Welcoming text refactor on home (commit 978c737)
+- [x] Ataco page shipped (2026-07-08) — subsection behind Keto at (0, -2000),
+      content in src/data/atacoData.ts from dev/research/ataco-page-content.md,
+      photo placeholders until real pics arrive; plan: dev/plans/ataco-page.md
 
 ---
 
@@ -41,7 +44,8 @@ Content critiques and research live in dev/research/, referenced from items here
 - [ ] Add real projects to ProjectsSection
 - [ ] Update personal profile content
 - [ ] Update work experience (current and past roles)
-- [ ] Add page for Ataco (see NEEDS INPUT)
+- [ ] Swap Ataco photo placeholders for real pics — owner is supplying photos;
+      captions/slots live in src/data/atacoData.ts (atacoPhotoSlots)
 
 ### Code
 - [ ] Page-flow tracking — which direction visitors pan/navigate; integration point is
@@ -63,7 +67,6 @@ Content critiques and research live in dev/research/, referenced from items here
 ---
 
 ## NEEDS INPUT
-- Ataco page — what is the content/purpose? Blocked on owner.
 - Travel stories — which destinations have you actually visited? Needed to decide
   rewrite vs. cut per story.
 - "Recently" rule — Now items older than ~2 months should drop the word "recently";
@@ -81,6 +84,11 @@ Content critiques and research live in dev/research/, referenced from items here
   Full critiques: dev/research/23May26_claude_idea.md and 23May26_gemini_ideas.txt.
 - Axis mental model for future sections: professional content on the horizontal axis,
   personal on the vertical. Don't rearrange existing sections; apply when adding new ones.
+- Adding a section takes FOUR registration points: useSectionManagement's array,
+  an App.tsx route above the catch-all, InfiniteCanvas's validSections list, and
+  NavigationBreadcrumb's sectionNames map. Missing the route or validSections fails
+  silently at build time and 404s at runtime — verify in a browser
+  (.claude/skills/verify/SKILL.md has the recipe).
 
 ---
 
