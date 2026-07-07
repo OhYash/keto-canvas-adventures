@@ -16,10 +16,12 @@ npm run preview &             # serves dist at http://localhost:4173
 ```
 
 Browser: **puppeteer-core + system Firefox** (no Playwright/Chromium downloads —
-owner preference). Install `puppeteer-core` in the scratchpad, then:
+owner preference). puppeteer-core is installed globally on this machine; full recipe
+in ~/.claude/CLAUDE.md. Short form:
 
 ```js
-import puppeteer from 'puppeteer-core';
+import { createRequire } from 'node:module';
+const puppeteer = createRequire(`${process.env.HOME}/.npm-global/lib/node_modules/`)('puppeteer-core');
 const browser = await puppeteer.launch({
   browser: 'firefox', executablePath: '/usr/bin/firefox', headless: true,
 });
