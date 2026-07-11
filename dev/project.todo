@@ -19,6 +19,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Contact page with email protection, social handles, and Telegram link
 - [x] Now section content-as-data — src/data/nowData.json + HOW_TO_UPDATE_NOW.md
 - [x] Page title ("OhYa.sh – Everything Yash. Filtered.")
+- [x] Order INR Finance Compass first in ProjectsSection projects list (2026-07-10)
 - [x] Resume variants in repo; download links point to s2 variant
 
 ### Content & Voice (from the 2025-05-23 voice audit — dev/research/)
