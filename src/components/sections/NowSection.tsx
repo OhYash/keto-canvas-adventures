@@ -12,6 +12,7 @@ interface NowSectionProps {
   title: string;
   subtitle: string;
   onNavigateHome: () => void;
+  onNavigateToSection: (sectionId: string) => void;
 }
 
 const NowSection: React.FC<NowSectionProps> = ({
@@ -20,6 +21,7 @@ const NowSection: React.FC<NowSectionProps> = ({
   title,
   subtitle,
   onNavigateHome,
+  onNavigateToSection,
 }) => {
   const { currentPlans } = nowData;
 
@@ -98,10 +100,17 @@ const NowSection: React.FC<NowSectionProps> = ({
                       {plan.category}
                     </Badge>
                   </div>
-                  {plan.link ? (
-                    <a 
-                      href={plan.link} 
-                      target="_blank" 
+                  {plan.internalTarget ? (
+                    <button
+                      onClick={() => onNavigateToSection(plan.internalTarget)}
+                      className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2 text-left"
+                    >
+                      {plan.item}
+                    </button>
+                  ) : plan.link ? (
+                    <a
+                      href={plan.link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2"
                     >

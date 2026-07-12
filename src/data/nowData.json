@@ -1,27 +1,37 @@
 {
-  "lastUpdated": "2026-05-23",
-  "teaser": "Alwar summer, heads-down at work, fresh keys to a Scrambler.",
+  "lastUpdated": "2026-07-12",
+  "teaser": "Alwar for now, Europe-bound by September, building Finance Compass on the side.",
   "currentPlans": [
     {
       "category": "Location",
-      "item": "Alwar. Working from home through the summer — days are hitting 43°C, and we just clocked the hottest May night on record at ~32°C.",
-      "lastUpdated": "2026-05-23"
+      "item": "In Alwar, but deciding where to base for one month starting August — Singapore or somewhere else in India — before the trip in September.",
+      "lastUpdated": "2026-07-12"
+    },
+    {
+      "category": "Travel",
+      "item": "Planning a longer trip — Europe, then a continent I haven't been to yet, starting mid-September.",
+      "lastUpdated": "2026-07-12"
+    },
+    {
+      "category": "Building",
+      "item": "Building Finance Compass, a personal finance app — eventually aiming to take it to a startup. More details in Projects.",
+      "lastUpdated": "2026-07-12",
+      "internalTarget": "projects"
     },
     {
       "category": "Work",
-      "item": "Heads-down at work — in the middle of an intensive new-feature development cycle, and most of my focused hours are going here.",
-      "lastUpdated": "2026-05-23"
-    },
-    {
-      "category": "Routine",
-      "item": "Trying to hit the gym in the morning.",
-      "lastUpdated": "2026-05-23"
+      "item": "Work's steady — nothing out of the ordinary right now.",
+      "lastUpdated": "2026-07-12"
     },
     {
       "category": "Riding",
-      "item": "Picked up a Triumph Scrambler 400X. Rode the Distinguished Gentleman's Ride on May 17 — donations went to Movember for men's mental health.",
-      "lastUpdated": "2026-05-23",
-      "link": "https://www.gentlemansride.com/"
+      "item": "Still on the Scrambler 400X — weekend rides, nothing major. No group ride on the calendar right now.",
+      "lastUpdated": "2026-07-12"
+    },
+    {
+      "category": "Routine",
+      "item": "Try for the gym in the morning, mostly end up going in the evening.",
+      "lastUpdated": "2026-07-12"
     }
   ]
 }

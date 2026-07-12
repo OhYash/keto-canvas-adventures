@@ -62,7 +62,7 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       case 'projects':
         return <ProjectsSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'now':
-        return <NowSection {...commonProps} />;
+        return <NowSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'travel':
         return <TravelStoriesSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'contact':

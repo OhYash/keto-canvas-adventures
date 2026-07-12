@@ -37,6 +37,10 @@ Content critiques and research live in dev/research/, referenced from items here
       Compass project blurb with the AI-native "financial context" narrative
       (ProjectsSection.tsx); added Languages card (Hindi/English/German) to
       PersonalSection "About Me" grid
+- [x] Now section refresh (2026-07-12): new Location/Travel/Finance Compass/Work/
+      Riding/Routine content; added internal-nav support to NowSection (a plan item
+      can carry `internalTarget` to pan to another section instead of an external
+      link) — SectionRenderer now passes onNavigateToSection into NowSection
 
 ---
 
