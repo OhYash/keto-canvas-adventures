@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-07-10
+Last updated: 2026-07-12
 
 This is the ONLY place for work items (see CLAUDE.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -28,6 +28,8 @@ Content critiques and research live in dev/research/, referenced from items here
       removed (Keto's quote intentionally kept)
 - [x] Contact section stock photo / "Ready to connect!" removed
 - [x] Welcoming text refactor on home (commit 978c737)
+- [x] Home headline reframed to founder-forward voice (2026-07-12): "I'm Yash.
+      Engineer today, founder in progress." — earned by the Projects card below it
 - [x] Ataco page shipped (2026-07-08) — subsection behind Keto at (0, -2000),
       content in src/data/atacoData.ts from dev/research/ataco-page-content.md,
       photo placeholders until real pics arrive; plan: dev/plans/ataco-page.md

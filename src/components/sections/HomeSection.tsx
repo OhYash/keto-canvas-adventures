@@ -74,7 +74,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
       <CardHeader className="pb-8">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            I'm Yash — a backend engineer at TestGorilla.
+            I'm Yash. Engineer today, founder in progress.
           </h1>
           <p className="text-slate-400 text-sm">
             This is my Digital Brain. Pick a direction.
