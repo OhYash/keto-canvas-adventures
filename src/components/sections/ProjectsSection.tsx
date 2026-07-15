@@ -29,16 +29,16 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     url?: string;
   }> = [
     {
+      title: "INR Finance Compass (WIP)",
+      description: "The AI-native personal finance platform I wish I'd had — one place that understands your whole financial life (bank, cards, cash, investments, long-horizon goals), not just what a bank balance says. Much like Claude Code is more useful because it grasps a whole codebase instead of isolated snippets, it builds full financial context before offering guidance. Self-hosted and INR-primary, with atomic ledger-derived balances and a live dashboard; budgeting, CSV import, and recurring transactions in progress.",
+      technologies: ["React", "TypeScript", "Supabase", "AI-Native"],
+      url: "https://finance-compass-dev.surge.sh/"
+    },
+    {
       title: "AI-Powered Mental Health Platform",
       description: "Backend for AI-assisted mental health platform serving hospitals and therapists. Features multi-role portals (Patient, Therapist, Admin) with role-based access control, designed with HIPAA compliance principles. Integrated OpenAI API with Supabase for secure therapeutic workflow automation.",
       technologies: ["Python", "OpenAI API", "Supabase", "HIPAA Compliance"],
       url: "https://mindcare-ai.surge.sh/"
-    },
-    {
-      title: "Finance Compass (WIP)",
-      description: "Personal finance management app with multi-account support (bank, credit card, cash, investment). Features predefined category-based expense classification with hierarchical structure, budget planning and tracking with threshold-based alerts, and CSV import for transaction data.",
-      technologies: ["Personal Finance", "Budget Tracking", "Account Management"],
-      url: "https://finance-compass-dev.surge.sh/"
     },
     {
       title: "Tenor Cards",

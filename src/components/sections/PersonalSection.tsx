@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { ArrowLeft, User, MapPin, Camera, Heart, Mail, Cat, Palette } from 'lucide-react';
+import { ArrowLeft, User, MapPin, Camera, Heart, Mail, Cat, Palette, Languages } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
 
 interface PersonalSectionProps {
@@ -55,6 +55,15 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         { label: "🌅", value: "Late riser" },
         { label: "🎵", value: "Rock and Metal" },
         { label: "🌍", value: "Travel enthusiast" }
+      ]
+    },
+    {
+      title: "Languages",
+      icon: <Languages className="w-4 h-4" />,
+      items: [
+        { label: "Hindi", value: "Professional" },
+        { label: "English", value: "Professional" },
+        { label: "German", value: "Elementary" }
       ]
     }
   ];

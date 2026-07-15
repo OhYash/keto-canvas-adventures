@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft, Download } from "lucide-react";
+import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft, ArrowUpRight, Download } from "lucide-react";
 import nowData from "@/data/nowData.json";
 
 /**
@@ -57,6 +57,15 @@ const compassLayout = {
   },
 };
 
+// Sits below Work (north): personal projects, headlined by the WIP build.
+const projects = {
+  id: "projects",
+  title: "Projects",
+  subtitle: "INR Finance Compass — in active development.",
+  icon: "🛠️",
+  Arrow: ArrowUpRight,
+};
+
 const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
   const { north, south, east, west } = compassLayout;
 
@@ -65,7 +74,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
       <CardHeader className="pb-8">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            I'm Yash — a backend engineer at TestGorilla.
+            I'm Yash. Engineer today, founder in progress.
           </h1>
           <p className="text-slate-400 text-sm">
             This is my Digital Brain. Pick a direction.
@@ -90,6 +99,23 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
                 </div>
               </div>
               <north.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
+            </div>
+          </button>
+
+          {/* PROJECTS — below Work */}
+          <button
+            onClick={() => onNavigateToSection(projects.id)}
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-xl">{projects.icon}</span>
+                <div className="text-left">
+                  <h3 className="font-bold text-white text-sm">{projects.title}</h3>
+                  <p className="text-slate-400 text-xs">{projects.subtitle}</p>
+                </div>
+              </div>
+              <projects.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
             </div>
           </button>
 
