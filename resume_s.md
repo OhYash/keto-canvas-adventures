@@ -5,60 +5,54 @@ India | yashyadav.710@outlook.com | +91-81042 71666 | [linkedin.com/in/ohyash/](
 
 ---
 ## Summary
-Product-minded Senior Backend Engineer with 7+ years of experience in high-growth startups. Expert at taking features from 0 to 1, resolving mission-critical technical blockers, and building AI-integrated platforms. Remote-first specialist with a focus on speed, quality, and business impact.
-
----
-## Experience
-
-**Senior Backend Engineer – TestGorilla**  
-*Remote | October 2022 – Present*
-
-- Acted as backend owner in a **4-engineer cross-functional team**, shipping and maintaining core candidate and assessment workflows end-to-end
-- Delivered a complex assessment system with **near-zero operational overhead**, requiring no sustained support post-launch
-- Unblocked international expansion by shipping **full localization support**, fixing container-level font, PDF rendering, and headless Chrome issues across multiple languages
-- Designed and shipped **feature-flag-driven cohorts and A/B testing infrastructure** (Flagsmith), enabling faster experimentation without redeployments
-- Took ownership beyond tickets: challenged misaligned ownership in AI resume parsing, raised security risks in identity verification, and proposed multi-layered account blocking to reduce abuse
-- Helped bootstrap release management, mentored teammates, and consistently improved surrounding codebases through high-quality PRs
-
-**Software Engineer – Digital Guardian**  
-*Remote (Hyderabad, India) | March 2021 – September 2022*
-
-- Developed a library to profile production code, identifying bottlenecks that led to a **54% throughput increase**.
-- Transitioned from Linux to **FreeBSD** systems engineering, resolving memory leaks and boosting **performance by 70%** through optimized compiler configurations.
-
-**Software Engineer – MAQ Software**  
-*Mumbai, India | April 2019 – March 2021*
-
-- Contributed to breaking down a monolithic backend into a microservices-based, Azure-native architecture, improving deployment independence and system scalability
-- Designed and improved CI/CD pipelines for web applications and NuGet packages, enabling reliable, repeatable deployments and faster release cycles
-
-
-*Additional work experience available at [ohya.sh/work/](https://ohya.sh/work/)*
-
----
-## Projects
-
-**AI-Powered Mental Health Platform**
-- Built a HIPAA-principled backend using OpenAI API and Supabase to automate therapeutic workflows.
-- Designed multi-role portals (Patient, Therapist, Admin) with robust Role-Based Access Control (RBAC).
-
-*Additional projects available at [ohya.sh/projects/](https://ohya.sh/projects/)*
+Backend engineer who owns systems end-to-end. Architected and shipped TestGorilla's largest workflow refactor, the self-serve assessment flow, with zero added complexity for other teams. Scaled it to 52K+ candidates at a 78% completion rate. 7+ years turning ambiguous, high-stakes problems into shipped, low-maintenance systems.
 
 ---
 ## Skills
 
-**Languages & Frameworks**: Python, TypeScript, C#, SQL, Django, ASP.NET, Node.js  
-**Systems & Infra**: AWS, Docker, CI/CD, PostgreSQL, Redis  
-**AI Systems**: RAG, LangChain, Vector Embeddings, OpenAI API
+**Languages & Frameworks**: Python (Django), TypeScript, C/C++, C#, SQL  
+**Systems & Infra**: AWS, MySQL, PostgreSQL, Redis, Docker, CI/CD  
+**AI Systems**: OpenAI API, LangChain, RAG, Vector Embeddings  
+
+---
+## [Experience](https://ohya.sh/work/)
+
+**Senior Backend Engineer – TestGorilla**  
+*Remote | October 2022 – Present*  
+*Stack: Python, Django, MySQL, Redis, AWS*  
+
+- Designed and shipped the self-serve assessment flow, TestGorilla's largest workflow refactor, shifting the platform from customer-initiated (B2B) to candidate-initiated (B2C). Built it to deploy with **zero changes required from any other team**, scaling to **52K+ candidates** with near-zero post-launch defects.
+- Led the technical design for third-party candidate-data integration across **3 collaborating teams**, aligning implementation choices so no team had to compromise on its own code quality or design.
+- Extended Django's account-state model to support graduated soft/hard-blocking for fraud and sanctions-flagged accounts, now adopted across multiple teams, and closed a loophole in the ID verification flow before it could be exploited.
+- Own a core backend system processing **30M+ requests/month**, maintaining a **<0.1% error rate** and **p95 latency under 150ms** with near-zero on-call burden.
+- Shipped localization across multiple languages, including a headless-Chrome rendering fix that unblocked several teams stuck on font and PDF-generation issues.
+
+**Software Engineer – Digital Guardian**  
+*Remote (Hyderabad, India) | March 2021 – September 2022*  
+*Stack: C/C++, FreeBSD, Linux*  
+
+- Sole owner of a pre-boot, driver-level component on the Windows client that loads before the OS itself, and the sole point of contact for it among senior engineers.
+- Moved SDK systems engineering from Linux to FreeBSD, fixing memory leaks and boosting **performance by 70%** through optimized compiler configurations.
+- Built a performance profiling library for production code that led to a **54% throughput increase**.
+
+**Software Engineer – MAQ Software**  
+*Mumbai, India | April 2019 – March 2021*  
+
+---
+## [Projects](https://ohya.sh/projects/)
+
+**INR Finance Compass** *(WIP)* — Vite, React, TypeScript, Supabase, Tailwind
+- Solo-designing and building a self-hosted, AI-native personal finance platform with full financial context (bank, cards, cash, investments) instead of isolated balance queries.
+- Built an atomic ledger-derived balance engine with a live dashboard; budgeting, CSV import, and recurring transactions in progress.
 
 ---
 ## Education
 
-**B.Tech in Computer Science** | CGPA: 8.69   
+**B.Tech in Computer Science** | CGPA: 8.69  
 *Lovely Professional University, Punjab, India | 2015 – 2019*
 
 ---
 ## Achievements / Highlights
 
 - Winner, TestGorilla Company-wide Ideathon (Croatia, 2024)
-- Recognized internally for engineering judgment and PR review quality
+- Solo-built a working ATS demo integrated with the existing TestGorilla app in a 2-day company-wide hackathon (2026)
