@@ -16,7 +16,7 @@ Senior Backend Engineer with 7+ years of experience building and owning high-sca
 - Own a core backend system processing **30M+ requests/month**, maintaining a **<0.1% error rate** and **p95 latency under 150ms** with near-zero on-call burden.
 - Designed the technical approach for Testgorilla's **self-serve assessment flow** - Shifting the platform from customer-initiated to candidate-initiated. Achieved by extending the existing framework instead of rewriting it; scaled to **52K+ candidates** at a **78% completion rate** with **near-zero** post-launch **defects**
 - Solo-built a fully functional ATS demo integrated with the existing TestGorilla app in a 2-day company-wide hackathon (2026)
-- Shipped full localization support across multiple languages, resolving contaienr-level font rendering, PDF generation related issues, and headless chrome limitations that were blocking international expansion
+- Shipped full localization support across multiple languages, resolving container-level font rendering, PDF generation related issues, and headless chrome limitations that were blocking international expansion
 - Designed feature-flag-driven cohorts and A/B testing infrastructure, that enabled faster experimentations without redeployments.
 - Raised and addressed security risks in identity verification workflows; proposed multi-layered account-blocking measures to reduce fraud
 - Helped bootstrap release management practices and mentored teammates through high-quality PR reviews.
