@@ -1,6 +1,13 @@
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, ArrowDownRight, ArrowDownLeft, ArrowUpRight, Download } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowLeft,
+  ArrowDownRight,
+  ArrowDownLeft,
+  ArrowUpRight,
+  Download,
+} from "lucide-react";
 import nowData from "@/data/nowData.json";
 
 /**
@@ -94,7 +101,9 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               <div className="flex items-center gap-3">
                 <span className="text-xl">{north.icon}</span>
                 <div className="text-left">
-                  <h3 className="font-bold text-white text-sm">{north.title}</h3>
+                  <h3 className="font-bold text-white text-sm">
+                    {north.title}
+                  </h3>
                   <p className="text-slate-400 text-xs">{north.subtitle}</p>
                 </div>
               </div>
@@ -111,7 +120,9 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               <div className="flex items-center gap-3">
                 <span className="text-xl">{projects.icon}</span>
                 <div className="text-left">
-                  <h3 className="font-bold text-white text-sm">{projects.title}</h3>
+                  <h3 className="font-bold text-white text-sm">
+                    {projects.title}
+                  </h3>
                   <p className="text-slate-400 text-xs">{projects.subtitle}</p>
                 </div>
               </div>
@@ -159,7 +170,9 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               <div className="flex items-center gap-3">
                 <span className="text-xl">{south.icon}</span>
                 <div className="text-left">
-                  <h3 className="font-bold text-white text-sm">{south.title}</h3>
+                  <h3 className="font-bold text-white text-sm">
+                    {south.title}
+                  </h3>
                   <p className="text-slate-400 text-xs">{south.subtitle}</p>
                 </div>
               </div>
@@ -175,7 +188,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
         {/* Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
         <div className="pt-2 flex justify-end">
           <a
-            href="/personal/Yash-resume-s2.pdf"
+            href="/personal/Yash-resume-s.pdf"
             download
             className="flex items-center gap-2 text-slate-400 hover:text-white text-xs transition-colors"
           >

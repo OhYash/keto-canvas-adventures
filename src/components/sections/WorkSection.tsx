@@ -1,9 +1,18 @@
-
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Building, MapPin, Calendar, ExternalLink, ChevronDown, ChevronUp, Code, Download } from 'lucide-react';
-import { handleCopyUrl } from '@/utils/urlUtils';
+import React, { useState } from "react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowLeft,
+  Building,
+  MapPin,
+  Calendar,
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  Code,
+  Download,
+} from "lucide-react";
+import { handleCopyUrl } from "@/utils/urlUtils";
 
 interface WorkSectionProps {
   gradient: string;
@@ -29,7 +38,8 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     location: "Remote",
     startDate: "October 2022",
     type: "Full-time",
-    description: "Owning a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden. Taking features from 0 to 1, driving architectural decisions under real product constraints, and shipping reliable systems with minimal operational overhead."
+    description:
+      "Owning a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden. Taking features from 0 to 1, driving architectural decisions under real product constraints, and shipping reliable systems with minimal operational overhead.",
   };
 
   const careerJourney = [
@@ -44,8 +54,8 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         "Designed feature-flag-driven cohorts and A/B testing infrastructure, enabling faster experimentation without redeployments",
         "Raised and addressed security risks in identity verification workflows; proposed multi-layered account-blocking measures to reduce fraud",
         "Solo-built a fully functional ATS demo integrated with the TestGorilla app in a 2-day company-wide hackathon",
-        "Winner of the company-wide Ideathon (Croatia, 2024); formalized release management and mentored 3+ engineers to autonomy with PR standards adopted company-wide"
-      ]
+        "Winner of the company-wide Ideathon (Croatia, 2024); formalized release management and mentored 3+ engineers to autonomy with PR standards adopted company-wide",
+      ],
     },
     {
       title: "Software Engineer",
@@ -58,8 +68,8 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         "Led SDK port from Linux to FreeBSD",
         "Fixed memory issues, enabling 70% performance improvement",
         "Improved data protection by introducing IBAN detection",
-        "Sole owner of Windows Agent, handling bug fixes and feature enhancements"
-      ]
+        "Sole owner of Windows Agent, handling bug fixes and feature enhancements",
+      ],
     },
     {
       title: "Software Engineer",
@@ -69,8 +79,8 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         "Developed backend services for microservices-based web applications using Azure cloud-native technologies",
         "Contributed to Microsoft's learning platform modularization initiative, supporting a rebuild-from-scratch architecture",
         "Subject Matter Expert for Mock/Unit testing",
-        "Created CI/CD pipelines and Azure cloud web jobs"
-      ]
+        "Created CI/CD pipelines and Azure cloud web jobs",
+      ],
     },
     {
       title: "Software Development Intern",
@@ -78,33 +88,43 @@ const WorkSection: React.FC<WorkSectionProps> = ({
       period: "August 2018 - December 2018",
       achievements: [
         "Improved Odessa Build Platform",
-        "Conducted performance profiling for Lease Wave project"
-      ]
-    }
+        "Conducted performance profiling for Lease Wave project",
+      ],
+    },
   ];
 
   const technicalSkills = [
     { category: "Languages", skills: ["Python", "TypeScript", "C#", "SQL"] },
-    { category: "Frameworks", skills: ["Django", "LangChain", "Node.js", ".NET/ASP.NET"] },
-    { category: "AI / ML", skills: ["RAG", "Vector Embeddings", "Prompt Engineering", "OpenAI API"] },
-    { category: "Cloud & Infra", skills: ["AWS", "Docker", "PostgreSQL", "Redis", "CI/CD"] },
-    { category: "Platforms", skills: ["Linux", "FreeBSD", "Windows"] }
+    {
+      category: "Frameworks",
+      skills: ["Django", "LangChain", "Node.js", ".NET/ASP.NET"],
+    },
+    {
+      category: "AI / ML",
+      skills: ["RAG", "Vector Embeddings", "Prompt Engineering", "OpenAI API"],
+    },
+    {
+      category: "Cloud & Infra",
+      skills: ["AWS", "Docker", "PostgreSQL", "Redis", "CI/CD"],
+    },
+    { category: "Platforms", skills: ["Linux", "FreeBSD", "Windows"] },
   ];
 
   const dailyTasks = [
     "Reviewing a PR and pushing back on a half-baked API contract",
     "Fixing something I shipped on Friday",
     "Mentoring an engineer through a tricky refactor",
-    "Drawing boxes and arrows for a system that's about to get bigger"
+    "Drawing boxes and arrows for a system that's about to get bigger",
   ];
 
   const handleOpportunitiesClick = () => {
-    onNavigateToSection?.('contact');
+    onNavigateToSection?.("contact");
   };
 
-
   return (
-    <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
+    <Card
+      className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}
+    >
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
           <button
@@ -122,14 +142,12 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             {icon}
           </button>
         </div>
-        
+
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
           </h1>
-          <p className="text-slate-700 text-sm sm:text-base mb-4">
-            {subtitle}
-          </p>
+          <p className="text-slate-700 text-sm sm:text-base mb-4">{subtitle}</p>
         </div>
       </CardHeader>
 
@@ -140,13 +158,17 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             <Building className="w-5 h-5 text-slate-800" />
             <h2 className="text-lg font-bold text-slate-900">Current Role</h2>
           </div>
-          
+
           <div className="space-y-3">
             <div>
-              <h3 className="text-xl font-bold text-slate-900">{currentRole.title}</h3>
-              <p className="text-slate-700 font-medium">{currentRole.company}</p>
+              <h3 className="text-xl font-bold text-slate-900">
+                {currentRole.title}
+              </h3>
+              <p className="text-slate-700 font-medium">
+                {currentRole.company}
+              </p>
             </div>
-            
+
             <div className="flex flex-wrap gap-4 text-sm text-slate-600">
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
@@ -156,11 +178,14 @@ const WorkSection: React.FC<WorkSectionProps> = ({
                 <Calendar className="w-4 h-4" />
                 {currentRole.startDate} - Present
               </div>
-              <Badge variant="secondary" className="text-xs bg-green-100 text-green-800">
+              <Badge
+                variant="secondary"
+                className="text-xs bg-green-100 text-green-800"
+              >
                 {currentRole.type}
               </Badge>
             </div>
-            
+
             <p className="text-slate-700 text-sm leading-relaxed">
               {currentRole.description}
             </p>
@@ -169,31 +194,43 @@ const WorkSection: React.FC<WorkSectionProps> = ({
 
         {/* Career Journey */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-          <h3 className="text-lg font-bold text-slate-900 mb-3">Career Journey</h3>
-          
+          <h3 className="text-lg font-bold text-slate-900 mb-3">
+            Career Journey
+          </h3>
+
           <div className="space-y-4">
-            {careerJourney.slice(0, showAllExperience ? careerJourney.length : 2).map((role, index) => (
-              <div key={index} className="border-l-4 border-blue-400 pl-4 py-2">
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <h4 className="font-semibold text-slate-900">{role.title}</h4>
-                    <p className="text-slate-600 text-sm">{role.company}</p>
+            {careerJourney
+              .slice(0, showAllExperience ? careerJourney.length : 2)
+              .map((role, index) => (
+                <div
+                  key={index}
+                  className="border-l-4 border-blue-400 pl-4 py-2"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <h4 className="font-semibold text-slate-900">
+                        {role.title}
+                      </h4>
+                      <p className="text-slate-600 text-sm">{role.company}</p>
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {role.period}
+                    </Badge>
                   </div>
-                  <Badge variant="outline" className="text-xs">
-                    {role.period}
-                  </Badge>
+                  <ul className="space-y-1">
+                    {role.achievements.map((achievement, achIndex) => (
+                      <li
+                        key={achIndex}
+                        className="flex items-start gap-2 text-xs text-slate-700"
+                      >
+                        <span className="text-blue-500 mt-1">•</span>
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="space-y-1">
-                  {role.achievements.map((achievement, achIndex) => (
-                    <li key={achIndex} className="flex items-start gap-2 text-xs text-slate-700">
-                      <span className="text-blue-500 mt-1">•</span>
-                      {achievement}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            
+              ))}
+
             {careerJourney.length > 2 && (
               <button
                 onClick={() => setShowAllExperience(!showAllExperience)}
@@ -207,7 +244,8 @@ const WorkSection: React.FC<WorkSectionProps> = ({
                 ) : (
                   <>
                     <ChevronDown className="w-4 h-4" />
-                    View Earlier Experience ({careerJourney.length - 2} more roles)
+                    View Earlier Experience ({careerJourney.length - 2} more
+                    roles)
                   </>
                 )}
               </button>
@@ -217,15 +255,23 @@ const WorkSection: React.FC<WorkSectionProps> = ({
 
         {/* Technical Skills */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-          <h3 className="text-lg font-bold text-slate-900 mb-3">Technical Skills</h3>
-          
+          <h3 className="text-lg font-bold text-slate-900 mb-3">
+            Technical Skills
+          </h3>
+
           <div className="space-y-3">
             {technicalSkills.map((skillGroup, index) => (
               <div key={index}>
-                <h4 className="font-semibold text-slate-800 text-sm mb-2">{skillGroup.category}</h4>
+                <h4 className="font-semibold text-slate-800 text-sm mb-2">
+                  {skillGroup.category}
+                </h4>
                 <div className="flex flex-wrap gap-1">
                   {skillGroup.skills.map((skill, skillIndex) => (
-                    <Badge key={skillIndex} variant="secondary" className="text-xs bg-blue-100 text-blue-800">
+                    <Badge
+                      key={skillIndex}
+                      variant="secondary"
+                      className="text-xs bg-blue-100 text-blue-800"
+                    >
                       {skill}
                     </Badge>
                   ))}
@@ -237,10 +283,15 @@ const WorkSection: React.FC<WorkSectionProps> = ({
 
         {/* Daily Responsibilities */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-          <h3 className="text-lg font-bold text-slate-900 mb-3">On a normal Tuesday</h3>
+          <h3 className="text-lg font-bold text-slate-900 mb-3">
+            On a normal Tuesday
+          </h3>
           <ul className="space-y-2">
             {dailyTasks.map((task, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-slate-700">
+              <li
+                key={index}
+                className="flex items-start gap-2 text-sm text-slate-700"
+              >
                 <span className="text-blue-500 mt-1">•</span>
                 {task}
               </li>
@@ -252,13 +303,16 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
           <div className="flex items-center gap-3 mb-3">
             <Code className="w-5 h-5 text-slate-700" />
-            <h3 className="text-lg font-bold text-slate-900">Personal Projects</h3>
+            <h3 className="text-lg font-bold text-slate-900">
+              Personal Projects
+            </h3>
           </div>
           <p className="text-slate-700 text-sm leading-relaxed mb-3">
-            Beyond work, I build side projects to explore new technologies and solve problems I care about.
+            Beyond work, I build side projects to explore new technologies and
+            solve problems I care about.
           </p>
           <button
-            onClick={() => onNavigateToSection?.('projects')}
+            onClick={() => onNavigateToSection?.("projects")}
             className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
           >
             <Code className="w-4 h-4" />
@@ -275,7 +329,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             Currently employed · Open to opportunities
           </Badge>
           <a
-            href="/personal/Yash-resume-s2.pdf"
+            href="/personal/Yash-resume-s-m.pdf"
             download
             className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-xs transition-colors"
           >
