@@ -46,6 +46,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Now & Work sections status update (2026-08-07): updated nowData.json,
       HomeSection, and WorkSection to reflect transition from TestGorilla to actively
       looking for full-time senior backend roles and freelance clients (with internalTarget navigation to Contact)
+- [x] Work & Now section dates & plans update (2026-08-07): updated TestGorilla contract end date to August 2026 in WorkSection.tsx; removed Europe trip mentions in nowData.json and updated focus to landing next role before bigger plans.
 
 ---
 

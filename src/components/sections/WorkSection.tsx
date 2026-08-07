@@ -37,6 +37,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     company: "Ex-TestGorilla",
     location: "Remote",
     startDate: "October 2022",
+    endDate: "August 2026",
     type: "Open for Work",
     description:
       "Recently wrapped up at TestGorilla after owning core backend systems processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms. Currently available for full-time senior backend roles and freelance client engagements.",
@@ -46,7 +47,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     {
       title: "Senior Backend Engineer",
       company: "TestGorilla",
-      period: "October 2022 - 2026",
+      period: "October 2022 - August 2026",
       achievements: [
         "Own a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden",
         "Designed the self-serve assessment flow, shifting the platform from customer-initiated to candidate-initiated — scaled to 52K+ candidates at a 78% completion rate with near-zero post-launch defects",
@@ -152,11 +153,13 @@ const WorkSection: React.FC<WorkSectionProps> = ({
       </CardHeader>
 
       <CardContent className="space-y-5">
-        {/* Current Role */}
+        {/* Most Recent Role */}
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
           <div className="flex items-center gap-3 mb-3">
             <Building className="w-5 h-5 text-slate-800" />
-            <h2 className="text-lg font-bold text-slate-900">Current Role</h2>
+            <h2 className="text-lg font-bold text-slate-900">
+              Most Recent Role
+            </h2>
           </div>
 
           <div className="space-y-3">
@@ -176,7 +179,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
               </div>
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                {currentRole.startDate} - Present
+                {currentRole.startDate} - {currentRole.endDate}
               </div>
               <Badge
                 variant="secondary"
