@@ -37,7 +37,7 @@ const compassLayout = {
   north: {
     id: "work",
     title: "Work",
-    subtitle: "Senior backend engineer at TestGorilla.",
+    subtitle: "Ex-TestGorilla · Open for full-time roles & freelance work.",
     icon: "💼",
     Arrow: ArrowRight,
   },

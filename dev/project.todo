@@ -43,6 +43,9 @@ Content critiques and research live in dev/research/, referenced from items here
       Riding/Routine content; added internal-nav support to NowSection (a plan item
       can carry `internalTarget` to pan to another section instead of an external
       link) — SectionRenderer now passes onNavigateToSection into NowSection
+- [x] Now & Work sections status update (2026-08-07): updated nowData.json,
+      HomeSection, and WorkSection to reflect transition from TestGorilla to actively
+      looking for full-time senior backend roles and freelance clients (with internalTarget navigation to Contact)
 
 ---
 

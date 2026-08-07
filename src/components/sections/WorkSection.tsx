@@ -34,19 +34,19 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   const [showAllExperience, setShowAllExperience] = useState(false);
   const currentRole = {
     title: "Senior Backend Engineer",
-    company: "TestGorilla",
+    company: "Ex-TestGorilla",
     location: "Remote",
     startDate: "October 2022",
-    type: "Full-time",
+    type: "Open for Work",
     description:
-      "Owning a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden. Taking features from 0 to 1, driving architectural decisions under real product constraints, and shipping reliable systems with minimal operational overhead.",
+      "Recently wrapped up at TestGorilla after owning core backend systems processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms. Currently available for full-time senior backend roles and freelance client engagements.",
   };
 
   const careerJourney = [
     {
       title: "Senior Backend Engineer",
       company: "TestGorilla",
-      period: "October 2022 - Present",
+      period: "October 2022 - 2026",
       achievements: [
         "Own a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden",
         "Designed the self-serve assessment flow, shifting the platform from customer-initiated to candidate-initiated — scaled to 52K+ candidates at a 78% completion rate with near-zero post-launch defects",
@@ -326,7 +326,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 cursor-pointer"
             onClick={handleOpportunitiesClick}
           >
-            Currently employed · Open to opportunities
+            Open for full-time & freelance opportunities
           </Badge>
           <a
             href="/personal/Yash-resume-s-m.pdf"
