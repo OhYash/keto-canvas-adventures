@@ -71,6 +71,9 @@ behind Hobbies).
 | File | What it contains |
 |---|---|
 | `dev/project.todo` | All work items — the only tracker |
+| `GEMINI.md` | Antigravity AI directives, invariants, and dev guidelines |
 | `dev/Agents.md` | Conventions for the dev/ directory, plan template |
 | `dev/human-agent-guidelines.md` | Shared UI vocabulary (component/content names) |
 | `dev/research/` | Content/voice critiques and feature research |
+| `.gemini/skills/verify/SKILL.md` | End-to-end browser verification skill |
+
