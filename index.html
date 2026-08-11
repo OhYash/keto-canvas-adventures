@@ -4,24 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OhYa.sh – Everything Yash. Filtered.</title>
-    <meta name="description" content="Interactive portfolio showcasing work, projects, and adventures" />
+    <meta name="description" content="Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress. Work, projects, cat Keto, and adventures." />
     <meta name="author" content="Yash Yadav" />
+    <link rel="canonical" href="https://ohya.sh/" />
 
     <meta property="og:title" content="OhYa.sh – Everything Yash. Filtered." />
-    <meta property="og:description" content="Interactive portfolio showcasing work, projects, and adventures" />
+    <meta property="og:description" content="Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress. Work, projects, cat Keto, and adventures." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content="https://ohya.sh/" />
+    <meta property="og:image" content="https://ohya.sh/og-image.png" />
+    <meta property="og:site_name" content="OhYa.sh" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ohyash" />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:creator" content="@ohyash" />
+    <meta name="twitter:title" content="OhYa.sh – Everything Yash. Filtered." />
+    <meta name="twitter:description" content="Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress." />
+    <meta name="twitter:image" content="https://ohya.sh/og-image.png" />
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Yash Yadav",
+      "jobTitle": "Senior Backend Engineer & Founder",
+      "url": "https://ohya.sh",
+      "sameAs": [
+        "https://github.com/OhYash",
+        "https://linkedin.com/in/ohyash",
+        "https://x.com/ohyash"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "OhYa.sh – Everything Yash. Filtered.",
+      "description": "Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress.",
+      "url": "https://ohya.sh/",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Yash Yadav"
+      }
+    }
+    </script>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <header style="padding: 2rem; max-width: 800px; margin: 0 auto; color: #f8fafc; font-family: system-ui, sans-serif;">
+        <h1 style="font-size: 1.875rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">
+          I'm Yash. Engineer today, founder in progress.
+        </h1>
+        <p style="color: #94a3b8; font-size: 1rem; line-height: 1.5;">
+          Interactive portfolio of Yash Yadav — Senior Backend Engineer &amp; Founder in progress. Systems architecture, distributed backend services, personal projects, and adventures.
+        </p>
+      </header>
+    </div>
     <script>
       // GitHub Pages SPA redirect handler
-      // Decode the path from the 404 redirect and restore it using History API
       (function() {
         var redirect = sessionStorage.redirect;
         delete sessionStorage.redirect;
