@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -10,6 +9,7 @@ interface KetoSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onNavigateToSection?: (sectionId: string) => void;
 }
@@ -19,10 +19,12 @@ const KetoSection: React.FC<KetoSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
   onNavigateToSection,
 }) => {
   const [showRunningCat, setShowRunningCat] = useState(false);
+  const HeadingTag = isActive ? "h1" : "h2";
 
   const ketoTraits = [
     {
@@ -72,13 +74,17 @@ const KetoSection: React.FC<KetoSectionProps> = ({
       <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between mb-4">
-            <button
-              onClick={onNavigateHome}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigateHome();
+              }}
               className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
             >
               <ArrowLeft className="w-4 h-4" />
               Home
-            </button>
+            </a>
             <button
               onClick={handleCopyUrl}
               className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -89,9 +95,9 @@ const KetoSection: React.FC<KetoSectionProps> = ({
           </div>
           
           <div className="text-center">
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+            <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
               {title}
-            </h1>
+            </HeadingTag>
             <p className="text-slate-700 text-sm sm:text-base mb-4">
               {subtitle}
             </p>
@@ -105,6 +111,9 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               <img 
                 src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop" 
                 alt="Golden Persian cat like Keto on his terrace" 
+                width={300}
+                height={200}
+                loading="lazy"
                 className="w-full h-28 object-cover rounded-lg mb-2"
               />
               <h4 className="text-sm font-bold text-slate-900">Keto's Terrace Kingdom</h4>
@@ -116,6 +125,9 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               <img 
                 src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=300&h=200&fit=crop" 
                 alt="Golden Persian cat in hunting mode" 
+                width={300}
+                height={200}
+                loading="lazy"
                 className="w-full h-28 object-cover rounded-lg mb-2"
               />
               <h4 className="text-sm font-bold text-slate-900">The Pigeon Hunter 🎯</h4>
@@ -125,7 +137,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-3">
               <Heart className="w-5 h-5 text-slate-800" />
-              <h2 className="text-lg font-bold text-slate-900">All About Keto</h2>
+              <h3 className="text-lg font-bold text-slate-900">All About Keto</h3>
             </div>
 
             {ketoTraits.map((trait, index) => (
@@ -135,7 +147,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
               >
                 <div className="flex items-center gap-3 mb-2">
                   <Star className="w-4 h-4 text-slate-700" />
-                  <h3 className="text-base font-bold text-slate-900">{trait.title}</h3>
+                  <h4 className="text-base font-bold text-slate-900">{trait.title}</h4>
                 </div>
                 <p className="text-slate-700 text-sm leading-relaxed">
                   {trait.description}
@@ -156,12 +168,16 @@ const KetoSection: React.FC<KetoSectionProps> = ({
             </Badge>
           </div>
 
-          <button
-            onClick={() => onNavigateToSection?.('ataco')}
-            className="w-full bg-white/80 hover:bg-white/95 rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/60 transition-all duration-200 hover:shadow-md text-sm text-slate-700"
+          <a
+            href="/ataco"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateToSection?.('ataco');
+            }}
+            className="w-full bg-white/80 hover:bg-white/95 rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/60 transition-all duration-200 hover:shadow-md text-sm text-slate-700 block text-center"
           >
             Keto isn't the only one around here with a name — meet Ataco ↑
-          </button>
+          </a>
         </CardContent>
       </Card>
     </>
