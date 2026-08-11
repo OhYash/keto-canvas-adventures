@@ -95,38 +95,31 @@ const routeConfigs = [
   }
 ];
 
-// Fallback HTML template pre-renderer (runs without Puppeteer)
-function fallbackTemplatePrerender() {
-  console.log(' Running template-based static pre-rendering fallback...');
-  const baseHtmlPath = path.join(distDir, 'index.html');
-  if (!fs.existsSync(baseHtmlPath)) {
-    console.error(' Error: dist/index.html missing.');
-    return;
-  }
+// Injects head tags cleanly without creating duplicates
+function injectHeadTags(baseHtml, config) {
+  let html = baseHtml;
 
-  const baseHtml = fs.readFileSync(baseHtmlPath, 'utf-8');
+  // 1. Remove existing title, meta description, and canonical tags to prevent duplicates
+  html = html.replace(/<title>.*?<\/title>/gi, '');
+  html = html.replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/gi, '');
+  html = html.replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/gi, '');
+  html = html.replace(/<meta\s+property="og:.*?"\s+content=".*?"\s*\/?>/gi, '');
+  html = html.replace(/<meta\s+name="twitter:.*?"\s+content=".*?"\s*\/?>/gi, '');
 
-  for (const config of routeConfigs) {
-    let html = baseHtml;
-
-    // Replace Title
-    html = html.replace(/<title>.*?<\/title>/i, `<title>${config.title}</title>`);
-
-    // Replace Meta Description
-    html = html.replace(
-      /<meta name="description" content=".*?" \/>/i,
-      `<meta name="description" content="${config.description}" />`
-    );
-
-    // Inject Canonical, OG, Twitter and JSON-LD schema into head
-    const headExtra = `
+  // 2. Build single canonical head tags block
+  const headExtra = `
+    <title>${config.title}</title>
+    <meta name="description" content="${config.description}" />
     <link rel="canonical" href="${config.canonical}" />
     <meta property="og:title" content="${config.title}" />
     <meta property="og:description" content="${config.description}" />
     <meta property="og:url" content="${config.canonical}" />
     <meta property="og:image" content="${OG_IMAGE}" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="OhYa.sh" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ohyash" />
+    <meta name="twitter:creator" content="@ohyash" />
     <meta name="twitter:title" content="${config.title}" />
     <meta name="twitter:description" content="${config.description}" />
     <meta name="twitter:image" content="${OG_IMAGE}" />
@@ -157,21 +150,39 @@ function fallbackTemplatePrerender() {
       }
     })}
     </script>
-    `;
+  `;
 
-    html = html.replace('</head>', `${headExtra}\n</head>`);
+  // Insert into <head>
+  html = html.replace('<head>', `<head>\n${headExtra}`);
 
-    // Inject initial h1 and body text into #root container for raw HTML search crawlers
+  // 3. Inject pre-rendered h1 container inside #root if #root is empty
+  if (html.includes('<div id="root"></div>')) {
     const rootBodyContent = `
     <div id="root">
-      <header>
-        <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">${config.h1}</h1>
-        <p>${config.description}</p>
+      <header style="padding: 2rem; max-width: 800px; margin: 0 auto; color: #f8fafc; font-family: system-ui, sans-serif;">
+        <h1 style="font-size: 1.875rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">${config.h1}</h1>
+        <p style="color: #94a3b8; font-size: 1rem; line-height: 1.5;">${config.description}</p>
       </header>
     </div>
     `;
-
     html = html.replace('<div id="root"></div>', rootBodyContent);
+  }
+
+  return html;
+}
+
+function fallbackTemplatePrerender() {
+  console.log(' Running template-based static pre-rendering fallback...');
+  const baseHtmlPath = path.join(distDir, 'index.html');
+  if (!fs.existsSync(baseHtmlPath)) {
+    console.error(' Error: dist/index.html missing.');
+    return;
+  }
+
+  const baseHtml = fs.readFileSync(baseHtmlPath, 'utf-8');
+
+  for (const config of routeConfigs) {
+    const html = injectHeadTags(baseHtml, config);
 
     const routeSubDir = config.path === '/' ? distDir : path.join(distDir, config.path.substring(1));
     if (!fs.existsSync(routeSubDir)) {
@@ -183,17 +194,15 @@ function fallbackTemplatePrerender() {
     console.log(`  └─ Saved static pre-rendered HTML for ${config.path} -> ${path.relative(projectRoot, targetHtmlFile)}`);
   }
 
-  console.log(' Template pre-rendering fallback completed successfully!');
+  console.log(' Template pre-rendering completed successfully!');
 }
 
 async function tryPuppeteerPrerender() {
   let puppeteerModule;
 
-  // Try standard node module resolve
   try {
     puppeteerModule = (await import('puppeteer-core')).default;
   } catch (e1) {
-    // Try global npm path fallback
     try {
       const globalNpmPath = `${process.env.HOME}/.npm-global/lib/node_modules/`;
       const require = createRequire(globalNpmPath);
@@ -248,7 +257,10 @@ async function tryPuppeteerPrerender() {
       const url = `http://localhost:${PORT}${config.path}`;
       await page.goto(url, { waitUntil: 'networkidle0' });
       await new Promise((r) => setTimeout(r, 800));
-      const htmlContent = await page.content();
+      
+      let rawHtml = await page.content();
+      // Ensure exactly 1 set of meta tags
+      rawHtml = injectHeadTags(rawHtml, config);
 
       const routeSubDir = config.path === '/' ? distDir : path.join(distDir, config.path.substring(1));
       if (!fs.existsSync(routeSubDir)) {
@@ -256,7 +268,7 @@ async function tryPuppeteerPrerender() {
       }
 
       const targetHtmlFile = path.join(routeSubDir, 'index.html');
-      fs.writeFileSync(targetHtmlFile, htmlContent, 'utf-8');
+      fs.writeFileSync(targetHtmlFile, rawHtml, 'utf-8');
       console.log(`  └─ Pre-rendered ${config.path} -> ${path.relative(projectRoot, targetHtmlFile)}`);
     }
 
