@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-08-11
+Last updated: 2026-08-12
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -16,7 +16,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Visitor tracking — useVisitTracking hook, localStorage-backed
 - [x] Canvas borders / always able to return home (2025-06-28)
 - [x] Prevent canvas movement while scrolling on phone (2025-06-28)
-- [x] Contact page with email protection, social handles, and Telegram link
+- [x] Contact page redesign — professional-first layout matching updated mockup (Primary Contact hero, Professional grid, Location card, and Also Here social chips); extracted content to src/data/contactData.ts (2026-08-12)
 - [x] Now section content-as-data — src/data/nowData.json + HOW_TO_UPDATE_NOW.md
 - [x] Page title ("OhYa.sh – Everything Yash. Filtered.")
 - [x] Order INR Finance Compass first in ProjectsSection projects list (2026-07-10)
@@ -87,7 +87,6 @@ Content critiques and research live in dev/research/, referenced from items here
       like nowData.json — prerequisite for easy content updates
 - [ ] Quality gate — add `npx tsc --noEmit` + lint as pre-commit habit; no test setup
       exists yet (vitest later, if ever)
-- [ ] Refactor ContactSection.tsx (~217 lines) into smaller components
 - [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
 - [ ] Add error boundaries around section rendering
 
