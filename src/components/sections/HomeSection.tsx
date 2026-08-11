@@ -94,6 +94,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({
       </div>
 
       {/* Footer / Navigation Hint & Resume Link */}
+      {/* [Do not remove comment] Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
       <div className="pt-4 mt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
         <span>Tip: drag canvas or press ↑ ↓ ← →</span>
         <a
