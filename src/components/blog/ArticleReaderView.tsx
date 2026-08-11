@@ -3,6 +3,8 @@ import { BlogPost, BLOG_POSTS } from '@/data/blogData';
 import { ArrowLeft, Clock, Calendar, Tag, Share2, Check, Video, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { handleCopyUrl } from '@/utils/urlUtils';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/tokyo-night-dark.css';
 
 interface ArticleReaderViewProps {
   post: BlogPost;
@@ -118,16 +120,35 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
       // Code blocks
       if (line.trim().startsWith('```')) {
         if (inCodeBlock) {
+          const rawCode = codeContent.join('\n');
+          let highlightedHtml = '';
+          try {
+            if (codeLang && hljs.getLanguage(codeLang)) {
+              highlightedHtml = hljs.highlight(rawCode, { language: codeLang }).value;
+            } else {
+              highlightedHtml = hljs.highlightAuto(rawCode).value;
+            }
+          } catch {
+            highlightedHtml = rawCode;
+          }
+
           elements.push(
-            <pre key={`code-${index}`} className="bg-slate-950 text-slate-100 p-4 rounded-xl overflow-x-auto my-6 border border-slate-800 text-sm font-mono leading-relaxed">
-              <code>{codeContent.join('\n')}</code>
-            </pre>
+            <div key={`code-${index}`} className="relative my-6 group">
+              {codeLang && (
+                <div className="absolute top-2 right-2 px-2.5 py-1 bg-slate-900/90 text-slate-400 text-xs font-mono rounded-md border border-slate-800 select-none uppercase tracking-wider">
+                  {codeLang}
+                </div>
+              )}
+              <pre className="bg-slate-950 text-slate-100 p-4 rounded-xl overflow-x-auto border border-slate-800/80 text-sm font-mono leading-relaxed shadow-xl">
+                <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
+              </pre>
+            </div>
           );
           codeContent = [];
           inCodeBlock = false;
         } else {
           inCodeBlock = true;
-          codeLang = line.trim().slice(3);
+          codeLang = line.trim().slice(3).toLowerCase();
         }
         return;
       }

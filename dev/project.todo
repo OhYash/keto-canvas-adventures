@@ -23,7 +23,8 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Resume variants in repo; download links point to s2 variant
 - [x] Initialize Antigravity support — GEMINI.md, .gemini/rules.md, .gemini/skills/verify/SKILL.md configured for AGY / Antigravity 2.0 (2026-08-07)
 - [x] Native Writing & Essays blog section shipped (2026-08-11) — registered as `writing` at (2000, 0) under Work; dynamic markdown post discovery via Vite's `import.meta.glob('./posts/*.md')` in `src/data/posts/` + `WritingSection.tsx` + `ArticleReaderView.tsx` overlay with video hero player support and distraction-free typography.
-- [x] Fix markdown post formatting & remove unrelated YouTube video URL (2026-08-12) — removed Rickroll video link from `building-an-infinite-canvas-portfolio.md`, cleaned up escaped backticks/backslashes/math symbols across markdown files in `src/data/posts/`, and updated `ArticleReaderView.tsx` renderer to support inline code/bold/italic/links, blockquotes, and ordered lists.
+- [x] Fix markdown post formatting & remove unrelated YouTube video URL (2026-08-12) — removed Rickroll video link from `building-an-infinite-canvas-portfolio.md`, cleaned up escaped backticks/backslashes/math symbols across markdown files in `src/data/posts/`, updated `ArticleReaderView.tsx` renderer to support inline code/bold/italic/links, blockquotes, and ordered lists, and integrated `highlight.js` (with `tokyo-night-dark` theme & language badges) for code block syntax highlighting.
+
 
 
 
