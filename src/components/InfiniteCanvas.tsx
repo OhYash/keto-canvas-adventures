@@ -1,10 +1,10 @@
-
 import React, { useRef, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import NavigationBreadcrumb from './NavigationBreadcrumb';
 import StarBackground from './canvas/StarBackground';
 import SectionRenderer from './canvas/SectionRenderer';
 import NavigationIndicator from './canvas/NavigationIndicator';
+import SEO from './SEO';
 import { useViewport } from '../hooks/useViewport';
 import { useSectionManagement } from '../hooks/useSectionManagement';
 import { useCanvasEvents } from '../hooks/useCanvasEvents';
@@ -204,6 +204,8 @@ const InfiniteCanvas = () => {
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
+      <SEO sectionId={currentSection} />
+
       <style>{`
         @keyframes slide-in-right {
           from {
@@ -256,6 +258,7 @@ const InfiniteCanvas = () => {
           <SectionRenderer
             sections={sections}
             allSections={allSections}
+            currentSection={currentSection}
             onNavigateHome={handleNavigateHome}
             onNavigateToSection={handleNavigateToSection}
           />

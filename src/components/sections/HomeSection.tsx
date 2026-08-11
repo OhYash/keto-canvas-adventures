@@ -10,12 +10,6 @@ import {
 } from "lucide-react";
 import nowData from "@/data/nowData.json";
 
-/**
- * TODO (Future work):
- * - Move /hobbies and /keto sections to the About (/personal) page
- * - Add navigation links to hobbies & keto from within PersonalSection
- */
-
 interface Section {
   id: string;
   title: string;
@@ -27,6 +21,7 @@ interface Section {
 
 interface HomeSectionProps {
   sections: Section[];
+  isActive?: boolean;
   onNavigateToSection: (sectionId: string) => void;
 }
 
@@ -73,16 +68,23 @@ const projects = {
   Arrow: ArrowUpRight,
 };
 
-const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
+const HomeSection: React.FC<HomeSectionProps> = ({ isActive = true, onNavigateToSection }) => {
   const { north, south, east, west } = compassLayout;
+
+  const HeadingTag = isActive ? "h1" : "h2";
+
+  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    onNavigateToSection(id);
+  };
 
   return (
     <Card className="w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] bg-gradient-to-br from-slate-800/90 to-slate-700/90 backdrop-blur-sm border-slate-600/50">
       <CardHeader className="pb-8">
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-white mb-2">
             I'm Yash. Engineer today, founder in progress.
-          </h1>
+          </HeadingTag>
           <p className="text-slate-400 text-sm">
             This is my Digital Brain. Pick a direction.
           </p>
@@ -93,9 +95,10 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
         {/* Compass Grid: North at top, West-East in middle, South at bottom */}
         <div className="flex flex-col gap-3">
           {/* NORTH */}
-          <button
-            onClick={() => onNavigateToSection(north.id)}
-            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation"
+          <a
+            href="/work"
+            onClick={(e) => handleNav(e, north.id)}
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -109,12 +112,13 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               </div>
               <north.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
             </div>
-          </button>
+          </a>
 
           {/* PROJECTS — below Work */}
-          <button
-            onClick={() => onNavigateToSection(projects.id)}
-            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation"
+          <a
+            href="/projects"
+            onClick={(e) => handleNav(e, projects.id)}
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -128,13 +132,14 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               </div>
               <projects.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
             </div>
-          </button>
+          </a>
 
           {/* WEST and EAST side by side */}
           <div className="grid grid-cols-2 gap-3">
-            <button
-              onClick={() => onNavigateToSection(west.id)}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation"
+            <a
+              href="/now"
+              onClick={(e) => handleNav(e, west.id)}
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
             >
               <div className="flex items-center gap-2">
                 <west.Arrow className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
@@ -144,11 +149,12 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
                 <h3 className="font-bold text-white text-sm">{west.title}</h3>
                 <p className="text-slate-400 text-xs">{west.subtitle}</p>
               </div>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onNavigateToSection(east.id)}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation"
+            <a
+              href="/contact"
+              onClick={(e) => handleNav(e, east.id)}
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
             >
               <div className="flex items-center justify-end gap-2">
                 <span className="text-lg">{east.icon}</span>
@@ -158,13 +164,14 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
                 <h3 className="font-bold text-white text-sm">{east.title}</h3>
                 <p className="text-slate-400 text-xs">{east.subtitle}</p>
               </div>
-            </button>
+            </a>
           </div>
 
           {/* SOUTH */}
-          <button
-            onClick={() => onNavigateToSection(south.id)}
-            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation"
+          <a
+            href="/personal"
+            onClick={(e) => handleNav(e, south.id)}
+            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -178,7 +185,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({ onNavigateToSection }) => {
               </div>
               <south.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
             </div>
-          </button>
+          </a>
         </div>
 
         <p className="text-slate-500 text-[11px] text-center pt-1">

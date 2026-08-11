@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +10,7 @@ interface NowSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
 }
@@ -20,10 +20,12 @@ const NowSection: React.FC<NowSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
   onNavigateToSection,
 }) => {
   const { currentPlans } = nowData;
+  const HeadingTag = isActive ? "h1" : "h2";
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -50,13 +52,17 @@ const NowSection: React.FC<NowSectionProps> = ({
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
-          </button>
+          </a>
           <button
             onClick={handleCopyUrl}
             className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -67,9 +73,9 @@ const NowSection: React.FC<NowSectionProps> = ({
         </div>
         
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
@@ -85,7 +91,7 @@ const NowSection: React.FC<NowSectionProps> = ({
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
             <Activity className="w-5 h-5 text-slate-800" />
-            <h2 className="text-lg font-bold text-slate-900">Currently</h2>
+            <h3 className="text-lg font-bold text-slate-900">Currently</h3>
           </div>
 
           {currentPlans.map((plan, index) => (
@@ -101,12 +107,16 @@ const NowSection: React.FC<NowSectionProps> = ({
                     </Badge>
                   </div>
                   {plan.internalTarget ? (
-                    <button
-                      onClick={() => onNavigateToSection(plan.internalTarget)}
-                      className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2 text-left"
+                    <a
+                      href={`/${plan.internalTarget}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onNavigateToSection(plan.internalTarget);
+                      }}
+                      className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2 inline-block text-left"
                     >
                       {plan.item}
-                    </button>
+                    </a>
                   ) : plan.link ? (
                     <a
                       href={plan.link}

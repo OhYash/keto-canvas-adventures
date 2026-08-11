@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import DetailedStoryView from './DetailedStoryView';
@@ -12,6 +11,7 @@ interface TravelStoriesSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onNavigateToSection?: (sectionId: string) => void;
 }
@@ -21,6 +21,7 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
 }) => {
   const [selectedStory, setSelectedStory] = useState<TravelStory | null>(null);
@@ -54,6 +55,7 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
           icon={icon}
           title={title}
           subtitle={subtitle}
+          isActive={isActive}
           onNavigateHome={onNavigateHome}
         />
       </CardHeader>

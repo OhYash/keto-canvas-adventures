@@ -62,7 +62,11 @@ const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
                   </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink
-                    onClick={() => handleNavigation(sectionId)}
+                    href={sectionId === 'home' ? '/' : `/${sectionId}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavigation(sectionId);
+                    }}
                     className="text-slate-300 hover:text-white cursor-pointer flex items-center gap-2 transition-colors"
                   >
                     {sectionId === 'home' && <Home className="w-4 h-4" />}

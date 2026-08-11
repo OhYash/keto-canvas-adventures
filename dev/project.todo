@@ -48,6 +48,15 @@ Content critiques and research live in dev/research/, referenced from items here
       looking for full-time senior backend roles and freelance clients (with internalTarget navigation to Contact)
 - [x] Work & Now section dates & plans update (2026-08-07): updated TestGorilla contract end date to August 2026 in WorkSection.tsx; removed Europe trip mentions in nowData.json and updated focus to landing next role before bigger plans.
 
+### SEO & Indexability (from dev/research/seo-analysis.md)
+- [x] Implement dynamic head tags (`react-helmet-async`) (2026-08-11) — update `<title>`, `<meta name="description">`, `<meta property="og:title">`, `<meta property="og:description">`, `<meta property="og:url">`, and `<link rel="canonical">` dynamically on section changes via `src/components/SEO.tsx`.
+- [x] Convert canvas navigation buttons to semantic anchor tags (`<a href="...">`) (2026-08-11) — replace internal `<button onClick>` calls with `<a href="...">` tags so search crawlers can discover sub-routes through the DOM link graph.
+- [x] Create social sharing card (`public/og-image.png`) (2026-08-11) — designed and saved 1200x630px image at `public/og-image.png`.
+- [x] Generate `public/sitemap.xml` & update `public/robots.txt` (2026-08-11) — generated XML sitemap listing all 10 section routes and added `Sitemap: https://ohya.sh/sitemap.xml` to robots.txt.
+- [x] Fix heading hierarchy (`<h1>` tag duplication) (2026-08-11) — refactored `SectionRenderer.tsx` and section components so that only the active view renders an `<h1>` element, eliminating 10 concurrent `<h1>` tags on the DOM tree.
+- [x] Embed Schema.org JSON-LD structured data (2026-08-11) — embedded `Person`, `ProfilePage`, and `BreadcrumbList` JSON-LD scripts for Google Knowledge Panel and Rich Results.
+- [x] Image optimization & Core Web Vitals (CLS) (2026-08-11) — added explicit `width` and `height` attributes and native `loading="lazy"` to profile and story images.
+
 ---
 
 ## PENDING
@@ -77,18 +86,10 @@ Content critiques and research live in dev/research/, referenced from items here
       like nowData.json — prerequisite for easy content updates
 - [ ] Quality gate — add `npx tsc --noEmit` + lint as pre-commit habit; no test setup
       exists yet (vitest later, if ever)
-### SEO & Indexability (from dev/research/seo-analysis.md)
-- [ ] Fix GitHub Pages HTTP 404 SPA fallback — add static site pre-rendering (`vite-plugin-prerender` or build-time HTML generator) so `/work`, `/personal`, `/projects`, `/keto`, `/now`, `/contact` return `HTTP 200 OK` static HTML instead of 404.
-- [ ] Implement dynamic head tags (`react-helmet-async`) — update `<title>`, `<meta name="description">`, `<meta property="og:title">`, `<meta property="og:description">`, `<meta property="og:url">`, and `<link rel="canonical">` dynamically on section changes.
-- [ ] Convert canvas navigation buttons to semantic anchor tags (`<a href="...">`) — replace internal `<button onClick>` calls with `<a href="...">` tags so search crawlers can discover sub-routes through the DOM link graph.
-- [ ] Create social sharing card (`public/og-image.png`) — design and save 1200x630px image at `public/og-image.png` (currently returning 404 Not Found on social shares).
-- [ ] Generate `public/sitemap.xml` & update `public/robots.txt` — generate XML sitemap listing all section routes and append `Sitemap: https://ohya.sh/sitemap.xml` to robots.txt.
-- [ ] Fix heading hierarchy (`<h1>` tag duplication) — refactor `SectionRenderer.tsx` and section components so that only the active view renders an `<h1>` element, eliminating 10 concurrent `<h1>` tags on the DOM tree.
-- [ ] Embed Schema.org JSON-LD structured data — add `Person`, `ProfilePage`, `BreadcrumbList`, and `CreativeWork` JSON-LD scripts for Google Knowledge Panel and Rich Results.
-- [ ] Image optimization & Core Web Vitals (CLS) — add explicit `width` and `height` attributes to profile and story images, convert static assets to WebP/AVIF, and enable native `loading="lazy"`.
 - [ ] Refactor ContactSection.tsx (~217 lines) into smaller components
 - [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
 - [ ] Add error boundaries around section rendering
+- [ ] Fix GitHub Pages HTTP 404 SPA fallback — add static site pre-rendering (`vite-plugin-prerender` or build-time HTML generator) so `/work`, `/personal`, `/projects`, `/keto`, `/now`, `/contact` return `HTTP 200 OK` static HTML instead of 404.
 
 ---
 
@@ -115,6 +116,7 @@ Content critiques and research live in dev/research/, referenced from items here
   NavigationBreadcrumb's sectionNames map. Missing the route or validSections fails
   silently at build time and 404s at runtime — verify in a browser
   (.claude/skills/verify/SKILL.md has the recipe).
+- Heading hierarchy on 2D infinite canvas: pass `isActive` to section components so only the active section renders `<h1>`, preventing crawler penalties for multiple concurrent `<h1>` headings on the un-unmounted canvas tree.
 
 ---
 
