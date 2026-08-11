@@ -19,6 +19,7 @@ interface WritingSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onSelectArticle: (slug: string) => void;
 }
@@ -28,12 +29,14 @@ const WritingSection: React.FC<WritingSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
   onSelectArticle,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
+  const HeadingTag = isActive ? 'h1' : 'h2';
   const allTags = useMemo(() => getAllTags(), []);
 
   const filteredPosts = useMemo(() => {
@@ -73,9 +76,9 @@ const WritingSection: React.FC<WritingSectionProps> = ({
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">{subtitle}</p>
         </div>
       </CardHeader>
@@ -119,10 +122,14 @@ const WritingSection: React.FC<WritingSectionProps> = ({
         <div className="space-y-4">
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => (
-              <div
+              <a
                 key={post.slug}
-                onClick={() => onSelectArticle(post.slug)}
-                className="group bg-white/90 hover:bg-white backdrop-blur-sm rounded-xl p-5 border border-slate-300/50 hover:border-blue-400/60 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer space-y-3"
+                href={`/writing/${post.slug}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSelectArticle(post.slug);
+                }}
+                className="group bg-white/90 hover:bg-white backdrop-blur-sm rounded-xl p-5 border border-slate-300/50 hover:border-blue-400/60 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer space-y-3 block text-left"
               >
                 <div className="flex items-center justify-between text-xs text-slate-500">
                   <div className="flex items-center gap-2">
@@ -169,7 +176,7 @@ const WritingSection: React.FC<WritingSectionProps> = ({
                     </span>
                   ))}
                 </div>
-              </div>
+              </a>
             ))
           ) : (
             <div className="bg-white/80 rounded-xl p-8 text-center text-slate-600 border border-slate-300/50">

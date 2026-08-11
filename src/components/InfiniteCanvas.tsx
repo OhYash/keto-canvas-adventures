@@ -219,7 +219,7 @@ const InfiniteCanvas = () => {
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-      <SEO sectionId={currentSection} />
+      <SEO sectionId={currentSection} articleSlug={activeArticleSlug} />
 
       <style>{`
         @keyframes slide-in-right {
