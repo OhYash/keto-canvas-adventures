@@ -5,14 +5,10 @@ import {
   ArrowLeft,
   Palette,
   Music,
-  Camera,
   Code,
-  Gamepad2,
-  Book,
   Terminal,
   Cpu,
   Bike,
-  Activity,
   Waves,
 } from "lucide-react";
 import { handleCopyUrl } from "@/utils/urlUtils";
@@ -22,6 +18,7 @@ interface HobbiesSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
 }
@@ -31,9 +28,12 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
   onNavigateToSection,
 }) => {
+  const HeadingTag = isActive ? "h1" : "h2";
+
   const hobbies = [
     {
       title: "Linux ricing",
@@ -77,13 +77,17 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
     >
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
-          </button>
+          </a>
           <button
             onClick={handleCopyUrl}
             className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -94,9 +98,9 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">{subtitle}</p>
         </div>
       </CardHeader>
@@ -105,7 +109,7 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
             <Palette className="w-5 h-5 text-slate-800" />
-            <h2 className="text-lg font-bold text-slate-900">My Hobbies</h2>
+            <h3 className="text-lg font-bold text-slate-900">My Hobbies</h3>
           </div>
 
           {hobbies.map((hobby, index) => (
@@ -116,9 +120,9 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
               <div className="mb-3">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="text-slate-700">{hobby.icon}</div>
-                  <h3 className="text-base font-bold text-slate-900">
+                  <h4 className="text-base font-bold text-slate-900">
                     {hobby.title}
-                  </h3>
+                  </h4>
                 </div>
                 <p className="text-slate-700 text-sm leading-relaxed mb-3">
                   {hobby.description}
@@ -150,13 +154,17 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
             Dive deeper into my coding projects and creative endeavors. See what
             I've been building in my spare time.
           </p>
-          <button
-            onClick={() => onNavigateToSection("projects")}
-            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
+          <a
+            href="/projects"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateToSection("projects");
+            }}
+            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30 block text-center"
           >
             <Code className="w-4 h-4" />
             View Personal Projects
-          </button>
+          </a>
         </div>
       </CardContent>
     </Card>

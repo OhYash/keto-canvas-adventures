@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ArrowLeft, Mail, MapPin, Github, Linkedin, MessageCircle, Twitter, Instagram } from 'lucide-react';
@@ -9,6 +8,7 @@ interface ContactSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
 }
 
@@ -17,9 +17,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
 }) => {
   const [emailRevealed, setEmailRevealed] = useState(false);
+  const HeadingTag = isActive ? "h1" : "h2";
   
   const revealEmail = () => {
     setEmailRevealed(true);
@@ -83,13 +85,17 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
-          </button>
+          </a>
           <button
             onClick={handleCopyUrl}
             className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -100,9 +106,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({
         </div>
         
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
@@ -112,7 +118,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       <CardContent className="space-y-6">
         {/* Contact Methods */}
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-slate-900 text-center">Get In Touch</h2>
+          <h3 className="text-lg font-bold text-slate-900 text-center">Get In Touch</h3>
           <div className="space-y-3">
             {contactMethods.map((method, index) => (
               <div
@@ -127,7 +133,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-semibold text-slate-900">{method.label}</h3>
+                        <h4 className="font-semibold text-slate-900">{method.label}</h4>
                         <div className="relative">
                           <p className={`text-slate-700 text-sm ${method.isBlurred ? 'filter blur-sm select-none' : ''}`}>
                             {method.value}
@@ -152,7 +158,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
         {/* Social Links */}
         <div className="space-y-4">
-          <h2 className="text-lg font-bold text-slate-900 text-center">Social & Professional</h2>
+          <h3 className="text-lg font-bold text-slate-900 text-center">Social & Professional</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {socialLinks.map((social, index) => (
               <a
@@ -167,7 +173,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     {social.icon}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900">{social.label}</h3>
+                    <h4 className="font-semibold text-slate-900">{social.label}</h4>
                     <p className="text-slate-600 text-sm">{social.username}</p>
                   </div>
                 </div>

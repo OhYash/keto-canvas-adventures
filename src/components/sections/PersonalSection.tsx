@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ArrowLeft, User, MapPin, Camera, Heart, Mail, Cat, Palette, Languages } from 'lucide-react';
@@ -9,6 +8,7 @@ interface PersonalSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onNavigateToSection?: (sectionId: string) => void;
 }
@@ -18,9 +18,12 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
   onNavigateToSection,
 }) => {
+  const HeadingTag = isActive ? "h1" : "h2";
+
   const personalCategories = [
     {
       title: "Physical Stats",
@@ -68,22 +71,26 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
     }
   ];
 
-  const handleTravelStoriesClick = () => {
-    onNavigateToSection?.('travel');
+  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    onNavigateToSection?.(sectionId);
   };
-
 
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
-          </button>
+          </a>
           <button
             onClick={handleCopyUrl}
             className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -94,9 +101,9 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         </div>
         
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
@@ -109,7 +116,10 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
             <img
               src="/personal/yash_loading_dp.jpg"
-              alt="Full body profile"
+              alt="Full body profile of Yash Yadav"
+              width={128}
+              height={192}
+              loading="lazy"
               className="w-28 h-40 sm:w-32 sm:h-48 object-cover rounded-lg mx-auto"
             />
           </div>
@@ -119,7 +129,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
             <User className="w-5 h-5 text-slate-800" />
-            <h2 className="text-lg font-bold text-slate-900">About Me</h2>
+            <h3 className="text-lg font-bold text-slate-900">About Me</h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -130,7 +140,7 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
               >
                 <div className="flex items-center gap-3 mb-3">
                   <div className="text-slate-700">{category.icon}</div>
-                  <h3 className="text-base font-bold text-slate-900">{category.title}</h3>
+                  <h4 className="text-base font-bold text-slate-900">{category.title}</h4>
                 </div>
                 <div className="space-y-1.5">
                   {category.items.map((item, itemIndex) => (
@@ -154,13 +164,14 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           <p className="text-slate-700 text-sm leading-relaxed mb-3">
             Explore my journey around the world through stories and photos from various destinations.
           </p>
-          <button 
-            onClick={handleTravelStoriesClick}
-            className="w-full px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-emerald-400/30"
+          <a
+            href="/travel"
+            onClick={(e) => handleNav(e, 'travel')}
+            className="w-full px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-emerald-400/30 block text-center"
           >
             <Camera className="w-4 h-4" />
             View Travel Stories
-          </button>
+          </a>
         </div>
 
         {/* Meet Keto */}
@@ -172,13 +183,14 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           <p className="text-slate-700 text-sm leading-relaxed mb-3">
             The furry companion who keeps me company. Come say hi!
           </p>
-          <button
-            onClick={() => onNavigateToSection?.('keto')}
-            className="w-full px-4 py-2.5 bg-orange-500/20 hover:bg-orange-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-orange-400/30"
+          <a
+            href="/keto"
+            onClick={(e) => handleNav(e, 'keto')}
+            className="w-full px-4 py-2.5 bg-orange-500/20 hover:bg-orange-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-orange-400/30 block text-center"
           >
             <Cat className="w-4 h-4" />
             Meet Keto
-          </button>
+          </a>
         </div>
 
         {/* Hobbies */}
@@ -190,13 +202,14 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           <p className="text-slate-700 text-sm leading-relaxed mb-3">
             What I do when I'm not working. From tech tinkering to outdoor adventures.
           </p>
-          <button
-            onClick={() => onNavigateToSection?.('hobbies')}
-            className="w-full px-4 py-2.5 bg-purple-500/20 hover:bg-purple-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-purple-400/30"
+          <a
+            href="/hobbies"
+            onClick={(e) => handleNav(e, 'hobbies')}
+            className="w-full px-4 py-2.5 bg-purple-500/20 hover:bg-purple-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-purple-400/30 block text-center"
           >
             <Palette className="w-4 h-4" />
             View Hobbies
-          </button>
+          </a>
         </div>
 
         {/* Contact Me */}
@@ -208,13 +221,14 @@ const PersonalSection: React.FC<PersonalSectionProps> = ({
           <p className="text-slate-700 text-sm leading-relaxed mb-3">
             Want to connect? Find all my contact information and social links in one place.
           </p>
-          <button
-            onClick={() => onNavigateToSection?.('contact')}
-            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
+          <a
+            href="/contact"
+            onClick={(e) => handleNav(e, 'contact')}
+            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30 block text-center"
           >
             <Mail className="w-4 h-4" />
             Contact Me
-          </button>
+          </a>
         </div>
 
       </CardContent>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +10,7 @@ interface AtacoSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
 }
 
@@ -19,19 +19,26 @@ const AtacoSection: React.FC<AtacoSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
 }) => {
+  const HeadingTag = isActive ? "h1" : "h2";
+
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
-          </button>
+          </a>
           <button
             onClick={handleCopyUrl}
             className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -42,9 +49,9 @@ const AtacoSection: React.FC<AtacoSectionProps> = ({
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">
             {subtitle}
           </p>
@@ -71,7 +78,7 @@ const AtacoSection: React.FC<AtacoSectionProps> = ({
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-3">
             <Bike className="w-5 h-5 text-slate-800" />
-            <h2 className="text-lg font-bold text-slate-900">The Ataco File</h2>
+            <h3 className="text-lg font-bold text-slate-900">The Ataco File</h3>
           </div>
 
           {atacoStories.map((story, index) => (
@@ -81,7 +88,7 @@ const AtacoSection: React.FC<AtacoSectionProps> = ({
             >
               <div className="flex items-center gap-3 mb-2">
                 <Star className="w-4 h-4 text-slate-700" />
-                <h3 className="text-base font-bold text-slate-900">{story.title}</h3>
+                <h4 className="text-base font-bold text-slate-900">{story.title}</h4>
               </div>
               <p className="text-slate-700 text-sm leading-relaxed">
                 {story.description}

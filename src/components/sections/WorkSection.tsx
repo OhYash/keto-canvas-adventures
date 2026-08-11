@@ -6,7 +6,6 @@ import {
   Building,
   MapPin,
   Calendar,
-  ExternalLink,
   ChevronDown,
   ChevronUp,
   Code,
@@ -19,6 +18,7 @@ interface WorkSectionProps {
   icon: string;
   title: string;
   subtitle: string;
+  isActive?: boolean;
   onNavigateHome: () => void;
   onNavigateToSection?: (sectionId: string) => void;
 }
@@ -28,10 +28,13 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   icon,
   title,
   subtitle,
+  isActive = false,
   onNavigateHome,
   onNavigateToSection,
 }) => {
   const [showAllExperience, setShowAllExperience] = useState(false);
+  const HeadingTag = isActive ? "h1" : "h2";
+
   const currentRole = {
     title: "Senior Backend Engineer",
     company: "Ex-TestGorilla",
@@ -118,7 +121,8 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     "Drawing boxes and arrows for a system that's about to get bigger",
   ];
 
-  const handleOpportunitiesClick = () => {
+  const handleOpportunitiesClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     onNavigateToSection?.("contact");
   };
 
@@ -128,13 +132,17 @@ const WorkSection: React.FC<WorkSectionProps> = ({
     >
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={onNavigateHome}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateHome();
+            }}
             className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Home
-          </button>
+          </a>
           <button
             onClick={handleCopyUrl}
             className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
@@ -145,9 +153,9 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
             {title}
-          </h1>
+          </HeadingTag>
           <p className="text-slate-700 text-sm sm:text-base mb-4">{subtitle}</p>
         </div>
       </CardHeader>
@@ -157,16 +165,16 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
           <div className="flex items-center gap-3 mb-3">
             <Building className="w-5 h-5 text-slate-800" />
-            <h2 className="text-lg font-bold text-slate-900">
+            <h3 className="text-lg font-bold text-slate-900">
               Most Recent Role
-            </h2>
+            </h3>
           </div>
 
           <div className="space-y-3">
             <div>
-              <h3 className="text-xl font-bold text-slate-900">
+              <h4 className="text-xl font-bold text-slate-900">
                 {currentRole.title}
-              </h3>
+              </h4>
               <p className="text-slate-700 font-medium">
                 {currentRole.company}
               </p>
@@ -314,13 +322,17 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             Beyond work, I build side projects to explore new technologies and
             solve problems I care about.
           </p>
-          <button
-            onClick={() => onNavigateToSection?.("projects")}
-            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30"
+          <a
+            href="/projects"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigateToSection?.("projects");
+            }}
+            className="w-full px-4 py-2.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-indigo-400/30 block text-center"
           >
             <Code className="w-4 h-4" />
             View Personal Projects
-          </button>
+          </a>
         </div>
 
         {/* Writing & Essays Link */}
@@ -344,13 +356,18 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         </div>
 
         <div className="flex items-center justify-center gap-4 pt-3">
-          <Badge
-            variant="secondary"
-            className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 cursor-pointer"
+          <a
+            href="/contact"
             onClick={handleOpportunitiesClick}
+            className="inline-block"
           >
-            Open for full-time & freelance opportunities
-          </Badge>
+            <Badge
+              variant="secondary"
+              className="text-xs bg-slate-800 text-white hover:bg-slate-700 px-4 py-2 cursor-pointer"
+            >
+              Open for full-time & freelance opportunities
+            </Badge>
+          </a>
           <a
             href="/personal/Yash-resume-s-m.pdf"
             download
