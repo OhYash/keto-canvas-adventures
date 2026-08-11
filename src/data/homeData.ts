@@ -12,7 +12,7 @@ export interface NavLinkItem {
 }
 
 export const homeData = {
-  badge: "YASH · SENIOR BACKEND ENGINEER",
+  badge: "YASH YADAV · SENIOR BACKEND ENGINEER",
   headline: "I own backend systems end-to-end.",
   subtitle: "7+ years in Python and Django, shipping production infra at scale. Open for freelance and senior roles.",
   systemMetric: {

@@ -31,9 +31,11 @@ const HomeSection: React.FC<HomeSectionProps> = ({
   return (
     <div className="w-[95vw] sm:w-[90vw] md:w-[520px] max-w-[520px] bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200">
       {/* Header Tag / Badge */}
-      <span className="text-[11px] sm:text-xs font-mono font-semibold tracking-widest text-slate-400 uppercase mb-3 block">
-        {homeData.badge}
-      </span>
+      <div className="inline-flex items-center bg-slate-800/90 border border-slate-700/80 rounded-lg px-3 py-1.5 mb-4 shadow-sm">
+        <span className="text-xs sm:text-sm font-mono font-bold tracking-wider text-cyan-400 uppercase">
+          {homeData.badge}
+        </span>
+      </div>
 
       {/* Hero Headline */}
       <HeadingTag className="text-2xl sm:text-3xl md:text-[2rem] font-bold text-white tracking-tight leading-snug mb-3">
