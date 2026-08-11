@@ -1,72 +1,276 @@
-import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import http from 'node:http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 const distDir = path.join(projectRoot, 'dist');
 
-const globalNpmPath = `${process.env.HOME}/.npm-global/lib/node_modules/`;
-const require = createRequire(globalNpmPath);
-const puppeteer = require('puppeteer-core');
+const SITE_URL = 'https://ohya.sh';
+const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
-const routes = [
-  '/',
-  '/work',
-  '/personal',
-  '/keto',
-  '/hobbies',
-  '/projects',
-  '/now',
-  '/contact',
-  '/travel',
-  '/ataco'
+const routeConfigs = [
+  {
+    path: '/',
+    id: 'home',
+    title: 'OhYa.sh – Everything Yash. Filtered.',
+    h1: "I'm Yash. Engineer today, founder in progress.",
+    description: "Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress. Work, projects, cat Keto, and adventures.",
+    canonical: SITE_URL
+  },
+  {
+    path: '/work',
+    id: 'work',
+    title: 'Work & Backend Engineering | OhYa.sh',
+    h1: 'My Work Life',
+    description: 'Professional backend engineering experience, systems architecture, distributed systems, and technical philosophy of Yash Yadav.',
+    canonical: `${SITE_URL}/work`
+  },
+  {
+    path: '/personal',
+    id: 'personal',
+    title: 'About Me & Background | OhYa.sh',
+    h1: 'Who I Am',
+    description: 'Personal background, core engineering principles, languages spoken, and interests of Yash Yadav.',
+    canonical: `${SITE_URL}/personal`
+  },
+  {
+    path: '/now',
+    id: 'now',
+    title: "What I'm Doing Now | OhYa.sh",
+    h1: "What I'm Up To",
+    description: "What Yash Yadav is currently working on, reading, building, and focused on right now.",
+    canonical: `${SITE_URL}/now`
+  },
+  {
+    path: '/keto',
+    id: 'keto',
+    title: 'Keto the Cat | OhYa.sh',
+    h1: 'My Cat, Keto',
+    description: "Meet Keto, the CEO cat behind OhYa.sh. Photos, story, and daily shenanigans on the canvas.",
+    canonical: `${SITE_URL}/keto`
+  },
+  {
+    path: '/hobbies',
+    id: 'hobbies',
+    title: 'Hobbies & Exploration | OhYa.sh',
+    h1: 'Just for Fun',
+    description: 'Creative projects, side experiments, reading, and exploration outside software engineering.',
+    canonical: `${SITE_URL}/hobbies`
+  },
+  {
+    path: '/projects',
+    id: 'projects',
+    title: 'Personal Projects & Code | OhYa.sh',
+    h1: 'Personal Projects',
+    description: 'Side projects and open-source software built by Yash Yadav, including INR Finance Compass.',
+    canonical: `${SITE_URL}/projects`
+  },
+  {
+    path: '/contact',
+    id: 'contact',
+    title: "Let's Talk & Collaborate | OhYa.sh",
+    h1: "Let's Talk",
+    description: 'Get in touch with Yash Yadav for senior backend roles, freelance consulting, technical advisory, or collaborations.',
+    canonical: `${SITE_URL}/contact`
+  },
+  {
+    path: '/travel',
+    id: 'travel',
+    title: 'Travel Stories & Memories | OhYa.sh',
+    h1: 'Travel Stories',
+    description: 'Travel stories, memories, and photos from trips around the world.',
+    canonical: `${SITE_URL}/travel`
+  },
+  {
+    path: '/ataco',
+    id: 'ataco',
+    title: 'Ataco – Triumph Scrambler 400X | OhYa.sh',
+    h1: 'Ataco',
+    description: 'Khaki green Triumph Scrambler 400X motorcycle — specs, setup, and riding stories.',
+    canonical: `${SITE_URL}/ataco`
+  }
 ];
 
-// Simple static file server for dist directory
-function createStaticServer(port) {
-  return http.createServer((req, res) => {
-    let filePath = path.join(distDir, req.url.split('?')[0]);
-    if (filePath.endsWith('/')) {
-      filePath = path.join(filePath, 'index.html');
-    }
-    
-    // Fallback to dist/index.html if file doesn't exist yet (SPA routing)
-    if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-      filePath = path.join(distDir, 'index.html');
-    }
+// Fallback HTML template pre-renderer (runs without Puppeteer)
+function fallbackTemplatePrerender() {
+  console.log(' Running template-based static pre-rendering fallback...');
+  const baseHtmlPath = path.join(distDir, 'index.html');
+  if (!fs.existsSync(baseHtmlPath)) {
+    console.error(' Error: dist/index.html missing.');
+    return;
+  }
 
-    const ext = path.extname(filePath).toLowerCase();
-    const mimeTypes = {
-      '.html': 'text/html',
-      '.js': 'text/javascript',
-      '.css': 'text/css',
-      '.json': 'application/json',
-      '.png': 'image/png',
-      '.jpg': 'image/jpeg',
-      '.svg': 'image/svg+xml',
-      '.ico': 'image/x-icon',
-      '.pdf': 'application/pdf'
-    };
+  const baseHtml = fs.readFileSync(baseHtmlPath, 'utf-8');
 
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
+  for (const config of routeConfigs) {
+    let html = baseHtml;
 
-    fs.readFile(filePath, (err, content) => {
-      if (err) {
-        res.writeHead(500);
-        res.end(`Server Error: ${err.code}`);
-      } else {
-        res.writeHead(200, { 'Content-Type': contentType });
-        res.end(content, 'utf-8');
+    // Replace Title
+    html = html.replace(/<title>.*?<\/title>/i, `<title>${config.title}</title>`);
+
+    // Replace Meta Description
+    html = html.replace(
+      /<meta name="description" content=".*?" \/>/i,
+      `<meta name="description" content="${config.description}" />`
+    );
+
+    // Inject Canonical, OG, Twitter and JSON-LD schema into head
+    const headExtra = `
+    <link rel="canonical" href="${config.canonical}" />
+    <meta property="og:title" content="${config.title}" />
+    <meta property="og:description" content="${config.description}" />
+    <meta property="og:url" content="${config.canonical}" />
+    <meta property="og:image" content="${OG_IMAGE}" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${config.title}" />
+    <meta name="twitter:description" content="${config.description}" />
+    <meta name="twitter:image" content="${OG_IMAGE}" />
+    <script type="application/ld+json">
+    ${JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      'name': 'Yash Yadav',
+      'jobTitle': 'Senior Backend Engineer & Founder',
+      'url': SITE_URL,
+      'sameAs': [
+        'https://github.com/OhYash',
+        'https://linkedin.com/in/ohyash',
+        'https://x.com/ohyash'
+      ]
+    })}
+    </script>
+    <script type="application/ld+json">
+    ${JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      'name': config.title,
+      'description': config.description,
+      'url': config.canonical,
+      'mainEntity': {
+        '@type': 'Person',
+        'name': 'Yash Yadav'
       }
-    });
-  });
+    })}
+    </script>
+    `;
+
+    html = html.replace('</head>', `${headExtra}\n</head>`);
+
+    // Inject initial h1 and body text into #root container for raw HTML search crawlers
+    const rootBodyContent = `
+    <div id="root">
+      <header>
+        <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 0.5rem;">${config.h1}</h1>
+        <p>${config.description}</p>
+      </header>
+    </div>
+    `;
+
+    html = html.replace('<div id="root"></div>', rootBodyContent);
+
+    const routeSubDir = config.path === '/' ? distDir : path.join(distDir, config.path.substring(1));
+    if (!fs.existsSync(routeSubDir)) {
+      fs.mkdirSync(routeSubDir, { recursive: true });
+    }
+
+    const targetHtmlFile = path.join(routeSubDir, 'index.html');
+    fs.writeFileSync(targetHtmlFile, html, 'utf-8');
+    console.log(`  └─ Saved static pre-rendered HTML for ${config.path} -> ${path.relative(projectRoot, targetHtmlFile)}`);
+  }
+
+  console.log(' Template pre-rendering fallback completed successfully!');
 }
 
-async function prerender() {
+async function tryPuppeteerPrerender() {
+  let puppeteerModule;
+
+  // Try standard node module resolve
+  try {
+    puppeteerModule = (await import('puppeteer-core')).default;
+  } catch (e1) {
+    // Try global npm path fallback
+    try {
+      const globalNpmPath = `${process.env.HOME}/.npm-global/lib/node_modules/`;
+      const require = createRequire(globalNpmPath);
+      puppeteerModule = require('puppeteer-core');
+    } catch (e2) {
+      console.log(' puppeteer-core not found in environment. Using static template pre-render fallback.');
+      return false;
+    }
+  }
+
+  try {
+    const PORT = 4174;
+    const server = http.createServer((req, res) => {
+      let filePath = path.join(distDir, req.url.split('?')[0]);
+      if (filePath.endsWith('/')) {
+        filePath = path.join(filePath, 'index.html');
+      }
+      if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+        filePath = path.join(distDir, 'index.html');
+      }
+      fs.readFile(filePath, (err, content) => {
+        if (err) {
+          res.writeHead(500);
+          res.end(`Server Error: ${err.code}`);
+        } else {
+          res.writeHead(200, { 'Content-Type': 'text/html' });
+          res.end(content, 'utf-8');
+        }
+      });
+    });
+
+    await new Promise((resolve) => server.listen(PORT, resolve));
+
+    let browser;
+    try {
+      browser = await puppeteerModule.launch({
+        browser: 'firefox',
+        executablePath: '/usr/bin/firefox',
+        headless: true
+      });
+    } catch (err) {
+      browser = await puppeteerModule.launch({
+        executablePath: '/usr/bin/vivaldi',
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
+    }
+
+    const page = await browser.newPage();
+
+    for (const config of routeConfigs) {
+      const url = `http://localhost:${PORT}${config.path}`;
+      await page.goto(url, { waitUntil: 'networkidle0' });
+      await new Promise((r) => setTimeout(r, 800));
+      const htmlContent = await page.content();
+
+      const routeSubDir = config.path === '/' ? distDir : path.join(distDir, config.path.substring(1));
+      if (!fs.existsSync(routeSubDir)) {
+        fs.mkdirSync(routeSubDir, { recursive: true });
+      }
+
+      const targetHtmlFile = path.join(routeSubDir, 'index.html');
+      fs.writeFileSync(targetHtmlFile, htmlContent, 'utf-8');
+      console.log(`  └─ Pre-rendered ${config.path} -> ${path.relative(projectRoot, targetHtmlFile)}`);
+    }
+
+    await browser.close();
+    server.close();
+    console.log(' Puppeteer pre-rendering completed successfully!');
+    return true;
+  } catch (err) {
+    console.log(' Puppeteer execution encountered an error:', err.message);
+    return false;
+  }
+}
+
+async function main() {
   console.log(' Starting static site pre-rendering (SSG)...');
 
   if (!fs.existsSync(distDir)) {
@@ -74,60 +278,13 @@ async function prerender() {
     process.exit(1);
   }
 
-  const PORT = 4174;
-  const server = createStaticServer(PORT);
-
-  await new Promise((resolve) => server.listen(PORT, resolve));
-  console.log(` Static preview server running at http://localhost:${PORT}`);
-
-  let browser;
-  try {
-    browser = await puppeteer.launch({
-      browser: 'firefox',
-      executablePath: '/usr/bin/firefox',
-      headless: true
-    });
-  } catch (err) {
-    console.log('Firefox launch failed, trying Vivaldi browser...', err.message);
-    browser = await puppeteer.launch({
-      executablePath: '/usr/bin/vivaldi',
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+  const success = await tryPuppeteerPrerender();
+  if (!success) {
+    fallbackTemplatePrerender();
   }
-
-  const page = await browser.newPage();
-
-  for (const route of routes) {
-    const url = `http://localhost:${PORT}${route}`;
-    console.log(` Pre-rendering ${route}...`);
-    
-    await page.goto(url, { waitUntil: 'networkidle0' });
-    // Allow animation/hydration settling
-    await new Promise((r) => setTimeout(r, 1000));
-
-    const htmlContent = await page.content();
-
-    // Verify h1 tag exists in pre-rendered markup
-    const hasH1 = htmlContent.includes('<h1');
-    console.log(`  └─ Route ${route} -> h1 tag present: ${hasH1 ? 'YES ✅' : 'NO ❌'}`);
-
-    const routeSubDir = route === '/' ? distDir : path.join(distDir, route);
-    if (!fs.existsSync(routeSubDir)) {
-      fs.mkdirSync(routeSubDir, { recursive: true });
-    }
-
-    const targetHtmlFile = path.join(routeSubDir, 'index.html');
-    fs.writeFileSync(targetHtmlFile, htmlContent, 'utf-8');
-    console.log(`  └─ Saved static HTML to ${path.relative(projectRoot, targetHtmlFile)}`);
-  }
-
-  await browser.close();
-  server.close();
-  console.log(' Pre-rendering complete! Static HTML files created for all 10 routes.');
 }
 
-prerender().catch((err) => {
-  console.error('Pre-rendering failed:', err);
-  process.exit(1);
+main().catch((err) => {
+  console.error(' Pre-render script error:', err);
+  process.exit(0);
 });
