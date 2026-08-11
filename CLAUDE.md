@@ -27,6 +27,8 @@ npm run preview      # Preview production build
 npx tsc --noEmit     # Type check (no test suite exists yet)
 ```
 
+Note: For tasks requiring Chrome/Chromium (such as Lighthouse CLI), Vivaldi is available on this system at `/usr/bin/vivaldi` (`CHROME_PATH=/usr/bin/vivaldi`).
+
 Deploy: push to `main` → GitHub Pages via `.github/workflows/deploy.yml`.
 `make surge` deploys `dist/` to the surge preview URL.
 

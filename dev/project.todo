@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-08-07
+Last updated: 2026-08-11
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -77,6 +77,15 @@ Content critiques and research live in dev/research/, referenced from items here
       like nowData.json — prerequisite for easy content updates
 - [ ] Quality gate — add `npx tsc --noEmit` + lint as pre-commit habit; no test setup
       exists yet (vitest later, if ever)
+### SEO & Indexability (from dev/research/seo-analysis.md)
+- [ ] Fix GitHub Pages HTTP 404 SPA fallback — add static site pre-rendering (`vite-plugin-prerender` or build-time HTML generator) so `/work`, `/personal`, `/projects`, `/keto`, `/now`, `/contact` return `HTTP 200 OK` static HTML instead of 404.
+- [ ] Implement dynamic head tags (`react-helmet-async`) — update `<title>`, `<meta name="description">`, `<meta property="og:title">`, `<meta property="og:description">`, `<meta property="og:url">`, and `<link rel="canonical">` dynamically on section changes.
+- [ ] Convert canvas navigation buttons to semantic anchor tags (`<a href="...">`) — replace internal `<button onClick>` calls with `<a href="...">` tags so search crawlers can discover sub-routes through the DOM link graph.
+- [ ] Create social sharing card (`public/og-image.png`) — design and save 1200x630px image at `public/og-image.png` (currently returning 404 Not Found on social shares).
+- [ ] Generate `public/sitemap.xml` & update `public/robots.txt` — generate XML sitemap listing all section routes and append `Sitemap: https://ohya.sh/sitemap.xml` to robots.txt.
+- [ ] Fix heading hierarchy (`<h1>` tag duplication) — refactor `SectionRenderer.tsx` and section components so that only the active view renders an `<h1>` element, eliminating 10 concurrent `<h1>` tags on the DOM tree.
+- [ ] Embed Schema.org JSON-LD structured data — add `Person`, `ProfilePage`, `BreadcrumbList`, and `CreativeWork` JSON-LD scripts for Google Knowledge Panel and Rich Results.
+- [ ] Image optimization & Core Web Vitals (CLS) — add explicit `width` and `height` attributes to profile and story images, convert static assets to WebP/AVIF, and enable native `loading="lazy"`.
 - [ ] Refactor ContactSection.tsx (~217 lines) into smaller components
 - [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
 - [ ] Add error boundaries around section rendering

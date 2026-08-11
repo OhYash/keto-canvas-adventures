@@ -19,6 +19,7 @@ dev/
 - Check DONE before starting work — avoid redoing completed effort
 - LEARNINGS captures known pitfalls (touch handling, navigation integration points);
   read before touching the relevant areas
+- Environment note: Vivaldi is installed on this Arch system at `/usr/bin/vivaldi`. For tools requiring Chrome/Chromium (like Lighthouse CLI), pass `CHROME_PATH=/usr/bin/vivaldi`.
 - NEEDS INPUT items are blocked on the owner — don't guess, ask
 
 ### Writing
