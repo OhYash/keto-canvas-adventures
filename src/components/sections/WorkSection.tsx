@@ -323,6 +323,26 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           </button>
         </div>
 
+        {/* Writing & Essays Link */}
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-xl">✍️</span>
+            <h3 className="text-lg font-bold text-slate-900">
+              Writing & Essays
+            </h3>
+          </div>
+          <p className="text-slate-700 text-sm leading-relaxed mb-3">
+            Deep dives into backend engineering, system design, and building spatial web apps.
+          </p>
+          <button
+            onClick={() => onNavigateToSection?.("writing")}
+            className="w-full px-4 py-2.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-blue-400/30"
+          >
+            <span>✍️</span>
+            Read Writing & Essays
+          </button>
+        </div>
+
         <div className="flex items-center justify-center gap-4 pt-3">
           <Badge
             variant="secondary"

@@ -9,6 +9,7 @@ import NowSection from '../sections/NowSection';
 import TravelStoriesSection from '../sections/TravelStoriesSection';
 import AtacoSection from '../sections/AtacoSection';
 import ContactSection from '../sections/ContactSection';
+import WritingSection from '../sections/WritingSection';
 
 interface Position {
   x: number;
@@ -31,6 +32,7 @@ interface SectionRendererProps {
   allSections: Section[];
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
+  onSelectArticle: (slug: string) => void;
 }
 
 const SectionRenderer: React.FC<SectionRendererProps> = ({
@@ -38,6 +40,7 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
   allSections,
   onNavigateHome,
   onNavigateToSection,
+  onSelectArticle,
 }) => {
   const renderSectionContent = useCallback((section: Section) => {
     const commonProps = {
@@ -51,6 +54,8 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
     switch (section.id) {
       case 'work':
         return <WorkSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+      case 'writing':
+        return <WritingSection {...commonProps} onSelectArticle={onSelectArticle} />;
       case 'personal':
         return <PersonalSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'keto':
@@ -70,7 +75,7 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       default:
         return null;
     }
-  }, [onNavigateHome, onNavigateToSection]);
+  }, [onNavigateHome, onNavigateToSection, onSelectArticle]);
 
   return (
     <>

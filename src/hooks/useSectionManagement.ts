@@ -162,6 +162,17 @@ export const useSectionManagement = () => {
         icon: '🏍️',
         direction: 'up',
         parent: 'keto'
+      },
+      {
+        id: 'writing',
+        title: 'Writing & Essays',
+        subtitle: 'Thoughts on backend engineering, system design, and building products.',
+        position: { x: spacing * 2, y: 0 },
+        color: 'from-sky-500 to-blue-600',
+        gradient: 'bg-gradient-to-br from-sky-500/20 to-blue-600/20',
+        icon: '✍️',
+        direction: 'right',
+        parent: 'work'
       }
     ];
   }, [sections, getResponsiveSpacing]);
