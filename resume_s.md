@@ -18,7 +18,7 @@ Backend engineer who owns systems end-to-end. Architected and shipped TestGorill
 ## [Experience](https://ohya.sh/work/)
 
 **Senior Backend Engineer – TestGorilla**  
-*Remote | October 2022 – Present*  
+*Remote | October 2022 – August 2026*  
 *Stack: Python, Django, MySQL, Redis, AWS*  
 
 - Designed and shipped the self-serve assessment flow, TestGorilla's largest workflow refactor, shifting the platform from customer-initiated (B2B) to candidate-initiated (B2C). Built it to deploy with **zero changes required from any other team**, scaling to **52K+ candidates** with near-zero post-launch defects.
