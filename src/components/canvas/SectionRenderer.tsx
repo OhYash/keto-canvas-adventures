@@ -29,6 +29,7 @@ interface Section {
 interface SectionRendererProps {
   sections: Section[];
   allSections: Section[];
+  currentSection: string;
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
 }
@@ -36,15 +37,18 @@ interface SectionRendererProps {
 const SectionRenderer: React.FC<SectionRendererProps> = ({
   sections,
   allSections,
+  currentSection,
   onNavigateHome,
   onNavigateToSection,
 }) => {
   const renderSectionContent = useCallback((section: Section) => {
+    const isActive = currentSection === section.id;
     const commonProps = {
       gradient: section.gradient,
       icon: section.icon,
       title: section.title,
       subtitle: section.subtitle,
+      isActive,
       onNavigateHome,
     };
 
@@ -70,13 +74,17 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       default:
         return null;
     }
-  }, [onNavigateHome, onNavigateToSection]);
+  }, [currentSection, onNavigateHome, onNavigateToSection]);
 
   return (
     <>
       {/* Home/Landing section */}
       <div className="absolute -translate-x-1/2 -translate-y-1/2">
-        <HomeSection sections={sections} onNavigateToSection={onNavigateToSection} />
+        <HomeSection
+          sections={sections}
+          isActive={currentSection === 'home'}
+          onNavigateToSection={onNavigateToSection}
+        />
       </div>
 
       {/* Section pages - render all sections including travel */}
