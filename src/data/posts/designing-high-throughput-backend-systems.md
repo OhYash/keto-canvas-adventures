@@ -25,17 +25,17 @@ The most common cause of high tail latency in backend services is missing query 
 - **Index for equality first, range second**: Compound indexes should put high-cardinality equality fields upfront.
 - **Use SELECT fields explicitly**: Fetching full database rows when you only need two columns wastes memory allocations and network bandwidth.
 
-\`\`\`python
+```python
 # Bad: Implicit N+1 and full row fetch
 candidates = Candidate.objects.filter(status='completed')
 for c in candidates:
     print(c.assessment.title)  # Triggers N separate DB calls
 
 # Good: Explicit select_related and value fields
-candidates = Candidate.objects.filter(status='completed')\
-    .select_related('assessment')\
+candidates = Candidate.objects.filter(status='completed') \
+    .select_related('assessment') \
     .values('id', 'email', 'assessment__title')
-\`\`\`
+```
 
 ---
 

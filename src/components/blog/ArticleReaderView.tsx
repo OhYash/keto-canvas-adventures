@@ -51,6 +51,61 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
+  // Helper to parse inline markdown (bold, italic, code, links)
+  const parseInlineMarkdown = (text: string): React.ReactNode => {
+    const pattern = /(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\)|\*[^*]+\*)/g;
+    const parts = text.split(pattern);
+
+    return parts.map((part, i) => {
+      if (!part) return null;
+
+      if (part.startsWith('`') && part.endsWith('`')) {
+        return (
+          <code
+            key={i}
+            className="px-1.5 py-0.5 rounded bg-slate-800/90 text-indigo-300 font-mono text-xs sm:text-sm border border-slate-700/60"
+          >
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return (
+          <strong key={i} className="font-semibold text-slate-100">
+            {parseInlineMarkdown(part.slice(2, -2))}
+          </strong>
+        );
+      }
+
+      if (part.startsWith('*') && part.endsWith('*')) {
+        return (
+          <em key={i} className="italic text-slate-200">
+            {part.slice(1, -1)}
+          </em>
+        );
+      }
+
+      const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (linkMatch) {
+        const [, linkText, url] = linkMatch;
+        return (
+          <a
+            key={i}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-400 hover:text-indigo-300 underline underline-offset-4 font-medium transition-colors"
+          >
+            {parseInlineMarkdown(linkText)}
+          </a>
+        );
+      }
+
+      return part;
+    });
+  };
+
   // Convert raw markdown string to structured rendered elements cleanly
   const renderMarkdown = (content: string) => {
     const lines = content.split('\n');
@@ -82,23 +137,33 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
         return;
       }
 
+      // Blockquotes
+      if (line.startsWith('> ')) {
+        elements.push(
+          <blockquote key={index} className="border-l-4 border-indigo-500/80 bg-indigo-500/5 px-4 py-3 rounded-r-lg my-4 text-slate-300 italic text-base">
+            {parseInlineMarkdown(line.slice(2))}
+          </blockquote>
+        );
+        return;
+      }
+
       // Headings
       if (line.startsWith('# ')) {
         elements.push(
           <h1 key={index} className="text-3xl sm:text-4xl font-bold text-slate-100 mt-8 mb-4 tracking-tight leading-tight">
-            {line.slice(2)}
+            {parseInlineMarkdown(line.slice(2))}
           </h1>
         );
       } else if (line.startsWith('## ')) {
         elements.push(
           <h2 key={index} className="text-2xl sm:text-3xl font-semibold text-slate-200 mt-8 mb-4 tracking-tight">
-            {line.slice(3)}
+            {parseInlineMarkdown(line.slice(3))}
           </h2>
         );
       } else if (line.startsWith('### ')) {
         elements.push(
           <h3 key={index} className="text-xl sm:text-2xl font-semibold text-slate-300 mt-6 mb-3">
-            {line.slice(4)}
+            {parseInlineMarkdown(line.slice(4))}
           </h3>
         );
       } else if (line.startsWith('---')) {
@@ -106,13 +171,20 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
       } else if (line.startsWith('- ')) {
         elements.push(
           <li key={index} className="ml-6 list-disc text-slate-300 my-1 leading-relaxed">
-            {line.slice(2)}
+            {parseInlineMarkdown(line.slice(2))}
+          </li>
+        );
+      } else if (/^\d+\.\s/.test(line)) {
+        const itemText = line.replace(/^\d+\.\s/, '');
+        elements.push(
+          <li key={index} className="ml-6 list-decimal text-slate-300 my-1 leading-relaxed">
+            {parseInlineMarkdown(itemText)}
           </li>
         );
       } else if (line.trim().length > 0) {
         elements.push(
           <p key={index} className="text-slate-300 my-4 text-base sm:text-lg leading-relaxed font-normal">
-            {line}
+            {parseInlineMarkdown(line)}
           </p>
         );
       }
