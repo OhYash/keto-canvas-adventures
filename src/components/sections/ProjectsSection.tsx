@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Folder, ExternalLink, Code } from 'lucide-react';
+import { ArrowLeft, Folder, ExternalLink, Code, ChevronDown, ChevronUp } from 'lucide-react';
 import { handleCopyUrl } from '@/utils/urlUtils';
+import { projectsData } from '@/data/projectsData';
 
 interface ProjectsSectionProps {
   gradient: string;
@@ -24,53 +25,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   onNavigateToSection,
 }) => {
   const HeadingTag = isActive ? "h1" : "h2";
+  const [expandedProjects, setExpandedProjects] = useState<Record<number, boolean>>({});
 
-  const projects: Array<{
-    title: string;
-    description: string;
-    technologies: string[];
-    url?: string;
-  }> = [
-    {
-      title: "INR Finance Compass (WIP)",
-      description: "The AI-native personal finance platform I wish I'd had — one place that understands your whole financial life (bank, cards, cash, investments, long-horizon goals), not just what a bank balance says. Much like Claude Code is more useful because it grasps a whole codebase instead of isolated snippets, it builds full financial context before offering guidance. Self-hosted and INR-primary, with atomic ledger-derived balances and a live dashboard; budgeting, CSV import, and recurring transactions in progress.",
-      technologies: ["React", "TypeScript", "Supabase", "AI-Native"],
-      url: "https://finance-compass-dev.surge.sh/"
-    },
-    {
-      title: "AI-Powered Mental Health Platform",
-      description: "Backend for AI-assisted mental health platform serving hospitals and therapists. Features multi-role portals (Patient, Therapist, Admin) with role-based access control, designed with HIPAA compliance principles. Integrated OpenAI API with Supabase for secure therapeutic workflow automation.",
-      technologies: ["Python", "OpenAI API", "Supabase", "HIPAA Compliance"],
-      url: "https://mindcare-ai.surge.sh/"
-    },
-    {
-      title: "Tenor Cards",
-      description: "Serverless web application for producing designer cards to share short messages. A lightweight platform for creating and sharing beautiful message cards.",
-      technologies: ["HTML5", "CSS", "JavaScript", "Tailwind CSS"],
-      url: "https://tenor-cards.surge.sh"
-    },
-    {
-      title: "Knowledge•Day",
-      description: "Blog-cum-newsletter platform that brings uncommon knowledge in 3-minute reads. Features custom email newsletter functionality and educational content curation.",
-      technologies: ["Jekyll", ".NET Core", "Email Platform"],
-      url: "https://kd_dev.surge.sh/"
-    },
-    {
-      title: "Ava.js Test Library Enhancement",
-      description: "Open source contribution enhancing the timeout() functionality in the popular JavaScript testing library. Improved testing capabilities for the developer community.",
-      technologies: ["JavaScript", "Open Source", "Testing"]
-    },
-    {
-      title: "Sailfish OS Port for YU Yuphoria",
-      description: "Non-Android OS port for an Android device. Adapted device kernel configurations to run alternative mobile operating system using Hybris adaptation layer.",
-      technologies: ["Hybris", "Linux Kernel", "Mobile OS"]
-    },
-    {
-      title: "Image Stitching Software",
-      description: "Console-based panorama generator developed during a 48-hour hackathon. Creates seamless panoramic images from multiple input photos using advanced stitching algorithms.",
-      technologies: ["C++", "OpenCV", "Computer Vision"]
-    }
-  ];
+  const toggleExpand = (index: number) => {
+    setExpandedProjects((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   return (
     <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
@@ -113,44 +75,96 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             <h3 className="text-lg font-bold text-slate-900">Featured Projects</h3>
           </div>
 
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
-            >
-              <div className="flex justify-between items-start gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Code className="w-4 h-4 text-slate-700" />
-                    <h4 className="text-base font-bold text-slate-900">{project.title}</h4>
+          {projectsData.map((project, index) => {
+            const isExpanded = !!expandedProjects[index];
+
+            return (
+              <div
+                key={index}
+                className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
+              >
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <Code className="w-4 h-4 text-slate-700 flex-shrink-0" />
+                      <h4 className="text-base font-bold text-slate-900">{project.title}</h4>
+                      {project.badge && (
+                        <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-300 font-mono">
+                          {project.badge}
+                        </Badge>
+                      )}
+                    </div>
+                    <p className="text-slate-700 text-sm leading-relaxed mb-3">
+                      {project.description}
+                    </p>
+
+                    {project.highlights && project.highlights.length > 0 && (
+                      <div className="mb-3">
+                        <button
+                          type="button"
+                          onClick={() => toggleExpand(index)}
+                          className="text-xs font-semibold text-blue-700 hover:text-blue-900 transition-colors inline-flex items-center gap-1 bg-blue-50 hover:bg-blue-100/80 px-2.5 py-1 rounded-md border border-blue-200/70 shadow-xs"
+                        >
+                          {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                          {isExpanded
+                            ? (project.badge ? `Hide ${project.badge} Features` : "Hide Details")
+                            : (project.badge ? `What's new in ${project.badge}` : "More Details")}
+                        </button>
+
+                        {isExpanded && (
+                          <div className="mt-2.5 p-3 bg-slate-50 border border-slate-200/80 rounded-lg text-xs text-slate-700 space-y-1.5">
+                            {project.highlights.map((highlight, hIdx) => (
+                              <div key={hIdx} className="flex items-start gap-2 leading-relaxed">
+                                <span className="text-emerald-600 font-bold select-none">•</span>
+                                <span>{highlight}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <Badge key={techIndex} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-slate-700 text-sm leading-relaxed mb-3">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge key={techIndex} variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
+
+                  {(project.links || project.url) && (
+                    <div className="flex flex-wrap sm:flex-col gap-2 flex-shrink-0 w-full sm:w-auto">
+                      {project.links
+                        ? project.links.map((link, lIdx) => (
+                            <a
+                              key={lIdx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-xs font-semibold border border-blue-400/30"
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              {link.label}
+                            </a>
+                          ))
+                        : project.url && (
+                            <a
+                              href={project.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-xs font-semibold border border-blue-400/30"
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              Visit Project
+                            </a>
+                          )}
+                    </div>
+                  )}
                 </div>
-                {project.url && (
-                  <div className="flex-shrink-0">
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-xs font-semibold border border-blue-400/30"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                      Visit Project
-                    </a>
-                  </div>
-                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         
         <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">

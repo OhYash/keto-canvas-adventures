@@ -66,7 +66,7 @@ const routeConfigs = [
     id: 'projects',
     title: 'Personal Projects & Code | OhYa.sh',
     h1: 'Personal Projects',
-    description: 'Side projects and open-source software built by Yash Yadav, including INR Finance Compass.',
+    description: 'Side projects and open-source software built by Yash Yadav, including Solanum Enhanced and INR Finance Compass.',
     canonical: `${SITE_URL}/projects`
   },
   {
