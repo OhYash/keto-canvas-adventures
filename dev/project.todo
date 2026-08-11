@@ -56,6 +56,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Fix heading hierarchy (`<h1>` tag duplication) (2026-08-11) — refactored `SectionRenderer.tsx` and section components so that only the active view renders an `<h1>` element, eliminating 10 concurrent `<h1>` tags on the DOM tree.
 - [x] Embed Schema.org JSON-LD structured data (2026-08-11) — embedded `Person`, `ProfilePage`, and `BreadcrumbList` JSON-LD scripts for Google Knowledge Panel and Rich Results.
 - [x] Image optimization & Core Web Vitals (CLS) (2026-08-11) — added explicit `width` and `height` attributes and native `loading="lazy"` to profile and story images.
+- [x] Fix GitHub Pages HTTP 404 SPA fallback — added static site pre-rendering (`scripts/prerender.js` + `npm run postbuild`) so `/`, `/work`, `/personal`, `/projects`, `/keto`, `/now`, `/contact`, `/hobbies`, `/travel`, `/ataco` return `HTTP 200 OK` static HTML with `<h1>` tags and full markup instead of an empty JS shell. (2026-08-11)
 
 ---
 
@@ -89,7 +90,6 @@ Content critiques and research live in dev/research/, referenced from items here
 - [ ] Refactor ContactSection.tsx (~217 lines) into smaller components
 - [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
 - [ ] Add error boundaries around section rendering
-- [ ] Fix GitHub Pages HTTP 404 SPA fallback — add static site pre-rendering (`vite-plugin-prerender` or build-time HTML generator) so `/work`, `/personal`, `/projects`, `/keto`, `/now`, `/contact` return `HTTP 200 OK` static HTML instead of 404.
 
 ---
 
@@ -117,6 +117,7 @@ Content critiques and research live in dev/research/, referenced from items here
   silently at build time and 404s at runtime — verify in a browser
   (.claude/skills/verify/SKILL.md has the recipe).
 - Heading hierarchy on 2D infinite canvas: pass `isActive` to section components so only the active section renders `<h1>`, preventing crawler penalties for multiple concurrent `<h1>` headings on the un-unmounted canvas tree.
+- Static Site Pre-rendering (SSG): `scripts/prerender.js` runs automatically in `npm run postbuild` via Puppeteer, rendering full static HTML files for all 10 section routes (`dist/work/index.html`, etc.) so Bingbot and Googlebot receive full `<h1>` headers and `200 OK` static HTML on initial HTTP GET.
 
 ---
 
