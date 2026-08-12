@@ -1,14 +1,6 @@
 import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  ArrowRight,
-  ArrowLeft,
-  ArrowDownRight,
-  ArrowDownLeft,
-  ArrowUpRight,
-  Download,
-} from "lucide-react";
-import nowData from "@/data/nowData.json";
+import { ArrowRight, Download } from "lucide-react";
+import { homeData } from "@/data/homeData";
 
 interface Section {
   id: string;
@@ -20,57 +12,15 @@ interface Section {
 }
 
 interface HomeSectionProps {
-  sections: Section[];
+  sections?: Section[];
   isActive?: boolean;
   onNavigateToSection: (sectionId: string) => void;
 }
 
-// Compass layout: 4 directions
-// NORTH: Work (Recruiters) | SOUTH: Personal (Curious visitors)
-// EAST: Contact (Everyone) | WEST: Now (Peers)
-const compassLayout = {
-  north: {
-    id: "work",
-    title: "Work",
-    subtitle: "Ex-TestGorilla · Open for full-time roles & freelance work.",
-    icon: "💼",
-    Arrow: ArrowRight,
-  },
-  south: {
-    id: "personal",
-    title: "About Me",
-    subtitle: "A little about me, my journey, and what makes me tick.",
-    icon: "🧠",
-    Arrow: ArrowLeft,
-  },
-  east: {
-    id: "contact",
-    title: "Say hi",
-    subtitle: "Email, Telegram, or just lurk.",
-    icon: "📡",
-    Arrow: ArrowDownLeft,
-  },
-  west: {
-    id: "now",
-    title: "Right now",
-    subtitle: nowData.teaser,
-    icon: "⚡",
-    Arrow: ArrowDownRight,
-  },
-};
-
-// Sits below Work (north): personal projects, headlined by the WIP build.
-const projects = {
-  id: "projects",
-  title: "Projects",
-  subtitle: "INR Finance Compass — in active development.",
-  icon: "🛠️",
-  Arrow: ArrowUpRight,
-};
-
-const HomeSection: React.FC<HomeSectionProps> = ({ isActive = true, onNavigateToSection }) => {
-  const { north, south, east, west } = compassLayout;
-
+const HomeSection: React.FC<HomeSectionProps> = ({
+  isActive = true,
+  onNavigateToSection,
+}) => {
   const HeadingTag = isActive ? "h1" : "h2";
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -79,132 +29,86 @@ const HomeSection: React.FC<HomeSectionProps> = ({ isActive = true, onNavigateTo
   };
 
   return (
-    <Card className="w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] bg-gradient-to-br from-slate-800/90 to-slate-700/90 backdrop-blur-sm border-slate-600/50">
-      <CardHeader className="pb-8">
-        <div className="text-center">
-          <HeadingTag className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            I'm Yash. Engineer today, founder in progress.
-          </HeadingTag>
-          <p className="text-slate-400 text-sm">
-            This is my Digital Brain. Pick a direction.
-          </p>
-        </div>
-      </CardHeader>
+    <div className="w-[95vw] sm:w-[90vw] md:w-[520px] max-w-[520px] bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200">
+      {/* Header Tag / Badge */}
+      <div className="inline-flex items-center bg-slate-800/90 border border-slate-700/80 rounded-lg px-3 py-1.5 mb-4 shadow-sm">
+        <span className="text-xs sm:text-sm font-mono font-bold tracking-wider text-cyan-400 uppercase">
+          {homeData.badge}
+        </span>
+      </div>
 
-      <CardContent className="space-y-4">
-        {/* Compass Grid: North at top, West-East in middle, South at bottom */}
-        <div className="flex flex-col gap-3">
-          {/* NORTH */}
-          <a
-            href="/work"
-            onClick={(e) => handleNav(e, north.id)}
-            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-xl">{north.icon}</span>
-                <div className="text-left">
-                  <h3 className="font-bold text-white text-sm">
-                    {north.title}
-                  </h3>
-                  <p className="text-slate-400 text-xs">{north.subtitle}</p>
-                </div>
-              </div>
-              <north.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
+      {/* Hero Headline */}
+      <HeadingTag className="text-2xl sm:text-3xl md:text-[2rem] font-bold text-white tracking-tight leading-snug mb-3">
+        {homeData.headline}
+      </HeadingTag>
+
+      {/* Hero Subtitle */}
+      <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+        {homeData.subtitle}
+      </p>
+
+      {/* Highlight Systems / Metric Card */}
+      <div className="bg-[#151d30]/90 border border-slate-800/90 rounded-xl p-4 sm:p-5 mb-6 shadow-inner">
+        <span className="text-xs text-slate-400 font-medium mb-3 block">
+          {homeData.systemMetric.title}
+        </span>
+
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+          {homeData.systemMetric.metrics.map((metric, idx) => (
+            <div key={idx} className="flex flex-col">
+              <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                {metric.value}
+              </span>
+              <span className="text-[11px] sm:text-xs text-slate-400 leading-snug mt-0.5">
+                {metric.label}
+              </span>
             </div>
-          </a>
-
-          {/* PROJECTS — below Work */}
-          <a
-            href="/projects"
-            onClick={(e) => handleNav(e, projects.id)}
-            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-xl">{projects.icon}</span>
-                <div className="text-left">
-                  <h3 className="font-bold text-white text-sm">
-                    {projects.title}
-                  </h3>
-                  <p className="text-slate-400 text-xs">{projects.subtitle}</p>
-                </div>
-              </div>
-              <projects.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
-            </div>
-          </a>
-
-          {/* WEST and EAST side by side */}
-          <div className="grid grid-cols-2 gap-3">
-            <a
-              href="/now"
-              onClick={(e) => handleNav(e, west.id)}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
-            >
-              <div className="flex items-center gap-2">
-                <west.Arrow className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-                <span className="text-lg">{west.icon}</span>
-              </div>
-              <div className="text-left mt-2">
-                <h3 className="font-bold text-white text-sm">{west.title}</h3>
-                <p className="text-slate-400 text-xs">{west.subtitle}</p>
-              </div>
-            </a>
-
-            <a
-              href="/contact"
-              onClick={(e) => handleNav(e, east.id)}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
-            >
-              <div className="flex items-center justify-end gap-2">
-                <span className="text-lg">{east.icon}</span>
-                <east.Arrow className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-              </div>
-              <div className="text-right mt-2">
-                <h3 className="font-bold text-white text-sm">{east.title}</h3>
-                <p className="text-slate-400 text-xs">{east.subtitle}</p>
-              </div>
-            </a>
-          </div>
-
-          {/* SOUTH */}
-          <a
-            href="/personal"
-            onClick={(e) => handleNav(e, south.id)}
-            className="w-full bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-slate-500/30 hover:border-slate-400/50 transition-all duration-300 hover:scale-[1.02] group touch-manipulation block"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-xl">{south.icon}</span>
-                <div className="text-left">
-                  <h3 className="font-bold text-white text-sm">
-                    {south.title}
-                  </h3>
-                  <p className="text-slate-400 text-xs">{south.subtitle}</p>
-                </div>
-              </div>
-              <south.Arrow className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
-            </div>
-          </a>
+          ))}
         </div>
+      </div>
 
-        <p className="text-slate-500 text-[11px] text-center pt-1">
-          tip: ↑ ↓ ← → to explore, or just click
-        </p>
+      {/* Primary CTA: Contact */}
+      <a
+        href={homeData.primaryCta.path}
+        onClick={(e) => handleNav(e, homeData.primaryCta.target)}
+        className="group flex items-center justify-between text-white hover:text-cyan-400 text-base sm:text-lg font-semibold py-1 transition-colors touch-manipulation"
+      >
+        <span>{homeData.primaryCta.label}</span>
+        <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all duration-200" />
+      </a>
 
-        {/* Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
-        <div className="pt-2 flex justify-end">
+      {/* Divider */}
+      <div className="border-t border-slate-800/80 my-3 sm:my-4" />
+
+      {/* Secondary Navigation Links */}
+      <div className="space-y-1 sm:space-y-2">
+        {homeData.navigationLinks.map((link) => (
           <a
-            href="/personal/Yash-resume-s.pdf"
-            download
-            className="flex items-center gap-2 text-slate-400 hover:text-white text-xs transition-colors"
+            key={link.target}
+            href={link.path}
+            onClick={(e) => handleNav(e, link.target)}
+            className="group flex items-center justify-between py-2 text-slate-300 hover:text-white text-sm sm:text-base font-medium transition-colors touch-manipulation"
           >
-            <Download className="w-3 h-3" />
-            <span>Download Resume</span>
+            <span>{link.label}</span>
+            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-slate-200 group-hover:translate-x-1 transition-all duration-200" />
           </a>
-        </div>
-      </CardContent>
-    </Card>
+        ))}
+      </div>
+
+      {/* Footer / Navigation Hint & Resume Link */}
+      {/* [Do not remove comment] Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
+      <div className="pt-4 mt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
+        <span>Tip: drag canvas or press ↑ ↓ ← →</span>
+        <a
+          href="/personal/Yash-resume-s.pdf"
+          download
+          className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors"
+        >
+          <Download className="w-3.5 h-3.5" />
+          <span>Resume</span>
+        </a>
+      </div>
+    </div>
   );
 };
 

@@ -114,7 +114,7 @@ export const useSectionManagement = () => {
       {
         id: 'contact',
         title: 'Let\'s Talk',
-        subtitle: 'Say hi, collaborate, or just share a meme.',
+        subtitle: 'Reach out about roles, freelance work, or collaboration.',
         position: { x: -spacing, y: spacing },
         color: 'from-indigo-500 to-violet-500',
         gradient: 'bg-gradient-to-br from-indigo-500/20 to-violet-500/20',
