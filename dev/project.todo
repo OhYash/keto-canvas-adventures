@@ -16,7 +16,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Agent & IDE integration — AGY / Antigravity 2.0 rules, GEMINI.md, and automated browser verification setup (`.gemini/skills/verify/SKILL.md`).
 
 ### Section & Content Redesigns
-- [x] Home section redesign — Senior Backend Engineer credibility badge, 30M+ TestGorilla production metric, headline, primary Contact CTA, and nav links (`src/data/homeData.ts`).
+- [x] Home section redesign — Senior Backend Engineer credibility badge, 30M+ TestGorilla production metric, 2D infinite canvas intro note ("life and experiences are rarely linear"), headline, primary Contact CTA, and nav links (`src/data/homeData.ts`).
 - [x] Contact section redesign — Professional contact grid, location card, social chips (`src/data/contactData.ts`), and base64 obfuscated progressive email disclosure.
 - [x] Writing & Essays section shipped — Registered at (2000, 0) under Work; dynamic markdown post loader (`src/data/posts/`), `ArticleReaderView` with syntax highlighting (`highlight.js`), and first-person engineering essay rewrite.
 - [x] Projects section & Solanum Enhanced v7.2.0 — Extracted data layer (`src/data/projectsData.ts`), streamlined 2-sentence card descriptions with expandable feature details, added Solanum Enhanced v7.2.0 release badge, and prioritized INR Finance Compass.

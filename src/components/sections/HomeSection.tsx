@@ -43,8 +43,13 @@ const HomeSection: React.FC<HomeSectionProps> = ({
       </HeadingTag>
 
       {/* Hero Subtitle */}
-      <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+      <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
         {homeData.subtitle}
+      </p>
+
+      {/* 2D Canvas Intro Note */}
+      <p className="text-slate-400/90 text-xs sm:text-sm leading-relaxed mb-6 bg-slate-900/60 border border-slate-800/80 rounded-xl p-3.5">
+        {homeData.canvasIntro}
       </p>
 
       {/* Highlight Systems / Metric Card */}
