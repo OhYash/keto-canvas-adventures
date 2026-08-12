@@ -16,8 +16,11 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Visitor tracking — useVisitTracking hook, localStorage-backed
 - [x] Canvas borders / always able to return home (2025-06-28)
 - [x] Prevent canvas movement while scrolling on phone (2025-06-28)
-- [x] Contact page with email protection, social handles, and Telegram link
+- [x] Contact page redesign — professional-first layout matching updated mockup (Primary Contact hero, Professional grid, Location card, and Also Here social chips); extracted content to src/data/contactData.ts (2026-08-12)
+- [x] Home section redesign — replaced compass link directory layout with professional landing card matching updated mockup (Prominent "YASH YADAV · SENIOR BACKEND ENGINEER" credibility badge container, headline, 30M+ TestGorilla production metric callout, primary Contact CTA, and nav links); extracted content to src/data/homeData.ts (2026-08-12)
 - [x] Now section content-as-data — src/data/nowData.json + HOW_TO_UPDATE_NOW.md
+- [x] Streamline Projects section cards (2026-08-12) — shortened descriptions across all projects (INR Finance Compass, AI Mental Health, Solanum Enhanced, etc.) to a clean 2-sentence height; added expandable "More Details" / "What's new in <version>" feature highlights.
+- [x] Solanum Enhanced v7.2.0 added to Projects section (2026-08-12) — extracted project content to src/data/projectsData.ts; added Solanum Enhanced with v7.2.0 release badge, multi-monitor break overlays & feature highlights, and GitHub/Release links.
 - [x] Page title ("OhYa.sh – Everything Yash. Filtered.")
 - [x] Order INR Finance Compass first in ProjectsSection projects list (2026-07-10)
 - [x] Resume variants in repo; download links point to s2 variant
@@ -88,11 +91,10 @@ Content critiques and research live in dev/research/, referenced from items here
 - [ ] Surface the good subtitles from useSectionManagement's sections array onto the
       homepage cards (voice exists in the data layer, hidden from the home screen)
 - [ ] Add chain in each direction — go deeper than one subsection level
-- [ ] Extract remaining hard-coded content (work, personal, projects) into src/data/
+- [ ] Extract remaining hard-coded content (work, personal) into src/data/
       like nowData.json — prerequisite for easy content updates
 - [ ] Quality gate — add `npx tsc --noEmit` + lint as pre-commit habit; no test setup
       exists yet (vitest later, if ever)
-- [ ] Refactor ContactSection.tsx (~217 lines) into smaller components
 - [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
 - [ ] Add error boundaries around section rendering
 

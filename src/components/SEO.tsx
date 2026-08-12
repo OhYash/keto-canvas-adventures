@@ -73,7 +73,7 @@ const SECTION_CONFIGS: Record<string, SectionSEOConfig> = {
   },
   projects: {
     title: 'Personal Projects & Code | OhYa.sh',
-    description: 'Side projects and open-source software built by Yash Yadav, including INR Finance Compass.',
+    description: 'Side projects and open-source software built by Yash Yadav, including Solanum Enhanced and INR Finance Compass.',
     path: '/projects',
     breadcrumbs: [
       { name: 'Home', item: SITE_URL },

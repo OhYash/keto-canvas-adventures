@@ -368,8 +368,9 @@ const WorkSection: React.FC<WorkSectionProps> = ({
               Open for full-time & freelance opportunities
             </Badge>
           </a>
+          {/* Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
           <a
-            href="/personal/Yash-resume-s-m.pdf"
+            href="/personal/Yash-resume-s.pdf"
             download
             className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-xs transition-colors"
           >

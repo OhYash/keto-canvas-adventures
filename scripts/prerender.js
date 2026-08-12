@@ -16,9 +16,9 @@ const routeConfigs = [
   {
     path: '/',
     id: 'home',
-    title: 'OhYa.sh – Everything Yash. Filtered.',
-    h1: "I'm Yash. Engineer today, founder in progress.",
-    description: "Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress. Work, projects, cat Keto, and adventures.",
+    title: 'OhYa.sh – Senior Backend Engineer',
+    h1: 'I own backend systems end-to-end.',
+    description: 'Yash Yadav – Senior Backend Engineer. 7+ years in Python and Django, shipping production infra at scale. Open for freelance and senior roles.',
     canonical: SITE_URL
   },
   {
@@ -66,7 +66,7 @@ const routeConfigs = [
     id: 'projects',
     title: 'Personal Projects & Code | OhYa.sh',
     h1: 'Personal Projects',
-    description: 'Side projects and open-source software built by Yash Yadav, including INR Finance Compass.',
+    description: 'Side projects and open-source software built by Yash Yadav, including Solanum Enhanced and INR Finance Compass.',
     canonical: `${SITE_URL}/projects`
   },
   {
