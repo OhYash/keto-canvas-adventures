@@ -29,7 +29,7 @@ function parseFrontmatter(rawContent: string, fallbackSlug: string): BlogPost {
   }
 
   const [, yamlBlock, markdownBody] = match;
-  const metadata: Record<string, any> = {};
+  const metadata: Record<string, unknown> = {};
 
   yamlBlock.split('\n').forEach(line => {
     const colonIndex = line.indexOf(':');
