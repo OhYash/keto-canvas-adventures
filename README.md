@@ -89,7 +89,8 @@ src/
 
 ## Development
 
-This project was built with [Lovable](https://lovable.dev) and [Claude Code](https://claude.ai/code) for AI-assisted development.
+This project was built with [Lovable](https://lovable.dev), [Claude Code](https://claude.ai/code), and Google Antigravity CLI for AI-assisted development.  
+Resume PDF is generated using https://www.junian.dev/markdown-resume
 
 ## License
 

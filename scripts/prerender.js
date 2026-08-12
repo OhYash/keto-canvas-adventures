@@ -92,6 +92,30 @@ const routeConfigs = [
     h1: 'Ataco',
     description: 'Khaki green Triumph Scrambler 400X motorcycle — specs, setup, and riding stories.',
     canonical: `${SITE_URL}/ataco`
+  },
+  {
+    path: '/writing',
+    id: 'writing',
+    title: 'Writing & Essays | OhYa.sh',
+    h1: 'Writing & Essays',
+    description: 'Essays, technical deep dives into backend architecture, system design, and software engineering by Yash Yadav.',
+    canonical: `${SITE_URL}/writing`
+  },
+  {
+    path: '/writing/building-an-infinite-canvas-portfolio',
+    id: 'writing-building-an-infinite-canvas-portfolio',
+    title: 'Building an Infinite Canvas Portfolio with React & TypeScript | OhYa.sh',
+    h1: 'Building an Infinite Canvas Portfolio with React & TypeScript',
+    description: 'How I built a 2D spatial canvas portfolio using React, CSS translate3d, and custom viewport management.',
+    canonical: `${SITE_URL}/writing/building-an-infinite-canvas-portfolio`
+  },
+  {
+    path: '/writing/designing-high-throughput-backend-systems',
+    id: 'writing-designing-high-throughput-backend-systems',
+    title: 'Designing High-Throughput Backend Systems | OhYa.sh',
+    h1: 'Designing High-Throughput Backend Systems',
+    description: 'Patterns for building low-latency, scalable microservices in Node.js and Go.',
+    canonical: `${SITE_URL}/writing/designing-high-throughput-backend-systems`
   }
 ];
 

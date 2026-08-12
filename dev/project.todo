@@ -9,120 +9,69 @@ Content critiques and research live in dev/research/, referenced from items here
 
 ## DONE
 
-### Infrastructure & Code
-- [x] Infinite canvas system — InfiniteCanvas + useViewport / useSectionManagement /
-      useCanvasEvents / useGridNavigation hook split
-- [x] GitHub Pages deploy on push to main (.github/workflows/deploy.yml); surge preview via `make surge`
-- [x] Visitor tracking — useVisitTracking hook, localStorage-backed
-- [x] Canvas borders / always able to return home (2025-06-28)
-- [x] Prevent canvas movement while scrolling on phone (2025-06-28)
-- [x] Contact page redesign — professional-first layout matching updated mockup (Primary Contact hero, Professional grid, Location card, and Also Here social chips); extracted content to src/data/contactData.ts (2026-08-12)
-- [x] Home section redesign — replaced compass link directory layout with professional landing card matching updated mockup (Prominent "YASH YADAV · SENIOR BACKEND ENGINEER" credibility badge container, headline, 30M+ TestGorilla production metric callout, primary Contact CTA, and nav links); extracted content to src/data/homeData.ts (2026-08-12)
-- [x] Now section content-as-data — src/data/nowData.json + HOW_TO_UPDATE_NOW.md
-- [x] Streamline Projects section cards (2026-08-12) — shortened descriptions across all projects (INR Finance Compass, AI Mental Health, Solanum Enhanced, etc.) to a clean 2-sentence height; added expandable "More Details" / "What's new in <version>" feature highlights.
-- [x] Solanum Enhanced v7.2.0 added to Projects section (2026-08-12) — extracted project content to src/data/projectsData.ts; added Solanum Enhanced with v7.2.0 release badge, multi-monitor break overlays & feature highlights, and GitHub/Release links.
-- [x] Page title ("OhYa.sh – Everything Yash. Filtered.")
-- [x] Order INR Finance Compass first in ProjectsSection projects list (2026-07-10)
-- [x] Resume variants in repo; download links point to s2 variant
-- [x] Initialize Antigravity support — GEMINI.md, .gemini/rules.md, .gemini/skills/verify/SKILL.md configured for AGY / Antigravity 2.0 (2026-08-07)
+### Core Infinite Canvas & Infrastructure
+- [x] Infinite canvas 2D spatial grid — hook architecture split (`useViewport`, `useSectionManagement`, `useCanvasEvents`, `useGridNavigation`), `translate3d` hardware acceleration, and mobile touch scroll protection.
+- [x] Visitor tracking & navigation — `useVisitTracking` local storage analytics, edge boundaries with home return button, and internal canvas target panning.
+- [x] Deployment & CI — GitHub Pages deployment pipeline (`.github/workflows/deploy.yml`), Surge preview command (`make surge`), and resume download link routing.
+- [x] Agent & IDE integration — AGY / Antigravity 2.0 rules, GEMINI.md, and automated browser verification setup (`.gemini/skills/verify/SKILL.md`).
 
+### Section & Content Redesigns
+- [x] Home section redesign & 1080p UI optimization — Eliminated nested card-in-card clutter, streamlined vertical margins, integrated production metrics into a clean stat strip, and converted navigation into an uncluttered text list (`HomeSection.tsx`).
+- [x] Contact section redesign — Professional contact grid, location card, social chips (`src/data/contactData.ts`), and base64 obfuscated progressive email disclosure.
+- [x] Writing & Essays section shipped — Registered at (2000, 0) under Work; dynamic markdown post loader (`src/data/posts/`), `ArticleReaderView` with syntax highlighting (`highlight.js`), and first-person engineering essay rewrite.
+- [x] Projects section & Solanum Enhanced v7.2.0 — Extracted data layer (`src/data/projectsData.ts`), streamlined 2-sentence card descriptions with expandable feature details, added Solanum Enhanced v7.2.0 release badge, and prioritized INR Finance Compass.
+- [x] Now section content-as-data architecture — `src/data/nowData.json` data layer with `HOW_TO_UPDATE_NOW.md` protocol; regularly updated with job search focus and latest releases.
+- [x] Subsections shipped — Travel Stories (`DetailedStoryView.tsx`), Ataco subsection at (0, -2000) under Keto (`src/data/atacoData.ts`).
+- [x] Voice & Copy polish — Removed boilerplate badges/quotes, updated LinkedIn profile data, reframed headline to founder-forward voice ("Engineer today, founder in progress.").
 
-### Content & Voice (from the 2025-05-23 voice audit — dev/research/)
-- [x] Travel Stories shipped — "not available" toast removed, section reachable
-- [x] Boilerplate purge — "Always X · Always Y" badges and fortune-cookie quotes
-      removed (Keto's quote intentionally kept)
-- [x] Contact section stock photo / "Ready to connect!" removed
-- [x] Welcoming text refactor on home (commit 978c737)
-- [x] Home headline reframed to founder-forward voice (2026-07-12): "I'm Yash.
-      Engineer today, founder in progress." — earned by the Projects card below it
-- [x] Ataco page shipped (2026-07-08) — subsection behind Keto at (0, -2000),
-      content in src/data/atacoData.ts from dev/research/ataco-page-content.md,
-      photo placeholders until real pics arrive; plan: dev/plans/ataco-page.md
-- [x] Pulled content from LinkedIn Profile PDF (2026-07-10): rewrote INR Finance
-      Compass project blurb with the AI-native "financial context" narrative
-      (ProjectsSection.tsx); added Languages card (Hindi/English/German) to
-      PersonalSection "About Me" grid
-- [x] Now section refresh (2026-07-12): new Location/Travel/Finance Compass/Work/
-      Riding/Routine content; added internal-nav support to NowSection (a plan item
-      can carry `internalTarget` to pan to another section instead of an external
-      link) — SectionRenderer now passes onNavigateToSection into NowSection
-- [x] Now & Work sections status update (2026-08-07): updated nowData.json,
-      HomeSection, and WorkSection to reflect transition from TestGorilla to actively
-      looking for full-time senior backend roles and freelance clients (with internalTarget navigation to Contact)
-- [x] Work & Now section dates & plans update (2026-08-07): updated TestGorilla contract end date to August 2026 in WorkSection.tsx; removed Europe trip mentions in nowData.json and updated focus to landing next role before bigger plans.
-
-### SEO & Indexability (from dev/research/seo-analysis.md)
-- [x] Implement dynamic head tags (`react-helmet-async`) (2026-08-11) — update `<title>`, `<meta name="description">`, `<meta property="og:title">`, `<meta property="og:description">`, `<meta property="og:url">`, and `<link rel="canonical">` dynamically on section changes via `src/components/SEO.tsx`.
-- [x] Convert canvas navigation buttons to semantic anchor tags (`<a href="...">`) (2026-08-11) — replace internal `<button onClick>` calls with `<a href="...">` tags so search crawlers can discover sub-routes through the DOM link graph.
-- [x] Create social sharing card (`public/og-image.png`) (2026-08-11) — designed and saved 1200x630px image at `public/og-image.png`.
-- [x] Generate `public/sitemap.xml` & update `public/robots.txt` (2026-08-11) — generated XML sitemap listing all 10 section routes and added `Sitemap: https://ohya.sh/sitemap.xml` to robots.txt.
-- [x] Fix heading hierarchy (`<h1>` tag duplication) (2026-08-11) — refactored `SectionRenderer.tsx` and section components so that only the active view renders an `<h1>` element, eliminating 10 concurrent `<h1>` tags on the DOM tree.
-- [x] Embed Schema.org JSON-LD structured data (2026-08-11) — embedded `Person`, `ProfilePage`, and `BreadcrumbList` JSON-LD scripts for Google Knowledge Panel and Rich Results.
-- [x] Image optimization & Core Web Vitals (CLS) (2026-08-11) — added explicit `width` and `height` attributes and native `loading="lazy"` to profile and story images.
-- [x] Fix GitHub Pages HTTP 404 SPA fallback — added static site pre-rendering (`scripts/prerender.js` + `npm run postbuild`) so `/`, `/work`, `/personal`, `/projects`, `/keto`, `/now`, `/contact`, `/hobbies`, `/travel`, `/ataco` return `HTTP 200 OK` static HTML with `<h1>` tags and full markup instead of an empty JS shell. (2026-08-11)
+### SEO, Performance & Static Site Generation
+- [x] Dynamic Meta Tags & SEO — `react-helmet-async` integration via `SEO.tsx` for section-specific `<title>`, `<meta>`, OpenGraph tags, and canonical links.
+- [x] Structured Data & Semantic HTML — Embedded Schema.org JSON-LD (`Person`, `ProfilePage`, `BlogPosting`, `BreadcrumbList`), semantic `<a href>` navigation links for crawlers, and single `<h1>` rendering logic per active viewport.
+- [x] Social Cards & Assets — Designed OpenGraph social preview card (`public/og-image.png`), generated `public/sitemap.xml`, and updated `public/robots.txt`.
+- [x] Static Site Pre-rendering (SSG) — Puppeteer build hook (`scripts/prerender.js`) pre-rendering full HTML for all section & article sub-routes for 200 OK HTTP GET crawler indexability on GitHub Pages.
 
 ---
 
 ## PENDING
 
 ### Content
-- [ ] Replace Unsplash stock photos with real Keto pics — KetoSection.tsx and
-      DetailedStoryView.tsx still use unsplash URLs; biggest credibility leak on the site
-- [ ] Rewrite travel stories in DetailedStoryView.tsx with real first-person memories
-      (one specific thing, one weird thing, one thing that went wrong) — or cut
-      destinations not actually visited (see NEEDS INPUT)
+- [ ] Replace Unsplash stock photos with real Keto pics — KetoSection.tsx and DetailedStoryView.tsx still use unsplash URLs; biggest credibility leak on the site
+- [ ] Rewrite travel stories in DetailedStoryView.tsx with real first-person memories (one specific thing, one weird thing, one thing that went wrong) — or cut destinations not actually visited (see NEEDS INPUT)
 - [ ] Add real projects to ProjectsSection
 - [ ] Update personal profile content
 - [ ] Update work experience (current and past roles)
-- [ ] Swap Ataco photo placeholders for real pics — owner is supplying photos;
-      captions/slots live in src/data/atacoData.ts (atacoPhotoSlots)
+- [ ] Swap Ataco photo placeholders for real pics — owner is supplying photos; captions/slots live in src/data/atacoData.ts (atacoPhotoSlots)
 
-### Code
-- [ ] Page-flow tracking — which direction visitors pan/navigate; integration point is
-      updateCurrentSection in useSectionManagement (see LEARNINGS)
-- [ ] Subsection discoverability — Travel (under Personal), Projects (under Hobbies) are
-      invisible until you're inside the parent; add "deeper ↓ / more →" micro-hints on
-      parent cards
-- [ ] Surface the good subtitles from useSectionManagement's sections array onto the
-      homepage cards (voice exists in the data layer, hidden from the home screen)
-- [ ] Add chain in each direction — go deeper than one subsection level
-- [ ] Extract remaining hard-coded content (work, personal) into src/data/
-      like nowData.json — prerequisite for easy content updates
-- [ ] Quality gate — add `npx tsc --noEmit` + lint as pre-commit habit; no test setup
-      exists yet (vitest later, if ever)
-- [ ] Split useSectionManagement.ts (~230 lines) into focused hooks
-- [ ] Add error boundaries around section rendering
+### UX & Feature Enhancements
+- [ ] Page-flow tracking — track navigation direction/sequence of visitors in `updateCurrentSection` (useSectionManagement)
+- [ ] Subsection discoverability — Travel (under Personal) and Projects (under Hobbies) are hidden until entering parent; add "deeper ↓ / more →" micro-hints on parent cards
+- [ ] Surface subtitles — render section subtitles from `useSectionManagement` sections array onto homepage cards
+- [ ] Multilevel section chaining — support deeper section navigation beyond 1 level of subsections
+
+### Code Quality & Architecture
+- [ ] Extract remaining hard-coded content (work, personal) into `src/data/` data modules
+- [ ] Quality gate — add `npx tsc --noEmit` and ESLint checks into pre-commit flow
+- [ ] Modularize `useSectionManagement.ts` (~230 lines) into focused single-responsibility hooks
+- [ ] Add React Error Boundaries around section rendering
 
 ---
 
 ## NEEDS INPUT
-- Travel stories — which destinations have you actually visited? Needed to decide
-  rewrite vs. cut per story.
-- "Recently" rule — Now items older than ~2 months should drop the word "recently";
-  adopt as a content rule?
+- Travel stories — which destinations have you actually visited? Needed to decide rewrite vs. cut per story.
+- "Recently" rule — Now items older than ~2 months should drop the word "recently"; adopt as a content rule?
 
 ---
 
 ## LEARNINGS
-- Touch events conflict with browser navigation/scroll on mobile — canvas panning must
-  stand down while the user is scrolling; be careful with preventDefault in useCanvasEvents.
-- All navigation flows through updateCurrentSection in useSectionManagement — the single
-  integration point for any tracking or navigation feature.
-- Voice is the product: specific first-person copy ("Tall skinny fat, slight athletic",
-  the Now section) is what works; template phrasing reads as Lovable boilerplate.
-  Full critiques: dev/research/23May26_claude_idea.md and 23May26_gemini_ideas.txt.
-- Axis mental model for future sections: professional content on the horizontal axis,
-  personal on the vertical. Don't rearrange existing sections; apply when adding new ones.
-- Adding a section takes FOUR registration points: useSectionManagement's array,
-  an App.tsx route above the catch-all, InfiniteCanvas's validSections list, and
-  NavigationBreadcrumb's sectionNames map. Missing the route or validSections fails
-  silently at build time and 404s at runtime — verify in a browser
-  (.claude/skills/verify/SKILL.md has the recipe).
+- Touch events conflict with browser navigation/scroll on mobile — canvas panning must stand down while the user is scrolling; be careful with preventDefault in useCanvasEvents.
+- All navigation flows through updateCurrentSection in useSectionManagement — the single integration point for any tracking or navigation feature.
+- Voice is the product: specific first-person copy ("Tall skinny fat, slight athletic", the Now section) is what works; template phrasing reads as Lovable boilerplate. Full critiques: dev/research/23May26_claude_idea.md and 23May26_gemini_ideas.txt.
+- Axis mental model for future sections: professional content on the horizontal axis, personal on the vertical. Don't rearrange existing sections; apply when adding new ones.
+- Adding a section takes FOUR registration points: useSectionManagement's array, an App.tsx route above the catch-all, InfiniteCanvas's validSections list, and NavigationBreadcrumb's sectionNames map. Missing the route or validSections fails silently at build time and 404s at runtime — verify in a browser (.gemini/skills/verify/SKILL.md has the recipe).
 - Heading hierarchy on 2D infinite canvas: pass `isActive` to section components so only the active section renders `<h1>`, preventing crawler penalties for multiple concurrent `<h1>` headings on the un-unmounted canvas tree.
 - Static Site Pre-rendering (SSG): `scripts/prerender.js` runs automatically in `npm run postbuild` via Puppeteer, rendering full static HTML files for all 10 section routes (`dist/work/index.html`, etc.) so Bingbot and Googlebot receive full `<h1>` headers and `200 OK` static HTML on initial HTTP GET.
 
 ---
 
 ## PLANS
-None yet. Create dev/plans/<slug>.md before non-trivial multi-step work
-(template in dev/Agents.md) and list it here.
+None yet. Create dev/plans/<slug>.md before non-trivial multi-step work (template in dev/Agents.md) and list it here.

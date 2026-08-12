@@ -29,31 +29,28 @@ const HomeSection: React.FC<HomeSectionProps> = ({
   };
 
   return (
-    <div className="w-[95vw] sm:w-[90vw] md:w-[520px] max-w-[520px] bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200">
+    <div className="w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] max-h-[85vh] overflow-y-auto bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200 custom-scrollbar">
       {/* Header Tag / Badge */}
-      <div className="inline-flex items-center bg-slate-800/90 border border-slate-700/80 rounded-lg px-3 py-1.5 mb-4 shadow-sm">
-        <span className="text-xs sm:text-sm font-mono font-bold tracking-wider text-cyan-400 uppercase">
-          {homeData.badge}
-        </span>
+      <div className="text-xs font-mono font-semibold tracking-wider text-cyan-400 uppercase mb-3">
+        {homeData.badge}
       </div>
 
       {/* Hero Headline */}
-      <HeadingTag className="text-2xl sm:text-3xl md:text-[2rem] font-bold text-white tracking-tight leading-snug mb-3">
+      <HeadingTag className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-2.5">
         {homeData.headline}
       </HeadingTag>
 
       {/* Hero Subtitle */}
-      <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+      <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-5">
         {homeData.subtitle}
       </p>
 
-      {/* Highlight Systems / Metric Card */}
-      <div className="bg-[#151d30]/90 border border-slate-800/90 rounded-xl p-4 sm:p-5 mb-6 shadow-inner">
-        <span className="text-xs text-slate-400 font-medium mb-3 block">
+      {/* Production Metric Strip */}
+      <div className="border-y border-slate-800/80 py-4 my-5">
+        <span className="text-[11px] sm:text-xs text-slate-500 uppercase font-mono font-medium tracking-wider mb-2.5 block">
           {homeData.systemMetric.title}
         </span>
-
-        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="grid grid-cols-3 gap-2">
           {homeData.systemMetric.metrics.map((metric, idx) => (
             <div key={idx} className="flex flex-col">
               <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -67,21 +64,25 @@ const HomeSection: React.FC<HomeSectionProps> = ({
         </div>
       </div>
 
-      {/* Primary CTA: Contact */}
-      <a
-        href={homeData.primaryCta.path}
-        onClick={(e) => handleNav(e, homeData.primaryCta.target)}
-        className="group flex items-center justify-between text-white hover:text-cyan-400 text-base sm:text-lg font-semibold py-1 transition-colors touch-manipulation"
-      >
-        <span>{homeData.primaryCta.label}</span>
-        <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all duration-200" />
-      </a>
+      {/* 2D Canvas Intro Note */}
+      <p className="text-slate-400/80 text-xs sm:text-sm leading-relaxed mb-5 flex items-start gap-2">
+        <span className="text-cyan-400 text-xs mt-0.5 shrink-0">✦</span>
+        <span>{homeData.canvasIntro}</span>
+      </p>
 
-      {/* Divider */}
-      <div className="border-t border-slate-800/80 my-3 sm:my-4" />
+      {/* Navigation Links */}
+      <div className="space-y-1 mb-2">
+        {/* Primary CTA: Contact */}
+        <a
+          href={homeData.primaryCta.path}
+          onClick={(e) => handleNav(e, homeData.primaryCta.target)}
+          className="group flex items-center justify-between py-2 text-cyan-400 hover:text-cyan-300 text-sm sm:text-base font-semibold transition-colors touch-manipulation"
+        >
+          <span>{homeData.primaryCta.label}</span>
+          <ArrowRight className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 transition-transform duration-200" />
+        </a>
 
-      {/* Secondary Navigation Links */}
-      <div className="space-y-1 sm:space-y-2">
+        {/* Secondary Links */}
         {homeData.navigationLinks.map((link) => (
           <a
             key={link.target}
@@ -90,14 +91,14 @@ const HomeSection: React.FC<HomeSectionProps> = ({
             className="group flex items-center justify-between py-2 text-slate-300 hover:text-white text-sm sm:text-base font-medium transition-colors touch-manipulation"
           >
             <span>{link.label}</span>
-            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-slate-200 group-hover:translate-x-1 transition-all duration-200" />
+            <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-slate-200 group-hover:translate-x-1 transition-transform duration-200" />
           </a>
         ))}
       </div>
 
       {/* Footer / Navigation Hint & Resume Link */}
       {/* [Do not remove comment] Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
-      <div className="pt-4 mt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
+      <div className="pt-3 mt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
         <span>Tip: drag canvas or press ↑ ↓ ← →</span>
         <a
           href="/personal/Yash-resume-s.pdf"

@@ -9,6 +9,8 @@ import { useViewport } from '../hooks/useViewport';
 import { useSectionManagement } from '../hooks/useSectionManagement';
 import { useCanvasEvents } from '../hooks/useCanvasEvents';
 import { useGridNavigation } from '../hooks/useGridNavigation';
+import ArticleReaderView from './blog/ArticleReaderView';
+import { getPostBySlug } from '../data/blogData';
 
 const InfiniteCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -53,7 +55,7 @@ const InfiniteCanvas = () => {
       return 'travel';
     }
     // Check if it's a valid section
-    const validSections = ['personal', 'work', 'keto', 'hobbies', 'projects', 'now', 'contact', 'travel', 'ataco'];
+    const validSections = ['personal', 'work', 'keto', 'hobbies', 'projects', 'now', 'contact', 'travel', 'ataco', 'writing'];
     if (validSections.includes(sectionId)) {
       return sectionId;
     }
@@ -202,9 +204,22 @@ const InfiniteCanvas = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [navigateInDirection, handleNavigateHome]);
 
+  // Determine if an article is currently open via URL path (/writing/:slug)
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const activeArticleSlug = pathSegments[0] === 'writing' && pathSegments[1] ? pathSegments[1] : null;
+  const activeArticle = activeArticleSlug ? getPostBySlug(activeArticleSlug) : null;
+
+  const handleSelectArticle = useCallback((slug: string) => {
+    navigate(`/writing/${slug}`, { replace: false });
+  }, [navigate]);
+
+  const handleCloseArticle = useCallback(() => {
+    navigate('/writing', { replace: false });
+  }, [navigate]);
+
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-      <SEO sectionId={currentSection} />
+      <SEO sectionId={currentSection} articleSlug={activeArticleSlug} />
 
       <style>{`
         @keyframes slide-in-right {
@@ -261,6 +276,7 @@ const InfiniteCanvas = () => {
             currentSection={currentSection}
             onNavigateHome={handleNavigateHome}
             onNavigateToSection={handleNavigateToSection}
+            onSelectArticle={handleSelectArticle}
           />
         </div>
 
@@ -268,6 +284,14 @@ const InfiniteCanvas = () => {
           currentSection={currentSection}
           sections={sections}
         />
+
+        {activeArticle && (
+          <ArticleReaderView
+            post={activeArticle}
+            onClose={handleCloseArticle}
+            onSelectPost={handleSelectArticle}
+          />
+        )}
       </div>
     </div>
   );

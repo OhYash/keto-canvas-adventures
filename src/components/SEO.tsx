@@ -1,8 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { getPostBySlug } from '@/data/blogData';
 
 interface SEOProps {
   sectionId: string;
+  articleSlug?: string | null;
 }
 
 interface SectionSEOConfig {
@@ -79,6 +81,16 @@ const SECTION_CONFIGS: Record<string, SectionSEOConfig> = {
       { name: 'Projects', item: `${SITE_URL}/projects` }
     ]
   },
+  writing: {
+    title: 'Writing & Essays | OhYa.sh',
+    description: 'Essays, technical deep dives into backend architecture, system design, and software engineering by Yash Yadav.',
+    path: '/writing',
+    breadcrumbs: [
+      { name: 'Home', item: SITE_URL },
+      { name: 'Work', item: `${SITE_URL}/work` },
+      { name: 'Writing', item: `${SITE_URL}/writing` }
+    ]
+  },
   contact: {
     title: "Let's Talk & Collaborate | OhYa.sh",
     description: 'Get in touch with Yash Yadav for senior backend roles, freelance consulting, technical advisory, or collaborations.',
@@ -110,8 +122,24 @@ const SECTION_CONFIGS: Record<string, SectionSEOConfig> = {
   }
 };
 
-export const SEO: React.FC<SEOProps> = ({ sectionId }) => {
-  const config = SECTION_CONFIGS[sectionId] || SECTION_CONFIGS.home;
+export const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug }) => {
+  const article = articleSlug ? getPostBySlug(articleSlug) : null;
+  const baseConfig = SECTION_CONFIGS[sectionId] || SECTION_CONFIGS.home;
+
+  const config: SectionSEOConfig = article
+    ? {
+        title: `${article.title} | OhYa.sh`,
+        description: article.summary,
+        path: `/writing/${article.slug}`,
+        breadcrumbs: [
+          { name: 'Home', item: SITE_URL },
+          { name: 'Work', item: `${SITE_URL}/work` },
+          { name: 'Writing', item: `${SITE_URL}/writing` },
+          { name: article.title, item: `${SITE_URL}/writing/${article.slug}` }
+        ]
+      }
+    : baseConfig;
+
   const canonicalUrl = `${SITE_URL}${config.path === '/' ? '' : config.path}`;
 
   const personSchema = {
@@ -127,17 +155,30 @@ export const SEO: React.FC<SEOProps> = ({ sectionId }) => {
     ]
   };
 
-  const pageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    'name': config.title,
-    'description': config.description,
-    'url': canonicalUrl,
-    'mainEntity': {
-      '@type': 'Person',
-      'name': 'Yash Yadav'
-    }
-  };
+  const pageSchema = article
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': article.title,
+        'description': article.summary,
+        'url': canonicalUrl,
+        'datePublished': article.date,
+        'author': {
+          '@type': 'Person',
+          'name': 'Yash Yadav'
+        }
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'ProfilePage',
+        'name': config.title,
+        'description': config.description,
+        'url': canonicalUrl,
+        'mainEntity': {
+          '@type': 'Person',
+          'name': 'Yash Yadav'
+        }
+      };
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
@@ -159,7 +200,7 @@ export const SEO: React.FC<SEOProps> = ({ sectionId }) => {
       <link rel="canonical" href={canonicalUrl} />
 
       {/* Open Graph / Facebook */}
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={article ? "article" : "website"} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={config.title} />
       <meta property="og:description" content={config.description} />
