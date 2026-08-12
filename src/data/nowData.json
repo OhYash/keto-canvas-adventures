@@ -1,7 +1,25 @@
 {
-  "lastUpdated": "2026-08-07",
+  "lastUpdated": "2026-08-12",
   "teaser": "Alwar for now, open for full-time & freelance work — focusing on picking the next role before bigger plans.",
   "currentPlans": [
+    {
+      "category": "Building",
+      "item": "Building Finance Compass (AI-native personal finance) & released Solanum Enhanced v7.2.0 (GNOME Pomodoro app). More details in Projects.",
+      "lastUpdated": "2026-08-12",
+      "internalTarget": "projects"
+    },
+    {
+      "category": "Writing",
+      "item": "Launched the Writing & Essays section — published an essay on spatial infinite canvas portfolio architecture.",
+      "lastUpdated": "2026-08-12",
+      "internalTarget": "writing"
+    },
+    {
+      "category": "Work",
+      "item": "Finished up with TestGorilla — actively looking for full-time roles and freelance clients.",
+      "lastUpdated": "2026-08-07",
+      "internalTarget": "contact"
+    },
     {
       "category": "Location",
       "item": "Based in Alwar for now, focusing on picking my next role before making any big location or travel plans.",
@@ -11,18 +29,6 @@
       "category": "Travel",
       "item": "Europe trip is off the table — focusing on securing the next role before thinking about bigger plans.",
       "lastUpdated": "2026-08-07"
-    },
-    {
-      "category": "Building",
-      "item": "Building Finance Compass, a personal finance app — eventually aiming to take it to a startup. More details in Projects.",
-      "lastUpdated": "2026-07-12",
-      "internalTarget": "projects"
-    },
-    {
-      "category": "Work",
-      "item": "Finished up with TestGorilla — actively looking for full-time roles and freelance clients.",
-      "lastUpdated": "2026-08-07",
-      "internalTarget": "contact"
     },
     {
       "category": "Riding",
