@@ -56,7 +56,9 @@ async function prerender() {
   // Discover blog post routes dynamically from src/data/posts/
   const postsDir = path.join(projectRoot, 'src', 'data', 'posts');
   if (fs.existsSync(postsDir)) {
-    const postFiles = fs.readdirSync(postsDir).filter((file) => file.endsWith('.md'));
+    const postFiles = fs
+      .readdirSync(postsDir)
+      .filter((file) => file.endsWith('.md') && !file.startsWith('HOW_TO_') && !file.startsWith('_') && !file.startsWith('README'));
     for (const file of postFiles) {
       const slug = file.replace(/\.md$/, '');
       routes.push(`/writing/${slug}`);

@@ -79,6 +79,10 @@ const postFiles = import.meta.glob('./posts/*.md', {
 }) as Record<string, string>;
 
 export const BLOG_POSTS: BlogPost[] = Object.entries(postFiles)
+  .filter(([filepath]) => {
+    const filename = filepath.split('/').pop() || '';
+    return !filename.startsWith('HOW_TO_') && !filename.startsWith('_') && !filename.startsWith('README');
+  })
   .map(([filepath, rawContent]) => {
     const filename = filepath.split('/').pop() || '';
     const slug = filename.replace(/\.md$/, '');

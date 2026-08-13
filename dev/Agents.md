@@ -11,6 +11,10 @@ dev/
 ├── human-agent-guidelines.md  — Shared UI vocabulary for owner ↔ agent communication
 ├── plans/                     — Execution plan files for non-trivial workstreams
 └── research/                  — Content critiques, idea dumps, feature research
+
+Content protocols:
+- `src/data/posts/HOW_TO_WRITE_POSTS.md` — Guide for writing & publishing blog essays (voice, schema, GFM formatting)
+- `src/data/HOW_TO_UPDATE_NOW.md` — Protocol for updating the /now page data
 ```
 
 ## How to use project.todo

@@ -112,104 +112,186 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
   const renderMarkdown = (content: string) => {
     const lines = content.split('\n');
     const elements: React.ReactNode[] = [];
-    let inCodeBlock = false;
-    let codeContent: string[] = [];
-    let codeLang = '';
+    let i = 0;
 
-    lines.forEach((line, index) => {
+    // Helper to split a table row line into trimmed cells
+    const parseTableRow = (rowLine: string): string[] => {
+      let trimmed = rowLine.trim();
+      if (trimmed.startsWith('|')) trimmed = trimmed.slice(1);
+      if (trimmed.endsWith('|')) trimmed = trimmed.slice(0, -1);
+      return trimmed.split('|').map((cell) => cell.trim());
+    };
+
+    // Helper to check if a line is a markdown table delimiter row (e.g., | :--- | :--- |)
+    const isTableDelimiterRow = (lineStr: string): boolean => {
+      const trimmed = lineStr.trim();
+      if (!trimmed.includes('|')) return false;
+      const cells = parseTableRow(trimmed);
+      return cells.length > 0 && cells.every((cell) => /^:?-+:?$/.test(cell));
+    };
+
+    while (i < lines.length) {
+      const line = lines[i];
+
       // Code blocks
       if (line.trim().startsWith('```')) {
-        if (inCodeBlock) {
-          const rawCode = codeContent.join('\n');
-          let highlightedHtml = '';
-          try {
-            if (codeLang && hljs.getLanguage(codeLang)) {
-              highlightedHtml = hljs.highlight(rawCode, { language: codeLang }).value;
-            } else {
-              highlightedHtml = hljs.highlightAuto(rawCode).value;
-            }
-          } catch {
-            highlightedHtml = rawCode;
-          }
-
-          elements.push(
-            <div key={`code-${index}`} className="relative my-6 group">
-              {codeLang && (
-                <div className="absolute top-2 right-2 px-2.5 py-1 bg-slate-900/90 text-slate-400 text-xs font-mono rounded-md border border-slate-800 select-none uppercase tracking-wider">
-                  {codeLang}
-                </div>
-              )}
-              <pre className="bg-slate-950 text-slate-100 p-4 rounded-xl overflow-x-auto border border-slate-800/80 text-sm font-mono leading-relaxed shadow-xl">
-                <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
-              </pre>
-            </div>
-          );
-          codeContent = [];
-          inCodeBlock = false;
-        } else {
-          inCodeBlock = true;
-          codeLang = line.trim().slice(3).toLowerCase();
+        const codeLang = line.trim().slice(3).toLowerCase();
+        const codeContent: string[] = [];
+        i++;
+        while (i < lines.length && !lines[i].trim().startsWith('```')) {
+          codeContent.push(lines[i]);
+          i++;
         }
-        return;
+        // Skip closing ``` line
+        if (i < lines.length) i++;
+
+        const rawCode = codeContent.join('\n');
+        let highlightedHtml = '';
+        try {
+          if (codeLang && hljs.getLanguage(codeLang)) {
+            highlightedHtml = hljs.highlight(rawCode, { language: codeLang }).value;
+          } else {
+            highlightedHtml = hljs.highlightAuto(rawCode).value;
+          }
+        } catch {
+          highlightedHtml = rawCode;
+        }
+
+        elements.push(
+          <div key={`code-${i}`} className="relative my-6 group">
+            {codeLang && (
+              <div className="absolute top-2 right-2 px-2.5 py-1 bg-slate-900/90 text-slate-400 text-xs font-mono rounded-md border border-slate-800 select-none uppercase tracking-wider">
+                {codeLang}
+              </div>
+            )}
+            <pre className="bg-slate-950 text-slate-100 p-4 rounded-xl overflow-x-auto border border-slate-800/80 text-sm font-mono leading-relaxed shadow-xl">
+              <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
+            </pre>
+          </div>
+        );
+        continue;
       }
 
-      if (inCodeBlock) {
-        codeContent.push(line);
-        return;
+      // Check for Table: header row followed by delimiter row
+      if (
+        line.trim().includes('|') &&
+        i + 1 < lines.length &&
+        isTableDelimiterRow(lines[i + 1])
+      ) {
+        const headerCells = parseTableRow(line);
+        const delimiterCells = parseTableRow(lines[i + 1]);
+
+        // Determine column alignments
+        const alignments = delimiterCells.map((cell) => {
+          if (cell.startsWith(':') && cell.endsWith(':')) return 'text-center';
+          if (cell.endsWith(':')) return 'text-right';
+          return 'text-left';
+        });
+
+        // Skip header & delimiter lines
+        const tableStartIndex = i;
+        i += 2;
+
+        // Collect body rows
+        const rows: string[][] = [];
+        while (i < lines.length && lines[i].trim().includes('|') && lines[i].trim().length > 0) {
+          rows.push(parseTableRow(lines[i]));
+          i++;
+        }
+
+        elements.push(
+          <div key={`table-${tableStartIndex}`} className="my-6 w-full overflow-x-auto rounded-xl border border-slate-800/80 bg-slate-900/60 shadow-lg">
+            <table className="w-full text-left text-sm text-slate-300 border-collapse">
+              <thead className="bg-slate-800/80 text-xs uppercase tracking-wider text-slate-200 border-b border-slate-700/80">
+                <tr>
+                  {headerCells.map((header, hIdx) => (
+                    <th
+                      key={hIdx}
+                      className={`px-4 py-3 font-semibold ${alignments[hIdx] || 'text-left'}`}
+                    >
+                      {parseInlineMarkdown(header)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/60">
+                {rows.map((row, rIdx) => (
+                  <tr
+                    key={rIdx}
+                    className="hover:bg-slate-800/40 transition-colors"
+                  >
+                    {row.map((cell, cIdx) => (
+                      <td
+                        key={cIdx}
+                        className={`px-4 py-3 text-slate-300 ${alignments[cIdx] || 'text-left'}`}
+                      >
+                        {parseInlineMarkdown(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        continue;
       }
 
       // Blockquotes
       if (line.startsWith('> ')) {
         elements.push(
-          <blockquote key={index} className="border-l-4 border-indigo-500/80 bg-indigo-500/5 px-4 py-3 rounded-r-lg my-4 text-slate-300 italic text-base">
+          <blockquote key={i} className="border-l-4 border-indigo-500/80 bg-indigo-500/5 px-4 py-3 rounded-r-lg my-4 text-slate-300 italic text-base">
             {parseInlineMarkdown(line.slice(2))}
           </blockquote>
         );
-        return;
+        i++;
+        continue;
       }
 
       // Headings
       if (line.startsWith('# ')) {
         elements.push(
-          <h1 key={index} className="text-3xl sm:text-4xl font-bold text-slate-100 mt-8 mb-4 tracking-tight leading-tight">
+          <h1 key={i} className="text-3xl sm:text-4xl font-bold text-slate-100 mt-8 mb-4 tracking-tight leading-tight">
             {parseInlineMarkdown(line.slice(2))}
           </h1>
         );
       } else if (line.startsWith('## ')) {
         elements.push(
-          <h2 key={index} className="text-2xl sm:text-3xl font-semibold text-slate-200 mt-8 mb-4 tracking-tight">
+          <h2 key={i} className="text-2xl sm:text-3xl font-semibold text-slate-200 mt-8 mb-4 tracking-tight">
             {parseInlineMarkdown(line.slice(3))}
           </h2>
         );
       } else if (line.startsWith('### ')) {
         elements.push(
-          <h3 key={index} className="text-xl sm:text-2xl font-semibold text-slate-300 mt-6 mb-3">
+          <h3 key={i} className="text-xl sm:text-2xl font-semibold text-slate-300 mt-6 mb-3">
             {parseInlineMarkdown(line.slice(4))}
           </h3>
         );
       } else if (line.startsWith('---')) {
-        elements.push(<hr key={index} className="my-8 border-slate-700/60" />);
+        elements.push(<hr key={i} className="my-8 border-slate-700/60" />);
       } else if (line.startsWith('- ')) {
         elements.push(
-          <li key={index} className="ml-6 list-disc text-slate-300 my-1 leading-relaxed">
+          <li key={i} className="ml-6 list-disc text-slate-300 my-1 leading-relaxed">
             {parseInlineMarkdown(line.slice(2))}
           </li>
         );
       } else if (/^\d+\.\s/.test(line)) {
         const itemText = line.replace(/^\d+\.\s/, '');
         elements.push(
-          <li key={index} className="ml-6 list-decimal text-slate-300 my-1 leading-relaxed">
+          <li key={i} className="ml-6 list-decimal text-slate-300 my-1 leading-relaxed">
             {parseInlineMarkdown(itemText)}
           </li>
         );
       } else if (line.trim().length > 0) {
         elements.push(
-          <p key={index} className="text-slate-300 my-4 text-base sm:text-lg leading-relaxed font-normal">
+          <p key={i} className="text-slate-300 my-4 text-base sm:text-lg leading-relaxed font-normal">
             {parseInlineMarkdown(line)}
           </p>
         );
       }
-    });
+
+      i++;
+    }
 
     return elements;
   };
