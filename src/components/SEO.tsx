@@ -19,8 +19,8 @@ const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 const SECTION_CONFIGS: Record<string, SectionSEOConfig> = {
   home: {
-    title: 'OhYa.sh – Everything Yash. Filtered.',
-    description: "Interactive portfolio of Yash Yadav. Senior backend engineer & founder in progress. Work, projects, cat Keto, and adventures.",
+    title: 'OhYa.sh – Senior Backend Engineer',
+    description: "Yash Yadav – Senior Backend Engineer. 7+ years in Python and Django, shipping production infra at scale. Open for freelance and senior roles.",
     path: '/',
     breadcrumbs: [
       { name: 'Home', item: SITE_URL }

@@ -123,12 +123,20 @@ const routeConfigs = [
 function injectHeadTags(baseHtml, config) {
   let html = baseHtml;
 
-  // 1. Remove existing title, meta description, and canonical tags to prevent duplicates
-  html = html.replace(/<title>.*?<\/title>/gi, '');
-  html = html.replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/gi, '');
-  html = html.replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/gi, '');
-  html = html.replace(/<meta\s+property="og:.*?"\s+content=".*?"\s*\/?>/gi, '');
-  html = html.replace(/<meta\s+name="twitter:.*?"\s+content=".*?"\s*\/?>/gi, '');
+  // 1. Remove existing title, meta description, canonical, og, twitter, and ld+json tags to prevent duplicates
+  // handles both standard attributes and react-helmet-async attributes (data-rh="true")
+  html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/gi, '');
+  html = html.replace(/<meta[^>]*name=["']description["'][^>]*\/?>/gi, '');
+  html = html.replace(/<meta[^>]*name=["']author["'][^>]*\/?>/gi, '');
+  html = html.replace(/<meta[^>]*name=["']twitter:[^"']*["'][^>]*\/?>/gi, '');
+  html = html.replace(/<meta[^>]*property=["']og:[^"']*["'][^>]*\/?>/gi, '');
+  html = html.replace(/<link[^>]*rel=["']canonical["'][^>]*\/?>/gi, '');
+  html = html.replace(/<script[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, '');
+
+  // Clean up any remaining elements with data-rh attribute inserted by react-helmet-async during Puppeteer rendering
+  html = html.replace(/<script[^>]*data-rh="true"[^>]*>[\s\S]*?<\/script>/gi, '');
+  html = html.replace(/<title[^>]*data-rh="true"[^>]*>[\s\S]*?<\/title>/gi, '');
+  html = html.replace(/<[^>]+data-rh="true"[^>]*\/?>/gi, '');
 
   // 2. Build single canonical head tags block
   const headExtra = `
@@ -191,6 +199,9 @@ function injectHeadTags(baseHtml, config) {
     `;
     html = html.replace('<div id="root"></div>', rootBodyContent);
   }
+
+  // 4. Collapse consecutive blank lines in head/body
+  html = html.replace(/\n\s*\n\s*\n+/g, '\n\n');
 
   return html;
 }
