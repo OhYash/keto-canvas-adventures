@@ -114,6 +114,71 @@ async function prerender() {
     fs.rmSync(serverBuildDir, { recursive: true, force: true });
   }
 
+  // Generate sitemap.xml automatically with precise per-route lastmod dates
+  const routeConfigs = {
+    '/': { changefreq: 'weekly', priority: '1.0', lastmod: '2026-08-13' },
+    '/work': { changefreq: 'monthly', priority: '0.9', lastmod: '2026-08-13' },
+    '/personal': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
+    '/now': { changefreq: 'weekly', priority: '0.9', lastmod: '2026-08-13' },
+    '/projects': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
+    '/hobbies': { changefreq: 'monthly', priority: '0.7', lastmod: '2026-08-13' },
+    '/keto': { changefreq: 'monthly', priority: '0.7', lastmod: '2026-08-13' },
+    '/contact': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
+    '/travel': { changefreq: 'monthly', priority: '0.6', lastmod: '2026-08-13' },
+    '/ataco': { changefreq: 'monthly', priority: '0.6', lastmod: '2026-08-13' },
+    '/writing': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
+  };
+
+  // Extract real publish/update dates from blog post frontmatter
+  const postDates = {};
+  if (fs.existsSync(postsDir)) {
+    const postFiles = fs
+      .readdirSync(postsDir)
+      .filter((file) => file.endsWith('.md') && !file.startsWith('HOW_TO_') && !file.startsWith('_') && !file.startsWith('README'));
+    for (const file of postFiles) {
+      const slug = file.replace(/\.md$/, '');
+      const content = fs.readFileSync(path.join(postsDir, file), 'utf-8');
+      const dateMatch = content.match(/^date:\s*["']?([\d-]+)["']?/m);
+      if (dateMatch) {
+        postDates[`/writing/${slug}`] = dateMatch[1];
+      }
+    }
+  }
+
+  const sitemapEntries = routes.map((routePath) => {
+    const config = routeConfigs[routePath] || {
+      changefreq: 'monthly',
+      priority: '0.7',
+      lastmod: '2026-08-13',
+    };
+    const loc = routePath === '/' ? 'https://ohya.sh/' : `https://ohya.sh${routePath}`;
+    const lastmod = postDates[routePath] || config.lastmod || '2026-08-13';
+    return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${config.changefreq}</changefreq>
+    <priority>${config.priority}</priority>
+  </url>`;
+  });
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapEntries.join('\n')}
+</urlset>
+`;
+
+  const publicSitemapPath = path.join(projectRoot, 'public', 'sitemap.xml');
+  const distSitemapPath = path.join(distDir, 'sitemap.xml');
+
+  // Idempotently update public/sitemap.xml only if content has changed
+  const existingPublicSitemap = fs.existsSync(publicSitemapPath) ? fs.readFileSync(publicSitemapPath, 'utf-8') : '';
+  if (existingPublicSitemap !== sitemapXml) {
+    fs.writeFileSync(publicSitemapPath, sitemapXml, 'utf-8');
+  }
+
+  fs.writeFileSync(distSitemapPath, sitemapXml, 'utf-8');
+  console.log(` 🗺️  Sitemap generated & synchronized: ${routes.length} URLs -> public/sitemap.xml & dist/sitemap.xml`);
+
   console.log(' Static site pre-rendering (SSG) completed successfully!');
 }
 
@@ -121,3 +186,5 @@ prerender().catch((err) => {
   console.error(' Pre-render execution failed:', err);
   process.exit(1);
 });
+
+
