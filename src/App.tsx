@@ -1,44 +1,15 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-
+import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-
-const queryClient = new QueryClient();
+import AppShell from "./AppShell";
 
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/personal" element={<Index />} />
-            <Route path="/work" element={<Index />} />
-            <Route path="/keto" element={<Index />} />
-            <Route path="/hobbies" element={<Index />} />
-            <Route path="/projects" element={<Index />} />
-            <Route path="/now" element={<Index />} />
-            <Route path="/contact" element={<Index />} />
-            <Route path="/travel" element={<Index />} />
-            <Route path="/travel/:storyId" element={<Index />} />
-            <Route path="/ataco" element={<Index />} />
-            <Route path="/writing" element={<Index />} />
-            <Route path="/writing/:slug" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   </HelmetProvider>
 );
 
 export default App;
+

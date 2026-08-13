@@ -12,12 +12,44 @@ import { useGridNavigation } from '../hooks/useGridNavigation';
 import ArticleReaderView from './blog/ArticleReaderView';
 import { getPostBySlug } from '../data/blogData';
 
+const getSectionFromPath = (pathname: string) => {
+  if (pathname === '/') return 'home';
+  const pathSegments = pathname.split('/').filter(Boolean);
+  const sectionId = pathSegments[0];
+  const validSections = ['personal', 'work', 'keto', 'hobbies', 'projects', 'now', 'contact', 'travel', 'ataco', 'writing'];
+  if (validSections.includes(sectionId)) {
+    return sectionId;
+  }
+  return 'home';
+};
+
+const getInitialPosition = (sectionId: string) => {
+  const spacing = 1000;
+  const positions: Record<string, { x: number; y: number }> = {
+    home: { x: 0, y: 0 },
+    personal: { x: spacing, y: 0 },
+    work: { x: -spacing, y: 0 },
+    keto: { x: 0, y: spacing },
+    hobbies: { x: 0, y: -spacing },
+    now: { x: -spacing, y: -spacing },
+    contact: { x: spacing, y: -spacing },
+    projects: { x: 0, y: -spacing * 2 },
+    travel: { x: spacing * 2, y: 0 },
+    ataco: { x: 0, y: spacing * 2 },
+    writing: { x: -spacing * 2, y: 0 },
+  };
+  return positions[sectionId] || { x: 0, y: 0 };
+};
+
 const InfiniteCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
   
+  const initialSection = getSectionFromPath(location.pathname);
+  const initialPosition = getInitialPosition(initialSection);
+
   const {
     viewportPosition,
     setViewportPosition,
@@ -26,7 +58,7 @@ const InfiniteCanvas = () => {
     startDragging,
     stopDragging,
     updateLastMousePos,
-  } = useViewport();
+  } = useViewport(initialPosition);
 
   const {
     sections,
@@ -38,30 +70,10 @@ const InfiniteCanvas = () => {
     updateCurrentSection,
     navigateToSection,
     navigateHome,
-  } = useSectionManagement();
+  } = useSectionManagement(initialSection);
 
   // Get the proper breadcrumb path for the current section
   const breadcrumbPath = getBreadcrumbPath(currentSection);
-
-  // Helper function to get section ID from URL path
-  const getSectionFromPath = useCallback((pathname: string) => {
-    if (pathname === '/') return 'home';
-    
-    const pathSegments = pathname.split('/').filter(Boolean);
-    const sectionId = pathSegments[0];
-    
-    // Handle special cases for URLs that differ from section IDs
-    if (sectionId === 'travel') {
-      return 'travel';
-    }
-    // Check if it's a valid section
-    const validSections = ['personal', 'work', 'keto', 'hobbies', 'projects', 'now', 'contact', 'travel', 'ataco', 'writing'];
-    if (validSections.includes(sectionId)) {
-      return sectionId;
-    }
-    
-    return 'home';
-  }, []);
 
   // Helper function to get URL path from section ID
   const getPathFromSection = useCallback((sectionId: string) => {

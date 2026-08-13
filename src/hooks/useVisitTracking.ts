@@ -32,6 +32,14 @@ const getDefaultVisitData = (): VisitData => ({
 });
 
 const loadVisitData = (): VisitTrackingData => {
+  if (typeof window === 'undefined') {
+    return {
+      sections: {},
+      cards: {},
+      currentSessionStart: Date.now(),
+    };
+  }
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -55,6 +63,8 @@ const loadVisitData = (): VisitTrackingData => {
 };
 
 const saveVisitData = (data: VisitTrackingData) => {
+  if (typeof window === 'undefined') return;
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (error) {

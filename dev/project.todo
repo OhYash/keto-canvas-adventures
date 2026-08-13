@@ -29,7 +29,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Structured Data & Semantic HTML — Embedded Schema.org JSON-LD (`Person`, `ProfilePage`, `BlogPosting`, `BreadcrumbList`), semantic `<a href>` navigation links for crawlers, and single `<h1>` rendering logic per active viewport.
 - [x] Social Cards & Assets — Designed OpenGraph social preview card (`public/og-image.png`), generated `public/sitemap.xml`, and updated `public/robots.txt`.
 - [x] Static Site Pre-rendering (SSG) — Puppeteer build hook (`scripts/prerender.js`) pre-rendering full HTML for all section & article sub-routes for 200 OK HTTP GET crawler indexability on GitHub Pages.
-- [x] Fix SSG duplicate meta & canonical tags — Updated regex sanitizer in `scripts/prerender.js` to strip `react-helmet-async` `data-rh="true"` tags during build pre-rendering, eliminating duplicate `<meta name="description">` and `<link rel="canonical">` tags reported by Bing Webmaster Tools. Synchronized home SEO metadata across `SEO.tsx`, `index.html`, and `prerender.js`.
+- [x] Refactor SSG prerendering (`scripts/prerender.js`) — Replaced Puppeteer headless browser & regex injection script with native Vite SSR (`renderToString` + `react-helmet-async` server context) for fast, clean, component-driven static site generation.
 
 ---
 

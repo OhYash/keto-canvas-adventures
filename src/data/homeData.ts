@@ -17,7 +17,7 @@ export const homeData = {
   subtitle: "7+ years in Python and Django, shipping production infra at scale. Open for freelance and senior roles.",
   canvasIntro: "This portfolio is built on an infinite 2D canvas — because life and experiences are rarely linear. Drag around, explore the grid, and enjoy the site.",
   systemMetric: {
-    title: "A system I own in production, at TestGorilla",
+    title: "A system I owned in production, at TestGorilla",
     metrics: [
       {
         value: "30M+",

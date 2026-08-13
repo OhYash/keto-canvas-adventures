@@ -19,10 +19,13 @@ interface Section {
   parent?: string;
 }
 
-export const useSectionManagement = () => {
-  const [currentSection, setCurrentSection] = useState<string>('home');
-  const [navigationHistory, setNavigationHistory] = useState<string[]>(['home']);
-  const [screenDimensions, setScreenDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
+export const useSectionManagement = (initialSection: string = 'home') => {
+  const [currentSection, setCurrentSection] = useState<string>(initialSection);
+  const [navigationHistory, setNavigationHistory] = useState<string[]>([initialSection]);
+  const [screenDimensions, setScreenDimensions] = useState({ 
+    width: typeof window !== 'undefined' ? window.innerWidth : 1280, 
+    height: typeof window !== 'undefined' ? window.innerHeight : 800 
+  });
   
   // Visit tracking hooks
   const { recordSectionVisit, getSectionVisits } = useVisitTracking();
