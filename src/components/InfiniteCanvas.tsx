@@ -23,24 +23,6 @@ const getSectionFromPath = (pathname: string) => {
   return 'home';
 };
 
-const getInitialPosition = (sectionId: string) => {
-  const spacing = 1000;
-  const positions: Record<string, { x: number; y: number }> = {
-    home: { x: 0, y: 0 },
-    personal: { x: spacing, y: 0 },
-    work: { x: -spacing, y: 0 },
-    keto: { x: 0, y: spacing },
-    hobbies: { x: 0, y: -spacing },
-    now: { x: -spacing, y: -spacing },
-    contact: { x: spacing, y: -spacing },
-    projects: { x: 0, y: -spacing * 2 },
-    travel: { x: spacing * 2, y: 0 },
-    ataco: { x: 0, y: spacing * 2 },
-    writing: { x: -spacing * 2, y: 0 },
-  };
-  return positions[sectionId] || { x: 0, y: 0 };
-};
-
 const InfiniteCanvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -48,17 +30,6 @@ const InfiniteCanvas = () => {
   const params = useParams();
   
   const initialSection = getSectionFromPath(location.pathname);
-  const initialPosition = getInitialPosition(initialSection);
-
-  const {
-    viewportPosition,
-    setViewportPosition,
-    isDragging,
-    lastMousePos,
-    startDragging,
-    stopDragging,
-    updateLastMousePos,
-  } = useViewport(initialPosition);
 
   const {
     sections,
@@ -71,6 +42,22 @@ const InfiniteCanvas = () => {
     navigateToSection,
     navigateHome,
   } = useSectionManagement(initialSection);
+
+  // Derive initial position directly from allSections (matching responsive spacing!)
+  const initialTargetSection = allSections.find((s) => s.id === initialSection);
+  const initialPosition = initialTargetSection
+    ? { x: -initialTargetSection.position.x, y: -initialTargetSection.position.y }
+    : { x: 0, y: 0 };
+
+  const {
+    viewportPosition,
+    setViewportPosition,
+    isDragging,
+    lastMousePos,
+    startDragging,
+    stopDragging,
+    updateLastMousePos,
+  } = useViewport(initialPosition);
 
   // Get the proper breadcrumb path for the current section
   const breadcrumbPath = getBreadcrumbPath(currentSection);
@@ -173,17 +160,15 @@ const InfiniteCanvas = () => {
     onNavigateToSection: handleKeyboardNavigateToSection,
   });
 
-  // Handle initial navigation and URL changes (browser back/forward)
+  // Handle URL changes (browser back/forward or direct navigation)
   useEffect(() => {
     const sectionFromUrl = getSectionFromPath(location.pathname);
-    if (sectionFromUrl !== currentSection) {
-      const newPosition = navigateToSection(sectionFromUrl, 'direct');
-      if (newPosition) {
-        setViewportPosition(newPosition);
-        setTimeout(resetScrollPositions, 0);
-      }
+    const newPosition = navigateToSection(sectionFromUrl, 'direct');
+    if (newPosition) {
+      setViewportPosition(newPosition);
+      setTimeout(resetScrollPositions, 0);
     }
-  }, [location.pathname, getSectionFromPath, currentSection, navigateToSection, setViewportPosition, resetScrollPositions]);
+  }, [location.pathname, getSectionFromPath, navigateToSection, setViewportPosition, resetScrollPositions]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

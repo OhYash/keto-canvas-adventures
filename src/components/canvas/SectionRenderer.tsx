@@ -44,6 +44,12 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
   onNavigateToSection,
   onSelectArticle,
 }) => {
+  const [isClientMounted, setIsClientMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClientMounted(true);
+  }, []);
+
   const renderSectionContent = useCallback((section: Section) => {
     const isActive = currentSection === section.id;
     const commonProps = {
@@ -81,19 +87,27 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
     }
   }, [currentSection, onNavigateHome, onNavigateToSection, onSelectArticle]);
 
+  // During SSR (isClientMounted === false), render ONLY the section matching the current URL/route.
+  // After client hydration (isClientMounted === true), mount all sections on the 2D grid for seamless canvas panning.
+  const sectionsToRender = isClientMounted
+    ? allSections
+    : allSections.filter((section) => section.id === currentSection);
+
   return (
     <>
       {/* Home/Landing section */}
-      <div className="absolute -translate-x-1/2 -translate-y-1/2">
-        <HomeSection
-          sections={sections}
-          isActive={currentSection === 'home'}
-          onNavigateToSection={onNavigateToSection}
-        />
-      </div>
+      {(isClientMounted || currentSection === 'home') && (
+        <div className="absolute -translate-x-1/2 -translate-y-1/2">
+          <HomeSection
+            sections={sections}
+            isActive={currentSection === 'home'}
+            onNavigateToSection={onNavigateToSection}
+          />
+        </div>
+      )}
 
-      {/* Section pages - render all sections including travel */}
-      {allSections.map((section) => (
+      {/* Section pages */}
+      {sectionsToRender.map((section) => (
         <div
           key={section.id}
           className="absolute -translate-x-1/2 -translate-y-1/2"
