@@ -69,39 +69,75 @@ When a visitor loaded `/projects` directly:
 
 ---
 
-## 3. The Architecture: Scoped SSR + Client Canvas Hydration
+## 3. The Evolution: From Scoped SSR to Idle-Deferred Proximity Hydration
 
-To resolve both defects permanently, I decoupled **server-side pre-rendering** from **client-side canvas hydration**.
+Solving this for both static crawlers and JavaScript-executing search engines required a multi-stage architecture.
 
-### A. Scoped SSR Pre-Rendering
+### Stage 1: Scoped SSG Pre-Rendering
 During server-side pre-rendering (`isClientMounted === false`), `SectionRenderer` checks the active route and renders **ONLY the section belonging to that URL**:
 
 ```tsx
-// In SectionRenderer.tsx
-const [isClientMounted, setIsClientMounted] = React.useState(false);
-
-React.useEffect(() => {
-  setIsClientMounted(true);
-}, []);
-
 // During SSR, render ONLY the section matching the current URL path.
-// On client hydration, render all sections on the 2D grid.
 const sectionsToRender = isClientMounted
   ? allSections
   : allSections.filter((section) => section.id === currentSection);
 ```
 
-When `scripts/prerender.js` pre-renders `/work`, `dist/work/index.html` now contains **strictly the Work section HTML** alongside its breadcrumbs, meta tags, and JSON-LD schema. No Keto, no travel stories, no bloated DOM nodes.
+When `scripts/prerender.js` builds `/work`, `dist/work/index.html` contains strictly the Work section HTML. No Keto, no travel stories, no bloated DOM nodes.
 
-### B. Client Canvas Hydration
-When a visitor opens `https://ohya.sh/work`:
-1. The browser parses `dist/work/index.html` and paints the Work card instantly (0ms layout shift, minimal FCP).
-2. React mounts on the client and `useEffect` sets `isClientMounted = true`.
-3. React mounts the adjacent section cards onto the 2D spatial grid.
-4. The user can drag, pan, or use arrow keys across the 2D canvas with 60 FPS performance without any delay or pop-in.
+### Stage 2: The JS-Rendering Crawler Leak (Bingbot & Googlebot WRS)
+Shortly after shipping Stage 1, I audited Bing Webmaster's live URL inspection output for `https://ohya.sh/work` and discovered a second nuance: **modern search engines run client-side JavaScript via headless Web Rendering Services (WRS).**
 
-### C. Dynamic Position Synchronization
-I purged the hardcoded `getInitialPosition` function from `InfiniteCanvas.tsx`. Initial viewport coordinates are now derived dynamically from `useSectionManagement`'s `allSections` array, ensuring `viewportPosition` matches `responsiveSpacing` on frame zero of direct URL hits.
+When Bingbot loaded `dist/work/index.html`, React hydrated on the client, setting `isClientMounted = true`. React immediately mounted all 11 sections into the live DOM tree. Bingbot waited for JS execution to settle, captured the rendered DOM snapshot, and still logged duplicate content from all other sections!
+
+### Stage 3: Idle-Deferred Proximity Hydration (`shouldExpandProximity`)
+To prevent JS-executing crawlers from picking up background sections while ensuring zero latency for human visitors, I introduced **Idle-Deferred Proximity Hydration**:
+
+```tsx
+// In SectionRenderer.tsx
+const [isClientMounted, setIsClientMounted] = React.useState(false);
+const [isIdleHydrated, setIsIdleHydrated] = React.useState(false);
+
+React.useEffect(() => {
+  setIsClientMounted(true);
+
+  // Defer background section hydration until after idle timer (1.5s) or user interaction.
+  // Search crawlers (Bingbot / Googlebot WRS) extract page DOM within ~1s without triggering idle timers.
+  const timer = setTimeout(() => {
+    setIsIdleHydrated(true);
+  }, 1500);
+
+  return () => clearTimeout(timer);
+}, []);
+
+// Before hydration settles / before interaction/idle delay: render ONLY the active route section.
+// After interaction or idle delay: expand proximity rendering to adjacent 2D grid coordinates.
+const shouldExpandProximity = isClientMounted && (hasInteracted || isIdleHydrated);
+
+const sectionsToRender = React.useMemo(() => {
+  if (!shouldExpandProximity) {
+    return allSections.filter((section) => section.id === currentSection);
+  }
+
+  const baseThreshold = currentSection === 'home' || hasInteracted ? 1450 : 1050;
+  const threshold = proximityThreshold ?? baseThreshold;
+
+  return allSections.filter((section) => {
+    if (section.id === currentSection) return true;
+
+    // Calculate 2D distance from current viewport center to section position
+    const dx = section.position.x + viewportPosition.x;
+    const dy = section.position.y + viewportPosition.y;
+    return Math.sqrt(dx * dx + dy * dy) <= threshold;
+  });
+}, [shouldExpandProximity, allSections, currentSection, hasInteracted, viewportPosition.x, viewportPosition.y]);
+```
+
+### How the Final Architecture Operates:
+
+1. **Static SSG HTML (0ms)**: Pre-renders 1 route section per HTML file (~30 KB).
+2. **Crawler Snapshot Window (0 – 1.5s)**: Crawlers run JS, but `shouldExpandProximity` remains `false`. Crawlers capture a 100% route-scoped DOM snapshot.
+3. **Human Experience (1.5s or on Drag)**: After 1.5s or as soon as the user drags the canvas, `shouldExpandProximity` becomes `true`. Adjacent 2D grid sections mount quietly, keeping canvas panning hardware-accelerated at 60 FPS.
 
 ---
 
@@ -111,7 +147,7 @@ I purged the hardcoded `getInitialPosition` function from `InfiniteCanvas.tsx`. 
 | :--- | :--- | :--- | :--- |
 | **`/work` Static HTML Size** | 173 KB | **32 KB** | **82.1% Reduction** |
 | **`/keto` Static HTML Size** | 173 KB | **25 KB** | **85.5% Reduction** |
-| **Crawler Content Scope** | 11 sections merged | **1 section (100% scoped)** | **Clean indexing** |
+| **JS Crawler DOM Output** | 11 sections merged | **1 section (100% scoped)** | **Zero content dilution** |
 | **Direct URL Alignment** | 400px offset | **0px (100% centered)** | **Pixel-perfect** |
 | **Client Canvas FPS** | 60 FPS | **60 FPS** | **Zero UX loss** |
 
@@ -120,5 +156,5 @@ I purged the hardcoded `getInitialPosition` function from `InfiniteCanvas.tsx`. 
 ## Takeaways
 
 1. **Spatial UIs don't have to sacrifice web performance**: An infinite 2D canvas can feel open and exploratory on the client while serving lean, focused HTML to search engines.
-2. **Beware of SSR DOM inheritance**: When building single-page apps with global layouts, ensure server-rendered static markup reflects the active route rather than dumping full application state.
+2. **Account for JS-executing search engines**: SSG alone isn't enough if client hydration immediately dumps full app state into the DOM. Deferring non-active nodes behind idle callbacks/interaction keeps JS crawler snapshots clean.
 3. **Single source of truth for responsive math**: Never duplicate coordinate math between initialization hooks and rendering logic. Deriving initial positions from the primary layout hook prevents alignment bugs across different screen resolutions.

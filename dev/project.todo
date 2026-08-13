@@ -25,7 +25,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Projects section & Solanum Enhanced v7.2.0 — Extracted data layer (`src/data/projectsData.ts`), streamlined 2-sentence card descriptions with expandable feature details, added Solanum Enhanced v7.2.0 release badge, and prioritized INR Finance Compass.
 - [x] Now section content-as-data architecture — `src/data/nowData.json` data layer with `HOW_TO_UPDATE_NOW.md` protocol; regularly updated with job search focus and latest releases.
 - [x] Subsections shipped — Travel Stories (`DetailedStoryView.tsx`), Ataco subsection at (0, -2000) under Keto (`src/data/ataco.ts`).
-- [x] Published 82% Payload Reduction essay — Added new essay post at `src/data/posts/achieving-82-percent-payload-reduction-on-infinite-canvas.md` documenting the SSG scoping discovery, 82% size reduction (173KB -> 32KB), direct URL viewport centering fix, written from first-person senior backend perspective ("I" tone).
+- [x] Published 82% Payload Reduction essay — Added and revised essay post at `src/data/posts/achieving-82-percent-payload-reduction-on-infinite-canvas.md` documenting the SSG scoping discovery, 82% size reduction (173KB -> 32KB), direct URL viewport centering fix, JS-rendering crawler behavior (Bingbot WRS), and Idle-Deferred Proximity Hydration (`shouldExpandProximity`).
 - [x] Voice & Copy polish — Removed boilerplate badges/quotes, updated LinkedIn profile data, reframed headline to founder-forward voice ("Engineer today, founder in progress.").
 
 ### SEO, Performance & Static Site Generation
@@ -35,6 +35,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Static Site Pre-rendering (SSG) — Puppeteer build hook (`scripts/prerender.js`) pre-rendering full HTML for all section & article sub-routes for 200 OK HTTP GET crawler indexability on GitHub Pages.
 - [x] Refactor SSG prerendering (`scripts/prerender.js`) — Replaced Puppeteer headless browser & regex injection script with native Vite SSR (`renderToString` + `react-helmet-async` server context) for fast, clean, component-driven static site generation.
 - [x] Scoped SSG HTML per route — Updated `SectionRenderer.tsx` so server-side static site generation renders ONLY the route-specific section into `dist/<route>/index.html` (e.g. `dist/work/index.html` now contains only Work section HTML), eliminating 173KB multi-section HTML dumps and ensuring 100% scoped crawler indexability while client hydration mounts full 2D spatial canvas.
+- [x] Idle-deferred proximity rendering for 100% scoped crawler SEO output — Updated `SectionRenderer.tsx` with a 1.5s idle hydration delay (`isIdleHydrated`) combined with user interaction triggers (`hasInteracted`). Search crawlers (Bingbot / Googlebot WRS / Bing Webmaster tool) extract DOM snapshots within ~1s before idle hydration, receiving 100% route-scoped HTML for every URL (`/`, `/work`, `/keto`, etc.) with zero duplicate page data, while human visitors get seamless 2D spatial canvas hydration after 1.5s or upon canvas panning.
 
 ---
 

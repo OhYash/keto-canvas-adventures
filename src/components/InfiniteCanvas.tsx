@@ -68,7 +68,14 @@ const InfiniteCanvas = () => {
     return `/${sectionId}`;
   }, []);
 
+  const [hasInteracted, setHasInteracted] = React.useState(false);
+
+  const markInteracted = useCallback(() => {
+    setHasInteracted(true);
+  }, []);
+
   const handlePositionChange = useCallback((deltaX: number, deltaY: number) => {
+    markInteracted();
     setViewportPosition(prev => {
       const newPosition = {
         x: prev.x + deltaX,
@@ -87,7 +94,7 @@ const InfiniteCanvas = () => {
       
       return newPosition;
     });
-  }, [setViewportPosition, getCurrentSectionFromPosition, updateCurrentSection, currentSection, getPathFromSection, location.pathname, navigate]);
+  }, [markInteracted, setViewportPosition, getCurrentSectionFromPosition, updateCurrentSection, currentSection, getPathFromSection, location.pathname, navigate]);
 
   const {
     isPanning,
@@ -114,6 +121,7 @@ const InfiniteCanvas = () => {
   }, []);
 
   const handleNavigateToSection = useCallback((sectionId: string) => {
+    markInteracted();
     const newPosition = navigateToSection(sectionId, 'direct');
     if (newPosition) {
       setViewportPosition(newPosition);
@@ -125,9 +133,10 @@ const InfiniteCanvas = () => {
       // Reset scroll positions after navigation
       setTimeout(resetScrollPositions, 0);
     }
-  }, [navigateToSection, setViewportPosition, resetScrollPositions, getPathFromSection, location.pathname, navigate]);
+  }, [markInteracted, navigateToSection, setViewportPosition, resetScrollPositions, getPathFromSection, location.pathname, navigate]);
 
   const handleKeyboardNavigateToSection = useCallback((sectionId: string) => {
+    markInteracted();
     const newPosition = navigateToSection(sectionId, 'keyboard');
     if (newPosition) {
       setViewportPosition(newPosition);
@@ -139,9 +148,10 @@ const InfiniteCanvas = () => {
       // Reset scroll positions after navigation
       setTimeout(resetScrollPositions, 0);
     }
-  }, [navigateToSection, setViewportPosition, resetScrollPositions, getPathFromSection, location.pathname, navigate]);
+  }, [markInteracted, navigateToSection, setViewportPosition, resetScrollPositions, getPathFromSection, location.pathname, navigate]);
 
   const handleNavigateHome = useCallback(() => {
+    markInteracted();
     const newPosition = navigateHome();
     setViewportPosition(newPosition);
     // Update URL
@@ -150,7 +160,7 @@ const InfiniteCanvas = () => {
     }
     // Reset scroll positions after navigation
     setTimeout(resetScrollPositions, 0);
-  }, [navigateHome, setViewportPosition, resetScrollPositions, location.pathname, navigate]);
+  }, [markInteracted, navigateHome, setViewportPosition, resetScrollPositions, location.pathname, navigate]);
 
   // Grid-based navigation
   const { navigateInDirection } = useGridNavigation({
@@ -175,23 +185,28 @@ const InfiniteCanvas = () => {
       switch (e.key) {
         case 'ArrowRight':
           e.preventDefault();
+          markInteracted();
           navigateInDirection('right');
           break;
         case 'ArrowLeft':
           e.preventDefault();
+          markInteracted();
           navigateInDirection('left');
           break;
         case 'ArrowUp':
           e.preventDefault();
+          markInteracted();
           navigateInDirection('up');
           break;
         case 'ArrowDown':
           e.preventDefault();
+          markInteracted();
           navigateInDirection('down');
           break;
         case 'Escape':
         case 'Home':
           e.preventDefault();
+          markInteracted();
           handleNavigateHome();
           break;
       }
@@ -199,7 +214,7 @@ const InfiniteCanvas = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [navigateInDirection, handleNavigateHome]);
+  }, [markInteracted, navigateInDirection, handleNavigateHome]);
 
   // Determine if an article is currently open via URL path (/writing/:slug)
   const pathSegments = location.pathname.split('/').filter(Boolean);
@@ -207,12 +222,14 @@ const InfiniteCanvas = () => {
   const activeArticle = activeArticleSlug ? getPostBySlug(activeArticleSlug) : null;
 
   const handleSelectArticle = useCallback((slug: string) => {
+    markInteracted();
     navigate(`/writing/${slug}`, { replace: false });
-  }, [navigate]);
+  }, [markInteracted, navigate]);
 
   const handleCloseArticle = useCallback(() => {
+    markInteracted();
     navigate('/writing', { replace: false });
-  }, [navigate]);
+  }, [markInteracted, navigate]);
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
@@ -249,11 +266,17 @@ const InfiniteCanvas = () => {
         style={{ 
           touchAction: isPanning ? 'none' : 'pan-y'
         }}
-        onMouseDown={handleMouseDown}
+        onMouseDown={(e) => {
+          markInteracted();
+          handleMouseDown(e);
+        }}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
+        onTouchStart={(e) => {
+          markInteracted();
+          handleTouchStart(e);
+        }}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
@@ -271,9 +294,11 @@ const InfiniteCanvas = () => {
             sections={sections}
             allSections={allSections}
             currentSection={currentSection}
+            viewportPosition={viewportPosition}
             onNavigateHome={handleNavigateHome}
             onNavigateToSection={handleNavigateToSection}
             onSelectArticle={handleSelectArticle}
+            hasInteracted={hasInteracted}
           />
         </div>
 
