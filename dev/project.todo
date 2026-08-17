@@ -47,6 +47,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Subsections shipped — Travel Stories (`DetailedStoryView.tsx`), Ataco subsection at (0, -2000) under Keto (`src/data/ataco.ts`).
 - [x] Published 85% Payload Reduction & 2D Grid Architecture essay — Updated essay post at `src/data/posts/achieving-82-percent-payload-reduction-on-infinite-canvas.md` documenting up to 89% payload reduction (173KB -> 19KB), CSS transform keyframe conflict resolution, discrete 2D integer coordinate schema, and step-by-step architectural verification screenshots.
 - [x] Published "Nobody Needed a 2D Canvas Portfolio" essay — Published new post at `src/data/posts/nobody-needed-a-2d-canvas-portfolio.md` showcasing 60 FPS GPU compositor rendering, the spatial map logic (cat & motorcycle above Home), under 20KB on-demand payloads, and privacy-respecting architecture.
+- [x] Converted UI screencast to GIF & embedded in essay — Converted `public/personal/screeN-rec_ui_m2.mp4` to an optimized, high-fidelity 256-color GIF (`public/images/posts/canvas-card-navigation-demo.gif`) via `ffmpeg` (lanczos scaling, diff palette) and `imagemagick` layer optimization (4.5 MB), and embedded it in `src/data/posts/nobody-needed-a-2d-canvas-portfolio.md` showcasing rapid card-to-card spatial navigation.
 - [x] Voice & Copy polish — Removed boilerplate badges/quotes, updated LinkedIn profile data, reframed headline to founder-forward voice ("Engineer today, founder in progress.").
 
 ### SEO, Performance & Static Site Generation

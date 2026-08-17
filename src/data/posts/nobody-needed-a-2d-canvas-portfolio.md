@@ -54,6 +54,8 @@ An unbounded 2D space without rules is just chaos. So I organized the canvas aro
 
 You can pan with your mouse, swipe on your phone, or simply tap your keyboard arrow keys to fly directly from one card to the next.
 
+![Jumping rapidly across cards on the 2D canvas with keyboard navigation and panning](/images/posts/canvas-card-navigation-demo.gif)
+
 ---
 
 ## Infinite Space, Featherweight Size: Only Load What You Need (Under 20 KB)
