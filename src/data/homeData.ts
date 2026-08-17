@@ -45,6 +45,11 @@ export const homeData = {
       path: "/work",
     },
     {
+      label: "Writing & Essays",
+      target: "writing",
+      path: "/writing",
+    },
+    {
       label: "Also building — Finance Compass",
       target: "projects",
       path: "/projects",

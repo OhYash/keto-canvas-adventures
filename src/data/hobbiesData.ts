@@ -3,6 +3,8 @@ export interface Hobby {
   description: string;
   iconType: 'terminal' | 'cpu' | 'bike' | 'waves' | 'music';
   tags: string[];
+  internalTarget?: string;
+  targetLabel?: string;
 }
 
 export const hobbies: Hobby[] = [
@@ -26,6 +28,8 @@ export const hobbies: Hobby[] = [
       "Track days, long rides, gear breakdowns. Mostly sportbike and ADV stuff.",
     iconType: "bike",
     tags: ["Motorcycles", "Reviews", "Track Days"],
+    internalTarget: "ataco",
+    targetLabel: "Meet Ataco (Scrambler 400X) ↑",
   },
   {
     title: "Surfing",

@@ -24,8 +24,7 @@ const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug, storyId }) => {
       path: `/writing/${article.slug}`,
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
-        { name: 'Work', item: `${SITE_URL}/work` },
-        { name: 'Writing', item: `${SITE_URL}/writing` },
+        { name: 'Writing & Essays', item: `${SITE_URL}/writing` },
         { name: article.title, item: `${SITE_URL}/writing/${article.slug}` },
       ],
     };

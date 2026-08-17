@@ -79,16 +79,31 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
               <p className="text-slate-700 text-sm leading-relaxed mb-3">
                 {hobby.description}
               </p>
-              <div className="flex flex-wrap gap-2">
-                {hobby.tags.map((tag, tagIndex) => (
-                  <Badge
-                    key={tagIndex}
-                    variant="secondary"
-                    className="text-xs bg-slate-800 text-white hover:bg-slate-700"
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex flex-wrap gap-2">
+                  {hobby.tags.map((tag, tagIndex) => (
+                    <Badge
+                      key={tagIndex}
+                      variant="secondary"
+                      className="text-xs bg-slate-800 text-white hover:bg-slate-700"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                {hobby.internalTarget && hobby.targetLabel && (
+                  <a
+                    href={`/${hobby.internalTarget}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToSection(hobby.internalTarget!);
+                    }}
+                    className="text-xs font-semibold text-emerald-800 hover:text-emerald-950 transition-colors underline decoration-dotted underline-offset-2 ml-auto"
                   >
-                    {tag}
-                  </Badge>
-                ))}
+                    {hobby.targetLabel}
+                  </a>
+                )}
               </div>
             </div>
           </div>

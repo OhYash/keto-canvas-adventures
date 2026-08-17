@@ -102,15 +102,13 @@ export const SECTIONS: SectionDefinition[] = [
     gradient: 'bg-gradient-to-br from-sky-500/20 to-blue-600/20',
     icon: '✍️',
     direction: 'right',
-    parent: 'work',
     seo: {
       title: 'Writing & Essays | OhYa.sh',
       description: 'Essays, technical deep dives into backend architecture, system design, and software engineering by Yash Yadav.',
       path: '/writing',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
-        { name: 'Work', item: `${SITE_URL}/work` },
-        { name: 'Writing', item: `${SITE_URL}/writing` },
+        { name: 'Writing & Essays', item: `${SITE_URL}/writing` },
       ],
     },
     sitemap: {
@@ -206,14 +204,12 @@ export const SECTIONS: SectionDefinition[] = [
     gradient: 'bg-gradient-to-br from-lime-500/20 to-emerald-600/20',
     icon: '🏍️',
     direction: 'up',
-    parent: 'keto',
     seo: {
       title: 'Ataco – Triumph Scrambler 400X | OhYa.sh',
       description: 'Khaki green Triumph Scrambler 400X motorcycle — specs, setup, and riding stories.',
       path: '/ataco',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
-        { name: 'Keto', item: `${SITE_URL}/keto` },
         { name: 'Ataco', item: `${SITE_URL}/ataco` },
       ],
     },
