@@ -19,7 +19,7 @@ export const ketoPhotos: KetoPhoto[] = [
     objectPosition: 'object-top',
   },
   {
-    src: '/personal/keto_bossing_me_edited.png',
+    src: '/personal/keto_bossing_me_edited.jpg',
     alt: 'Keto bossing Yash around with magic energy',
     caption: 'Bossing Me Around 🎯',
     objectPosition: 'object-center',
