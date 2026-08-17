@@ -178,7 +178,7 @@ const InfiniteCanvas = () => {
       setViewportPosition(newPosition);
       setTimeout(resetScrollPositions, 0);
     }
-  }, [location.pathname, getSectionFromPath, navigateToSection, setViewportPosition, resetScrollPositions]);
+  }, [location.pathname, navigateToSection, setViewportPosition, resetScrollPositions]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -304,7 +304,7 @@ const InfiniteCanvas = () => {
 
         <NavigationIndicator
           currentSection={currentSection}
-          sections={sections}
+          sections={allSections}
         />
 
         {activeArticle && (

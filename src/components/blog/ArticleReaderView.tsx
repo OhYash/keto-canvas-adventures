@@ -237,6 +237,29 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
         continue;
       }
 
+      // Images: ![alt](url)
+      const imgMatch = line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imgMatch) {
+        const [, altText, imgSrc] = imgMatch;
+        elements.push(
+          <figure key={`img-${i}`} className="my-8 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-2xl p-2">
+            <img
+              src={imgSrc}
+              alt={altText}
+              className="w-full h-auto rounded-xl object-cover"
+              loading="lazy"
+            />
+            {altText && (
+              <figcaption className="text-center text-xs text-slate-400 mt-2.5 mb-1 italic">
+                {altText}
+              </figcaption>
+            )}
+          </figure>
+        );
+        i++;
+        continue;
+      }
+
       // Blockquotes
       if (line.startsWith('> ')) {
         elements.push(
@@ -250,9 +273,14 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
 
       // Headings
       if (line.startsWith('# ')) {
+        const headingText = line.slice(2).trim();
+        if (headingText.toLowerCase() === post.title.toLowerCase()) {
+          i++;
+          continue;
+        }
         elements.push(
           <h1 key={i} className="text-3xl sm:text-4xl font-bold text-slate-100 mt-8 mb-4 tracking-tight leading-tight">
-            {parseInlineMarkdown(line.slice(2))}
+            {parseInlineMarkdown(headingText)}
           </h1>
         );
       } else if (line.startsWith('## ')) {

@@ -1,18 +1,18 @@
 ---
-title: "Achieving an 82% Page Payload Reduction on an Infinite Canvas Portfolio"
-date: "2026-08-13"
-readTime: "5 min read"
-summary: "How I diagnosed and eliminated the 'all-sections-in-one-DOM' trap on an infinite 2D canvas, slashing pre-rendered page payload by 82% (173KB to 32KB) while preserving hardware-accelerated 60 FPS panning."
-tags: ["React", "SSG", "Performance", "SEO", "Vite", "Canvas"]
+title: "Achieving an 85% Page Payload Reduction on an Infinite Canvas Portfolio"
+date: "2026-08-17"
+readTime: "6 min read"
+summary: "How I diagnosed and eliminated the 'all-sections-in-one-DOM' trap on an infinite 2D canvas, fixed CSS transform keyframe conflicts, and slashed pre-rendered page payload by up to 89% (173KB to 19KB) while preserving hardware-accelerated 60 FPS spatial navigation."
+tags: ["React", "SSG", "Performance", "SEO", "Vite", "Canvas", "CSS Architecture"]
 ---
 
-# Achieving an 82% Page Payload Reduction on an Infinite Canvas Portfolio
+# Achieving an 85% Page Payload Reduction on an Infinite Canvas Portfolio
 
 Building a spatial web application on an infinite 2D canvas creates a tactile, memorable experience for visitors. But when you combine a spatial 2D coordinate plane with Static Site Generation (SSG) for search engine indexability, you quickly run into architectural edge cases that standard web applications never face.
 
 Recently, while auditing Bing Webmaster indexation logs and Googlebot DOM renders for [ohya.sh](https://ohya.sh), I uncovered an architectural flaw: **every pre-rendered page route on the site was downloading a 173 KB static HTML payload containing the complete markup for all 11 canvas sections at once.**
 
-Here is how I isolated the "all-sections-in-one-DOM" trap, fixed a subtle responsive layout math mismatch, and engineered an **82% reduction in static HTML page size** (from 173 KB down to 32 KB) without sacrificing a single frame of client-side canvas UX.
+Here is how I isolated the "all-sections-in-one-DOM" trap, fixed subtle responsive layout and CSS transform override bugs, and engineered an **85% average reduction in static HTML page size** (from 173 KB down to 19–32 KB per route) without sacrificing a single frame of client-side canvas UX.
 
 ---
 
@@ -41,7 +41,7 @@ However, when Bing Webmaster fetched `https://ohya.sh/work`, the body parsed by 
 ### Why was this happening?
 In my spatial renderer (`SectionRenderer.tsx`), the component looped through `allSections.map(...)` and outputted the JSX tree of every section onto the 2D coordinate plane.
 
-Because `SectionRenderer` rendered all section cards simultaneously, Vite SSR serialized **all 11 sections** into every single static route HTML file.
+Because `SectionRenderer` rendered all section cards simultaneously, Vite SSR serialized **all 11 sections** into every single static route HTML file:
 - `dist/work/index.html` contained the entire Work history *plus* Keto the cat, travel stories, hobbies, and personal stats.
 - `dist/keto/index.html` contained the exact same 173 KB payload.
 
@@ -54,7 +54,7 @@ Search engines crawling `/work` saw a sea of duplicate, diluted content shared a
 While inspecting the crawler output, I noticed a subtle visual bug on direct page loads: when opening a direct link like `https://ohya.sh/projects` or `https://ohya.sh/travel` in a fresh browser context, the section card rendered **off-center by 400 pixels**.
 
 ### The Math Mismatch
-The canvas relies on dynamic breakpoint math (`getResponsiveSpacing()`), setting section offsets to `800px` on 1080p displays. Under this responsive math:
+The canvas relies on dynamic breakpoint math (`getResponsiveSpacing()`), setting section offsets to `800px` on standard displays. Under this responsive math:
 - `/projects` sits at `y = +1600px` (`800 * 2`).
 - `/travel` sits at `x = -1600px`.
 
@@ -113,41 +113,77 @@ React.useEffect(() => {
 // Before hydration settles / before interaction/idle delay: render ONLY the active route section.
 // After interaction or idle delay: expand proximity rendering to adjacent 2D grid coordinates.
 const shouldExpandProximity = isClientMounted && (hasInteracted || isIdleHydrated);
-
-const sectionsToRender = React.useMemo(() => {
-  if (!shouldExpandProximity) {
-    return allSections.filter((section) => section.id === currentSection);
-  }
-
-  const baseThreshold = currentSection === 'home' || hasInteracted ? 1450 : 1050;
-  const threshold = proximityThreshold ?? baseThreshold;
-
-  return allSections.filter((section) => {
-    if (section.id === currentSection) return true;
-
-    // Calculate 2D distance from current viewport center to section position
-    const dx = section.position.x + viewportPosition.x;
-    const dy = section.position.y + viewportPosition.y;
-    return Math.sqrt(dx * dx + dy * dy) <= threshold;
-  });
-}, [shouldExpandProximity, allSections, currentSection, hasInteracted, viewportPosition.x, viewportPosition.y]);
 ```
-
-### How the Final Architecture Operates:
-
-1. **Static SSG HTML (0ms)**: Pre-renders 1 route section per HTML file (~30 KB).
-2. **Crawler Snapshot Window (0 – 1.5s)**: Crawlers run JS, but `shouldExpandProximity` remains `false`. Crawlers capture a 100% route-scoped DOM snapshot.
-3. **Human Experience (1.5s or on Drag)**: After 1.5s or as soon as the user drags the canvas, `shouldExpandProximity` becomes `true`. Adjacent 2D grid sections mount quietly, keeping canvas panning hardware-accelerated at 60 FPS.
 
 ---
 
-## 4. The Results
+## 4. The 2D Discrete Grid & The CSS Animation Centering Trap
 
-| Metric | Before Fix | After Fix | Improvement |
+As the portfolio expanded with compact preview placeholders for inactive sections, another subtle bug emerged during proximity expansion.
+
+### The CSS Transform Override Bug
+When expanding a preview card into its full view, I added a smooth scale/opacity transition via `.animate-expand-card`. However, during initial testing, cards suddenly shifted down and to the right by half their width and height:
+
+![The CSS transform override bug: expanded card top-left anchored at center instead of centered](/images/posts/canvas-grid-misalignment-bug.png)
+
+#### Root Cause:
+Tailwind's `-translate-x-1/2 -translate-y-1/2` utility works by setting CSS variables on `transform: translate(var(--tw-translate-x), var(--tw-translate-y))`. When `@keyframes expandCard` applied `transform: scale(0.93) -> scale(1)`, the CSS keyframe **wiped out the translation**, anchoring the top-left corner of the card at `(50%, 50%)` instead of its true center point.
+
+#### Solution:
+Separated the outer positioning wrapper from the inner animated card container:
+
+```tsx
+<div
+  key={section.id}
+  className="absolute -translate-x-1/2 -translate-y-1/2"
+  style={{ left: section.position.x, top: section.position.y }}
+>
+  <div className="animate-expand-card">
+    {renderSectionContent(section)}
+  </div>
+</div>
+```
+
+### Discrete 2D Integer Grid Schema
+To prevent ad-hoc coordinate calculations and ensure zero card overlap, all sections were refactored into a unified discrete 2D integer coordinate system `{ col: number, row: number }`:
+
+```typescript
+// Unified coordinate schema
+Home:     { col:  0, row:  0 }, alwaysExpanded: true
+Work:     { col:  1, row:  0 }  --> Writing:  { col:  2, row:  0 }
+Personal: { col: -1, row:  0 }  --> Travel:   { col: -2, row:  0 }
+Keto:     { col:  0, row: -1 }  --> Ataco:    { col:  0, row: -2 }
+Hobbies:  { col:  0, row:  1 }  --> Projects: { col:  0, row:  2 }
+Now:      { col:  1, row:  1 }
+Contact:  { col: -1, row:  1 }
+
+// Canvas positions are derived dynamically:
+position = { x: col * spacing, y: row * spacing }
+```
+
+With `baseSpacing: 1050px`, the Home card stays perfectly centered on desktop displays while adjacent preview cards peek ~100px onto the screen edges along the center horizontal line:
+
+![The solution: 2D integer coordinate grid with perfectly centered Home card and peeking preview placeholders](/images/posts/canvas-grid-centered-preview.png)
+
+When navigating to any adjacent card via click or arrow keys, the viewport pans smoothly and expands the full detailed section component:
+
+![Expanded Work section centered on navigation](/images/posts/canvas-work-card-expanded.png)
+
+---
+
+## 5. The Results
+
+| Route / Metric | Initial Payload (Before) | Optimized SSG Payload (After) | Size Reduction |
 | :--- | :--- | :--- | :--- |
-| **`/work` Static HTML Size** | 173 KB | **32 KB** | **82.1% Reduction** |
-| **`/keto` Static HTML Size** | 173 KB | **25 KB** | **85.5% Reduction** |
-| **JS Crawler DOM Output** | 11 sections merged | **1 section (100% scoped)** | **Zero content dilution** |
+| **`/` (Home Landing)** | 173 KB | **19 KB** | **89.0% Reduction** |
+| **`/now` (Now Section)** | 173 KB | **22 KB** | **87.3% Reduction** |
+| **`/contact` (Contact Section)** | 173 KB | **23 KB** | **86.7% Reduction** |
+| **`/keto` (Keto Section)** | 173 KB | **25 KB** | **85.5% Reduction** |
+| **`/hobbies` (Hobbies Section)** | 173 KB | **25 KB** | **85.5% Reduction** |
+| **`/personal` (Personal Life)** | 173 KB | **28 KB** | **83.8% Reduction** |
+| **`/work` (Work Experience)** | 173 KB | **32 KB** | **81.5% Reduction** |
+| **`/writing` (Writing Index)** | 173 KB | **36 KB** | **79.2% Reduction** |
+| **JS Crawler DOM Snapshot** | 11 sections merged | **1 section (100% scoped)** | **Zero content dilution** |
 | **Direct URL Alignment** | 400px offset | **0px (100% centered)** | **Pixel-perfect** |
 | **Client Canvas FPS** | 60 FPS | **60 FPS** | **Zero UX loss** |
 
@@ -155,6 +191,7 @@ const sectionsToRender = React.useMemo(() => {
 
 ## Takeaways
 
-1. **Spatial UIs don't have to sacrifice web performance**: An infinite 2D canvas can feel open and exploratory on the client while serving lean, focused HTML to search engines.
+1. **Spatial UIs don't have to sacrifice web performance**: An infinite 2D canvas can feel open and exploratory on the client while serving lean, focused static HTML (19–32 KB) to search engines.
 2. **Account for JS-executing search engines**: SSG alone isn't enough if client hydration immediately dumps full app state into the DOM. Deferring non-active nodes behind idle callbacks/interaction keeps JS crawler snapshots clean.
-3. **Single source of truth for responsive math**: Never duplicate coordinate math between initialization hooks and rendering logic. Deriving initial positions from the primary layout hook prevents alignment bugs across different screen resolutions.
+3. **Isolate CSS positioning from CSS keyframe animations**: Never apply CSS `transform: scale(...)` directly on elements using utility-based `translate(-50%, -50%)`. Encapsulating animations inside an inner container protects coordinate centering.
+4. **Single source of truth for responsive math**: Represent spatial layouts with discrete integer coordinates `{ col, row }` and derive pixel positions dynamically from a single layout hook.

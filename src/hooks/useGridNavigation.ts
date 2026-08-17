@@ -1,5 +1,4 @@
-
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 interface Position {
   x: number;
@@ -14,8 +13,9 @@ interface Section {
   color: string;
   gradient: string;
   icon: string;
-  direction: 'right' | 'left' | 'up' | 'down';
+  direction?: 'right' | 'left' | 'up' | 'down';
   parent?: string;
+  alwaysExpanded?: boolean;
 }
 
 interface GridNavigationProps {
@@ -26,56 +26,18 @@ interface GridNavigationProps {
 }
 
 export const useGridNavigation = ({
-  sections,
   allSections,
   currentSection,
   onNavigateToSection,
 }: GridNavigationProps) => {
-  // Create a proper home section object
-  const homeSection = useMemo(() => ({
-    id: 'home',
-    title: 'Home',
-    subtitle: 'Welcome',
-    position: { x: 0, y: 0 },
-    color: 'from-slate-500 to-slate-600',
-    gradient: 'bg-gradient-to-br from-slate-500/20 to-slate-600/20',
-    icon: '🏠',
-    direction: 'right' as const
-  }), []);
-
-  // Get all navigable sections based on current context
-  const getNavigableSections = useCallback(() => {
-    if (currentSection === 'home') {
-      return sections; // Only main sections from home
-    }
-    
-    // If we're in a subsection, we can navigate to other subsections or back to parent
-    const currentSectionData = allSections.find(s => s.id === currentSection);
-    if (currentSectionData?.parent) {
-      // Get parent and its subsections
-      const parentSection = allSections.find(s => s.id === currentSectionData.parent);
-      const siblingSubsections = allSections.filter(s => s.parent === currentSectionData.parent);
-      // Always include home in navigation from subsections
-      return parentSection ? [homeSection, parentSection, ...siblingSubsections] : [homeSection, ...siblingSubsections];
-    }
-    
-    // If we're in a main section, we can navigate to home, other main sections, and its subsections
-    const subsections = allSections.filter(s => s.parent === currentSection);
-    const mainSections = sections;
-    
-    return [homeSection, ...mainSections, ...subsections];
-  }, [sections, allSections, currentSection, homeSection]);
-
   // Find the closest section in a given direction
   const findSectionInDirection = useCallback((direction: 'left' | 'right' | 'up' | 'down') => {
-    const navigableSections = getNavigableSections();
-    const currentPos = currentSection === 'home' 
-      ? { x: 0, y: 0 }
-      : allSections.find(s => s.id === currentSection)?.position || { x: 0, y: 0 };
+    const currentSectionData = allSections.find(s => s.id === currentSection);
+    const currentPos = currentSectionData?.position || { x: 0, y: 0 };
 
-    const candidates: Array<{ section: { id: string; position: { x: number; y: number } }; distance: number }> = [];
+    const candidates: Array<{ section: Section; distance: number }> = [];
 
-    navigableSections.forEach(section => {
+    allSections.forEach(section => {
       if (section.id === currentSection) return;
 
       const sectionPos = section.position || { x: 0, y: 0 };
@@ -112,17 +74,14 @@ export const useGridNavigation = ({
     // Sort by distance and return the closest
     candidates.sort((a, b) => a.distance - b.distance);
     return candidates.length > 0 ? candidates[0].section.id : null;
-  }, [getNavigableSections, allSections, currentSection]);
+  }, [allSections, currentSection]);
 
   const navigateInDirection = useCallback((direction: 'left' | 'right' | 'up' | 'down') => {
     const targetSectionId = findSectionInDirection(direction);
     if (targetSectionId) {
-      console.log(`Navigating ${direction} from ${currentSection} to ${targetSectionId}`);
       onNavigateToSection(targetSectionId);
-    } else {
-      console.log(`No section found ${direction} of ${currentSection}`);
     }
-  }, [findSectionInDirection, currentSection, onNavigateToSection]);
+  }, [findSectionInDirection, onNavigateToSection]);
 
   return {
     navigateInDirection,

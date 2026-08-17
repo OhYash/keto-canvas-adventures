@@ -10,21 +10,30 @@ import TravelStoriesSection from '../sections/TravelStoriesSection';
 import AtacoSection from '../sections/AtacoSection';
 import ContactSection from '../sections/ContactSection';
 import WritingSection from '../sections/WritingSection';
+import SectionPlaceholder from './SectionPlaceholder';
 
 interface Position {
   x: number;
   y: number;
 }
 
+interface GridPosition {
+  col: number;
+  row: number;
+}
+
 interface Section {
   id: string;
   title: string;
   subtitle: string;
+  grid?: GridPosition;
   position: Position;
   color: string;
   gradient: string;
   icon: string;
-  direction: 'right' | 'left' | 'up' | 'down';
+  direction?: 'right' | 'left' | 'up' | 'down';
+  parent?: string;
+  alwaysExpanded?: boolean;
 }
 
 interface SectionRendererProps {
@@ -39,6 +48,9 @@ interface SectionRendererProps {
   proximityThreshold?: number;
 }
 
+const EXPAND_THRESHOLD = 850;
+const RENDER_DISTANCE = 2400;
+
 const SectionRenderer: React.FC<SectionRendererProps> = ({
   sections,
   allSections,
@@ -47,23 +59,11 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
   onNavigateHome,
   onNavigateToSection,
   onSelectArticle,
-  hasInteracted = false,
-  proximityThreshold = 1450,
 }) => {
   const [isClientMounted, setIsClientMounted] = React.useState(false);
-  const [isIdleHydrated, setIsIdleHydrated] = React.useState(false);
 
   React.useEffect(() => {
     setIsClientMounted(true);
-
-    // Defer background section hydration until after idle timer (1.5s) or user interaction.
-    // Search crawlers (Bingbot / Googlebot WRS) extract page DOM within ~1s without triggering idle timers,
-    // ensuring static & JS-rendered crawler snapshots remain 100% route-scoped for optimal SEO discoverability.
-    const timer = setTimeout(() => {
-      setIsIdleHydrated(true);
-    }, 1500);
-
-    return () => clearTimeout(timer);
   }, []);
 
   const renderSectionContent = useCallback((section: Section) => {
@@ -78,6 +78,14 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
     };
 
     switch (section.id) {
+      case 'home':
+        return (
+          <HomeSection
+            sections={sections}
+            isActive={isActive}
+            onNavigateToSection={onNavigateToSection}
+          />
+        );
       case 'work':
         return <WorkSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
       case 'writing':
@@ -101,71 +109,96 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       default:
         return null;
     }
-  }, [currentSection, onNavigateHome, onNavigateToSection, onSelectArticle]);
-
-  // Determine whether background sections should mount on the 2D spatial canvas.
-  // Before client hydration settles / before interaction/idle delay: render ONLY the active route section.
-  // After interaction or idle delay: expand proximity rendering to adjacent 2D grid coordinates.
-  const shouldExpandProximity = isClientMounted && (hasInteracted || isIdleHydrated);
-
-  const sectionsToRender = React.useMemo(() => {
-    if (!shouldExpandProximity) {
-      return allSections.filter((section) => section.id === currentSection);
-    }
-
-    const baseThreshold = currentSection === 'home' || hasInteracted ? 1450 : 1050;
-    const threshold = proximityThreshold ?? baseThreshold;
-
-    return allSections.filter((section) => {
-      // Always render active section
-      if (section.id === currentSection) return true;
-
-      // Calculate 2D distance from current viewport center to section position
-      const dx = section.position.x + viewportPosition.x;
-      const dy = section.position.y + viewportPosition.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      return distance <= threshold;
-    });
-  }, [shouldExpandProximity, allSections, currentSection, hasInteracted, viewportPosition.x, viewportPosition.y, proximityThreshold]);
-
-  // Home section visibility based on route and proximity distance
-  const isHomeVisible = React.useMemo(() => {
-    if (currentSection === 'home') return true;
-    if (!shouldExpandProximity) return false;
-
-    // Home is at (0, 0). Distance from viewport center is sqrt(viewportPosition.x^2 + viewportPosition.y^2)
-    const threshold = proximityThreshold ?? 1450;
-    const distance = Math.sqrt(viewportPosition.x * viewportPosition.x + viewportPosition.y * viewportPosition.y);
-    return distance <= threshold;
-  }, [currentSection, shouldExpandProximity, viewportPosition.x, viewportPosition.y, proximityThreshold]);
+  }, [currentSection, sections, onNavigateHome, onNavigateToSection, onSelectArticle]);
 
   return (
     <>
-      {/* Home/Landing section */}
-      {isHomeVisible && (
-        <div className="absolute -translate-x-1/2 -translate-y-1/2">
-          <HomeSection
-            sections={sections}
-            isActive={currentSection === 'home'}
-            onNavigateToSection={onNavigateToSection}
-          />
-        </div>
-      )}
+      {allSections.map((section) => {
+        const dx = section.position.x + viewportPosition.x;
+        const dy = section.position.y + viewportPosition.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-      {/* Section pages */}
-      {sectionsToRender.map((section) => (
-        <div
-          key={section.id}
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{
-            left: section.position.x,
-            top: section.position.y
-          }}
-        >
-          {renderSectionContent(section)}
-        </div>
-      ))}
+        // SSR scoping: on the server, ONLY render the active route section
+        if (!isClientMounted) {
+          if (section.id === currentSection) {
+            return (
+              <div
+                key={section.id}
+                className="absolute -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  left: section.position.x,
+                  top: section.position.y,
+                }}
+              >
+                {renderSectionContent(section)}
+              </div>
+            );
+          }
+          return null;
+        }
+
+        // Home card is ALWAYS full-size (never a mini placeholder)
+        if (section.alwaysExpanded || section.id === 'home') {
+          const isHomeVisible = distance <= RENDER_DISTANCE || currentSection === 'home';
+          if (!isHomeVisible) return null;
+
+          return (
+            <div
+              key={section.id}
+              className="absolute -translate-x-1/2 -translate-y-1/2"
+              style={{
+                left: section.position.x,
+                top: section.position.y,
+              }}
+            >
+              <div className="animate-expand-card">
+                {renderSectionContent(section)}
+              </div>
+            </div>
+          );
+        }
+
+        // Other grid section cards: expanded if active or close by
+        const isExpanded = section.id === currentSection || distance <= EXPAND_THRESHOLD;
+        const showPlaceholder = !isExpanded && distance <= RENDER_DISTANCE;
+
+        if (isExpanded) {
+          return (
+            <div
+              key={section.id}
+              className="absolute -translate-x-1/2 -translate-y-1/2"
+              style={{
+                left: section.position.x,
+                top: section.position.y,
+              }}
+            >
+              <div className="animate-expand-card">
+                {renderSectionContent(section)}
+              </div>
+            </div>
+          );
+        }
+
+        if (showPlaceholder) {
+          return (
+            <div
+              key={`${section.id}-placeholder`}
+              className="absolute -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300"
+              style={{
+                left: section.position.x,
+                top: section.position.y,
+              }}
+            >
+              <SectionPlaceholder
+                section={section}
+                onNavigateToSection={onNavigateToSection}
+              />
+            </div>
+          );
+        }
+
+        return null;
+      })}
     </>
   );
 };
