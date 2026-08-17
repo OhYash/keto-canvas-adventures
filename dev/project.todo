@@ -59,8 +59,19 @@ Content critiques and research live in dev/research/, referenced from items here
 - [ ] Surface subtitles — render section subtitles from `useSectionManagement` sections array onto homepage cards
 - [ ] Multilevel section chaining — support deeper section navigation beyond 1 level of subsections
 
-### Code Quality & Architecture
-- [ ] Extract remaining hard-coded content (work, personal) into `src/data/` data modules
+### Code Quality & Architecture (Simplification & Refactoring)
+- [ ] Centralize Section Registry (Single Source of Truth) — Create unified registry `src/data/sections.ts` providing canonical metadata, routes, display titles, SEO configs, and SSG targets; eliminate 6-file manual sync across `useSectionManagement.ts`, `AppRoutes.tsx`, `InfiniteCanvas.tsx`, `NavigationBreadcrumb.tsx`, `SEO.tsx`, and `scripts/prerender.js` (see `dev/research/codebase-simplification-analysis.md`)
+- [ ] Fix `/travel/:storyId` ghost route — Sync router URL params in `TravelStoriesSection` so deep-linking to travel stories works out-of-the-box, matching `/writing/:slug`
+- [ ] Fix browser history pollution on canvas drag — Use `{ replace: true }` during mouse/touch panning in `InfiniteCanvas.tsx` to prevent polluting browser back-stack with intermediate drag steps
+- [ ] Simplify grid navigation to discrete integer math — Replace continuous trigonometry & Euclidean distance formulas (`Math.sqrt(dx*dx + dy*dy)`) in `useGridNavigation.ts` with discrete `(col, row)` integer neighbor matching
+- [ ] Fix viewport offset drift on window resize / orientation change — Recalculate viewport position when responsive spacing updates in `useSectionManagement.ts`
+- [ ] Extract reusable `<SectionCard>` shell — Consolidate duplicate outer card styling, top header row, `<ArrowLeft /> Home` navigation, copy-link button, and dynamic `<h1>`/`<h2>` logic duplicated across 10 section components
+- [ ] Replace DOM query hack for scroll reset — Replace `document.querySelectorAll('[class*="overflow-y-auto"]')` in `InfiniteCanvas.tsx` with declarative container scroll management
+- [ ] Prune zombie state & local storage engine — Remove unused `navigationHistory` state from `useSectionManagement.ts` / `NavigationBreadcrumb.tsx`, and prune 190+ lines of unused local storage analytics in `useVisitTracking.ts`
+- [ ] Unify toast system — Remove unused `@radix-ui/react-toast` system (`toaster.tsx`, `use-toast.ts`), keeping only `sonner`
+- [ ] Remove unused providers & simplify app root — Remove `QueryClientProvider` and `TooltipProvider` from `AppShell.tsx`, and clean up unnecessary container nesting
+- [ ] Prune dead starter files, UI components & npm dependencies — Delete unreferenced `src/App.css`, remove 40+ unused boilerplate components in `src/components/ui/`, and uninstall unused packages (`@tanstack/react-query`, `recharts`, `date-fns`, `embla-carousel-react`, `input-otp`, `next-themes`, `react-day-picker`, `react-hook-form`, `react-resizable-panels`, `vaul`, `zod`, unused `@radix-ui/*`)
+- [ ] Extract remaining hard-coded content (work, personal, travel stories in `DetailedStoryView.tsx`, hobbies, keto traits) into `src/data/` data modules
 - [ ] Quality gate — add `npx tsc --noEmit` and ESLint checks into pre-commit flow
 - [ ] Modularize `useSectionManagement.ts` (~230 lines) into focused single-responsibility hooks
 - [ ] Add React Error Boundaries around section rendering
