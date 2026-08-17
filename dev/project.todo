@@ -9,6 +9,21 @@ Content critiques and research live in dev/research/, referenced from items here
 
 ## DONE
 
+### Code Quality, Simplification & Architecture Modernization
+- [x] Centralize Section Registry (Single Source of Truth) — Unified canonical metadata, routes, display titles, SEO configs, and SSG targets into `src/data/sections.ts`, eliminating the 6-file manual sync across `useSectionManagement.ts`, `AppRoutes.tsx`, `InfiniteCanvas.tsx`, `NavigationBreadcrumb.tsx`, `SEO.tsx`, and `scripts/prerender.js` (see `dev/research/codebase-simplification-analysis.md`).
+- [x] Reusable `<SectionCard>` shell — Built `src/components/canvas/SectionCard.tsx` consolidating duplicate outer card styling, top header row, `<ArrowLeft /> Home` navigation, copy-link button, and dynamic `<h1>`/`<h2>` logic, removing ~400 lines of boilerplate across all 10 section components.
+- [x] Travel stories deep-linking & router synchronization — Synced `/travel/:storyId` in `InfiniteCanvas.tsx`, `TravelStoriesSection.tsx`, `SEO.tsx`, and `scripts/prerender.js`, enabling direct deep-linking and static pre-rendering for all travel stories.
+- [x] Browser history drag pollution fix — Updated `handlePositionChange` in `InfiniteCanvas.tsx` with `{ replace: true }` during mouse/touch panning, preventing intermediate drag coordinates from polluting the browser history back-stack.
+- [x] Discrete integer grid navigation — Replaced continuous trigonometry and Euclidean distance formulas (`Math.sqrt(dx*dx + dy*dy)`) in `useGridNavigation.ts` with 100% deterministic discrete `(col, row)` integer searches.
+- [x] Viewport resize drift fix — Synchronized `viewportPosition` in `InfiniteCanvas.tsx` when responsive spacing updates on window resize or orientation changes while not dragging.
+- [x] Prune zombie state & dead tracking code — Removed unused `navigationHistory` state from `useSectionManagement.ts` / `NavigationBreadcrumb.tsx`, and streamlined `useVisitTracking.ts` to a lightweight visit counter.
+- [x] Toast system unification — Removed unused `@radix-ui/react-toast` system (`toaster.tsx`, `toast.tsx`, `use-toast.ts`), keeping only `sonner`.
+- [x] App root simplification — Removed unused `QueryClientProvider` and `TooltipProvider` from `AppShell.tsx` and `AppRoutes.tsx`.
+- [x] Pruned dead files, UI components & 136 npm packages — Deleted unreferenced `src/App.css`, deleted 44 unused starter components in `src/components/ui/`, and uninstalled unused npm packages (`@tanstack/react-query`, `recharts`, `date-fns`, `embla-carousel-react`, `input-otp`, `next-themes`, `react-day-picker`, `react-hook-form`, `react-resizable-panels`, `vaul`, `zod`, unused `@radix-ui/*`).
+- [x] Data layer extraction — Extracted hard-coded copy from `DetailedStoryView.tsx` into `src/data/travelStories.ts`, work experience into `src/data/workData.ts`, personal info into `src/data/personalData.ts`, hobbies into `src/data/hobbiesData.ts`, and cat traits into `src/data/ketoData.ts`.
+- [x] React Error Boundaries — Built `src/components/ErrorBoundary.tsx` wrapping all section rendering in `SectionRenderer.tsx`.
+- [x] End-to-end browser verification — Verified 100% pass rate across 18 E2E test cases using Firefox (all section routes, dynamic travel stories, blog posts, and arrow key navigation).
+
 ### Core Infinite Canvas & Infrastructure
 - [x] Infinite canvas 2D spatial grid — hook architecture split (`useViewport`, `useSectionManagement`, `useCanvasEvents`, `useGridNavigation`), `translate3d` hardware acceleration, and mobile touch scroll protection.
 - [x] 2D Canvas Grid Redesign & First-Class Home Node — Unified section positioning around discrete integer coordinates `{ col, row }`, integrated Home into `allSections` at `(0, 0)` with `alwaysExpanded: true` (never collapses to mini placeholder), fixed CSS transform override bug in `animate-expand-card` to ensure pixel-perfect vertical & horizontal centering, and tuned responsive spacing (1050px base) so adjacent placeholder previews peek onto desktop viewport edges with zero card overlap.
@@ -17,7 +32,6 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Compact Section Placeholders & Proximity Expansion — Built `SectionPlaceholder` component for inactive grid sections on initial page load, rendering icon, title, subtitle, gradient styling, and an interactive 'Pan or click to expand' target; smoothly animates into full detailed section components via `animate-expand-card` scale/fade CSS keyframes as the viewport approaches (`EXPAND_THRESHOLD <= 850px`) or upon click.
 - [x] Deployment & CI — GitHub Pages deployment pipeline (`.github/workflows/deploy.yml`), Surge preview command (`make surge`), and resume download link routing.
 - [x] Agent & IDE integration — AGY / Antigravity 2.0 rules, GEMINI.md, and automated browser verification setup (`.gemini/skills/verify/SKILL.md`).
-
 
 ### Section & Content Redesigns
 - [x] Home section redesign & 1080p UI optimization — Eliminated nested card-in-card clutter, streamlined vertical margins, integrated production metrics into a clean stat strip, and converted navigation into an uncluttered text list (`HomeSection.tsx`).
@@ -58,23 +72,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [ ] Subsection discoverability — Travel (under Personal) and Projects (under Hobbies) are hidden until entering parent; add "deeper ↓ / more →" micro-hints on parent cards
 - [ ] Surface subtitles — render section subtitles from `useSectionManagement` sections array onto homepage cards
 - [ ] Multilevel section chaining — support deeper section navigation beyond 1 level of subsections
-
-### Code Quality & Architecture (Simplification & Refactoring)
-- [ ] Centralize Section Registry (Single Source of Truth) — Create unified registry `src/data/sections.ts` providing canonical metadata, routes, display titles, SEO configs, and SSG targets; eliminate 6-file manual sync across `useSectionManagement.ts`, `AppRoutes.tsx`, `InfiniteCanvas.tsx`, `NavigationBreadcrumb.tsx`, `SEO.tsx`, and `scripts/prerender.js` (see `dev/research/codebase-simplification-analysis.md`)
-- [ ] Fix `/travel/:storyId` ghost route — Sync router URL params in `TravelStoriesSection` so deep-linking to travel stories works out-of-the-box, matching `/writing/:slug`
-- [ ] Fix browser history pollution on canvas drag — Use `{ replace: true }` during mouse/touch panning in `InfiniteCanvas.tsx` to prevent polluting browser back-stack with intermediate drag steps
-- [ ] Simplify grid navigation to discrete integer math — Replace continuous trigonometry & Euclidean distance formulas (`Math.sqrt(dx*dx + dy*dy)`) in `useGridNavigation.ts` with discrete `(col, row)` integer neighbor matching
-- [ ] Fix viewport offset drift on window resize / orientation change — Recalculate viewport position when responsive spacing updates in `useSectionManagement.ts`
-- [ ] Extract reusable `<SectionCard>` shell — Consolidate duplicate outer card styling, top header row, `<ArrowLeft /> Home` navigation, copy-link button, and dynamic `<h1>`/`<h2>` logic duplicated across 10 section components
-- [ ] Replace DOM query hack for scroll reset — Replace `document.querySelectorAll('[class*="overflow-y-auto"]')` in `InfiniteCanvas.tsx` with declarative container scroll management
-- [ ] Prune zombie state & local storage engine — Remove unused `navigationHistory` state from `useSectionManagement.ts` / `NavigationBreadcrumb.tsx`, and prune 190+ lines of unused local storage analytics in `useVisitTracking.ts`
-- [ ] Unify toast system — Remove unused `@radix-ui/react-toast` system (`toaster.tsx`, `use-toast.ts`), keeping only `sonner`
-- [ ] Remove unused providers & simplify app root — Remove `QueryClientProvider` and `TooltipProvider` from `AppShell.tsx`, and clean up unnecessary container nesting
-- [ ] Prune dead starter files, UI components & npm dependencies — Delete unreferenced `src/App.css`, remove 40+ unused boilerplate components in `src/components/ui/`, and uninstall unused packages (`@tanstack/react-query`, `recharts`, `date-fns`, `embla-carousel-react`, `input-otp`, `next-themes`, `react-day-picker`, `react-hook-form`, `react-resizable-panels`, `vaul`, `zod`, unused `@radix-ui/*`)
-- [ ] Extract remaining hard-coded content (work, personal, travel stories in `DetailedStoryView.tsx`, hobbies, keto traits) into `src/data/` data modules
 - [ ] Quality gate — add `npx tsc --noEmit` and ESLint checks into pre-commit flow
-- [ ] Modularize `useSectionManagement.ts` (~230 lines) into focused single-responsibility hooks
-- [ ] Add React Error Boundaries around section rendering
 
 ---
 
@@ -89,11 +87,11 @@ Content critiques and research live in dev/research/, referenced from items here
 - All navigation flows through updateCurrentSection in useSectionManagement — the single integration point for any tracking or navigation feature.
 - Voice is the product: specific first-person copy ("Tall skinny fat, slight athletic", the Now section) is what works; template phrasing reads as Lovable boilerplate. Full critiques: dev/research/23May26_claude_idea.md and 23May26_gemini_ideas.txt.
 - Axis mental model for future sections: professional content on the horizontal axis, personal on the vertical. Don't rearrange existing sections; apply when adding new ones.
-- Adding a section takes FOUR registration points: useSectionManagement's array, an App.tsx route above the catch-all, InfiniteCanvas's validSections list, and NavigationBreadcrumb's sectionNames map. Missing the route or validSections fails silently at build time and 404s at runtime — verify in a browser (.gemini/skills/verify/SKILL.md has the recipe).
+- Section Registry Single Source of Truth: All sections are registered canonically in `src/data/sections.ts` (`SECTIONS` array). React Router (`AppRoutes.tsx`), navigation validation (`InfiniteCanvas.tsx`), breadcrumbs (`NavigationBreadcrumb.tsx`), SEO metadata (`SEO.tsx`), and SSG prerendering (`scripts/prerender.js`) automatically consume this single registry. To add a new section, define it in `src/data/sections.ts` and add its component to `SectionRenderer.tsx`.
 - Heading hierarchy on 2D infinite canvas: pass `isActive` to section components so only the active section renders `<h1>`, preventing crawler penalties for multiple concurrent `<h1>` headings on the un-unmounted canvas tree.
-- Static Site Pre-rendering (SSG): `scripts/prerender.js` runs automatically in `npm run postbuild` via Puppeteer, rendering full static HTML files for all 10 section routes (`dist/work/index.html`, etc.) so Bingbot and Googlebot receive full `<h1>` headers and `200 OK` static HTML on initial HTTP GET.
+- Static Site Pre-rendering (SSG): `scripts/prerender.js` runs automatically in `npm run postbuild` via Puppeteer, rendering full static HTML files for all section routes and sub-routes (`dist/work/index.html`, etc.) so Bingbot and Googlebot receive full `<h1>` headers and `200 OK` static HTML on initial HTTP GET.
 
 ---
 
 ## PLANS
-None yet. Create dev/plans/<slug>.md before non-trivial multi-step work (template in dev/Agents.md) and list it here.
+- [dev/plans/codebase-simplification.md](file:///home/yash-tg/code/git_ohyash/keto-canvas-adventures/dev/plans/codebase-simplification.md) — Codebase Simplification & Architecture Modernization (Completed)

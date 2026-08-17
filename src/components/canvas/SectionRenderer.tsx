@@ -11,39 +11,20 @@ import AtacoSection from '../sections/AtacoSection';
 import ContactSection from '../sections/ContactSection';
 import WritingSection from '../sections/WritingSection';
 import SectionPlaceholder from './SectionPlaceholder';
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface GridPosition {
-  col: number;
-  row: number;
-}
-
-interface Section {
-  id: string;
-  title: string;
-  subtitle: string;
-  grid?: GridPosition;
-  position: Position;
-  color: string;
-  gradient: string;
-  icon: string;
-  direction?: 'right' | 'left' | 'up' | 'down';
-  parent?: string;
-  alwaysExpanded?: boolean;
-}
+import ErrorBoundary from '../ErrorBoundary';
+import { Section } from '@/data/sections';
 
 interface SectionRendererProps {
   sections: Section[];
   allSections: Section[];
   currentSection: string;
   viewportPosition: { x: number; y: number };
+  activeStoryId?: string | null;
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
   onSelectArticle: (slug: string) => void;
+  onSelectStory?: (storyId: string) => void;
+  onBackToList?: () => void;
   hasInteracted?: boolean;
   proximityThreshold?: number;
 }
@@ -51,14 +32,17 @@ interface SectionRendererProps {
 const EXPAND_THRESHOLD = 850;
 const RENDER_DISTANCE = 2400;
 
-const SectionRenderer: React.FC<SectionRendererProps> = ({
+export const SectionRenderer: React.FC<SectionRendererProps> = ({
   sections,
   allSections,
   currentSection,
   viewportPosition,
+  activeStoryId,
   onNavigateHome,
   onNavigateToSection,
   onSelectArticle,
+  onSelectStory,
+  onBackToList,
 }) => {
   const [isClientMounted, setIsClientMounted] = React.useState(false);
 
@@ -77,39 +61,66 @@ const SectionRenderer: React.FC<SectionRendererProps> = ({
       onNavigateHome,
     };
 
+    let content: React.ReactNode = null;
+
     switch (section.id) {
       case 'home':
-        return (
+        content = (
           <HomeSection
             sections={sections}
             isActive={isActive}
             onNavigateToSection={onNavigateToSection}
           />
         );
+        break;
       case 'work':
-        return <WorkSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = <WorkSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        break;
       case 'writing':
-        return <WritingSection {...commonProps} onSelectArticle={onSelectArticle} />;
+        content = <WritingSection {...commonProps} onSelectArticle={onSelectArticle} />;
+        break;
       case 'personal':
-        return <PersonalSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = <PersonalSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        break;
       case 'keto':
-        return <KetoSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = <KetoSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        break;
       case 'ataco':
-        return <AtacoSection {...commonProps} />;
+        content = <AtacoSection {...commonProps} />;
+        break;
       case 'hobbies':
-        return <HobbiesSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = <HobbiesSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        break;
       case 'projects':
-        return <ProjectsSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = <ProjectsSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        break;
       case 'now':
-        return <NowSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = <NowSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        break;
       case 'travel':
-        return <TravelStoriesSection {...commonProps} onNavigateToSection={onNavigateToSection} />;
+        content = (
+          <TravelStoriesSection
+            {...commonProps}
+            activeStoryId={activeStoryId}
+            onSelectStory={onSelectStory}
+            onBackToList={onBackToList}
+            onNavigateToSection={onNavigateToSection}
+          />
+        );
+        break;
       case 'contact':
-        return <ContactSection {...commonProps} />;
+        content = <ContactSection {...commonProps} />;
+        break;
       default:
-        return null;
+        content = null;
     }
-  }, [currentSection, sections, onNavigateHome, onNavigateToSection, onSelectArticle]);
+
+    return (
+      <ErrorBoundary sectionName={section.title} onNavigateHome={onNavigateHome}>
+        {content}
+      </ErrorBoundary>
+    );
+  }, [currentSection, sections, activeStoryId, onNavigateHome, onNavigateToSection, onSelectArticle, onSelectStory, onBackToList]);
 
   return (
     <>

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import React from 'react';
+import SectionCard from '@/components/canvas/SectionCard';
 import DetailedStoryView from './DetailedStoryView';
-import TravelSectionHeader from './travel/TravelSectionHeader';
 import TravelStoryList from './travel/TravelStoryList';
-import { travelStories } from '../../data/travelStories';
-import { TravelStory } from '../../types/travelStory';
+import { travelStories, getTravelStoryById } from '@/data/travelStories';
+import { TravelStory } from '@/types/travelStory';
 
 interface TravelStoriesSectionProps {
   gradient: string;
@@ -12,7 +11,10 @@ interface TravelStoriesSectionProps {
   title: string;
   subtitle: string;
   isActive?: boolean;
+  activeStoryId?: string | null;
   onNavigateHome: () => void;
+  onSelectStory?: (storyId: string) => void;
+  onBackToList?: () => void;
   onNavigateToSection?: (sectionId: string) => void;
 }
 
@@ -22,51 +24,57 @@ const TravelStoriesSection: React.FC<TravelStoriesSectionProps> = ({
   title,
   subtitle,
   isActive = false,
+  activeStoryId,
   onNavigateHome,
+  onSelectStory,
+  onBackToList,
 }) => {
-  const [selectedStory, setSelectedStory] = useState<TravelStory | null>(null);
+  const [localSelectedStory, setLocalSelectedStory] = React.useState<TravelStory | null>(null);
+
+  // If activeStoryId is provided via URL (/travel/:storyId), find that story
+  const currentStory = activeStoryId ? getTravelStoryById(activeStoryId) || null : localSelectedStory;
 
   const handleReadMore = (story: TravelStory) => {
-    setSelectedStory(story);
+    if (onSelectStory) {
+      onSelectStory(story.id);
+    } else {
+      setLocalSelectedStory(story);
+    }
   };
 
-  const handleBackToList = () => {
-    setSelectedStory(null);
+  const handleBack = () => {
+    if (onBackToList) {
+      onBackToList();
+    } else {
+      setLocalSelectedStory(null);
+    }
   };
 
-  if (selectedStory) {
+  if (currentStory) {
     return (
-      <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
-        <CardContent className="p-6">
-          <DetailedStoryView
-            story={selectedStory}
-            onBack={handleBackToList}
-            gradient={gradient}
-          />
-        </CardContent>
-      </Card>
+      <DetailedStoryView
+        story={currentStory}
+        onBack={handleBack}
+        gradient={gradient}
+        isActive={isActive}
+      />
     );
   }
 
   return (
-    <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
-      <CardHeader className="pb-4">
-        <TravelSectionHeader
-          icon={icon}
-          title={title}
-          subtitle={subtitle}
-          isActive={isActive}
-          onNavigateHome={onNavigateHome}
-        />
-      </CardHeader>
-
-      <CardContent>
-        <TravelStoryList
-          stories={travelStories}
-          onReadMore={handleReadMore}
-        />
-      </CardContent>
-    </Card>
+    <SectionCard
+      gradient={gradient}
+      icon={icon}
+      title={title}
+      subtitle={subtitle}
+      isActive={isActive}
+      onNavigateHome={onNavigateHome}
+    >
+      <TravelStoryList
+        stories={travelStories}
+        onReadMore={handleReadMore}
+      />
+    </SectionCard>
   );
 };
 

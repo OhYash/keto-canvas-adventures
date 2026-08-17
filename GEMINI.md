@@ -47,12 +47,8 @@ Grid layout: (0,0) is Home; main sections sit at ±1000 on each axis (Work right
 
 ## Invariants
 
-- **Adding a section takes FOUR registration points**:
-  1. `src/hooks/useSectionManagement.ts` — `sections`/`allSections` array
-  2. `src/App.tsx` — explicit `<Route path="/<id>">` above the `*` catch-all (prevents 404)
-  3. `src/components/InfiniteCanvas.tsx` — `validSections` array in `getSectionFromPath`
-  4. `src/components/NavigationBreadcrumb.tsx` — `sectionNames` display-name map
-- **New sections register in `useSectionManagement`'s sections array** on the 1000px grid. Keep the axis model: professional content grows along the horizontal axis, personal along the vertical.
+- **Section Registry Single Source of Truth**: All sections are registered canonically in `src/data/sections.ts` (`SECTIONS` array). React Router (`AppRoutes.tsx`), navigation validation (`InfiniteCanvas.tsx`), breadcrumbs (`NavigationBreadcrumb.tsx`), SEO metadata (`SEO.tsx`), and SSG prerendering (`scripts/prerender.js`) automatically consume this single registry. To add a new section, define it in `src/data/sections.ts` and add its component to `SectionRenderer.tsx`.
+- **New sections register in `src/data/sections.ts`** on the discrete 2D integer grid `{ col, row }`. Keep the axis model: professional content grows along the horizontal axis, personal along the vertical.
 - **Email stays obfuscated.** ContactSection protects the address with base64 encoding and progressive disclosure — never render it as plaintext in JSX or source.
 - **Touch handling must never break mobile browser behavior.** Canvas panning stands down while the user is scrolling; be careful with `preventDefault` in `useCanvasEvents`.
 - **Canvas transforms use CSS `translate3d`** for hardware acceleration — don't switch to top/left positioning.

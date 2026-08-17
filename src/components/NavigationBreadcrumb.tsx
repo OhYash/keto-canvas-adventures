@@ -8,39 +8,20 @@ import {
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
 import { Home } from 'lucide-react';
+import { getSectionDisplayName } from '@/data/sections';
 
 interface NavigationBreadcrumbProps {
   currentSection: string;
-  navigationHistory: string[];
   breadcrumbPath: string[];
   onNavigate: (sectionId: string) => void;
   onNavigateHome: () => void;
 }
 
-const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
-  currentSection,
-  navigationHistory,
+export const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
   breadcrumbPath,
   onNavigate,
   onNavigateHome,
 }) => {
-  const getSectionDisplayName = (sectionId: string) => {
-    const sectionNames: Record<string, string> = {
-      home: 'Home',
-      work: 'Work',
-      personal: 'Personal Life',
-      keto: 'Meet Keto',
-      hobbies: 'Hobbies & Projects',
-      projects: 'Personal Projects',
-      now: 'What I\'m Doing Now',
-      contact: 'Contact Me',
-      travel: 'Travel Stories',
-      ataco: 'Ataco',
-      writing: 'Writing & Essays',
-    };
-    return sectionNames[sectionId] || sectionId;
-  };
-
   const handleNavigation = (sectionId: string) => {
     if (sectionId === 'home') {
       onNavigateHome();

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Calendar, Activity } from 'lucide-react';
-import { handleCopyUrl } from '@/utils/urlUtils';
+import { Calendar, Activity } from 'lucide-react';
+import SectionCard from '@/components/canvas/SectionCard';
 import nowData from '@/data/nowData.json';
 
 interface NowSectionProps {
@@ -25,7 +24,6 @@ const NowSection: React.FC<NowSectionProps> = ({
   onNavigateToSection,
 }) => {
   const { currentPlans } = nowData;
-  const HeadingTag = isActive ? "h1" : "h2";
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -49,104 +47,77 @@ const NowSection: React.FC<NowSectionProps> = ({
   };
 
   return (
-    <Card className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50`}>
-      <CardHeader className="pb-4">
-        <div className="flex items-center justify-between mb-4">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigateHome();
-            }}
-            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition-colors bg-white/80 hover:bg-white/90 px-3 py-2 rounded-lg text-sm font-medium shadow-sm"
+    <SectionCard
+      gradient={gradient}
+      icon={icon}
+      title={title}
+      subtitle={subtitle}
+      isActive={isActive}
+      onNavigateHome={onNavigateHome}
+      contentClassName="space-y-4"
+    >
+      <div className="flex items-center gap-2 text-slate-600 text-xs bg-white/60 rounded-lg px-3 py-2 w-fit mx-auto">
+        <Calendar className="w-4 h-4" />
+        <span>Last updated: {formatDate(currentPlans[0].lastUpdated)}</span>
+      </div>
+
+      <div className="space-y-4">
+        <div className="flex items-center gap-3 mb-3">
+          <Activity className="w-5 h-5 text-slate-800" />
+          <h3 className="text-lg font-bold text-slate-900">Currently</h3>
+        </div>
+
+        {currentPlans.map((plan, index) => (
+          <div
+            key={index}
+            className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Home
-          </a>
-          <button
-            onClick={handleCopyUrl}
-            className="text-2xl sm:text-3xl hover:scale-110 transition-transform duration-200 cursor-pointer"
-            title="Copy page link"
-          >
-            {icon}
-          </button>
-        </div>
-        
-        <div className="text-center">
-          <HeadingTag className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
-            {title}
-          </HeadingTag>
-          <p className="text-slate-700 text-sm sm:text-base mb-4">
-            {subtitle}
-          </p>
-        </div>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        <div className="flex items-center gap-2 text-slate-600 text-xs bg-white/60 rounded-lg px-3 py-2 w-fit mx-auto">
-          <Calendar className="w-4 h-4" />
-          <span>Last updated: {formatDate(currentPlans[0].lastUpdated)}</span>
-        </div>
-
-        <div className="space-y-4">
-          <div className="flex items-center gap-3 mb-3">
-            <Activity className="w-5 h-5 text-slate-800" />
-            <h3 className="text-lg font-bold text-slate-900">Currently</h3>
-          </div>
-
-          {currentPlans.map((plan, index) => (
-            <div
-              key={index}
-              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
-                      {plan.category}
-                    </Badge>
-                  </div>
-                  {plan.internalTarget ? (
-                    <a
-                      href={`/${plan.internalTarget}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onNavigateToSection(plan.internalTarget);
-                      }}
-                      className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2 inline-block text-left"
-                    >
-                      {plan.item}
-                    </a>
-                  ) : plan.link ? (
-                    <a
-                      href={plan.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2"
-                    >
-                      {plan.item}
-                    </a>
-                  ) : (
-                    <p className="text-slate-900 font-semibold text-base leading-relaxed">
-                      {plan.item}
-                    </p>
-                  )}
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <Badge variant="secondary" className="text-xs bg-slate-800 text-white hover:bg-slate-700">
+                    {plan.category}
+                  </Badge>
                 </div>
-                <div className="text-right">
-                  <div className="text-xs text-slate-700 mb-1">
-                    {formatDate(plan.lastUpdated)}
-                  </div>
-                  <div className="text-xs text-slate-500">
-                    {getDaysAgo(plan.lastUpdated)}
-                  </div>
+                {plan.internalTarget ? (
+                  <a
+                    href={`/${plan.internalTarget}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onNavigateToSection(plan.internalTarget);
+                    }}
+                    className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2 inline-block text-left"
+                  >
+                    {plan.item}
+                  </a>
+                ) : plan.link ? (
+                  <a
+                    href={plan.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-900 font-semibold text-base leading-relaxed hover:text-blue-700 transition-colors underline decoration-dotted underline-offset-2"
+                  >
+                    {plan.item}
+                  </a>
+                ) : (
+                  <p className="text-slate-900 font-semibold text-base leading-relaxed">
+                    {plan.item}
+                  </p>
+                )}
+              </div>
+              <div className="text-right">
+                <div className="text-xs text-slate-700 mb-1">
+                  {formatDate(plan.lastUpdated)}
+                </div>
+                <div className="text-xs text-slate-500">
+                  {getDaysAgo(plan.lastUpdated)}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-      </CardContent>
-    </Card>
+          </div>
+        ))}
+      </div>
+    </SectionCard>
   );
 };
 

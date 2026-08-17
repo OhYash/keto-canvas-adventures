@@ -30,6 +30,9 @@ async function prerender() {
   // Import rendered module from dist/server/entry-server.js
   const serverModule = await import(pathToFileURL(serverEntryPath).href);
   const render = serverModule.render;
+  const SECTION_ROUTES = serverModule.SECTION_ROUTES || [];
+  const SECTION_SITEMAP_CONFIGS = serverModule.SECTION_SITEMAP_CONFIGS || {};
+  const travelStories = serverModule.travelStories || [];
 
   if (typeof render !== 'function') {
     console.error(' Error: render function not exported from entry-server.js');
@@ -38,20 +41,13 @@ async function prerender() {
 
   const baseHtml = fs.readFileSync(baseHtmlPath, 'utf-8');
 
-  // Static section routes
-  const routes = [
-    '/',
-    '/work',
-    '/personal',
-    '/now',
-    '/keto',
-    '/hobbies',
-    '/projects',
-    '/contact',
-    '/travel',
-    '/ataco',
-    '/writing',
-  ];
+  // Derive static section routes directly from canonical registry
+  const routes = [...SECTION_ROUTES];
+
+  // Discover travel story sub-routes
+  for (const story of travelStories) {
+    routes.push(`/travel/${story.id}`);
+  }
 
   // Discover blog post routes dynamically from src/data/posts/
   const postsDir = path.join(projectRoot, 'src', 'data', 'posts');
@@ -65,7 +61,7 @@ async function prerender() {
     }
   }
 
-  console.log(` Render targets: ${routes.length} routes`);
+  console.log(` Render targets: ${routes.length} routes (from canonical section registry)`);
 
   for (const routePath of routes) {
     try {
@@ -114,21 +110,6 @@ async function prerender() {
     fs.rmSync(serverBuildDir, { recursive: true, force: true });
   }
 
-  // Generate sitemap.xml automatically with precise per-route lastmod dates
-  const routeConfigs = {
-    '/': { changefreq: 'weekly', priority: '1.0', lastmod: '2026-08-13' },
-    '/work': { changefreq: 'monthly', priority: '0.9', lastmod: '2026-08-13' },
-    '/personal': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
-    '/now': { changefreq: 'weekly', priority: '0.9', lastmod: '2026-08-13' },
-    '/projects': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
-    '/hobbies': { changefreq: 'monthly', priority: '0.7', lastmod: '2026-08-13' },
-    '/keto': { changefreq: 'monthly', priority: '0.7', lastmod: '2026-08-13' },
-    '/contact': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
-    '/travel': { changefreq: 'monthly', priority: '0.6', lastmod: '2026-08-13' },
-    '/ataco': { changefreq: 'monthly', priority: '0.6', lastmod: '2026-08-13' },
-    '/writing': { changefreq: 'monthly', priority: '0.8', lastmod: '2026-08-13' },
-  };
-
   // Extract real publish/update dates from blog post frontmatter
   const postDates = {};
   if (fs.existsSync(postsDir)) {
@@ -146,9 +127,9 @@ async function prerender() {
   }
 
   const sitemapEntries = routes.map((routePath) => {
-    const config = routeConfigs[routePath] || {
-      changefreq: 'monthly',
-      priority: '0.7',
+    const config = SECTION_SITEMAP_CONFIGS[routePath] || {
+      changefreq: routePath.startsWith('/writing/') || routePath.startsWith('/travel/') ? 'monthly' : 'monthly',
+      priority: routePath.startsWith('/writing/') ? '0.8' : routePath.startsWith('/travel/') ? '0.6' : '0.7',
       lastmod: '2026-08-13',
     };
     const loc = routePath === '/' ? 'https://ohya.sh/' : `https://ohya.sh${routePath}`;
@@ -186,5 +167,3 @@ prerender().catch((err) => {
   console.error(' Pre-render execution failed:', err);
   process.exit(1);
 });
-
-

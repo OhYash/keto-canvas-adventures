@@ -13,22 +13,34 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://ohya.sh/writing</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ohya.sh/personal</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ohya.sh/now</loc>
+    <loc>https://ohya.sh/travel</loc>
     <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ohya.sh/keto</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ohya.sh/ataco</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ohya.sh/hobbies</loc>
@@ -43,45 +55,69 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ohya.sh/now</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://ohya.sh/contact</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ohya.sh/travel</loc>
+    <loc>https://ohya.sh/travel/japan-2023</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://ohya.sh/ataco</loc>
+    <loc>https://ohya.sh/travel/iceland-2022</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://ohya.sh/writing</loc>
+    <loc>https://ohya.sh/travel/peru-2021</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ohya.sh/travel/thailand-2020</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ohya.sh/travel/morocco-2019</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ohya.sh/travel/norway-2019</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ohya.sh/writing/achieving-82-percent-payload-reduction-on-infinite-canvas</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ohya.sh/writing/building-an-infinite-canvas-portfolio</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ohya.sh/writing/designing-high-throughput-backend-systems</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>

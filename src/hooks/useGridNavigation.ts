@@ -1,25 +1,8 @@
 import { useCallback } from 'react';
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface Section {
-  id: string;
-  title: string;
-  subtitle: string;
-  position: Position;
-  color: string;
-  gradient: string;
-  icon: string;
-  direction?: 'right' | 'left' | 'up' | 'down';
-  parent?: string;
-  alwaysExpanded?: boolean;
-}
+import { Section } from '@/data/sections';
 
 interface GridNavigationProps {
-  sections: Section[];
+  sections?: Section[];
   allSections: Section[];
   currentSection: string;
   onNavigateToSection: (sectionId: string) => void;
@@ -30,60 +13,78 @@ export const useGridNavigation = ({
   currentSection,
   onNavigateToSection,
 }: GridNavigationProps) => {
-  // Find the closest section in a given direction
-  const findSectionInDirection = useCallback((direction: 'left' | 'right' | 'up' | 'down') => {
-    const currentSectionData = allSections.find(s => s.id === currentSection);
-    const currentPos = currentSectionData?.position || { x: 0, y: 0 };
+  // Discrete integer grid navigation
+  const findSectionInDirection = useCallback(
+    (direction: 'left' | 'right' | 'up' | 'down'): string | null => {
+      const current = allSections.find((s) => s.id === currentSection);
+      if (!current) return null;
 
-    const candidates: Array<{ section: Section; distance: number }> = [];
+      const { col: curCol, row: curRow } = current.grid;
 
-    allSections.forEach(section => {
-      if (section.id === currentSection) return;
+      // Filter candidates strictly in the target direction along the discrete coordinate axis
+      const candidates: Array<{ id: string; colDelta: number; rowDelta: number; score: number }> = [];
 
-      const sectionPos = section.position || { x: 0, y: 0 };
-      const deltaX = sectionPos.x - currentPos.x;
-      const deltaY = sectionPos.y - currentPos.y;
+      for (const section of allSections) {
+        if (section.id === currentSection) continue;
 
-      let isInDirection = false;
-      let distance = 0;
+        const colDelta = section.grid.col - curCol;
+        const rowDelta = section.grid.row - curRow;
 
-      switch (direction) {
-        case 'right':
-          isInDirection = deltaX > 0 && Math.abs(deltaY) <= Math.abs(deltaX);
-          distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-          break;
-        case 'left':
-          isInDirection = deltaX < 0 && Math.abs(deltaY) <= Math.abs(deltaX);
-          distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-          break;
-        case 'up':
-          isInDirection = deltaY < 0 && Math.abs(deltaX) <= Math.abs(deltaY);
-          distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-          break;
-        case 'down':
-          isInDirection = deltaY > 0 && Math.abs(deltaX) <= Math.abs(deltaY);
-          distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-          break;
+        let isInDirection = false;
+
+        switch (direction) {
+          case 'right':
+            isInDirection = colDelta > 0;
+            break;
+          case 'left':
+            isInDirection = colDelta < 0;
+            break;
+          case 'up':
+            // Up corresponds to negative row delta (row < curRow)
+            isInDirection = rowDelta < 0;
+            break;
+          case 'down':
+            // Down corresponds to positive row delta (row > curRow)
+            isInDirection = rowDelta > 0;
+            break;
+        }
+
+        if (isInDirection) {
+          // Scoring heuristic: heavily favor direct axis alignment (same row or same col),
+          // then minimize discrete Manhattan distance
+          const manhattan = Math.abs(colDelta) + Math.abs(rowDelta);
+          const isDirectAxis =
+            (direction === 'right' || direction === 'left')
+              ? rowDelta === 0
+              : colDelta === 0;
+
+          // Priority score: direct axis candidates get top priority (lower score = closer/better)
+          const score = (isDirectAxis ? 0 : 100) + manhattan;
+          candidates.push({ id: section.id, colDelta, rowDelta, score });
+        }
       }
 
-      if (isInDirection) {
-        candidates.push({ section, distance });
+      if (candidates.length === 0) return null;
+
+      candidates.sort((a, b) => a.score - b.score);
+      return candidates[0].id;
+    },
+    [allSections, currentSection]
+  );
+
+  const navigateInDirection = useCallback(
+    (direction: 'left' | 'right' | 'up' | 'down') => {
+      const targetSectionId = findSectionInDirection(direction);
+      if (targetSectionId) {
+        onNavigateToSection(targetSectionId);
       }
-    });
-
-    // Sort by distance and return the closest
-    candidates.sort((a, b) => a.distance - b.distance);
-    return candidates.length > 0 ? candidates[0].section.id : null;
-  }, [allSections, currentSection]);
-
-  const navigateInDirection = useCallback((direction: 'left' | 'right' | 'up' | 'down') => {
-    const targetSectionId = findSectionInDirection(direction);
-    if (targetSectionId) {
-      onNavigateToSection(targetSectionId);
-    }
-  }, [findSectionInDirection, onNavigateToSection]);
+    },
+    [findSectionInDirection, onNavigateToSection]
+  );
 
   return {
     navigateInDirection,
   };
 };
+
+export default useGridNavigation;

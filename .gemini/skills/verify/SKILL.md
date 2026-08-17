@@ -30,11 +30,9 @@ const browser = await puppeteer.launch({
 - Assert content via `document.body.innerText`; screenshot for evidence.
 - Deep-link check matters: every section id is also a URL path — visit `http://localhost:4173/<sectionId>` directly and confirm no 404.
 
-## Gotcha — adding a section takes FOUR registration points
+## Section Registry — Single Source of Truth
 
-1. `src/hooks/useSectionManagement.ts` — `sections`/`allSections` array (canvas + arrow keys)
-2. `src/App.tsx` — explicit `<Route path="/<id>">` above the `*` catch-all, else navigation lands on the 404 page
-3. `src/components/InfiniteCanvas.tsx` — hardcoded `validSections` array in `getSectionFromPath`
-4. `src/components/NavigationBreadcrumb.tsx` — `sectionNames` display-name map (falls back to raw id)
+Sections are defined once in `src/data/sections.ts` (`SECTIONS` array).
+- Routes, breadcrumb names, path validation, SEO tags, and SSG prerender routes are all derived automatically from `src/data/sections.ts`.
+- When adding a section, define its metadata & grid coordinate in `src/data/sections.ts` and add its component to `src/components/canvas/SectionRenderer.tsx`.
 
-Missing #2/#3 fails silently in tsc/lint/build — only runtime driving catches it.
