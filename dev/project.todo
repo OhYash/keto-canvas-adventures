@@ -22,7 +22,8 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Pruned dead files, UI components & 136 npm packages — Deleted unreferenced `src/App.css`, deleted 44 unused starter components in `src/components/ui/`, and uninstalled unused npm packages (`@tanstack/react-query`, `recharts`, `date-fns`, `embla-carousel-react`, `input-otp`, `next-themes`, `react-day-picker`, `react-hook-form`, `react-resizable-panels`, `vaul`, `zod`, unused `@radix-ui/*`).
 - [x] Data layer extraction — Extracted hard-coded copy from `DetailedStoryView.tsx` into `src/data/travelStories.ts`, work experience into `src/data/workData.ts`, personal info into `src/data/personalData.ts`, hobbies into `src/data/hobbiesData.ts`, and cat traits into `src/data/ketoData.ts`.
 - [x] React Error Boundaries — Built `src/components/ErrorBoundary.tsx` wrapping all section rendering in `SectionRenderer.tsx`.
-- [x] End-to-end browser verification — Verified 100% pass rate across 18 E2E test cases using Firefox (all section routes, dynamic travel stories, blog posts, and arrow key navigation).
+- [x] Standardized E2E Test Suite & CLI Runner — Consolidated 13+ ad-hoc scratch verification scripts into a first-class, maintainable E2E test harness and runner (`npm run test:e2e` / `npm test` / `node scripts/verify.js`) validating 35 tests across 5 suites: SSG static HTML, canonical section deep-linking from `sections.ts`, 2D discrete grid keyboard navigation, interactive UI/progressive disclosure, and responsive viewports with Firefox via `puppeteer-core` (see `dev/plans/e2e-test-suite.md`).
+- [x] End-to-end browser verification — Verified 100% pass rate across 35 E2E test cases using Firefox (all section routes, dynamic travel stories, blog posts, and arrow key navigation).
 
 ### Core Infinite Canvas & Infrastructure
 - [x] Infinite canvas 2D spatial grid — hook architecture split (`useViewport`, `useSectionManagement`, `useCanvasEvents`, `useGridNavigation`), `translate3d` hardware acceleration, and mobile touch scroll protection.
@@ -95,3 +96,4 @@ Content critiques and research live in dev/research/, referenced from items here
 
 ## PLANS
 - [dev/plans/codebase-simplification.md](file:///home/yash-tg/code/git_ohyash/keto-canvas-adventures/dev/plans/codebase-simplification.md) — Codebase Simplification & Architecture Modernization (Completed)
+- [dev/plans/e2e-test-suite.md](file:///home/yash-tg/code/git_ohyash/keto-canvas-adventures/dev/plans/e2e-test-suite.md) — Built-in E2E Test Suite & Consolidated Verification Runner (Completed)

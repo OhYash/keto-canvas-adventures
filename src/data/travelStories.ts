@@ -1,4 +1,4 @@
-import { TravelStory } from '../types/travelStory';
+import type { TravelStory } from '../types/travelStory.ts';
 
 export const defaultTravelGallery = [
   'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=800&h=600&fit=crop',

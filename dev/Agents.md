@@ -24,6 +24,7 @@ Content protocols:
 - LEARNINGS captures known pitfalls (touch handling, navigation integration points);
   read before touching the relevant areas
 - Environment note: Vivaldi is installed on this Arch system at `/usr/bin/vivaldi`. For tools requiring Chrome/Chromium (like Lighthouse CLI), pass `CHROME_PATH=/usr/bin/vivaldi`.
+- Verification & E2E Testing: Run `npm test` or `npm run test:e2e` (`scripts/verify.js`). Maintain and extend existing suites in `tests/e2e/suites/` (`ssg`, `routes`, `navigation`, `interactions`, `responsive`). **Do not write temporary scratch verification scripts.**
 - NEEDS INPUT items are blocked on the owner — don't guess, ask
 
 ### Writing

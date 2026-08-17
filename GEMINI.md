@@ -21,6 +21,8 @@ npm run build        # Production build
 npm run build:dev    # Build in development mode
 npm run lint         # ESLint check
 npm run preview      # Preview production build
+npm run test:e2e     # Run automated E2E test suite (Firefox via puppeteer-core)
+npm test             # Alias for npm run test:e2e
 npx tsc --noEmit     # Type check
 ```
 
@@ -31,7 +33,7 @@ Deploy: push to `main` → GitHub Pages via `.github/workflows/deploy.yml`.
 
 ## Verification
 
-Before declaring tasks complete after UI, section, routing, or navigation changes, run end-to-end browser verification via `.gemini/skills/verify/SKILL.md` (`npm run build` -> `npm run preview` -> drive puppeteer-core with Firefox).
+Before declaring tasks complete after UI, section, routing, or navigation changes, run the automated E2E test suite via `npm test` or `npm run test:e2e` (or `.gemini/skills/verify/SKILL.md`). **Maintain and extend the test suites in `tests/e2e/suites/` — do not create temporary ad-hoc scratch scripts.**
 
 ## Architecture
 

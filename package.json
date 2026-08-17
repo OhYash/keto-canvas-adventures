@@ -9,7 +9,9 @@
     "postbuild": "node scripts/prerender.js",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "node scripts/verify.js",
+    "test": "npm run test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",

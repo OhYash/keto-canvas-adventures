@@ -24,13 +24,19 @@ npm run build        # Production build
 npm run build:dev    # Build in development mode
 npm run lint         # ESLint
 npm run preview      # Preview production build
-npx tsc --noEmit     # Type check (no test suite exists yet)
+npm run test:e2e     # Run automated E2E test suite (Firefox via puppeteer-core)
+npm test             # Alias for npm run test:e2e
+npx tsc --noEmit     # Type check
 ```
 
 Note: For tasks requiring Chrome/Chromium (such as Lighthouse CLI), Vivaldi is available on this system at `/usr/bin/vivaldi` (`CHROME_PATH=/usr/bin/vivaldi`).
 
 Deploy: push to `main` → GitHub Pages via `.github/workflows/deploy.yml`.
 `make surge` deploys `dist/` to the surge preview URL.
+
+## Verification
+
+Before declaring tasks complete after UI, section, routing, or navigation changes, run the automated E2E test suite via `npm test` or `npm run test:e2e` (or `.claude/skills/verify/SKILL.md`). **Maintain and extend the test suites in `tests/e2e/suites/` — do not create temporary ad-hoc scratch scripts.**
 
 ## Architecture
 
@@ -44,19 +50,18 @@ viewer.
   `useGridNavigation` (arrow keys), `useVisitTracking` (localStorage analytics)
 - `src/components/sections/` — one component per section; `SectionRenderer` decides what
   to render for the current viewport
-- `src/data/` — content that has been extracted from components (`nowData.json`,
-  `travelStories.ts`); see `src/data/HOW_TO_UPDATE_NOW.md`
+- `src/data/` — content extracted from components (`nowData.json`, `travelStories.ts`,
+  `atacoData.ts`); see `src/data/HOW_TO_UPDATE_NOW.md`
 
 Grid layout: (0,0) is Home; main sections sit at ±1000 on each axis (Work right, Personal
 left, Keto up, Hobbies down, Now bottom-right, Contact bottom-left); subsections at ±2000
 behind their parent (Work Experience behind Work, Travel Stories behind Personal, Projects
-behind Hobbies).
+behind Hobbies, Ataco behind Keto).
 
 ## Invariants
 
-- **New sections register in `useSectionManagement`'s sections array** on the 1000px grid.
-  Keep the axis model: professional content grows along the horizontal axis, personal
-  along the vertical.
+- **Section Registry Single Source of Truth**: All sections are registered canonically in `src/data/sections.ts` (`SECTIONS` array). React Router (`AppRoutes.tsx`), navigation validation (`InfiniteCanvas.tsx`), breadcrumbs (`NavigationBreadcrumb.tsx`), SEO metadata (`SEO.tsx`), and SSG prerendering (`scripts/prerender.js`) automatically consume this single registry. To add a new section, define it in `src/data/sections.ts` and add its component to `SectionRenderer.tsx`.
+- **New sections register in `src/data/sections.ts`** on the discrete 2D integer grid `{ col, row }`. Keep the axis model: professional content grows along the horizontal axis, personal along the vertical.
 - **Email stays obfuscated.** ContactSection protects the address with base64 encoding and
   progressive disclosure — never render it as plaintext in JSX or source.
 - **Touch handling must never break mobile browser behavior.** Canvas panning stands down
