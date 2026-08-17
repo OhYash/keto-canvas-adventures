@@ -1,8 +1,8 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Bike, Camera, Star } from 'lucide-react';
+import { Bike, Star } from 'lucide-react';
 import SectionCard from '@/components/canvas/SectionCard';
-import { atacoStories, atacoQuickFacts, atacoPhotoSlots } from '@/data/atacoData';
+import { atacoStories, atacoQuickFacts, atacoPhotos } from '@/data/atacoData';
 
 interface AtacoSectionProps {
   gradient: string;
@@ -30,18 +30,24 @@ const AtacoSection: React.FC<AtacoSectionProps> = ({
       isActive={isActive}
       onNavigateHome={onNavigateHome}
     >
-      {/* Photo placeholders — real pictures of Ataco coming, never stock */}
+      {/* Real Ataco Photos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {atacoPhotoSlots.map((slot, index) => (
+        {atacoPhotos.map((photo, index) => (
           <div
             key={index}
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50"
+            className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md flex flex-col"
           >
-            <div className="w-full h-28 rounded-lg mb-2 bg-gradient-to-br from-lime-100 to-emerald-100 border border-dashed border-slate-400/60 flex flex-col items-center justify-center gap-1">
-              <Camera className="w-6 h-6 text-slate-500" />
-              <span className="text-xs text-slate-600">Real photo on its way</span>
+            <div className="w-full aspect-square overflow-hidden rounded-lg mb-2 bg-slate-100/50">
+              <img 
+                src={photo.src} 
+                alt={photo.alt} 
+                width={400}
+                height={400}
+                loading="lazy"
+                className={`w-full h-full object-cover ${photo.objectPosition || 'object-center'} transition-transform duration-300 hover:scale-105`}
+              />
             </div>
-            <h4 className="text-sm font-bold text-slate-900">{slot.caption}</h4>
+            <h4 className="text-sm font-bold text-slate-900">{photo.caption}</h4>
           </div>
         ))}
       </div>

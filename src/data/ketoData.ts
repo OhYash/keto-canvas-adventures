@@ -3,6 +3,30 @@ export interface KetoTrait {
   description: string;
 }
 
+export interface KetoPhoto {
+  src: string;
+  alt: string;
+  caption: string;
+  objectPosition?: string;
+  isInteractive?: boolean;
+}
+
+export const ketoPhotos: KetoPhoto[] = [
+  {
+    src: '/personal/keto_hat.jpg',
+    alt: 'Golden Persian cat Keto wearing a cap',
+    caption: "Keto's Cap Era",
+    objectPosition: 'object-top',
+  },
+  {
+    src: '/personal/keto_bossing_me_edited.png',
+    alt: 'Keto bossing Yash around with magic energy',
+    caption: 'Bossing Me Around 🎯',
+    objectPosition: 'object-center',
+    isInteractive: true,
+  },
+];
+
 export const ketoTraits: KetoTrait[] = [
   {
     title: "Personality",

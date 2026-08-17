@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Heart, Star } from 'lucide-react';
 import SectionCard from '@/components/canvas/SectionCard';
-import { ketoTraits, ketoQuote, ketoBadge } from '@/data/ketoData';
+import { ketoTraits, ketoQuote, ketoBadge, ketoPhotos } from '@/data/ketoData';
 
 interface KetoSectionProps {
   gradient: string;
@@ -49,31 +49,27 @@ const KetoSection: React.FC<KetoSectionProps> = ({
       >
         {/* Cat Images */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md">
-            <img 
-              src="https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=300&h=200&fit=crop" 
-              alt="Golden Persian cat like Keto on his terrace" 
-              width={300}
-              height={200}
-              loading="lazy"
-              className="w-full h-28 object-cover rounded-lg mb-2"
-            />
-            <h4 className="text-sm font-bold text-slate-900">Keto's Terrace Kingdom</h4>
-          </div>
-          <div 
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md cursor-pointer"
-            onClick={handleSecondImageClick}
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=300&h=200&fit=crop" 
-              alt="Golden Persian cat in hunting mode" 
-              width={300}
-              height={200}
-              loading="lazy"
-              className="w-full h-28 object-cover rounded-lg mb-2"
-            />
-            <h4 className="text-sm font-bold text-slate-900">The Pigeon Hunter 🎯</h4>
-          </div>
+          {ketoPhotos.map((photo, index) => (
+            <div
+              key={index}
+              className={`bg-white/90 backdrop-blur-sm rounded-xl p-3 border border-slate-300/50 hover:border-slate-400/50 transition-all duration-200 hover:shadow-md flex flex-col ${
+                photo.isInteractive ? 'cursor-pointer' : ''
+              }`}
+              onClick={photo.isInteractive ? handleSecondImageClick : undefined}
+            >
+              <div className="w-full aspect-square overflow-hidden rounded-lg mb-2 bg-slate-100/50">
+                <img 
+                  src={photo.src} 
+                  alt={photo.alt} 
+                  width={400}
+                  height={400}
+                  loading="lazy"
+                  className={`w-full h-full object-cover ${photo.objectPosition || 'object-center'} transition-transform duration-300 hover:scale-105`}
+                />
+              </div>
+              <h4 className="text-sm font-bold text-slate-900">{photo.caption}</h4>
+            </div>
+          ))}
         </div>
         
         <div className="space-y-4">

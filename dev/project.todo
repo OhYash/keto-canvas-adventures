@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-08-17
+Last updated: 2026-08-18
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -46,6 +46,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Now section content-as-data architecture — `src/data/nowData.json` data layer with `HOW_TO_UPDATE_NOW.md` protocol; regularly updated with job search focus and latest releases.
 - [x] Subsections shipped — Travel Stories (`DetailedStoryView.tsx`), Ataco subsection at (0, -2000) under Keto (`src/data/ataco.ts`).
 - [x] Published 85% Payload Reduction & 2D Grid Architecture essay — Updated essay post at `src/data/posts/achieving-82-percent-payload-reduction-on-infinite-canvas.md` documenting up to 89% payload reduction (173KB -> 19KB), CSS transform keyframe conflict resolution, discrete 2D integer coordinate schema, and step-by-step architectural verification screenshots.
+- [x] Published "Nobody Needed a 2D Canvas Portfolio" essay — Published new post at `src/data/posts/nobody-needed-a-2d-canvas-portfolio.md` showcasing 60 FPS GPU compositor rendering, the spatial map logic (cat & motorcycle above Home), under 20KB on-demand payloads, and privacy-respecting architecture.
 - [x] Voice & Copy polish — Removed boilerplate badges/quotes, updated LinkedIn profile data, reframed headline to founder-forward voice ("Engineer today, founder in progress.").
 
 ### SEO, Performance & Static Site Generation
@@ -57,18 +58,19 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Refactor SSG prerendering (`scripts/prerender.js`) — Replaced Puppeteer headless browser & regex injection script with native Vite SSR (`renderToString` + `react-helmet-async` server context) for fast, clean, component-driven static site generation.
 - [x] Scoped SSG HTML per route — Updated `SectionRenderer.tsx` so server-side static site generation renders ONLY the route-specific section into `dist/<route>/index.html` (e.g. `dist/work/index.html` now contains only Work section HTML), eliminating 173KB multi-section HTML dumps and ensuring 100% scoped crawler indexability while client hydration mounts full 2D spatial canvas.
 - [x] Idle-deferred proximity rendering for 100% scoped crawler SEO output — Updated `SectionRenderer.tsx` with a 1.5s idle hydration delay (`isIdleHydrated`) combined with user interaction triggers (`hasInteracted`). Search crawlers (Bingbot / Googlebot WRS / Bing Webmaster tool) extract DOM snapshots within ~1s before idle hydration, receiving 100% route-scoped HTML for every URL (`/`, `/work`, `/keto`, etc.) with zero duplicate page data, while human visitors get seamless 2D spatial canvas hydration after 1.5s or upon canvas panning.
+- [x] Real Keto pictures on /keto — Replaced Unsplash placeholder URLs with real photos (`/personal/keto_hat.jpg` and `/personal/keto_bossing_me_edited.png`), extracted `ketoPhotos` data model into `src/data/ketoData.ts`, expanded image container visible area to 1:1 square ratio with `object-top` alignment for the cap photo, and added smooth hover scale effect.
+- [x] Real Ataco pictures on /ataco — Replaced placeholder camera slots with real photos (`/personal/ataco_offroad.jpg` and `/personal/ataco_w_me.jpg`), extracted `atacoPhotos` data model into `src/data/atacoData.ts`, expanded image container visible area to 1:1 square ratio with responsive object positioning, and added hover zoom animation.
 
 ---
 
 ## PENDING
 
 ### Content
-- [ ] Replace Unsplash stock photos with real Keto pics — KetoSection.tsx and DetailedStoryView.tsx still use unsplash URLs; biggest credibility leak on the site
+- [ ] Replace Unsplash stock photos in DetailedStoryView.tsx with real travel pics
 - [ ] Rewrite travel stories in DetailedStoryView.tsx with real first-person memories (one specific thing, one weird thing, one thing that went wrong) — or cut destinations not actually visited (see NEEDS INPUT)
 - [ ] Add real projects to ProjectsSection
 - [ ] Update personal profile content
 - [ ] Update work experience (current and past roles)
-- [ ] Swap Ataco photo placeholders for real pics — owner is supplying photos; captions/slots live in src/data/atacoData.ts (atacoPhotoSlots)
 
 ### UX & Feature Enhancements
 - [ ] Page-flow tracking — track navigation direction/sequence of visitors in `updateCurrentSection` (useSectionManagement)

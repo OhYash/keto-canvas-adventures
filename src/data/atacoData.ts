@@ -6,42 +6,45 @@ export interface AtacoStory {
   description: string;
 }
 
-export interface AtacoPhotoSlot {
+export interface AtacoPhoto {
+  src: string;
+  alt: string;
   caption: string;
+  objectPosition?: string;
 }
 
 export const atacoQuickFacts = [
   'Triumph Scrambler 400X',
   'Khaki green',
   'Since April 2026',
-  '~1000 km',
+  '~1800 km',
 ];
 
-// Real photos pending — these captions label the placeholder slots until then.
-export const atacoPhotoSlots: AtacoPhotoSlot[] = [
-  { caption: 'Ataco, in the flesh' },
-  { caption: 'On the road somewhere' },
+export const atacoPhotos: AtacoPhoto[] = [
+  {
+    src: '/personal/ataco_offroad.jpg',
+    alt: 'Triumph Scrambler 400X motorcycle on an off-road trail with mountain backdrop',
+    caption: 'Ataco Off-Road',
+    objectPosition: 'object-center',
+  },
+  {
+    src: '/personal/ataco_w_me.jpg',
+    alt: 'Yash Yadav standing with his Triumph Scrambler 400X motorcycle',
+    caption: 'Ataco & Me',
+    objectPosition: 'object-bottom',
+  },
 ];
 
 export const atacoStories: AtacoStory[] = [
-  {
-    title: 'The Overthinking Years',
-    description:
-      "I watched YouTube riding content for years before I owned a motorcycle. The shortlist kept growing: Yezdi Scrambler, Royal Enfield Scram, Himalayan, Classic, Hero Xpulse. Each one had a nickel I couldn't swallow — not enough power, or spoked wheels which means tubed tyres, or in Yezdi's case, after-sales support that just wasn't there.",
-  },
-  {
-    title: 'The One That Got Away Untested',
-    description:
-      "The TVS RTX 300 made the list too, but no showroom could give me a test ride. I don't buy a motorcycle I haven't ridden. That rule is non-negotiable, so that was that.",
-  },
   {
     title: 'The Last 400',
     description:
       'Bought on April 6, 2026 from Jaipur — the showroom\'s last 400cc piece before the lineup in India moved to 349cc. You can\'t buy this exact motorcycle fresh anymore. I didn\'t plan the exclusivity; I\'ll take it.',
   },
   {
-    title: 'The Name',
-    description: "It's named Ataco. No, I'm not explaining why.",
+    title: 'The Overthinking Years',
+    description:
+      "I watched YouTube riding content for years before I owned a motorcycle. The shortlist kept growing: Yezdi Scrambler, Royal Enfield Scram, Himalayan, Classic, Hero Xpulse. Each one had a nickel I couldn't swallow — not enough power, or spoked wheels which means tubed tyres, or in Yezdi's case, after-sales support that just wasn't there. The TVS RTX 300 made the list too, but no showroom could give me a test ride. I don't buy a motorcycle I haven't ridden. That rule is non-negotiable, so that was that.",
   },
   {
     title: 'First Summer',
