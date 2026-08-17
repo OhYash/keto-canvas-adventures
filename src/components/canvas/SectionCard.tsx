@@ -39,7 +39,7 @@ export const SectionCard = forwardRef<HTMLDivElement, SectionCardProps>(
     return (
       <Card
         ref={ref}
-        className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50 shadow-xl custom-scrollbar ${className}`}
+        className={`w-[95vw] sm:w-[90vw] md:w-[700px] max-w-[700px] max-h-[85vh] overflow-y-auto ${gradient} backdrop-blur-sm border-slate-600/50 shadow-xl custom-scrollbar cursor-default ${className}`}
       >
         <CardHeader className="pb-4">
           {customHeader ? (

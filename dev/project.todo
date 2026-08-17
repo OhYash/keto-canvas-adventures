@@ -32,6 +32,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Direct URL canvas viewport alignment — Replaced standalone `getInitialPosition` in `InfiniteCanvas.tsx` with dynamic position derivation from `useSectionManagement`'s responsive `allSections` array and synchronized `useEffect`, ensuring direct URL loads (`/projects`, `/travel`, `/ataco`, `/writing`, etc.) are 100% pixel-centered.
 - [x] Compact Section Placeholders & Proximity Expansion — Built `SectionPlaceholder` component for inactive grid sections on initial page load, rendering icon, title, subtitle, gradient styling, and an interactive 'Pan or click to expand' target; smoothly animates into full detailed section components via `animate-expand-card` scale/fade CSS keyframes as the viewport approaches (`EXPAND_THRESHOLD <= 850px`) or upon click.
 - [x] Deployment & CI — GitHub Pages deployment pipeline (`.github/workflows/deploy.yml`), Surge preview command (`make surge`), and resume download link routing.
+- [x] Text Selection & Canvas Drag Decoupling — Integrated smart target filtering and active selection cancellation in `useCanvasEvents.ts` (`handleMouseDown` and `handleMouseMove`) alongside `cursor-default` on `SectionCard.tsx` and `HomeSection.tsx`, allowing full native text highlighting and copying on cards without translating the canvas viewport.
 - [x] Agent & IDE integration — AGY / Antigravity 2.0 rules, GEMINI.md, and automated browser verification setup (`.gemini/skills/verify/SKILL.md`).
 
 ### Section & Content Redesigns

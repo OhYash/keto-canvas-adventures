@@ -29,7 +29,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({
   };
 
   return (
-    <div className="w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] max-h-[85vh] overflow-y-auto bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200 custom-scrollbar">
+    <div className="w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] max-h-[85vh] overflow-y-auto bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200 custom-scrollbar cursor-default">
       {/* Header Tag / Badge */}
       <div className="text-xs font-mono font-semibold tracking-wider text-cyan-400 uppercase mb-3">
         {homeData.badge}

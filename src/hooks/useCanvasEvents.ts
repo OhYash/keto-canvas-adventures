@@ -28,11 +28,31 @@ export const useCanvasEvents = ({
   const [isPanning, setIsPanning] = useState(false);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    // Only drag with primary (left) mouse button
+    if (e.button !== 0) return;
+
+    const target = e.target as HTMLElement | null;
+    if (target) {
+      // Don't initiate canvas dragging when clicking interactive or text elements
+      const isInteractiveOrText = target.closest(
+        'p, span, h1, h2, h3, h4, h5, h6, code, pre, li, a, button, input, textarea, select, blockquote, [data-selectable="true"]'
+      );
+      if (isInteractiveOrText) {
+        return;
+      }
+    }
+
+    // Clear any previous selection and prevent browser from glitch-selecting text during canvas drag
+    window.getSelection()?.removeAllRanges();
+    e.preventDefault();
+
     startDragging({ x: e.clientX, y: e.clientY });
   }, [startDragging]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!isDragging) return;
+
+    e.preventDefault();
 
     const deltaX = e.clientX - lastMousePos.x;
     const deltaY = e.clientY - lastMousePos.y;
