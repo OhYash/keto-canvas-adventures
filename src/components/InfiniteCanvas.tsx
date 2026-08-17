@@ -182,12 +182,45 @@ export const InfiniteCanvas = () => {
     }
   }, [location.pathname, navigateToSection, setViewportPosition, resetScrollPositions]);
 
+  // Parse path segments for article (/writing/:slug) and travel story (/travel/:storyId)
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const activeArticleSlug = pathSegments[0] === 'writing' && pathSegments[1] ? pathSegments[1] : null;
+  const activeArticle = activeArticleSlug ? getPostBySlug(activeArticleSlug) : null;
+  const activeStoryId = pathSegments[0] === 'travel' && pathSegments[1] ? pathSegments[1] : null;
+
+  const handleSelectArticle = useCallback(
+    (slug: string) => {
+      markInteracted();
+      navigate(`/writing/${slug}`, { replace: false });
+    },
+    [markInteracted, navigate]
+  );
+
+  const handleCloseArticle = useCallback(() => {
+    markInteracted();
+    navigate('/writing', { replace: false });
+  }, [markInteracted, navigate]);
+
+  const handleSelectStory = useCallback(
+    (storyId: string) => {
+      markInteracted();
+      navigate(`/travel/${storyId}`, { replace: false });
+    },
+    [markInteracted, navigate]
+  );
+
+  const handleBackFromStory = useCallback(() => {
+    markInteracted();
+    navigate('/travel', { replace: false });
+  }, [markInteracted, navigate]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't intercept arrow keys if user is focused on an input/search field
+      // Don't intercept arrow keys if an article reader overlay is active or focused on an input/search field
       if (
-        document.activeElement &&
-        (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')
+        activeArticleSlug ||
+        (document.activeElement &&
+          (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA'))
       ) {
         return;
       }
@@ -224,40 +257,7 @@ export const InfiniteCanvas = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [markInteracted, navigateInDirection, handleNavigateHome]);
-
-  // Parse path segments for article (/writing/:slug) and travel story (/travel/:storyId)
-  const pathSegments = location.pathname.split('/').filter(Boolean);
-  const activeArticleSlug = pathSegments[0] === 'writing' && pathSegments[1] ? pathSegments[1] : null;
-  const activeArticle = activeArticleSlug ? getPostBySlug(activeArticleSlug) : null;
-
-  const activeStoryId = pathSegments[0] === 'travel' && pathSegments[1] ? pathSegments[1] : null;
-
-  const handleSelectArticle = useCallback(
-    (slug: string) => {
-      markInteracted();
-      navigate(`/writing/${slug}`, { replace: false });
-    },
-    [markInteracted, navigate]
-  );
-
-  const handleCloseArticle = useCallback(() => {
-    markInteracted();
-    navigate('/writing', { replace: false });
-  }, [markInteracted, navigate]);
-
-  const handleSelectStory = useCallback(
-    (storyId: string) => {
-      markInteracted();
-      navigate(`/travel/${storyId}`, { replace: false });
-    },
-    [markInteracted, navigate]
-  );
-
-  const handleBackFromStory = useCallback(() => {
-    markInteracted();
-    navigate('/travel', { replace: false });
-  }, [markInteracted, navigate]);
+  }, [markInteracted, navigateInDirection, handleNavigateHome, activeArticleSlug]);
 
   return (
     <div className="w-full h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
@@ -336,15 +336,15 @@ export const InfiniteCanvas = () => {
           currentSection={currentSection}
           sections={allSections}
         />
-
-        {activeArticle && (
-          <ArticleReaderView
-            post={activeArticle}
-            onClose={handleCloseArticle}
-            onSelectPost={handleSelectArticle}
-          />
-        )}
       </div>
+
+      {activeArticle && (
+        <ArticleReaderView
+          post={activeArticle}
+          onClose={handleCloseArticle}
+          onSelectPost={handleSelectArticle}
+        />
+      )}
     </div>
   );
 };

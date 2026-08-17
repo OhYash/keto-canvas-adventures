@@ -33,9 +33,9 @@ export const useCanvasEvents = ({
 
     const target = e.target as HTMLElement | null;
     if (target) {
-      // Don't initiate canvas dragging when clicking interactive or text elements
+      // Don't initiate canvas dragging when clicking interactive, text, or overlay elements
       const isInteractiveOrText = target.closest(
-        'p, span, h1, h2, h3, h4, h5, h6, code, pre, li, a, button, input, textarea, select, blockquote, [data-selectable="true"]'
+        'p, span, h1, h2, h3, h4, h5, h6, code, pre, li, a, button, input, textarea, select, blockquote, article, aside, [role="dialog"], [data-selectable="true"]'
       );
       if (isInteractiveOrText) {
         return;

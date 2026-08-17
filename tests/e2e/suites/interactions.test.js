@@ -97,6 +97,42 @@ export function registerInteractionsTests() {
       expect(hasCodeBlocks).toBe(true);
     });
 
+    test('Article Reader: Mouse drag and arrow keys do not pan or navigate background canvas', async ({ page, baseUrl }) => {
+      const essayUrl = `${baseUrl}/writing/achieving-82-percent-payload-reduction-on-infinite-canvas`;
+      await page.goto(essayUrl, { waitUntil: 'domcontentloaded' });
+      await waitForCanvasAnimation(page, 1500);
+
+      // Get initial canvas transform
+      const getCanvasTransform = () =>
+        page.evaluate(() => {
+          const el = document.querySelector('[style*="translate3d"]');
+          return el ? el.getAttribute('style') : null;
+        });
+
+      const initialTransform = await getCanvasTransform();
+
+      // Perform mouse grab and drag over the reader overlay
+      await page.mouse.move(500, 300);
+      await page.mouse.down();
+      await page.mouse.move(200, 100, { steps: 5 });
+      await page.mouse.up();
+      await waitForCanvasAnimation(page, 500);
+
+      // Canvas transform must remain unchanged
+      const postDragTransform = await getCanvasTransform();
+      expect(postDragTransform).toBe(initialTransform);
+      expect(page.url()).toContain('/writing/achieving-82-percent-payload-reduction-on-infinite-canvas');
+
+      // Press Arrow keys - should not trigger canvas navigation
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('ArrowRight');
+      await waitForCanvasAnimation(page, 500);
+
+      expect(page.url()).toContain('/writing/achieving-82-percent-payload-reduction-on-infinite-canvas');
+      const finalTransform = await getCanvasTransform();
+      expect(finalTransform).toBe(initialTransform);
+    });
+
     test('Travel Stories: Selecting story from list opens DetailedStoryView with Back button', async ({ page, baseUrl }) => {
       await page.goto(`${baseUrl}/travel`, { waitUntil: 'domcontentloaded' });
       await waitForCanvasAnimation(page, 1500);
