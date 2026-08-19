@@ -2,7 +2,7 @@
 title: "Nobody Needed a 2D Canvas Portfolio. I Built One Anyway (and it runs at 60 FPS)."
 date: "2026-08-17"
 readTime: "4 min read"
-summary: "99% of developer portfolios are vertical resumes frozen in glass. Here's why I built an infinite 2D canvas, why my cat and motorcycle sit right above Home, and how on-demand loading keeps it under 20KB."
+summary: "Why I built an infinite 2D canvas portfolio with 60 FPS rendering, placed my cat and motorcycle above Home, and engineered on-demand loading under 20KB."
 tags: ["Architecture", "Performance", "UI/UX", "Vite", "Canvas", "Philosophy"]
 ---
 

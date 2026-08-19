@@ -15,7 +15,7 @@ export const travelStories: TravelStory[] = [
     country: 'Japan',
     date: 'March 2023',
     duration: '2 weeks',
-    description: 'An incredible journey through Japan during cherry blossom season, exploring the perfect blend of ancient traditions and cutting-edge technology.',
+    description: 'A journey through Japan during cherry blossom season across Tokyo and Kyoto, exploring ancient shrines, cutting-edge technology, ryokans, and local food.',
     highlights: ['Shibuya Crossing', 'Fushimi Inari Shrine', 'TeamLab Borderless', 'Traditional Ryokan'],
     image: '🌸',
     fullStory: `My journey to Japan during cherry blossom season was nothing short of magical. Landing in Tokyo, I was immediately struck by the incredible blend of ultra-modern technology and ancient traditions coexisting in perfect harmony.
@@ -37,7 +37,7 @@ The cherry blossoms were at their peak during my visit, turning every park and t
     country: 'Iceland',
     date: 'September 2022',
     duration: '10 days',
-    description: 'Chasing the Northern Lights and exploring dramatic landscapes, from powerful waterfalls to geothermal hot springs.',
+    description: "Road tripping Iceland's Ring Road: chasing the Northern Lights across dark skies, exploring thundering waterfalls, black sand beaches, and hot springs.",
     highlights: ['Northern Lights', 'Blue Lagoon', 'Gullfoss Waterfall', 'Black Sand Beaches'],
     image: '🌋',
     fullStory: `Iceland in September offered the perfect combination of dramatic landscapes and the possibility of Northern Lights. The Ring Road became my pathway to discovery, leading me through some of the most otherworldly scenery I've ever witnessed.
@@ -61,7 +61,7 @@ Every day brought new geological wonders - from the dramatic black sand beaches 
     country: 'Peru',
     date: 'July 2021',
     duration: '1 week',
-    description: 'Trekking the Inca Trail to reach the mystical citadel of Machu Picchu, experiencing rich Andean culture along the way.',
+    description: 'Trekking the high-altitude Inca Trail through the Andes to the citadel of Machu Picchu, exploring ancient ruins, Sacred Valley terraces, and local culture.',
     highlights: ['Machu Picchu', 'Inca Trail', 'Sacred Valley', 'Local Markets'],
     image: '🏔️',
     fullStory: `The Inca Trail to Machu Picchu was more than just a hike - it was a journey through time, connecting me to the incredible civilization that once ruled these mountains.
@@ -87,7 +87,7 @@ The food was a revelation - quinoa and potatoes prepared in ways I'd never imagi
     country: 'Thailand',
     date: 'February 2020',
     duration: '3 weeks',
-    description: 'Exploring vibrant street life, ancient temples, and pristine beaches while experiencing the warmth of Thai hospitality.',
+    description: 'Three weeks backpacking Thailand: floating markets, street food alleys in Bangkok, ornate Buddhist temples, and turquoise waters across the southern islands.',
     highlights: ['Floating Markets', 'Phi Phi Islands', 'Grand Palace', 'Street Food Tours'],
     image: '🏝️',
     fullStory: `Thailand welcomed me with warm smiles, incredible food, and a pace of life that immediately slowed my Western rush. From the chaos of Bangkok to the pristine beaches of the islands, every day brought new sensory experiences.
@@ -98,7 +98,7 @@ The Grand Palace was overwhelming in its ornate beauty. Every surface seemed cov
 
 But it was the street food that truly captured my heart. Sitting on tiny plastic stools at 2 AM, slurping the most incredible tom yum soup from a cart that appeared like magic on a quiet street corner. The perfect balance of sour, spicy, sweet, and salty in every dish was a revelation.
 
-The islands offered a different kind of magic. Phi Phi Island's Maya Bay was like swimming in a postcard, though sadly crowded with tourists. But finding hidden coves accessible only by kayak, where the water was so clear you could see tropical fish swimming thirty feet below, felt like discovering secret paradise.
+The islands offered a different kind of magic. Phi Phi Island's Maya Bay was like swimming in a postcard, though sadly cropped with tourists. But finding hidden coves accessible only by kayak, where the water was so clear you could see tropical fish swimming thirty feet below, felt like discovering secret paradise.
 
 Thai massage was initially intimidating but became a daily ritual. The combination of stretching, pressure points, and meditation left me feeling like a new person each time.
 
@@ -113,7 +113,7 @@ Night markets became my favorite social spaces, where language barriers dissolve
     country: 'Morocco',
     date: 'November 2019',
     duration: '12 days',
-    description: 'A sensory adventure through imperial cities, bustling souks, and endless sand dunes under starlit skies.',
+    description: 'A journey across Morocco: exploring vibrant souks in Marrakech medina, crossing the Atlas Mountains, and camping under star-filled Sahara desert skies.',
     highlights: ['Sahara Desert', 'Jemaa el-Fnaa', 'Atlas Mountains', 'Berber Villages'],
     image: '🐪',
     fullStory: `Morocco assaulted my senses in the most beautiful way possible. From the moment I stepped off the plane in Marrakech, the country wrapped me in its exotic embrace of sights, sounds, smells, and tastes unlike anywhere I'd ever been.
@@ -139,7 +139,7 @@ Fez's ancient medina felt like traveling back in time. The tanneries, with their
     country: 'Norway',
     date: 'June 2019',
     duration: '2 weeks',
-    description: 'Discovering dramatic fjords, charming fishing villages, and experiencing the phenomenon of the midnight sun.',
+    description: 'Exploring Norway under the 24-hour midnight sun: hiking cliffside trails, sailing deep blue fjords, and staying in traditional fishing cabins in Lofoten.',
     highlights: ['Geirangerfjord', 'Lofoten Islands', 'Bergen Fish Market', 'Midnight Sun'],
     image: '⛰️',
     fullStory: `Norway in June revealed a land of dramatic contrasts - towering fjords, charming fishing villages, and the surreal experience of the midnight sun that never quite sets.
@@ -154,7 +154,7 @@ The midnight sun was a phenomenon that took days to truly appreciate. At first, 
 
 Hiking to Preikestolen (Pulpit Rock) was both terrifying and exhilarating. Standing on the flat-topped cliff 600 meters above Lysefjord, with no safety barriers, was one of those moments that make you feel simultaneously insignificant and invincible.
 
-Norwegian hospitality was warm despite the reserved exterior. Locals shared their love for the outdoors, taught me about foraging for berries and mushrooms, and explained their deep connection to nature that shapes Norwegian culture.
+Locals shared their love for the outdoors, taught me about foraging for berries and mushrooms, and explained their deep connection to nature that shapes Norwegian culture.
 
 The food was a revelation - far beyond the stereotypes. Fresh seafood prepared simply to let the ingredients shine, cloudberries that tasted like sunshine, and reindeer that was surprisingly delicious when prepared with local herbs and berries.
 

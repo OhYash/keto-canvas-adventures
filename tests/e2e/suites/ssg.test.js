@@ -96,5 +96,41 @@ export function registerSSGTests() {
       const robotsContent = fs.readFileSync(robotsPath, 'utf-8');
       expect(robotsContent).toContain('Sitemap: https://ohya.sh/sitemap.xml');
     });
+
+    test('All pre-rendered routes have optimal SEO meta descriptions (150-160 characters)', () => {
+      function collectHtmlFiles(dir) {
+        const results = [];
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          const fullPath = path.join(dir, entry.name);
+          if (entry.isDirectory() && entry.name !== 'assets') {
+            results.push(...collectHtmlFiles(fullPath));
+          } else if (entry.name === 'index.html') {
+            results.push(fullPath);
+          }
+        }
+        return results;
+      }
+
+      const htmlFiles = collectHtmlFiles(distDir);
+      expect(htmlFiles.length).toBeGreaterThanOrEqual(21);
+
+      for (const file of htmlFiles) {
+        const html = fs.readFileSync(file, 'utf-8');
+        const match =
+          html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
+          html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
+
+        expect(match).toBeTruthy();
+        const desc = match[1].replace(/&#x27;/g, "'");
+        // Validate optimal search snippet length (150-160 characters)
+        expect(desc.length).toBeGreaterThanOrEqual(145);
+        expect(desc.length).toBeLessThanOrEqual(165);
+
+        // OpenGraph and Twitter descriptions must also be present
+        expect(html).toContain('property="og:description"');
+        expect(html).toContain('name="twitter:description"');
+      }
+    });
   });
 }

@@ -2,7 +2,7 @@
 title: "[Dummy post] Designing High-Throughput Backend Systems: Lessons from 30M+ Monthly Requests"
 date: "2026-07-28"
 readTime: "8 min read"
-summary: "Key lessons from owning backend core services processing 30M+ monthly requests at sub-150ms p95 latency and near-zero on-call incidents."
+summary: "Core lessons from engineering backend services processing 30M+ monthly requests with sub-150ms p95 latency, resilient caching, and minimal on-call alerts."
 tags: ["Backend", "System Design", "Python", "PostgreSQL", "Performance"]
 ---
 

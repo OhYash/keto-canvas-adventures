@@ -238,6 +238,18 @@ export function expect(actual) {
         );
       }
     },
+    toBeGreaterThanOrEqual(expected) {
+      const pass = actual >= expected;
+      if (not ? pass : !pass) {
+        throw new AssertionError(
+          not
+            ? `Expected ${actual} not to be greater than or equal to ${expected}`
+            : `Expected ${actual} to be greater than or equal to ${expected}`,
+          actual,
+          expected
+        );
+      }
+    },
     toBeLessThan(expected) {
       const pass = actual < expected;
       if (not ? pass : !pass) {
@@ -245,6 +257,18 @@ export function expect(actual) {
           not
             ? `Expected ${actual} not to be less than ${expected}`
             : `Expected ${actual} to be less than ${expected}`,
+          actual,
+          expected
+        );
+      }
+    },
+    toBeLessThanOrEqual(expected) {
+      const pass = actual <= expected;
+      if (not ? pass : !pass) {
+        throw new AssertionError(
+          not
+            ? `Expected ${actual} not to be less than or equal to ${expected}`
+            : `Expected ${actual} to be less than or equal to ${expected}`,
           actual,
           expected
         );
