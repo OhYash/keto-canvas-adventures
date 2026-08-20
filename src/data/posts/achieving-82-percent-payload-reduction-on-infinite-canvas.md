@@ -1,12 +1,12 @@
 ---
-title: "Achieving an 85% Page Payload Reduction on an Infinite Canvas Portfolio"
+title: "Achieving 85% Payload Reduction on an Infinite Canvas"
 date: "2026-08-17"
 readTime: "6 min read"
 summary: "How I eliminated the all-sections-in-one-DOM trap on a 2D canvas portfolio, fixed CSS transform bugs, and slashed pre-rendered HTML payload from 173KB to 19KB."
 tags: ["React", "SSG", "Performance", "SEO", "Vite", "Canvas", "CSS Architecture"]
 ---
 
-# Achieving an 85% Page Payload Reduction on an Infinite Canvas Portfolio
+# Achieving 85% Payload Reduction on an Infinite Canvas
 
 Building a spatial web application on an infinite 2D canvas creates a tactile, memorable experience for visitors. But when you combine a spatial 2D coordinate plane with Static Site Generation (SSG) for search engine indexability, you quickly run into architectural edge cases that standard web applications never face.
 

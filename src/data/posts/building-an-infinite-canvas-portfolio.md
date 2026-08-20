@@ -1,12 +1,12 @@
 ---
-title: "Building an Infinite 2D Canvas Portfolio: From Spatial Experiment to Production SSG"
+title: "Building an Infinite 2D Canvas Portfolio with SSG"
 date: "2026-08-12"
 readTime: "6 min read"
 summary: "Why 2D spatial navigation creates a tactile digital brain experience, and how it evolved into a hardware-accelerated, static pre-rendered portfolio platform."
 tags: ["React", "TypeScript", "UI Architecture", "Canvas", "SEO", "SSG"]
 ---
 
-# Building an Infinite 2D Canvas Portfolio: From Spatial Experiment to Production SSG
+# Building an Infinite 2D Canvas Portfolio with SSG
 
 Most portfolio websites read like digital resumes frozen in glass. You land on a hero banner, scroll past a grid of polished project cards, hit a contact form at the bottom, and leave without ever getting a feel for how the engineer actually thinks or builds.
 

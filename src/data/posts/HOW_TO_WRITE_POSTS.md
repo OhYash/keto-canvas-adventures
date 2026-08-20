@@ -50,10 +50,10 @@ Introductory hook establishing the problem, essay thesis, or story background...
 ```
 
 ### Frontmatter Fields:
-- **`title`**: String. Clear, specific, and compelling.
+- **`title`**: String. Clear, specific, and compelling. Keep under 58 characters so the generated `<title>` (`Post Title | OhYa.sh`) strictly fits within search engine limits (≤ 70 characters).
 - **`date`**: String formatted as `YYYY-MM-DD`.
 - **`readTime`**: String formatted as `"X min read"`.
-- **`summary`**: 1–2 sentence executive summary highlighting the problem, core insight, or quantitative result.
+- **`summary`**: 1–2 sentence executive summary (aim for 150–160 characters for optimal SERP snippets).
 - **`tags`**: String array (e.g. `["Backend", "System Design", "Python", "Philosophy"]`).
 
 ---
@@ -76,7 +76,7 @@ Introductory hook establishing the problem, essay thesis, or story background...
 
 Before submitting a new post:
 
-1. [ ] **Frontmatter Validated**: `title`, `date`, `readTime`, `summary`, and `tags` are present.
+1. [ ] **Frontmatter Validated**: `title` (≤ 58 chars), `date`, `readTime`, `summary` (150–160 chars), and `tags` are present.
 2. [ ] **Voice Check**: Written in first-person ("I"), confident, high signal, zero filler.
 3. [ ] **Build Check**: Run `npx tsc --noEmit && npm run build` to verify Markdown parsing and static site prerendering (SSG) succeed with `200 OK` route generation.
 4. [ ] **Work Tracker**: Update `dev/project.todo` under `DONE` with the post title and slug.

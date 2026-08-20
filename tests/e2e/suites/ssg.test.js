@@ -113,7 +113,7 @@ export function registerSSGTests() {
       }
 
       const htmlFiles = collectHtmlFiles(distDir);
-      expect(htmlFiles.length).toBeGreaterThanOrEqual(21);
+      expect(htmlFiles.length).toBeGreaterThanOrEqual(SECTIONS.length + travelStories.length);
 
       for (const file of htmlFiles) {
         const html = fs.readFileSync(file, 'utf-8');
@@ -130,6 +130,40 @@ export function registerSSGTests() {
         // OpenGraph and Twitter descriptions must also be present
         expect(html).toContain('property="og:description"');
         expect(html).toContain('name="twitter:description"');
+      }
+    });
+
+    test('All pre-rendered routes have optimal SEO titles (<= 70 characters)', () => {
+      function collectHtmlFiles(dir) {
+        const results = [];
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          const fullPath = path.join(dir, entry.name);
+          if (entry.isDirectory() && entry.name !== 'assets') {
+            results.push(...collectHtmlFiles(fullPath));
+          } else if (entry.name === 'index.html') {
+            results.push(fullPath);
+          }
+        }
+        return results;
+      }
+
+      const htmlFiles = collectHtmlFiles(distDir);
+      expect(htmlFiles.length).toBeGreaterThanOrEqual(SECTIONS.length + travelStories.length);
+
+      for (const file of htmlFiles) {
+        const html = fs.readFileSync(file, 'utf-8');
+        const match = html.match(/<title[^>]*>([^<]*)<\/title>/i);
+
+        expect(match).toBeTruthy();
+        const title = match[1].replace(/&#x27;/g, "'");
+        // Title must be present, meaningful, and strictly <= 70 chars per search engine guidelines
+        expect(title.length).toBeGreaterThanOrEqual(15);
+        expect(title.length).toBeLessThanOrEqual(70);
+
+        // OpenGraph and Twitter titles must also be present
+        expect(html).toContain('property="og:title"');
+        expect(html).toContain('name="twitter:title"');
       }
     });
   });

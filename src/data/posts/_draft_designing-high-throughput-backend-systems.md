@@ -1,12 +1,12 @@
 ---
-title: "[Dummy post] Designing High-Throughput Backend Systems: Lessons from 30M+ Monthly Requests"
+title: "Designing High-Throughput Backends at 30M+ Requests"
 date: "2026-07-28"
 readTime: "8 min read"
 summary: "Core lessons from engineering backend services processing 30M+ monthly requests with sub-150ms p95 latency, resilient caching, and minimal on-call alerts."
 tags: ["Backend", "System Design", "Python", "PostgreSQL", "Performance"]
 ---
 
-# Designing High-Throughput Backend Systems: Lessons from 30M+ Monthly Requests
+# Designing High-Throughput Backends at 30M+ Requests
 
 > This is a dummy post, and not actually manually written by me.
 

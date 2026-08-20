@@ -60,13 +60,13 @@ function parseFrontmatter(rawContent: string, fallbackSlug: string): BlogPost {
   });
 
   return {
-    slug: metadata.slug || fallbackSlug,
-    title: metadata.title || fallbackSlug,
-    date: metadata.date || new Date().toISOString().split('T')[0],
-    readTime: metadata.readTime || '5 min read',
-    summary: metadata.summary || '',
+    slug: (metadata.slug as string) || fallbackSlug,
+    title: (metadata.title as string) || fallbackSlug,
+    date: (metadata.date as string) || new Date().toISOString().split('T')[0],
+    readTime: (metadata.readTime as string) || '5 min read',
+    summary: (metadata.summary as string) || '',
     tags: Array.isArray(metadata.tags) ? metadata.tags : [],
-    videoUrl: metadata.videoUrl || undefined,
+    videoUrl: (metadata.videoUrl as string) || undefined,
     content: markdownBody.trim(),
   };
 }
