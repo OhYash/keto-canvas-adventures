@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-08-21
+Last updated: 2026-09-02
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -37,6 +37,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Agent & IDE integration — AGY / Antigravity 2.0 rules, GEMINI.md, and automated browser verification setup (`.gemini/skills/verify/SKILL.md`).
 
 ### Section & Content Redesigns
+- [x] Published INR Finance Compass Live Build Log & Status — Created living devlog at `src/data/posts/inr-finance-compass-build-log.md` (`/writing/inr-finance-compass-build-log`) documenting self-hosted INR-primary architecture, ledger-derived balances via atomic PL/pgSQL RPCs, polymorphic bank statement importers, anchor-aware net worth trend, 544 passing unit/DB tests, and roadmap; added structured screenshot figure slots in `public/images/posts/inr-finance-compass/`; updated `ProjectsSection` and `NowSection` with cross-links.
 - [x] Home section redesign & 1080p UI optimization — Eliminated nested card-in-card clutter, streamlined vertical margins, integrated production metrics into a clean stat strip, and converted navigation into an uncluttered text list (`HomeSection.tsx`).
 - [x] Contact section redesign — Professional contact grid, location card, social chips (`src/data/contactData.ts`), and base64 obfuscated progressive email disclosure.
 - [x] Writing & Essays section shipped — Registered at (2000, 0) under Work; dynamic markdown post loader (`src/data/posts/`), `ArticleReaderView` with syntax highlighting (`highlight.js`), and first-person engineering essay rewrite.

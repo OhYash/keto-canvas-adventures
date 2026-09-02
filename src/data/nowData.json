@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2026-08-12",
+  "lastUpdated": "2026-09-02",
   "teaser": "Alwar for now, open for full-time & freelance work — focusing on picking the next role before bigger plans.",
   "currentPlans": [
     {
       "category": "Building",
-      "item": "Building Finance Compass (AI-native personal finance) & released Solanum Enhanced v7.2.0 (GNOME Pomodoro app). More details in Projects.",
-      "lastUpdated": "2026-08-12",
-      "internalTarget": "projects"
+      "item": "Actively building INR Finance Compass (self-hosted personal finance engine with atomic ledger balances) — published the live build log in Writing.",
+      "lastUpdated": "2026-09-02",
+      "internalTarget": "writing"
     },
     {
       "category": "Writing",

@@ -41,14 +41,26 @@ export const projectsData: Project[] = [
   },
   {
     title: "INR Finance Compass (WIP)",
-    description: "AI-native personal finance platform built to understand your complete financial context — bank, cards, cash, investments, and long-term goals.",
+    badge: "Active Devlog",
+    description: "A self-hosted, personal finance tracker for INR-primary multi-currency management. Built with atomic ledger-derived balances, ground-truth bank statement anchoring, and zero external APIs.",
     highlights: [
-      "Self-Hosted & INR-Primary: Atomic ledger-derived balances and live financial dashboard.",
-      "Full Context Guidance: Evaluates whole financial picture before offering insights, inspired by LLM codebase context models.",
-      "Active Development: Budgeting engine, CSV import pipeline, and recurring transaction tracking in progress."
+      "Ledger-Derived Balances: Calculated strictly via atomic PL/pgSQL RPCs; DB trigger rejects direct writes to accounts.balance.",
+      "Statement Anchors & Discrepancy Gaps: Anchors running totals to real statement balances and surfaces inline balance gap alerts.",
+      "Polymorphic Bank Importers: OOP engine (HDFC, IndusInd, Generic) for CSV, TSV, and Excel with monotonic ordering.",
+      "High-Performance Passbook: Memoized table rows, native title tooltips, and instant in-memory filtering with 544 passing tests."
     ],
-    technologies: ["React", "TypeScript", "Supabase", "AI-Native"],
+    technologies: ["React 18", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
     url: "https://finance-compass-dev.surge.sh/",
+    links: [
+      {
+        label: "Live Build Log",
+        url: "/writing/inr-finance-compass-build-log",
+      },
+      {
+        label: "Preview App",
+        url: "https://finance-compass-dev.surge.sh/",
+      },
+    ],
   },
   {
     title: "AI-Powered Mental Health Platform",
