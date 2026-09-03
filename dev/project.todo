@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-09-02
+Last updated: 2026-09-03
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -10,6 +10,7 @@ Content critiques and research live in dev/research/, referenced from items here
 ## DONE
 
 ### Code Quality, Simplification & Architecture Modernization
+- [x] Single `<h1>` Invariant on Article Routes & Pre-rendered Pages — Resolved duplicate `<h1>` collision on `/writing/:slug` post routes by ensuring active articles own the single canonical `<h1>` while background canvas sections downgrade to `<h2>`, normalized markdown heading parsing in `ArticleReaderView.tsx` to prevent accidental `<h1>` emissions from markdown body, and added automated E2E tests in `tests/e2e/suites/ssg.test.js` and `routes.test.js` verifying exactly one `<h1>` per pre-rendered HTML page and dynamic post route.
 - [x] Centralize Section Registry (Single Source of Truth) — Unified canonical metadata, routes, display titles, SEO configs, and SSG targets into `src/data/sections.ts`, eliminating the 6-file manual sync across `useSectionManagement.ts`, `AppRoutes.tsx`, `InfiniteCanvas.tsx`, `NavigationBreadcrumb.tsx`, `SEO.tsx`, and `scripts/prerender.js` (see `dev/research/codebase-simplification-analysis.md`).
 - [x] Reusable `<SectionCard>` shell — Built `src/components/canvas/SectionCard.tsx` consolidating duplicate outer card styling, top header row, `<ArrowLeft /> Home` navigation, copy-link button, and dynamic `<h1>`/`<h2>` logic, removing ~400 lines of boilerplate across all 10 section components.
 - [x] Travel stories deep-linking & router synchronization — Synced `/travel/:storyId` in `InfiniteCanvas.tsx`, `TravelStoriesSection.tsx`, `SEO.tsx`, and `scripts/prerender.js`, enabling direct deep-linking and static pre-rendering for all travel stories.

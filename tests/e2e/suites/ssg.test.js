@@ -166,5 +166,30 @@ export function registerSSGTests() {
         expect(html).toContain('name="twitter:title"');
       }
     });
+
+    test('All pre-rendered HTML pages have exactly one <h1> tag', () => {
+      function collectHtmlFiles(dir) {
+        const results = [];
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          const fullPath = path.join(dir, entry.name);
+          if (entry.isDirectory() && entry.name !== 'assets') {
+            results.push(...collectHtmlFiles(fullPath));
+          } else if (entry.name === 'index.html') {
+            results.push(fullPath);
+          }
+        }
+        return results;
+      }
+
+      const htmlFiles = collectHtmlFiles(distDir);
+      expect(htmlFiles.length).toBeGreaterThanOrEqual(SECTIONS.length + travelStories.length);
+
+      for (const file of htmlFiles) {
+        const html = fs.readFileSync(file, 'utf-8');
+        const h1Matches = html.match(/<h1[\s>]/gi) || [];
+        expect(h1Matches.length).toBe(1);
+      }
+    });
   });
 }

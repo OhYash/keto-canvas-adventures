@@ -19,6 +19,7 @@ interface SectionRendererProps {
   allSections: Section[];
   currentSection: string;
   viewportPosition: { x: number; y: number };
+  activeArticleSlug?: string | null;
   activeStoryId?: string | null;
   onNavigateHome: () => void;
   onNavigateToSection: (sectionId: string) => void;
@@ -37,6 +38,7 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({
   allSections,
   currentSection,
   viewportPosition,
+  activeArticleSlug,
   activeStoryId,
   onNavigateHome,
   onNavigateToSection,
@@ -51,7 +53,9 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({
   }, []);
 
   const renderSectionContent = useCallback((section: Section) => {
-    const isActive = currentSection === section.id;
+    // When an article is actively open, ArticleReaderView renders the single canonical <h1>.
+    // Underlying canvas section cards downgrade to <h2> to maintain a single <h1> per page.
+    const isActive = currentSection === section.id && !activeArticleSlug;
     const commonProps = {
       gradient: section.gradient,
       icon: section.icon,
@@ -120,7 +124,7 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({
         {content}
       </ErrorBoundary>
     );
-  }, [currentSection, sections, activeStoryId, onNavigateHome, onNavigateToSection, onSelectArticle, onSelectStory, onBackToList]);
+  }, [currentSection, sections, activeArticleSlug, activeStoryId, onNavigateHome, onNavigateToSection, onSelectArticle, onSelectStory, onBackToList]);
 
   return (
     <>

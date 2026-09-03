@@ -274,14 +274,20 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
       // Headings
       if (line.startsWith('# ')) {
         const headingText = line.slice(2).trim();
-        if (headingText.toLowerCase() === post.title.toLowerCase()) {
+        const normalize = (s: string) =>
+          s
+            .toLowerCase()
+            .replace(/&amp;/g, '&')
+            .replace(/['"]/g, '')
+            .trim();
+        if (normalize(headingText) === normalize(post.title)) {
           i++;
           continue;
         }
         elements.push(
-          <h1 key={i} className="text-3xl sm:text-4xl font-bold text-slate-100 mt-8 mb-4 tracking-tight leading-tight">
+          <h2 key={i} className="text-2xl sm:text-3xl font-semibold text-slate-200 mt-8 mb-4 tracking-tight">
             {parseInlineMarkdown(headingText)}
-          </h1>
+          </h2>
         );
       } else if (line.startsWith('## ')) {
         elements.push(
@@ -294,6 +300,12 @@ export const ArticleReaderView: React.FC<ArticleReaderViewProps> = ({
           <h3 key={i} className="text-xl sm:text-2xl font-semibold text-slate-300 mt-6 mb-3">
             {parseInlineMarkdown(line.slice(4))}
           </h3>
+        );
+      } else if (line.startsWith('#### ')) {
+        elements.push(
+          <h4 key={i} className="text-lg sm:text-xl font-semibold text-slate-300 mt-4 mb-2">
+            {parseInlineMarkdown(line.slice(5))}
+          </h4>
         );
       } else if (line.startsWith('---')) {
         elements.push(<hr key={i} className="my-8 border-slate-700/60" />);

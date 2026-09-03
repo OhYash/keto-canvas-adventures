@@ -322,6 +322,7 @@ export const InfiniteCanvas = () => {
             allSections={allSections}
             currentSection={currentSection}
             viewportPosition={viewportPosition}
+            activeArticleSlug={activeArticleSlug}
             activeStoryId={activeStoryId}
             onNavigateHome={handleNavigateHome}
             onNavigateToSection={handleNavigateToSection}

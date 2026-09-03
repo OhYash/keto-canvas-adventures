@@ -34,9 +34,9 @@ export function registerRoutesTests() {
         const expected = sectionExpectations[section.id] || section.title;
         expect(bodyText).toContain(expected);
 
-        // Verify active <h1> element is present
+        // Verify active <h1> element is present and exactly one exists
         const h1s = await getHeadingTexts(page, 'h1');
-        expect(h1s.length).toBeGreaterThan(0);
+        expect(h1s.length).toBe(1);
       });
     }
 
@@ -48,6 +48,9 @@ export function registerRoutesTests() {
       const bodyText = await getBodyText(page);
       expect(bodyText).toContain('Cherry Blossoms & Technology');
       expect(bodyText).toContain('Tokyo & Kyoto');
+
+      const h1s = await getHeadingTexts(page, 'h1');
+      expect(h1s.length).toBe(1);
     });
 
     test('Direct URL loads dynamic travel story: /travel/iceland-2022', async ({ page, baseUrl }) => {
@@ -58,6 +61,9 @@ export function registerRoutesTests() {
       const bodyText = await getBodyText(page);
       expect(bodyText).toContain('Land of Fire & Ice');
       expect(bodyText).toContain('Northern Lights');
+
+      const h1s = await getHeadingTexts(page, 'h1');
+      expect(h1s.length).toBe(1);
     });
 
     test('Direct URL loads dynamic blog essay: /writing/achieving-82-percent-payload-reduction-on-infinite-canvas', async ({ page, baseUrl }) => {
@@ -68,6 +74,9 @@ export function registerRoutesTests() {
       const bodyText = await getBodyText(page);
       expect(bodyText).toContain('Payload Reduction');
       expect(bodyText).toContain('Discrete 2D Integer Grid');
+
+      const h1s = await getHeadingTexts(page, 'h1');
+      expect(h1s.length).toBe(1);
     });
 
     test('Direct URL loads dynamic blog essay: /writing/building-an-infinite-canvas-portfolio', async ({ page, baseUrl }) => {
@@ -77,6 +86,22 @@ export function registerRoutesTests() {
 
       const bodyText = await getBodyText(page);
       expect(bodyText).toContain('Infinite Canvas');
+
+      const h1s = await getHeadingTexts(page, 'h1');
+      expect(h1s.length).toBe(1);
+    });
+
+    test('Direct URL loads dynamic blog essay: /writing/inr-finance-compass-build-log', async ({ page, baseUrl }) => {
+      const targetUrl = `${baseUrl}/writing/inr-finance-compass-build-log`;
+      await page.goto(targetUrl, { waitUntil: 'domcontentloaded' });
+      await waitForCanvasAnimation(page, 1400);
+
+      const bodyText = await getBodyText(page);
+      expect(bodyText).toContain('INR Finance Compass');
+
+      const h1s = await getHeadingTexts(page, 'h1');
+      expect(h1s.length).toBe(1);
+      expect(h1s[0]).toContain('Building INR Finance Compass');
     });
   });
 }
