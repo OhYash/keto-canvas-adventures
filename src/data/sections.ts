@@ -56,8 +56,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '🏠',
     alwaysExpanded: true,
     seo: {
-      title: 'Yash Yadav (OhYash) – Senior Backend Engineer',
-      description: 'Yash Yadav (OhYash) is a senior Python and Django backend engineer based in India, building scalable distributed systems and high-throughput cloud APIs.',
+      title: 'Yash Yadav – Senior Backend Engineer | OhYa.sh',
+      description: 'Yash Yadav is a senior Python and Django backend engineer based in India, specializing in high-throughput distributed systems and scalable cloud APIs.',
       path: '/',
       breadcrumbs: [{ name: 'Home', item: SITE_URL }],
     },
@@ -129,7 +129,7 @@ export const SECTIONS: SectionDefinition[] = [
     direction: 'left',
     seo: {
       title: 'About Me & Life | Yash Yadav · OhYa.sh',
-      description: 'Personal background, engineering philosophy, and life journey of Yash Yadav (OhYash) — senior backend engineer based in India, builder, reader, and traveler.',
+      description: 'Personal background, engineering philosophy, and life journey of Yash Yadav — senior backend engineer based in India, builder, reader, and world traveler.',
       path: '/personal',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -257,7 +257,7 @@ export const SECTIONS: SectionDefinition[] = [
     parent: 'hobbies',
     seo: {
       title: 'Projects & Code | Yash Yadav · OhYa.sh',
-      description: 'Open-source software, developer tools, and projects built by Yash Yadav (OhYash), including the Solanum Pomodoro timer and INR Finance Compass platform.',
+      description: 'Open-source software, developer tools, and projects built by Yash Yadav, including the Solanum Pomodoro timer and INR Finance Compass financial platform.',
       path: '/projects',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -308,7 +308,7 @@ export const SECTIONS: SectionDefinition[] = [
     direction: 'down',
     seo: {
       title: "Contact Yash Yadav | OhYa.sh",
-      description: 'Get in touch with Yash Yadav (OhYash). Available for senior Python and Django backend engineering roles, technical advisory, freelance consulting, or a chat.',
+      description: 'Get in touch with Yash Yadav. Available for senior Python and Django backend engineering roles, technical advisory, freelance consulting, or a chat.',
       path: '/contact',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
