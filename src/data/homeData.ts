@@ -12,9 +12,9 @@ export interface NavLinkItem {
 }
 
 export const homeData = {
-  badge: "YASH YADAV · SENIOR BACKEND ENGINEER",
+  badge: "YASH YADAV (OHYASH) · SENIOR BACKEND ENGINEER",
   headline: "I own backend systems end-to-end.",
-  subtitle: "7+ years in Python and Django, shipping production infra at scale. Open for freelance and senior roles.",
+  subtitle: "Senior Python and Django software engineer based in India with 7+ years shipping production infrastructure at scale. Open for senior roles and client engagements.",
   canvasIntro: "This portfolio is built on an infinite 2D canvas — because life and experiences are rarely linear. Drag around, explore the grid, and enjoy the site.",
   systemMetric: {
     title: "A system I owned in production, at TestGorilla",

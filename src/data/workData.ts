@@ -23,7 +23,7 @@ export const currentRole: Role = {
   endDate: "August 2026",
   type: "Open for Work",
   description:
-    "Recently wrapped up at TestGorilla after owning core backend systems processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms. Currently available for full-time senior backend roles and freelance client engagements.",
+    "Senior Python and Django software engineer based in India, recently wrapped up at TestGorilla after owning core backend systems processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms. 7+ years building high-scale distributed systems and production cloud infrastructure. Available for full-time senior backend roles and technical consulting engagements.",
 };
 
 export const careerJourney: Role[] = [

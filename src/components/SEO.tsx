@@ -48,12 +48,35 @@ const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug, storyId }) => {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Yash Yadav',
-    jobTitle: 'Senior Backend Engineer & Founder',
+    alternateName: ['OhYash', 'Ohy4sh', 'ohyash'],
+    jobTitle: 'Senior Backend Engineer',
     url: SITE_URL,
+    nationality: {
+      '@type': 'Country',
+      name: 'India',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IN',
+      addressRegion: 'Rajasthan',
+    },
+    knowsAbout: [
+      'Python',
+      'Django',
+      'Backend Engineering',
+      'Distributed Systems',
+      'High-Throughput Systems',
+      'PostgreSQL',
+      'REST APIs',
+      'Cloud Infrastructure',
+      'Software Engineering',
+    ],
     sameAs: [
       'https://github.com/OhYash',
       'https://linkedin.com/in/ohyash',
-      'https://x.com/ohyash',
+      'https://x.com/OhY4sh',
+      'https://instagram.com/OhY4sh',
+      'https://facebook.com/ohy4sh',
     ],
   };
 
@@ -76,10 +99,7 @@ const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug, storyId }) => {
         name: config.title,
         description: config.description,
         url: canonicalUrl,
-        mainEntity: {
-          '@type': 'Person',
-          name: 'Yash Yadav',
-        },
+        mainEntity: personSchema,
       };
 
   const breadcrumbSchema = {
@@ -115,8 +135,8 @@ const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug, storyId }) => {
       <meta name="twitter:title" content={config.title} />
       <meta name="twitter:description" content={config.description} />
       <meta name="twitter:image" content={OG_IMAGE} />
-      <meta name="twitter:site" content="@ohyash" />
-      <meta name="twitter:creator" content="@ohyash" />
+      <meta name="twitter:site" content="@OhY4sh" />
+      <meta name="twitter:creator" content="@OhY4sh" />
 
       {/* Schema.org Structured Data */}
       <script type="application/ld+json">{JSON.stringify(personSchema)}</script>

@@ -30,7 +30,7 @@ export const contactData = {
     description: 'Based in Rajasthan, India · Available for remote work worldwide',
   },
   alsoHere: {
-    description: "Telegram, X (Twitter), and Instagram, if that's more your speed — say hi, share a meme, whatever.",
+    description: "Telegram, X (Twitter), Instagram, and Facebook, if that's more your speed — say hi, share a meme, whatever.",
     links: [
       {
         label: 'Telegram',
@@ -46,6 +46,11 @@ export const contactData = {
         label: 'Instagram',
         handle: '@OhY4sh',
         url: 'https://instagram.com/OhY4sh',
+      },
+      {
+        label: 'Facebook',
+        handle: 'ohy4sh',
+        url: 'https://facebook.com/ohy4sh',
       },
     ] as ContactLink[],
   },

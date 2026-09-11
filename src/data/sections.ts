@@ -56,8 +56,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '🏠',
     alwaysExpanded: true,
     seo: {
-      title: 'OhYa.sh – Senior Backend Engineer',
-      description: 'Yash Yadav – Senior Backend Engineer and founder in progress. 7+ years building high-scale Python/Django distributed systems, APIs, and cloud infrastructure.',
+      title: 'Yash Yadav (OhYash) – Senior Backend Engineer',
+      description: 'Yash Yadav (OhYash) is a senior Python and Django backend engineer based in India, building scalable distributed systems and high-throughput cloud APIs.',
       path: '/',
       breadcrumbs: [{ name: 'Home', item: SITE_URL }],
     },
@@ -78,8 +78,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '💼',
     direction: 'right',
     seo: {
-      title: 'Work & Backend Engineering | OhYa.sh',
-      description: 'Professional backend engineering experience, distributed systems architecture, API design, and production infrastructure shipped at scale by Yash Yadav.',
+      title: 'Work & Experience | Yash Yadav · OhYa.sh',
+      description: 'Professional backend engineering experience by Yash Yadav. 7+ years building high-scale Python and Django distributed systems, APIs, and cloud infrastructure.',
       path: '/work',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -103,8 +103,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '✍️',
     direction: 'right',
     seo: {
-      title: 'Writing & Essays | OhYa.sh',
-      description: 'Technical essays, architecture deep dives, and system design notes by Yash Yadav on high-throughput backend services, performance tuning, and software craft.',
+      title: 'Writing & Essays | Yash Yadav · OhYa.sh',
+      description: 'Technical essays and system architecture notes by Yash Yadav on high-throughput backend services, Python and Django engineering, and infinite canvas design.',
       path: '/writing',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -128,8 +128,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '🧍‍♂️',
     direction: 'left',
     seo: {
-      title: 'About Me & Background | OhYa.sh',
-      description: 'Personal background, engineering philosophy, spoken languages, and life journey of Yash Yadav — backend engineer, builder, reader, and curious tinkerer.',
+      title: 'About Me & Life | Yash Yadav · OhYa.sh',
+      description: 'Personal background, engineering philosophy, and life journey of Yash Yadav (OhYash) — senior backend engineer based in India, builder, reader, and traveler.',
       path: '/personal',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -154,7 +154,7 @@ export const SECTIONS: SectionDefinition[] = [
     direction: 'left',
     parent: 'personal',
     seo: {
-      title: 'Travel Stories & Memories | OhYa.sh',
+      title: 'Travel Stories & Notes | OhYa.sh',
       description: 'Travel stories, field notes, and photo memories from exploring mountains, deserts, fjords, and ancient trails across Japan, Iceland, Peru, and beyond.',
       path: '/travel',
       breadcrumbs: [
@@ -180,7 +180,7 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '🐱',
     direction: 'up',
     seo: {
-      title: 'Keto the Cat | OhYa.sh',
+      title: 'Keto the Cat | Yash Yadav · OhYa.sh',
       description: 'Meet Keto, the golden Persian cat and honorary CEO behind OhYa.sh. Photos, morning pigeon-stalking stories, terrace sunbathing routines, and daily antics.',
       path: '/keto',
       breadcrumbs: [
@@ -205,8 +205,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '🏍️',
     direction: 'up',
     seo: {
-      title: 'Ataco – Triumph Scrambler 400X | OhYa.sh',
-      description: 'Meet Ataco, a khaki green Triumph Scrambler 400X motorcycle. Real photos, custom modifications, gear setup, specs, and riding stories from the open road.',
+      title: 'Ataco – Scrambler 400X | Yash Yadav · OhYa.sh',
+      description: 'Meet Ataco, Yash Yadav\'s khaki green Triumph Scrambler 400X motorcycle. Real photos, custom modifications, gear setup, specs, and riding stories from India.',
       path: '/ataco',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -230,8 +230,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '🎨',
     direction: 'down',
     seo: {
-      title: 'Hobbies & Exploration | OhYa.sh',
-      description: 'Things Yash Yadav builds, explores, and obsesses over outside work — side experiments, motorcycle touring, reading lists, audiobooks, and creative hobbies.',
+      title: 'Hobbies & Exploration | Yash Yadav · OhYa.sh',
+      description: 'Things Yash Yadav builds, explores, and obsesses over outside work — side experiments, motorcycle touring across India, reading lists, and creative hobbies.',
       path: '/hobbies',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -256,8 +256,8 @@ export const SECTIONS: SectionDefinition[] = [
     direction: 'down',
     parent: 'hobbies',
     seo: {
-      title: 'Personal Projects & Code | OhYa.sh',
-      description: 'Open-source software, productivity tools, and side projects built by Yash Yadav, including Solanum Enhanced Pomodoro timer and INR Finance Compass platform.',
+      title: 'Projects & Code | Yash Yadav · OhYa.sh',
+      description: 'Open-source software, developer tools, and projects built by Yash Yadav (OhYash), including the Solanum Pomodoro timer and INR Finance Compass platform.',
       path: '/projects',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -282,8 +282,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '⚡',
     direction: 'down',
     seo: {
-      title: "What I'm Doing Now | OhYa.sh",
-      description: 'A live snapshot of what Yash Yadav is building, reading, learning, and prioritizing right now. Updated regularly with current projects and technical focus.',
+      title: "What I'm Doing Now | Yash Yadav · OhYa.sh",
+      description: 'A live snapshot of what Yash Yadav is building, reading, and learning right now. Updated regularly with current backend engineering focus and active projects.',
       path: '/now',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
@@ -307,8 +307,8 @@ export const SECTIONS: SectionDefinition[] = [
     icon: '📧',
     direction: 'down',
     seo: {
-      title: "Let's Talk & Collaborate | OhYa.sh",
-      description: 'Get in touch with Yash Yadav. Reach out for senior backend engineering roles, architectural consulting, freelance projects, technical advisory, or a chat.',
+      title: "Contact Yash Yadav | OhYa.sh",
+      description: 'Get in touch with Yash Yadav (OhYash). Available for senior Python and Django backend engineering roles, technical advisory, freelance consulting, or a chat.',
       path: '/contact',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },
