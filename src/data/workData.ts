@@ -15,6 +15,14 @@ export interface TechnicalSkillCategory {
   skills: string[];
 }
 
+export interface CompetencyPillar {
+  id: string;
+  title: string;
+  highlight?: boolean;
+  theme: "indigo" | "purple" | "sky" | "emerald" | "amber";
+  skills: string[];
+}
+
 export const currentRole: Role = {
   title: "Senior Backend Engineer",
   company: "Ex-TestGorilla",
@@ -78,20 +86,91 @@ export const careerJourney: Role[] = [
 ];
 
 export const technicalSkills: TechnicalSkillCategory[] = [
-  { category: "Languages", skills: ["Python", "TypeScript", "C#", "SQL"] },
+  { category: "Languages", skills: ["Python", "TypeScript", "SQL", "C/C++", "C#"] },
   {
-    category: "Frameworks",
-    skills: ["Django", "LangChain", "Node.js", ".NET/ASP.NET"],
+    category: "Frameworks & Core",
+    skills: ["Django", "FastAPI", "Node.js", ".NET Core", "React 18"],
   },
   {
-    category: "AI / ML",
-    skills: ["RAG", "Vector Embeddings", "Prompt Engineering", "OpenAI API"],
+    category: "AI & Modern Tooling",
+    skills: ["Claude Code", "Antigravity", "Cursor", "OpenAI API", "RAG", "Vector Embeddings", "LangChain"],
   },
   {
-    category: "Cloud & Infra",
-    skills: ["AWS", "Docker", "PostgreSQL", "Redis", "CI/CD"],
+    category: "Cloud, DB & Infra",
+    skills: ["AWS", "PostgreSQL", "Redis", "Docker", "Supabase", "CI/CD"],
   },
-  { category: "Platforms", skills: ["Linux", "FreeBSD", "Windows"] },
+  { category: "Platforms & Systems", skills: ["Linux Kernel", "FreeBSD", "Windows Driver-level"] },
+];
+
+export const competencyPillars: CompetencyPillar[] = [
+  {
+    id: "architecture",
+    title: "Technical Architecture & System Design",
+    theme: "indigo",
+    skills: [
+      "Distributed Systems (30M+ req/mo, p95 <150ms)",
+      "Microservices & Monolith Decomposition",
+      "Event-Driven Architecture & Async Workflows",
+      "Atomic Ledger Balances & DB Triggers (PL/pgSQL)",
+      "Anti-Fraud Models & Graduated Soft/Hard Blocking",
+      "Role-Based Access Control (RBAC) & HIPAA Principles",
+      "Low-Level Systems Profiling & Memory Leak Optimization (50%+ gains)",
+      "Cross-Team API Contract Design & Architectural RFCs",
+    ],
+  },
+  {
+    id: "ai-toolkit",
+    title: "AI Toolkit & Agentic Workflows",
+    theme: "purple",
+    highlight: true,
+    skills: [
+      "Claude Code · Cursor · Antigravity CLI",
+      "Agentic Workflows & Automated Code Generation",
+      "OpenAI APIs · Structured Outputs · Function Calling",
+      "RAG Architectures & Semantic Search",
+      "Vector Embeddings & Hybrid Retrieval",
+      "LangChain & Prompt Engineering",
+      "Self-Hosted AI Health & Finance Platforms",
+    ],
+  },
+  {
+    id: "cloud-devops",
+    title: "Cloud, Systems & DevOps",
+    theme: "sky",
+    skills: [
+      "AWS (EC2, S3, RDS, Lambda, CloudWatch)",
+      "Docker & Containerized Ubuntu Environments",
+      "CI/CD (GitHub Actions, Azure DevOps)",
+      "Feature Flags & Cohort Rollouts (Flagsmith)",
+      "FreeBSD Systems Engineering & Linux Kernel Configs",
+      "Pre-Boot & Driver-Level Windows Components",
+    ],
+  },
+  {
+    id: "data-databases",
+    title: "Databases & Data Integrity",
+    theme: "emerald",
+    skills: [
+      "PostgreSQL & PL/pgSQL Atomic Functions",
+      "MySQL Database Design & Query Optimization",
+      "Redis In-Memory Caching & Session Stores",
+      "Supabase (PostgreSQL, Row-Level Security, Storage)",
+      "State Machine Transitions & Relational Data Constraints",
+    ],
+  },
+  {
+    id: "leadership-delivery",
+    title: "Engineering Leadership & Delivery",
+    theme: "amber",
+    skills: [
+      "Cross-Functional Architecture Alignment (3+ Teams)",
+      "Company-Wide PR Quality & Engineering Excellence",
+      "Release Management & Deployment Governance",
+      "Mentoring Senior & Mid-Level Engineers to Autonomy",
+      "Ideathon Winner (TestGorilla Croatia, 2024)",
+      "Rapid Prototyping (Solo-built ATS Demo in 2 Days)",
+    ],
+  },
 ];
 
 export const dailyTasks: string[] = [

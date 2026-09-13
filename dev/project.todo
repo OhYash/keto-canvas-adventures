@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-09-11
+Last updated: 2026-09-14
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -51,6 +51,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - [x] Published "Nobody Needed a 2D Canvas Portfolio" essay — Published new post at `src/data/posts/nobody-needed-a-2d-canvas-portfolio.md` showcasing 60 FPS GPU compositor rendering, the spatial map logic (cat & motorcycle above Home), under 20KB on-demand payloads, and privacy-respecting architecture.
 - [x] Converted UI screencast to GIF & embedded in essay — Converted `public/personal/screeN-rec_ui_m2.mp4` to an optimized, high-fidelity 256-color GIF (`public/images/posts/canvas-card-navigation-demo.gif`) via `ffmpeg` (lanczos scaling, diff palette) and `imagemagick` layer optimization (4.5 MB), and embedded it in `src/data/posts/nobody-needed-a-2d-canvas-portfolio.md` showcasing rapid card-to-card spatial navigation.
 - [x] Information Architecture & Pointer Graph Optimization — Decoupled Writing from Work (`parent: undefined`) to elevate it into a primary publication pillar with direct link on Home (`homeData.ts`) and independent breadcrumbs (`Home > Writing & Essays`); decoupled Ataco from Keto (`parent: undefined`) to fix breadcrumbs (`Home > Ataco`) and linked Ataco directly from Hobbies ("Motorbike reviews" card in `hobbiesData.ts` & `HobbiesSection.tsx`); streamlined Personal (`PersonalSection.tsx`) by removing 3 redundant full-width directory cards (`/keto`, `/hobbies`, `/contact`), preserving a clean narrative flow with a focused bridge to Travel Stories (`/travel`).
+- [x] Collapsible Technical Competency & Architecture Matrix on /work — Upgraded technical skills data layer in `src/data/workData.ts` with authentic 5-pillar competency matrix (Technical Architecture & Distributed Systems, AI Toolkit & Agentic Workflows with purple spotlight, Cloud/DevOps & Systems Engineering, Databases & Data Integrity, and Engineering Leadership); implemented an expandable drawer in `WorkSection.tsx` keeping primary core stack concise while offering full architectural breakdown on demand; added automated E2E test verifying expand/collapse states in `tests/e2e/suites/interactions.test.js` (41 passing tests).
 - [x] Voice & Copy polish — Removed boilerplate badges/quotes, updated LinkedIn profile data, reframed headline to founder-forward voice ("Engineer today, founder in progress.").
 
 ### SEO, Performance & Static Site Generation

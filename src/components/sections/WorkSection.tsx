@@ -8,9 +8,21 @@ import {
   ChevronUp,
   Code,
   Download,
+  Cpu,
+  Sparkles,
+  Layers,
+  Server,
+  Database,
+  Award,
 } from "lucide-react";
 import SectionCard from "@/components/canvas/SectionCard";
-import { currentRole, careerJourney, technicalSkills, dailyTasks } from "@/data/workData";
+import {
+  currentRole,
+  careerJourney,
+  technicalSkills,
+  competencyPillars,
+  dailyTasks,
+} from "@/data/workData";
 
 interface WorkSectionProps {
   gradient: string;
@@ -32,6 +44,41 @@ const WorkSection: React.FC<WorkSectionProps> = ({
   onNavigateToSection,
 }) => {
   const [showAllExperience, setShowAllExperience] = useState(false);
+  const [showCompetencyMatrix, setShowCompetencyMatrix] = useState(false);
+
+  const getPillarIcon = (id: string) => {
+    switch (id) {
+      case "architecture":
+        return <Layers className="w-4 h-4 text-indigo-600" />;
+      case "ai-toolkit":
+        return <Sparkles className="w-4 h-4 text-purple-600" />;
+      case "cloud-devops":
+        return <Server className="w-4 h-4 text-sky-600" />;
+      case "data-databases":
+        return <Database className="w-4 h-4 text-emerald-600" />;
+      case "leadership-delivery":
+        return <Award className="w-4 h-4 text-amber-600" />;
+      default:
+        return <Cpu className="w-4 h-4 text-slate-700" />;
+    }
+  };
+
+  const getBadgeStyle = (theme: string) => {
+    switch (theme) {
+      case "purple":
+        return "bg-purple-100 text-purple-900 border-purple-200 hover:bg-purple-200/80";
+      case "indigo":
+        return "bg-indigo-100 text-indigo-900 border-indigo-200 hover:bg-indigo-200/80";
+      case "sky":
+        return "bg-sky-100 text-sky-900 border-sky-200 hover:bg-sky-200/80";
+      case "emerald":
+        return "bg-emerald-100 text-emerald-900 border-emerald-200 hover:bg-emerald-200/80";
+      case "amber":
+        return "bg-amber-100 text-amber-900 border-amber-200 hover:bg-amber-200/80";
+      default:
+        return "bg-blue-100 text-blue-800 border-transparent";
+    }
+  };
 
   const handleOpportunitiesClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -150,24 +197,33 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         </div>
       </div>
 
-      {/* Technical Skills */}
+      {/* Technical Skills & Competencies */}
       <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-        <h3 className="text-lg font-bold text-slate-900 mb-3">
-          Technical Skills
-        </h3>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-slate-800" />
+            <h3 className="text-lg font-bold text-slate-900">
+              Technical Skills & Competencies
+            </h3>
+          </div>
+          <span className="text-xs text-slate-500 font-medium hidden sm:inline">
+            7+ Years Production
+          </span>
+        </div>
 
+        {/* Primary At-A-Glance Skills */}
         <div className="space-y-3">
           {technicalSkills.map((skillGroup, index) => (
             <div key={index}>
-              <h4 className="font-semibold text-slate-800 text-sm mb-2">
+              <h4 className="font-semibold text-slate-800 text-sm mb-1.5">
                 {skillGroup.category}
               </h4>
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1.5">
                 {skillGroup.skills.map((skill, skillIndex) => (
                   <Badge
                     key={skillIndex}
                     variant="secondary"
-                    className="text-xs bg-blue-100 text-blue-800"
+                    className="text-xs bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
                   >
                     {skill}
                   </Badge>
@@ -176,6 +232,78 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             </div>
           ))}
         </div>
+
+        {/* Collapsible Detailed Competency & Architecture Matrix */}
+        {showCompetencyMatrix && (
+          <div className="mt-4 pt-4 border-t border-slate-200 space-y-3 animate-in fade-in-50 duration-200">
+            <div className="flex items-center justify-between">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                Deep Competency & Architecture Matrix
+              </h4>
+              <span className="text-[11px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                5 Focus Pillars
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2.5">
+              {competencyPillars.map((pillar) => (
+                <div
+                  key={pillar.id}
+                  className={`rounded-lg p-3 border transition-all ${
+                    pillar.highlight
+                      ? "bg-purple-50/70 border-purple-200/90 shadow-sm"
+                      : "bg-slate-50/80 border-slate-200/80"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    {getPillarIcon(pillar.id)}
+                    <h5
+                      className={`text-sm font-bold ${
+                        pillar.highlight ? "text-purple-950" : "text-slate-900"
+                      }`}
+                    >
+                      {pillar.title}
+                    </h5>
+                    {pillar.highlight && (
+                      <Badge className="ml-auto text-[10px] bg-purple-600 text-white hover:bg-purple-700 py-0 px-1.5">
+                        Modern Stack
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {pillar.skills.map((skill, sIdx) => (
+                      <Badge
+                        key={sIdx}
+                        variant="secondary"
+                        className={`text-xs border ${getBadgeStyle(pillar.theme)}`}
+                      >
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Toggle Button */}
+        <button
+          onClick={() => setShowCompetencyMatrix(!showCompetencyMatrix)}
+          className="w-full mt-4 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all duration-200 text-sm font-medium flex items-center justify-center gap-2 border border-slate-300"
+        >
+          {showCompetencyMatrix ? (
+            <>
+              <ChevronUp className="w-4 h-4" />
+              Collapse Competency Matrix
+            </>
+          ) : (
+            <>
+              <ChevronDown className="w-4 h-4" />
+              View Full Architecture & Competency Matrix (5 Pillars)
+            </>
+          )}
+        </button>
       </div>
 
       {/* Daily Responsibilities */}

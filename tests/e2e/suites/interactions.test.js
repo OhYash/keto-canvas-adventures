@@ -183,5 +183,57 @@ export function registerInteractionsTests() {
       bodyText = await getBodyText(page);
       expect(bodyText).toContain('Adventures & Memories');
     });
+
+    test('Work Section: Technical Competency Matrix expands and collapses on button click', async ({ page, baseUrl }) => {
+      await page.goto(`${baseUrl}/work`, { waitUntil: 'domcontentloaded' });
+      await waitForCanvasAnimation(page, 1500);
+
+      // Verify initial state has technical skills but matrix is collapsed
+      let bodyText = await getBodyText(page);
+      expect(bodyText).toContain('Technical Skills & Competencies');
+      expect(bodyText).toContain('View Full Architecture & Competency Matrix');
+      expect(bodyText).not.toContain('Deep Competency & Architecture Matrix');
+
+      // Click to expand matrix
+      const expanded = await page.evaluate(() => {
+        const btn = Array.from(document.querySelectorAll('button')).find((b) =>
+          b.textContent?.includes('View Full Architecture & Competency Matrix')
+        );
+        if (btn) {
+          btn.click();
+          return true;
+        }
+        return false;
+      });
+
+      expect(expanded).toBe(true);
+      await waitForCanvasAnimation(page, 500);
+
+      // Verify matrix is expanded
+      bodyText = await getBodyText(page);
+      expect(bodyText).toContain('AI Toolkit & Agentic Workflows');
+      expect(bodyText).toContain('Technical Architecture & System Design');
+      expect(bodyText).toContain('Collapse Competency Matrix');
+
+      // Click to collapse matrix
+      const collapsed = await page.evaluate(() => {
+        const btn = Array.from(document.querySelectorAll('button')).find((b) =>
+          b.textContent?.includes('Collapse Competency Matrix')
+        );
+        if (btn) {
+          btn.click();
+          return true;
+        }
+        return false;
+      });
+
+      expect(collapsed).toBe(true);
+      await waitForCanvasAnimation(page, 500);
+
+      // Verify matrix is collapsed again
+      bodyText = await getBodyText(page);
+      expect(bodyText).not.toContain('AI Toolkit & Agentic Workflows');
+      expect(bodyText).toContain('View Full Architecture & Competency Matrix');
+    });
   });
 }
