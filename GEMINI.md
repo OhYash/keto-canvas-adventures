@@ -26,14 +26,14 @@ npm test             # Alias for npm run test:e2e
 npx tsc --noEmit     # Type check
 ```
 
-Note: For tasks requiring Chrome/Chromium (such as Lighthouse CLI), Vivaldi is available on this system at `/usr/bin/vivaldi` (`CHROME_PATH=/usr/bin/vivaldi`).
+Note: Machine-specific environment configuration (e.g. headless setups, available browser paths) is documented in `AGENTS.local.md` (gitignored).
 
 Deploy: push to `main` → GitHub Pages via `.github/workflows/deploy.yml`.
 `make surge` deploys `dist/` to the surge preview URL.
 
 ## Verification
 
-Before declaring tasks complete after UI, section, routing, or navigation changes, run the automated E2E test suite via `npm test` or `npm run test:e2e` (or `.gemini/skills/verify/SKILL.md`). **Maintain and extend the test suites in `tests/e2e/suites/` — do not create temporary ad-hoc scratch scripts.**
+Before declaring tasks complete after UI, section, routing, or navigation changes, verify via `npx tsc --noEmit && npm run lint && npm run build`. In desktop/browser environments supporting E2E, run the automated E2E test suite via `npm test` or `npm run test:e2e` (see `AGENTS.local.md` and `.gemini/skills/verify/SKILL.md`). **Maintain and extend the test suites in `tests/e2e/suites/` — do not create temporary ad-hoc scratch scripts.**
 
 ## Architecture
 
