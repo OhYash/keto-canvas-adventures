@@ -3,7 +3,7 @@ title: "Designing High-Throughput Backends at 30M+ Requests"
 date: "2026-07-28"
 readTime: "8 min read"
 summary: "Core lessons from engineering backend services processing 30M+ monthly requests with sub-150ms p95 latency, resilient caching, and minimal on-call alerts."
-tags: ["Backend", "System Design", "Python", "PostgreSQL", "Performance"]
+tags: ["Architecture", "System Design", "Performance"]
 ---
 
 # Designing High-Throughput Backends at 30M+ Requests

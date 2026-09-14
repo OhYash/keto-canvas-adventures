@@ -41,7 +41,7 @@ title: "Achieving an 82% Page Payload Reduction on an Infinite Canvas Portfolio"
 date: "2026-08-13"
 readTime: "5 min read"
 summary: "How I diagnosed and eliminated the 'all-sections-in-one-DOM' trap on an infinite 2D canvas, slashing pre-rendered page payload by 82% (173KB to 32KB) while preserving hardware-accelerated 60 FPS panning."
-tags: ["React", "SSG", "Performance", "SEO", "Vite", "Canvas"]
+tags: ["Architecture", "Performance", "Research"]
 ---
 
 # Title Matching Frontmatter
@@ -54,7 +54,7 @@ Introductory hook establishing the problem, essay thesis, or story background...
 - **`date`**: String formatted as `YYYY-MM-DD`.
 - **`readTime`**: String formatted as `"X min read"`.
 - **`summary`**: 1–2 sentence executive summary (aim for 150–160 characters for optimal SERP snippets).
-- **`tags`**: String array (e.g. `["Backend", "System Design", "Python", "Philosophy"]`).
+- **`tags`**: String array with **1–3 high-level tags maximum** (e.g. `["Architecture", "Research"]`, `["Architecture", "Performance"]`, `["Architecture", "Philosophy"]`, `["Architecture", "Build Log"]`). **Never use StackOverflow-style tech stack tags** (e.g., React, TypeScript, Supabase, Vite, etc.) — readers filter by high-level domains and conceptual topics, not granular libraries.
 
 ---
 
@@ -76,7 +76,7 @@ Introductory hook establishing the problem, essay thesis, or story background...
 
 Before submitting a new post:
 
-1. [ ] **Frontmatter Validated**: `title` (≤ 58 chars), `date`, `readTime`, `summary` (150–160 chars), and `tags` are present.
+1. [ ] **Frontmatter Validated**: `title` (≤ 58 chars), `date`, `readTime`, `summary` (150–160 chars), and `tags` (1–3 high-level tags, no stackoverflow/library tags) are present.
 2. [ ] **Voice Check**: Written in first-person ("I"), confident, high signal, zero filler.
 3. [ ] **Build Check**: Run `npx tsc --noEmit && npm run build` to verify Markdown parsing and static site prerendering (SSG) succeed with `200 OK` route generation.
 4. [ ] **Work Tracker**: Update `dev/project.todo` under `DONE` with the post title and slug.

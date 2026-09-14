@@ -65,7 +65,9 @@ function parseFrontmatter(rawContent: string, fallbackSlug: string): BlogPost {
     date: (metadata.date as string) || new Date().toISOString().split('T')[0],
     readTime: (metadata.readTime as string) || '5 min read',
     summary: (metadata.summary as string) || '',
-    tags: Array.isArray(metadata.tags) ? metadata.tags : [],
+    tags: Array.isArray(metadata.tags)
+      ? (metadata.tags as string[]).map((t) => String(t).trim()).filter(Boolean).slice(0, 3)
+      : [],
     videoUrl: (metadata.videoUrl as string) || undefined,
     content: markdownBody.trim(),
   };
@@ -101,5 +103,5 @@ export const getPostBySlug = (slug: string): BlogPost | undefined => {
 export const getAllTags = (): string[] => {
   const tagSet = new Set<string>();
   BLOG_POSTS.forEach(post => post.tags.forEach(tag => tagSet.add(tag)));
-  return Array.from(tagSet);
+  return Array.from(tagSet).sort((a, b) => a.localeCompare(b));
 };

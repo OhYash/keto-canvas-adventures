@@ -3,7 +3,7 @@ title: "Achieving 85% Payload Reduction on an Infinite Canvas"
 date: "2026-08-17"
 readTime: "6 min read"
 summary: "How I eliminated the all-sections-in-one-DOM trap on a 2D canvas portfolio, fixed CSS transform bugs, and slashed pre-rendered HTML payload from 173KB to 19KB."
-tags: ["React", "SSG", "Performance", "SEO", "Vite", "Canvas", "CSS Architecture"]
+tags: ["Architecture", "Performance", "Research"]
 ---
 
 # Achieving 85% Payload Reduction on an Infinite Canvas

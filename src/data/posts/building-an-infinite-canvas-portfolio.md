@@ -3,7 +3,7 @@ title: "Building an Infinite 2D Canvas Portfolio with SSG"
 date: "2026-08-12"
 readTime: "6 min read"
 summary: "Why 2D spatial navigation creates a tactile digital brain experience, and how it evolved into a hardware-accelerated, static pre-rendered portfolio platform."
-tags: ["React", "TypeScript", "UI Architecture", "Canvas", "SEO", "SSG"]
+tags: ["Architecture", "Research"]
 ---
 
 # Building an Infinite 2D Canvas Portfolio with SSG

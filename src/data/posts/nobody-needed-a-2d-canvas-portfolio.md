@@ -3,7 +3,7 @@ title: "Nobody Needed a 2D Canvas Portfolio. I Built One Anyway"
 date: "2026-08-17"
 readTime: "4 min read"
 summary: "Why I built an infinite 2D canvas portfolio with 60 FPS rendering, placed my cat and motorcycle above Home, and engineered on-demand loading under 20KB."
-tags: ["Architecture", "Performance", "UI/UX", "Vite", "Canvas", "Philosophy"]
+tags: ["Architecture", "Philosophy"]
 ---
 
 # Nobody Needed a 2D Canvas Portfolio. I Built One Anyway

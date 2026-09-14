@@ -3,7 +3,7 @@ title: "Building INR Finance Compass: Public Devlog & Status"
 date: "2026-09-02"
 readTime: "6 min read"
 summary: "A live build log and architecture audit of INR Finance Compass, a self-hosted personal finance engine with atomic ledger balances and zero external APIs."
-tags: ["Build Log", "Personal Finance", "Supabase", "React", "TypeScript", "Architecture"]
+tags: ["Architecture", "Build Log"]
 ---
 
 # Building INR Finance Compass: Public Devlog & Status
