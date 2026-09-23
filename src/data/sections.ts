@@ -298,7 +298,7 @@ export const SECTIONS: SectionDefinition[] = [
   },
   {
     id: 'contact',
-    title: "Let's Talk",
+    title: "Get in touch.",
     subtitle: 'Reach out about roles, freelance work, or collaboration.',
     breadcrumbName: 'Contact Me',
     grid: { col: -1, row: 1 },

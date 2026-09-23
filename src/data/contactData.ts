@@ -30,7 +30,7 @@ export const contactData = {
     description: 'Based in Rajasthan, India · Available for remote work worldwide',
   },
   alsoHere: {
-    description: "Telegram, X (Twitter), and Instagram, if that's more your speed — say hi, share a meme, whatever.",
+    description: "Prefer something less formal? Say hi, send a meme, or just follow along.",
     links: [
       {
         label: 'Telegram',

@@ -16,7 +16,7 @@ export function registerRoutesTests() {
       hobbies: 'My Hobbies',
       projects: 'Featured Projects',
       now: 'Currently',
-      contact: "Let's Talk",
+      contact: "Get in touch.",
     };
 
     for (const section of SECTIONS) {
@@ -116,7 +116,7 @@ export function registerRoutesTests() {
 
       // Verify contact section heading & content are visible
       const bodyText = await getBodyText(page);
-      expect(bodyText).toContain("Let's Talk");
+      expect(bodyText).toContain("Get in touch.");
       expect(bodyText).toContain('Reach out about roles');
       expect(bodyText.toLowerCase()).toContain('primary contact');
 
