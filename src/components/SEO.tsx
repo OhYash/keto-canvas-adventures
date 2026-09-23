@@ -76,7 +76,6 @@ const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug, storyId }) => {
       'https://linkedin.com/in/ohyash',
       'https://x.com/OhY4sh',
       'https://instagram.com/OhY4sh',
-      'https://facebook.com/ohy4sh',
     ],
   };
 

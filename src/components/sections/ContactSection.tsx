@@ -5,7 +5,6 @@ import {
   Github,
   Linkedin,
   Instagram,
-  Facebook,
   Copy,
   Check,
   ExternalLink,
@@ -204,9 +203,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               )}
               {link.label === 'Instagram' && (
                 <Instagram className="w-4 h-4 text-pink-500 group-hover:scale-110 transition-transform" />
-              )}
-              {link.label === 'Facebook' && (
-                <Facebook className="w-4 h-4 text-[#1877F2] group-hover:scale-110 transition-transform" />
               )}
               <span className="flex items-center gap-1.5">
                 <span className="font-semibold text-slate-800 group-hover:text-indigo-600 transition-colors">
