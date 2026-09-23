@@ -1,10 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import HelloRedirect from "./pages/HelloRedirect";
 import { SECTION_ROUTES } from "./data/sections";
 
 export const AppRoutes = () => (
   <Routes>
+    {/* Visiting card QR entrypoint */}
+    <Route path="/hello" element={<HelloRedirect />} />
+
     {/* All registered section routes render Index canvas */}
     {SECTION_ROUTES.map((path) => (
       <Route key={path} path={path} element={<Index />} />

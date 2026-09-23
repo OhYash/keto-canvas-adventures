@@ -103,5 +103,26 @@ export function registerRoutesTests() {
       expect(h1s.length).toBe(1);
       expect(h1s[0]).toContain('Building INR Finance Compass');
     });
+
+    test('Visiting card URL /hello?src=c1 redirects to /contact?src=c1 with Contact section active', async ({ page, baseUrl }) => {
+      const targetUrl = `${baseUrl}/hello?src=c1`;
+      await page.goto(targetUrl, { waitUntil: 'domcontentloaded' });
+      await waitForCanvasAnimation(page, 1400);
+
+      // Verify URL redirected to /contact with preserved query params
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('/contact');
+      expect(currentUrl).toContain('src=c1');
+
+      // Verify contact section heading & content are visible
+      const bodyText = await getBodyText(page);
+      expect(bodyText).toContain("Let's Talk");
+      expect(bodyText).toContain('Reach out about roles');
+      expect(bodyText.toLowerCase()).toContain('primary contact');
+
+      // Verify active <h1> element is present
+      const h1s = await getHeadingTexts(page, 'h1');
+      expect(h1s.length).toBe(1);
+    });
   });
 }

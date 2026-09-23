@@ -44,6 +44,9 @@ async function prerender() {
   // Derive static section routes directly from canonical registry
   const routes = [...SECTION_ROUTES];
 
+  // Dedicated visiting card redirect entrypoint
+  routes.push('/hello');
+
   // Discover travel story sub-routes
   for (const story of travelStories) {
     routes.push(`/travel/${story.id}`);
@@ -126,7 +129,9 @@ async function prerender() {
     }
   }
 
-  const sitemapEntries = routes.map((routePath) => {
+  const sitemapEntries = routes
+    .filter((routePath) => routePath !== '/hello')
+    .map((routePath) => {
     const config = SECTION_SITEMAP_CONFIGS[routePath] || {
       changefreq: routePath.startsWith('/writing/') || routePath.startsWith('/travel/') ? 'monthly' : 'monthly',
       priority: routePath.startsWith('/writing/') ? '0.8' : routePath.startsWith('/travel/') ? '0.6' : '0.7',
@@ -158,7 +163,7 @@ ${sitemapEntries.join('\n')}
   }
 
   fs.writeFileSync(distSitemapPath, sitemapXml, 'utf-8');
-  console.log(` 🗺️  Sitemap generated & synchronized: ${routes.length} URLs -> public/sitemap.xml & dist/sitemap.xml`);
+  console.log(` 🗺️  Sitemap generated & synchronized: ${sitemapEntries.length} URLs -> public/sitemap.xml & dist/sitemap.xml`);
 
   console.log(' Static site pre-rendering (SSG) completed successfully!');
 }

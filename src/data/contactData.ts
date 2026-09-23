@@ -49,7 +49,7 @@ export const contactData = {
       },
       {
         label: 'Facebook',
-        handle: 'ohy4sh',
+        handle: '@OhY4sh',
         url: 'https://facebook.com/ohy4sh',
       },
     ] as ContactLink[],

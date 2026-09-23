@@ -19,21 +19,26 @@ interface UmamiEventData {
   navigation_method?: 'keyboard' | 'mouse' | 'direct';
   from_section?: string;
   to_section?: string;
+  source?: string;
+  target?: string;
+  url?: string;
+  [key: string]: unknown;
 }
 
 export const useUmamiTracking = () => {
   const trackEvent = useCallback((eventName: string, data?: UmamiEventData) => {
     // Only track in production environments
-    const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     
     // Check if umami is available and loaded
     if (typeof window !== 'undefined' && window.umami && isProduction) {
       try {
+        const fullUrl = window.location.pathname + (window.location.search || '');
         const eventData = {
           ...data,
           timestamp: Date.now(),
           user_agent: navigator.userAgent,
-          url: window.location.pathname,
+          url: fullUrl,
         };
         
         window.umami.track(eventName, eventData);
@@ -74,11 +79,21 @@ export const useUmamiTracking = () => {
     });
   }, [trackEvent]);
 
+  const trackCardScan = useCallback((source: string, targetSection: string = 'contact') => {
+    trackEvent('card-scan', {
+      source,
+      card_id: source,
+      to_section: targetSection,
+      from_section: 'hello',
+    });
+  }, [trackEvent]);
+
   return {
     trackEvent,
     trackSectionVisit,
     trackCardView,
     trackSectionExit,
     trackNavigationFlow,
+    trackCardScan,
   };
 };
