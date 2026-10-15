@@ -9,6 +9,9 @@ Content critiques and research live in dev/research/, referenced from items here
 
 ## DONE
 
+### Content & Now Page Updates
+- [x] Update /now page data — Refreshed `src/data/nowData.json` with Balkan travel status (Albania), job search / freelance / cofounder match availability, project timeline (resuming Oct 26), Scrambler 400X & Hornback X1 bicycle status, and gym pause; preserved authentic unchanged timestamps on Writing essay link; bumped `now` sitemap `lastmod` in `src/data/sections.ts`.
+
 ### Visiting Card & Navigation Enhancements
 - [x] Visiting Card Contextual Resume & Opportunities Badge — Added configurable availability toggle (`isOpenToWork`), opportunities badge ("Open for full-time & freelance opportunities"), and resume download on Contact section (`ContactSection.tsx`, `contactData.ts`) conditionally revealed when redirected from `/hello` visiting card QR code (via `sessionStorage` attribution and `?src=...` query parameter); guaranteed fallback `?src=c1` query param preservation in `HelloRedirect.tsx`; added automated test assertions in `tests/e2e/suites/routes.test.js` validating that visiting card referral surfaces the badge while direct `/contact` navigation leaves it hidden.
 - [x] Visiting Card QR Landing Route (`/hello?src=c1`) & Umami Analytics Tracking — Added dedicated visiting card route at `/hello` that tracks QR scans via custom Umami event `card-scan` (capturing `source: 'c1'`, target, and timestamp) and `sessionStorage` attribution, then seamlessly redirects to `/contact?src=c1` while displaying a welcome toast; pre-rendered `/hello` in SSG (`scripts/prerender.js`) for instant 200 OK delivery on GitHub Pages with `noindex` SEO metadata; resolved GitHub Pages SPA parameter loss by updating `index.html` to parse both `p` and `q` redirect parameters; added automated E2E test in `tests/e2e/suites/routes.test.js` (42 passing tests).

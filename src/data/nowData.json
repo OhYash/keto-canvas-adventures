@@ -1,11 +1,22 @@
 {
-  "lastUpdated": "2026-09-02",
-  "teaser": "Alwar for now, open for full-time & freelance work — focusing on picking the next role before bigger plans.",
+  "lastUpdated": "2026-10-16",
+  "teaser": "Traveling through the Balkans (mostly Albania) until late October. Open for full-time roles, freelance, or co-founder matching.",
   "currentPlans": [
     {
+      "category": "Travel",
+      "item": "Currently traveling through the Balkans since Sep 15 (mainly Albania), getting back around Oct 24.",
+      "lastUpdated": "2026-10-16"
+    },
+    {
+      "category": "Work",
+      "item": "Finished up with TestGorilla in August — actively open for full-time roles, freelance, or co-founder match.",
+      "lastUpdated": "2026-10-16",
+      "internalTarget": "contact"
+    },
+    {
       "category": "Building",
-      "item": "Actively building INR Finance Compass (self-hosted personal finance engine with atomic ledger balances) — published the live build log in Writing.",
-      "lastUpdated": "2026-09-02",
+      "item": "Projects on hold while traveling — resuming builds on Monday, Oct 26.",
+      "lastUpdated": "2026-10-16",
       "internalTarget": "writing"
     },
     {
@@ -15,30 +26,14 @@
       "internalTarget": "writing"
     },
     {
-      "category": "Work",
-      "item": "Finished up with TestGorilla — actively looking for full-time roles and freelance clients.",
-      "lastUpdated": "2026-08-07",
-      "internalTarget": "contact"
-    },
-    {
-      "category": "Location",
-      "item": "Based in Alwar for now, focusing on picking my next role before making any big location or travel plans.",
-      "lastUpdated": "2026-08-07"
-    },
-    {
-      "category": "Travel",
-      "item": "Europe trip is off the table — focusing on securing the next role before thinking about bigger plans.",
-      "lastUpdated": "2026-08-07"
-    },
-    {
       "category": "Riding",
-      "item": "Still on the Scrambler 400X — weekend rides, nothing major. No group ride on the calendar right now.",
-      "lastUpdated": "2026-07-12"
+      "item": "Scrambler 400X and Hornback X1 bicycle parked at home, waiting for my return.",
+      "lastUpdated": "2026-10-16"
     },
     {
       "category": "Routine",
-      "item": "Try for the gym in the morning, mostly end up going in the evening.",
-      "lastUpdated": "2026-07-12"
+      "item": "No gym while traveling.",
+      "lastUpdated": "2026-10-16"
     }
   ]
 }
