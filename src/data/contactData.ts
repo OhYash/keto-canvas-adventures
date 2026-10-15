@@ -7,6 +7,9 @@ export interface ContactLink {
 }
 
 export const contactData = {
+  isOpenToWork: true,
+  resumeUrl: '/personal/Yash-resume-s.pdf',
+  opportunitiesBadge: 'Open for full-time & freelance opportunities',
   primaryContact: {
     label: 'Email',
     // Base64 encoded email to protect from scrapers (decoded via atob at runtime)

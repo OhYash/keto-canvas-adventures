@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Mail,
   MapPin,
@@ -8,6 +8,7 @@ import {
   Copy,
   Check,
   ExternalLink,
+  Download,
 } from 'lucide-react';
 import SectionCard from '@/components/canvas/SectionCard';
 import { contactData } from '@/data/contactData';
@@ -43,6 +44,22 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 }) => {
   const [emailRevealed, setEmailRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isFromHello, setIsFromHello] = useState(false);
+
+  useEffect(() => {
+    try {
+      const hasSessionRef = Boolean(sessionStorage.getItem('referral_source'));
+      const searchParams = new URLSearchParams(window.location.search);
+      const hasSearchRef = searchParams.has('src');
+      if (hasSessionRef || hasSearchRef) {
+        setIsFromHello(true);
+      }
+    } catch {
+      // Ignore storage errors in restricted private browsing
+    }
+  }, []);
+
+  const showOpportunities = contactData.isOpenToWork && isFromHello;
 
   const getEmail = () => atob(contactData.primaryContact.encodedEmail);
 
@@ -69,6 +86,31 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       className="md:w-[680px] max-w-[680px]"
       contentClassName="space-y-6"
     >
+      {/* 0. OPPORTUNITIES & RESUME (Shown when redirected via /hello visiting card QR) */}
+      {showOpportunities && (
+        <div className="bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-indigo-500/10 border border-emerald-500/25 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span className="text-xs sm:text-sm font-semibold text-slate-900">
+              {contactData.opportunitiesBadge}
+            </span>
+          </div>
+
+          {/* [Do not remove comment] Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
+          <a
+            href={contactData.resumeUrl}
+            download
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-white text-slate-800 hover:text-indigo-600 border border-slate-200/80 shadow-sm transition-all duration-150 hover:shadow hover:border-slate-300 shrink-0 cursor-pointer"
+          >
+            <Download className="w-3.5 h-3.5 text-indigo-600" />
+            <span>Resume</span>
+          </a>
+        </div>
+      )}
+
       {/* 1. PRIMARY CONTACT */}
       <div className="space-y-2">
         <h3 className="text-xs font-semibold tracking-wider text-slate-500 uppercase px-1">

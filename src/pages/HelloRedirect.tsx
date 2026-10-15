@@ -35,13 +35,15 @@ const HelloRedirect: React.FC = () => {
     navigate(
       {
         pathname: '/contact',
-        search: location.search,
+        search: location.search || `?src=${src}`,
       },
       { replace: true }
     );
   }, [location.search, navigate, trackCardScan]);
 
-  const targetUrl = `/contact${location.search}`;
+  const searchParams = new URLSearchParams(location.search);
+  const src = searchParams.get('src') || 'c1';
+  const targetUrl = `/contact${location.search || `?src=${src}`}`;
 
   return (
     <div className="min-h-screen w-full bg-[#070b14] flex items-center justify-center p-4 text-slate-200">

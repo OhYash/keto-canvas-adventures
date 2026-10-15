@@ -119,10 +119,23 @@ export function registerRoutesTests() {
       expect(bodyText).toContain("Get in touch.");
       expect(bodyText).toContain('Reach out about roles');
       expect(bodyText.toLowerCase()).toContain('primary contact');
+      // Verify visiting card referrer shows opportunities badge & resume download
+      expect(bodyText).toContain('Open for full-time & freelance opportunities');
+      expect(bodyText).toContain('Resume');
 
       // Verify active <h1> element is present
       const h1s = await getHeadingTexts(page, 'h1');
       expect(h1s.length).toBe(1);
+    });
+
+    test('Direct /contact URL without visiting card referral does not show opportunities badge', async ({ page, baseUrl }) => {
+      const targetUrl = `${baseUrl}/contact`;
+      await page.goto(targetUrl, { waitUntil: 'domcontentloaded' });
+      await waitForCanvasAnimation(page, 1400);
+
+      const bodyText = await getBodyText(page);
+      expect(bodyText).toContain("Get in touch.");
+      expect(bodyText).not.toContain('Open for full-time & freelance opportunities');
     });
   });
 }
