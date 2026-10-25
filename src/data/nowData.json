@@ -1,11 +1,17 @@
 {
-  "lastUpdated": "2026-10-16",
-  "teaser": "Traveling through the Balkans (mostly Albania) until late October. Open for full-time roles, freelance, or co-founder matching.",
+  "lastUpdated": "2026-10-25",
+  "teaser": "Back home after traveling through the Balkans. Focus back on work, building, and technical growth — open for full-time roles, freelance, or co-founder matching.",
   "currentPlans": [
     {
-      "category": "Travel",
-      "item": "Currently traveling through the Balkans since Sep 15 (mainly Albania), getting back around Oct 24.",
-      "lastUpdated": "2026-10-16"
+      "category": "Focus",
+      "item": "Back home and focus back to the laptop and work.",
+      "lastUpdated": "2026-10-25"
+    },
+    {
+      "category": "Building",
+      "item": "Resumed active engineering builds and technical growth, starting with INR Finance Compass.",
+      "lastUpdated": "2026-10-25",
+      "internalTarget": "writing"
     },
     {
       "category": "Work",
@@ -14,10 +20,9 @@
       "internalTarget": "contact"
     },
     {
-      "category": "Building",
-      "item": "Projects on hold while traveling — resuming builds on Monday, Oct 26.",
-      "lastUpdated": "2026-10-16",
-      "internalTarget": "writing"
+      "category": "Travel",
+      "item": "Back home in Alwar after traveling through the Balkans (mainly Albania) from mid-September to late October.",
+      "lastUpdated": "2026-10-25"
     },
     {
       "category": "Writing",
@@ -26,14 +31,9 @@
       "internalTarget": "writing"
     },
     {
-      "category": "Riding",
-      "item": "Scrambler 400X and Hornback X1 bicycle parked at home, waiting for my return.",
-      "lastUpdated": "2026-10-16"
-    },
-    {
       "category": "Routine",
-      "item": "No gym while traveling.",
-      "lastUpdated": "2026-10-16"
+      "item": "Soon to get back to regular gym and workouts.",
+      "lastUpdated": "2026-10-25"
     }
   ]
 }

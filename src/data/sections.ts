@@ -293,7 +293,7 @@ export const SECTIONS: SectionDefinition[] = [
     sitemap: {
       changefreq: 'weekly',
       priority: '0.9',
-      lastmod: '2026-10-16',
+      lastmod: '2026-10-25',
     },
   },
   {
