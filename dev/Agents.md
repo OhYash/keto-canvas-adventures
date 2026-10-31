@@ -23,7 +23,9 @@ Content protocols:
 - Check DONE before starting work — avoid redoing completed effort
 - LEARNINGS captures known pitfalls (touch handling, navigation integration points);
 - Local Setup & Environment: See `AGENTS.local.md` (gitignored) for machine-specific environment configuration and constraints (e.g. headless setups vs desktop browsers, local paths).
-- Verification & Testing: For headless environments, verify via `npx tsc --noEmit && npm run lint && npm run build`. When running in a desktop/browser environment, run the E2E test suite via `npm test` or `npm run test:e2e` (`scripts/verify.js`). Maintain and extend existing suites in `tests/e2e/suites/` (`ssg`, `routes`, `navigation`, `interactions`, `responsive`). **Do not write temporary scratch verification scripts.**
+- Verification & Testing: Tier verification to task scope. For content, copy, and data-layer updates, verify via `npx tsc --noEmit && npm run lint && npm run build` (~8s). Reserve the full 90s browser E2E test suite (`npm test` / `node scripts/verify.js`) strictly for structural canvas engine, navigation, or interaction logic changes. Never run baseline tests before editing; make changes first and verify once. Maintain and extend existing suites in `tests/e2e/suites/` (`ssg`, `routes`, `navigation`, `interactions`, `responsive`). **Do not write temporary scratch verification scripts.**
+- Avoid busy-wait polling: Never poll background tasks with `manage_task status` or shell `sleep`/`pgrep` loops; rely on reactive task completion notifications.
+- SEO Meta-description Invariant: Post summaries and section meta descriptions must strictly stay between **145 and 165 characters** (enforced by SSG test suite).
 - NEEDS INPUT items are blocked on the owner — don't guess, ask
 
 ### Writing

@@ -36,7 +36,12 @@ Deploy: push to `main` → GitHub Pages via `.github/workflows/deploy.yml`.
 
 ## Verification
 
-Before declaring tasks complete after UI, section, routing, or navigation changes, verify via `npx tsc --noEmit && npm run lint && npm run build`. In desktop/browser environments supporting E2E, run the automated E2E test suite via `npm test` or `npm run test:e2e` (see `AGENTS.local.md` and `.claude/skills/verify/SKILL.md`). **Maintain and extend the test suites in `tests/e2e/suites/` — do not create temporary ad-hoc scratch scripts.**
+Tier verification to the scope of changes:
+- **Content, Copy & Data Layer** (`src/data/`, copy updates, posts): Verify via `npx tsc --noEmit && npm run lint && npm run build` (~8s). Do NOT run the 90s full browser E2E test suite for content edits.
+- **Canvas Engine, Interaction, or Routing Architecture**: Run targeted suites (`node scripts/verify.js -s "<suite-name>"`) or full `npm test` / `npm run test:e2e`.
+- **Never run baseline tests before making edits**: Make changes first, verify once at the end.
+- **Never busy-wait / poll background tasks**: Avoid polling with `manage_task status` or shell `sleep`/`pgrep` loops.
+- **Maintain existing test suites**: In `tests/e2e/suites/` — do not create temporary ad-hoc scratch scripts.
 
 ## Architecture
 
@@ -70,6 +75,7 @@ behind Hobbies, Ataco behind Keto).
   top/left positioning.
 - **Content goes in `src/data/`, not components**, wherever a data file already exists;
   prefer extending the data layer over hardcoding copy in JSX.
+- **SEO Meta-Description Length**: All post `summary` fields and section `seo.description` strings must strictly be between **145 and 165 characters** (verified by `ssg.test.js`).
 - **Voice: specific and first-person.** No fortune-cookie quotes, no "Always X · Always Y"
   template badges, no stock CTAs. The content critiques in `dev/research/` explain why.
 

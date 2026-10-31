@@ -117,6 +117,9 @@ Content critiques and research live in dev/research/, referenced from items here
 - Static Site Pre-rendering (SSG): `scripts/prerender.js` runs automatically in `npm run postbuild` via Puppeteer, rendering full static HTML files for all section routes and sub-routes (`dist/work/index.html`, etc.) so Bingbot and Googlebot receive full `<h1>` headers and `200 OK` static HTML on initial HTTP GET.
 - Query parameter preservation on GitHub Pages SPA: `index.html`'s redirect script must decode both `p` (path) and `q` (query string) parameters from `404.html` so query parameters like `?src=c1` are not lost before React mounts.
 - CSS `text-transform: uppercase` affects `document.body.innerText` in standard browser DOM implementations. In E2E tests, matchers should check text case-insensitively or target raw textContent when verifying headings styled with Tailwind `uppercase`.
+- Tiered Verification & Efficient Agent Execution: For content, copy, and data updates (`src/data/`), verify via `npx tsc --noEmit && npm run lint && npm run build` (~8s). Do not run the 90s browser E2E test suite (`npm test`) on content edits — reserve E2E strictly for canvas, routing, or interaction logic changes. Never run baseline tests before making edits; verify once after making changes. Do not poll background tasks with `manage_task status` or shell `sleep`/`pgrep` loops; wait for reactive notifications.
+- SEO Meta-description Invariant: All post `summary` fields and section `seo.description` strings must strictly be between **145 and 165 characters**. The SSG test suite (`tests/e2e/suites/ssg.test.js`) automatically fails if descriptions fall outside this range.
+- Sandbox Git Operations: Writing to `.git/` (`git add`, `git commit`) requires `BypassSandbox: true` because the standard security sandbox mounts `.git/` as read-only. Always use bypass directly when staging/committing to prevent `.git/index.lock` failures.
 
 ---
 
