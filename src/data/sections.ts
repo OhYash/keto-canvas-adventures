@@ -257,7 +257,7 @@ export const SECTIONS: SectionDefinition[] = [
     parent: 'hobbies',
     seo: {
       title: 'Projects & Code | Yash Yadav · OhYa.sh',
-      description: 'Open-source software, developer tools, and projects built by Yash Yadav, including the Solanum Pomodoro timer and INR Finance Compass financial platform.',
+      description: 'Open-source software, developer tools, and projects built by Yash Yadav, including the Solanum Pomodoro timer and Paise fit personal wealth management platform.',
       path: '/projects',
       breadcrumbs: [
         { name: 'Home', item: SITE_URL },

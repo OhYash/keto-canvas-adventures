@@ -41,9 +41,9 @@ Backend engineer who owns systems end-to-end. Architected and shipped TestGorill
 ---
 ## [Projects](https://ohya.sh/projects/)
 
-**INR Finance Compass** *(WIP)* — Vite, React, TypeScript, Supabase, Tailwind
-- Solo-designing and building a self-hosted, AI-native personal finance platform with full financial context (bank, cards, cash, investments) instead of isolated balance queries.
-- Built an atomic ledger-derived balance engine with a live dashboard; budgeting, CSV import, and recurring transactions in progress.
+**Paise fit** *(WIP)* [paise.fit](https://paise.fit) — Vite, React, TypeScript, Supabase, Tailwind
+- Solo-designing and building a personal wealth management and financial fitness platform with full financial context (net worth, bank, cards, cash, investments) and self-hosting options without invasive account scrapers.
+- Built an atomic ledger-derived balance engine with statement-anchored gap detection, polymorphic bank importers, and a live net worth dashboard.
 
 ---
 ## Education

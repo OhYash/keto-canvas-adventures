@@ -40,25 +40,26 @@ export const projectsData: Project[] = [
     ],
   },
   {
-    title: "INR Finance Compass (WIP)",
+    title: "Paise fit (WIP)",
     badge: "Active Devlog",
-    description: "A self-hosted, personal finance tracker for INR-primary multi-currency management. Built with atomic ledger-derived balances, ground-truth bank statement anchoring, and zero external APIs.",
+    description: "A personal wealth management and financial fitness platform built to provide complete clarity over your net worth, cash flow, and asset growth. Built with atomic ledger-derived balances, ground-truth bank statement anchoring, self-hosting options, and zero invasive third-party account scrapers.",
     highlights: [
+      "Financial Fitness & Net Worth Clarity: Holistic visibility across liquid accounts, investments, and liabilities with zero drift or ghost balances.",
       "Ledger-Derived Balances: Calculated strictly via atomic PL/pgSQL RPCs; DB trigger rejects direct writes to accounts.balance.",
       "Statement Anchors & Discrepancy Gaps: Anchors running totals to real statement balances and surfaces inline balance gap alerts.",
       "Polymorphic Bank Importers: OOP engine (HDFC, IndusInd, Generic) for CSV, TSV, and Excel with monotonic ordering.",
-      "High-Performance Passbook: Memoized table rows, native title tooltips, and instant in-memory filtering with 544 passing tests."
+      "High-Performance & Self-Hostable: Full data ownership with Supabase/PostgreSQL, memoized passbook, and 544 passing tests."
     ],
     technologies: ["React 18", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
-    url: "https://finance-compass-dev.surge.sh/",
+    url: "https://paise.fit",
     links: [
+      {
+        label: "paise.fit",
+        url: "https://paise.fit",
+      },
       {
         label: "Live Build Log",
         url: "/writing/inr-finance-compass-build-log",
-      },
-      {
-        label: "Preview App",
-        url: "https://finance-compass-dev.surge.sh/",
       },
     ],
   },

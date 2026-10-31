@@ -129,6 +129,13 @@ export function registerRoutesTests() {
     });
 
     test('Direct /contact URL without visiting card referral does not show opportunities badge', async ({ page, baseUrl }) => {
+      await page.evaluate(() => {
+        try {
+          sessionStorage.clear();
+        } catch {
+          // ignore
+        }
+      });
       const targetUrl = `${baseUrl}/contact`;
       await page.goto(targetUrl, { waitUntil: 'domcontentloaded' });
       await waitForCanvasAnimation(page, 1400);

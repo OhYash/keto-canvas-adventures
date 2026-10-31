@@ -42,7 +42,7 @@ To give the canvas structure, I set up a strict coordinate grid around origin `(
 - **Work `(1000, 0)` & Writing `(2000, 0)`**: Professional experience and long-form essays (East).
 - **Personal `(-1000, 0)` & Travel Stories `(-2000, 0)`**: Personal background and travel logs (West).
 - **Keto `(0, -1000)` & Ataco `(0, -2000)`**: Household updates and pet logs (North).
-- **Hobbies `(0, 1000)` & Projects `(0, 2000)`**: Active builds like *Finance Compass* (South).
+- **Hobbies `(0, 1000)` & Projects `(0, 2000)`**: Active builds like *Paise fit* (formerly *Finance Compass*) (South).
 
 By keeping primary sections at 1000px offsets and subsection deep dives at 2000px behind their parents, the map instantly felt intuitive to navigate.
 
@@ -87,7 +87,7 @@ If a user is inside a scrollable card container, native vertical scroll takes pr
 
 Early feedback on the site content was direct: "The canvas concept is neat, but the copy reads like generic AI portfolio template fluff."
 
-They were right. The initial version had stock badges ("Always Building", "Always Curious") and generic quotes. Over the next several months, I stripped out every piece of template copy and replaced it with specific, first-person content: real production numbers from TestGorilla, actual project updates for *Finance Compass*, and personal nodes for Keto the cat and Ataco.
+They were right. The initial version had stock badges ("Always Building", "Always Curious") and generic quotes. Over the next several months, I stripped out every piece of template copy and replaced it with specific, first-person content: real production numbers from TestGorilla, actual project updates for *Paise fit* (formerly *Finance Compass*), and personal nodes for Keto the cat and Ataco.
 
 As part of this overhaul, I wanted a native way to write essays directly inside the repo without relying on an external CMS. We built a dynamic markdown engine leveraging Vite module discovery:
 

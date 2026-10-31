@@ -50,7 +50,7 @@ export const homeData = {
       path: "/writing",
     },
     {
-      label: "Also building — Finance Compass",
+      label: "Also building — Paise fit",
       target: "projects",
       path: "/projects",
     },

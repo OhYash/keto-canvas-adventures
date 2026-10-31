@@ -2,17 +2,19 @@
 title: "Building INR Finance Compass: Public Devlog & Status"
 date: "2026-09-02"
 readTime: "6 min read"
-summary: "A live build log and architecture audit of INR Finance Compass, a self-hosted personal finance engine with atomic ledger balances and zero external APIs."
+summary: "A live build log and architecture audit of Paise fit, a personal wealth management and financial fitness platform with atomic ledger math and self-hosting."
 tags: ["Architecture", "Build Log"]
 ---
 
 # Building INR Finance Compass: Public Devlog & Status
 
+> **Project Update**: The project is now called **Paise fit** ([paise.fit](https://paise.fit)). While full self-hosting and data ownership remain critical pillars, the primary mission is **personal wealth management and financial fitness** — giving you true visibility into your net worth and cash flow without invasive account scrapers.
+
 Most personal finance apps suffer from one of three structural flaws: they demand read access to your bank accounts via invasive Account Aggregators or SMS scrapers, they enforce US-centric monthly credit workflows where Indian multi-currency and domestic banking realities are an afterthought, or they store your net worth on someone else's cloud infrastructure.
 
-I started building **INR Finance Compass** to solve this permanently for my own finances.
+I started building **Paise fit** (prototyped as **INR Finance Compass**) to solve this permanently for my own finances.
 
-The mandate is simple: a self-hosted, personal finance tracker designed from the ground up for INR-primary multi-currency management. Zero external APIs required. Powered by Supabase (PostgreSQL with strict Row Level Security) and React 18. Owned entirely by the user.
+The mandate is focused on **personal wealth management and financial fitness**: providing complete clarity over your real net worth, asset growth, and cash flow without invasive account aggregators. Built with atomic ledger-derived balances, ground-truth bank statement anchoring, self-hosting options, and zero external APIs required. Powered by Supabase (PostgreSQL with strict Row Level Security) and React 18. Owned entirely by the user.
 
 This page is a **living build log and public status tracker**. As new architecture lands, invariants solidify, and milestones ship, I update this log directly.
 
@@ -27,7 +29,7 @@ Here is where the codebase stands as of **September 2026**:
 | **Release Phase** | **Active Alpha (Feature-Complete Core)** | Full account CRUD, transactions, statement import, and passbook audit live |
 | **Automated Tests** | **544 passing across 42 suites** | 99.5% library unit test coverage + Supabase RPC integration test harness |
 | **Compiler & Lint** | **Clean (0 errors, 0 warnings)** | Strict TypeScript (`noImplicitAny`, strict nulls) + ESLint CI gate |
-| **Live Dev Preview** | **Deployed on Surge** | [finance-compass-dev.surge.sh](https://finance-compass-dev.surge.sh/) |
+| **Live Domain & Preview** | **Active on paise.fit** | [paise.fit](https://paise.fit) / [finance-compass-dev.surge.sh](https://finance-compass-dev.surge.sh/) |
 | **Backend & DB** | **Supabase Cloud / Postgres 15** | Row-Level Security (`auth.uid()`) on all 12 tables, PL/pgSQL atomic RPCs |
 
 ---
@@ -125,6 +127,7 @@ Per-category spending limits per period with progress bars and threshold notific
 
 ## 6. How to Follow & Inspect
 
-- **Live Preview Build**: [finance-compass-dev.surge.sh](https://finance-compass-dev.surge.sh/)
+- **Live Platform**: [paise.fit](https://paise.fit)
+- **Preview Deployment**: [finance-compass-dev.surge.sh](https://finance-compass-dev.surge.sh/)
 - **Source Architecture**: React 18, TypeScript, Vite, Supabase, Tailwind CSS, shadcn/ui.
 - **Updates**: This devlog will be updated as major architectural milestones and version releases land. If you have questions about the ledger architecture or self-hosting setup, feel free to reach out via the [Contact](/contact) section.
