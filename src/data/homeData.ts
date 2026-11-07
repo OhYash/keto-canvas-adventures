@@ -36,33 +36,33 @@ export const homeData = {
   primaryCta: {
     label: "Contact",
     target: "contact",
-    path: "/contact",
+    path: "/contact/",
   },
   navigationLinks: [
     {
       label: "Work history",
       target: "work",
-      path: "/work",
+      path: "/work/",
     },
     {
       label: "Writing & Essays",
       target: "writing",
-      path: "/writing",
+      path: "/writing/",
     },
     {
       label: "Also building — Paise fit",
       target: "projects",
-      path: "/projects",
+      path: "/projects/",
     },
     {
       label: "About me",
       target: "personal",
-      path: "/personal",
+      path: "/personal/",
     },
     {
       label: "What I'm up to right now",
       target: "now",
-      path: "/now",
+      path: "/now/",
     },
   ] as NavLinkItem[],
 };

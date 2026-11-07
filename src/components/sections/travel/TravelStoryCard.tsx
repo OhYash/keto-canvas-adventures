@@ -59,12 +59,20 @@ const TravelStoryCard: React.FC<TravelStoryCardProps> = ({ story, onReadMore }) 
             </div>
             
             <Button
-              onClick={() => onReadMore(story)}
+              asChild
               size="sm"
               className="bg-slate-800 hover:bg-slate-700 text-white"
             >
-              <BookOpen className="w-3 h-3 mr-1" />
-              Read More
+              <a
+                href={`/travel/${story.id}/`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onReadMore(story);
+                }}
+              >
+                <BookOpen className="w-3 h-3 mr-1" />
+                Read More
+              </a>
             </Button>
           </div>
         </div>

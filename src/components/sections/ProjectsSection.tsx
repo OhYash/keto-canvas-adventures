@@ -172,7 +172,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           Want to see more details about my professional work experience and technical skills?
         </p>
         <a
-          href="/work"
+          href="/work/"
           onClick={(e) => {
             e.preventDefault();
             onNavigateToSection('work');

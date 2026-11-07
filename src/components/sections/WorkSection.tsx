@@ -337,7 +337,7 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           solve problems I care about.
         </p>
         <a
-          href="/projects"
+          href="/projects/"
           onClick={(e) => {
             e.preventDefault();
             onNavigateToSection?.("projects");
@@ -360,18 +360,22 @@ const WorkSection: React.FC<WorkSectionProps> = ({
         <p className="text-slate-700 text-sm leading-relaxed mb-3">
           Deep dives into backend engineering, system design, and building spatial web apps.
         </p>
-        <button
-          onClick={() => onNavigateToSection?.("writing")}
-          className="w-full px-4 py-2.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-blue-400/30"
+        <a
+          href="/writing/"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigateToSection?.("writing");
+          }}
+          className="w-full px-4 py-2.5 bg-blue-500/20 hover:bg-blue-500/30 text-slate-800 rounded-lg transition-all duration-300 text-sm font-semibold touch-manipulation flex items-center justify-center gap-2 border border-blue-400/30 block text-center"
         >
           <span>✍️</span>
           Read Writing & Essays
-        </button>
+        </a>
       </div>
 
       <div className="flex items-center justify-center gap-4 pt-3">
         <a
-          href="/contact"
+          href="/contact/"
           onClick={handleOpportunitiesClick}
           className="inline-block"
         >

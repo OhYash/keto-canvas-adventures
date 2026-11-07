@@ -81,12 +81,12 @@ export function registerSSGTests() {
       expect(sitemapContent).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
 
       for (const section of SECTIONS) {
-        const loc = section.id === 'home' ? 'https://ohya.sh/' : `https://ohya.sh/${section.id}`;
+        const loc = section.id === 'home' ? 'https://ohya.sh/' : `https://ohya.sh/${section.id}/`;
         expect(sitemapContent).toContain(`<loc>${loc}</loc>`);
       }
 
       for (const story of travelStories) {
-        expect(sitemapContent).toContain(`<loc>https://ohya.sh/travel/${story.id}</loc>`);
+        expect(sitemapContent).toContain(`<loc>https://ohya.sh/travel/${story.id}/</loc>`);
       }
     });
 

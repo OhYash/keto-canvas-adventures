@@ -59,7 +59,7 @@ export const SECTIONS: SectionDefinition[] = [
       title: 'Yash Yadav – Senior Backend Engineer | OhYa.sh',
       description: 'Yash Yadav is a senior Python and Django backend engineer based in India, specializing in high-throughput distributed systems and scalable cloud APIs.',
       path: '/',
-      breadcrumbs: [{ name: 'Home', item: SITE_URL }],
+      breadcrumbs: [{ name: 'Home', item: `${SITE_URL}/` }],
     },
     sitemap: {
       changefreq: 'weekly',
@@ -80,10 +80,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Work & Experience | Yash Yadav · OhYa.sh',
       description: 'Professional backend engineering experience by Yash Yadav. 7+ years building high-scale Python and Django distributed systems, APIs, and cloud infrastructure.',
-      path: '/work',
+      path: '/work/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Work', item: `${SITE_URL}/work` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Work', item: `${SITE_URL}/work/` },
       ],
     },
     sitemap: {
@@ -105,10 +105,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Writing & Essays | Yash Yadav · OhYa.sh',
       description: 'Technical essays and system architecture notes by Yash Yadav on high-throughput backend services, Python and Django engineering, and infinite canvas design.',
-      path: '/writing',
+      path: '/writing/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Writing & Essays', item: `${SITE_URL}/writing` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Writing & Essays', item: `${SITE_URL}/writing/` },
       ],
     },
     sitemap: {
@@ -130,10 +130,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'About Me & Life | Yash Yadav · OhYa.sh',
       description: 'Personal background, engineering philosophy, and life journey of Yash Yadav — senior backend engineer based in India, builder, reader, and world traveler.',
-      path: '/personal',
+      path: '/personal/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Personal', item: `${SITE_URL}/personal` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Personal', item: `${SITE_URL}/personal/` },
       ],
     },
     sitemap: {
@@ -156,11 +156,11 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Travel Stories & Notes | OhYa.sh',
       description: 'Travel stories, field notes, and photo memories from exploring mountains, deserts, fjords, and ancient trails across Japan, Iceland, Peru, and beyond.',
-      path: '/travel',
+      path: '/travel/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Personal', item: `${SITE_URL}/personal` },
-        { name: 'Travel', item: `${SITE_URL}/travel` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Personal', item: `${SITE_URL}/personal/` },
+        { name: 'Travel', item: `${SITE_URL}/travel/` },
       ],
     },
     sitemap: {
@@ -182,10 +182,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Keto the Cat | Yash Yadav · OhYa.sh',
       description: 'Meet Keto, the golden Persian cat and honorary CEO behind OhYa.sh. Photos, morning pigeon-stalking stories, terrace sunbathing routines, and daily antics.',
-      path: '/keto',
+      path: '/keto/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Keto', item: `${SITE_URL}/keto` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Keto', item: `${SITE_URL}/keto/` },
       ],
     },
     sitemap: {
@@ -207,10 +207,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Ataco – Scrambler 400X | Yash Yadav · OhYa.sh',
       description: 'Meet Ataco, Yash Yadav\'s khaki green Triumph Scrambler 400X motorcycle. Real photos, custom modifications, gear setup, specs, and riding stories from India.',
-      path: '/ataco',
+      path: '/ataco/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Ataco', item: `${SITE_URL}/ataco` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Ataco', item: `${SITE_URL}/ataco/` },
       ],
     },
     sitemap: {
@@ -232,10 +232,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Hobbies & Exploration | Yash Yadav · OhYa.sh',
       description: 'Things Yash Yadav builds, explores, and obsesses over outside work — side experiments, motorcycle touring across India, reading lists, and creative hobbies.',
-      path: '/hobbies',
+      path: '/hobbies/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Hobbies', item: `${SITE_URL}/hobbies` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Hobbies', item: `${SITE_URL}/hobbies/` },
       ],
     },
     sitemap: {
@@ -258,11 +258,11 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: 'Projects & Code | Yash Yadav · OhYa.sh',
       description: 'Open-source software, developer tools, and projects built by Yash Yadav, including the Solanum Pomodoro timer and Paise fit personal wealth management platform.',
-      path: '/projects',
+      path: '/projects/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Hobbies', item: `${SITE_URL}/hobbies` },
-        { name: 'Projects', item: `${SITE_URL}/projects` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Hobbies', item: `${SITE_URL}/hobbies/` },
+        { name: 'Projects', item: `${SITE_URL}/projects/` },
       ],
     },
     sitemap: {
@@ -284,10 +284,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: "What I'm Doing Now | Yash Yadav · OhYa.sh",
       description: 'A live snapshot of what Yash Yadav is building, reading, and learning right now. Updated regularly with current backend engineering focus and active projects.',
-      path: '/now',
+      path: '/now/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Now', item: `${SITE_URL}/now` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Now', item: `${SITE_URL}/now/` },
       ],
     },
     sitemap: {
@@ -309,10 +309,10 @@ export const SECTIONS: SectionDefinition[] = [
     seo: {
       title: "Contact Yash Yadav | OhYa.sh",
       description: 'Get in touch with Yash Yadav. Available for senior Python and Django backend engineering roles, technical advisory, freelance consulting, or a chat.',
-      path: '/contact',
+      path: '/contact/',
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Contact', item: `${SITE_URL}/contact` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Contact', item: `${SITE_URL}/contact/` },
       ],
     },
     sitemap: {
@@ -352,7 +352,7 @@ export const getSectionFromPath = (pathname: string): string => {
 
 export const getPathFromSection = (sectionId: string): string => {
   if (sectionId === 'home') return '/';
-  return `/${sectionId}`;
+  return `/${sectionId}/`;
 };
 
 export const SECTION_SEO_CONFIGS: Record<string, SectionSEOConfig> = Object.fromEntries(
@@ -362,5 +362,12 @@ export const SECTION_SEO_CONFIGS: Record<string, SectionSEOConfig> = Object.from
 export const SECTION_ROUTES: string[] = SECTIONS.map((s) => (s.id === 'home' ? '/' : `/${s.id}`));
 
 export const SECTION_SITEMAP_CONFIGS: Record<string, SitemapConfig> = Object.fromEntries(
-  SECTIONS.map((s) => [s.id === 'home' ? '/' : `/${s.id}`, s.sitemap])
+  SECTIONS.flatMap((s) => {
+    const route = s.id === 'home' ? '/' : `/${s.id}`;
+    const routeWithSlash = s.id === 'home' ? '/' : `/${s.id}/`;
+    return [
+      [route, s.sitemap],
+      [routeWithSlash, s.sitemap],
+    ];
+  })
 );

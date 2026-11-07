@@ -81,7 +81,7 @@ const NowSection: React.FC<NowSectionProps> = ({
                 </div>
                 {plan.internalTarget ? (
                   <a
-                    href={`/${plan.internalTarget}`}
+                    href={`/${plan.internalTarget}/`}
                     onClick={(e) => {
                       e.preventDefault();
                       onNavigateToSection(plan.internalTarget);

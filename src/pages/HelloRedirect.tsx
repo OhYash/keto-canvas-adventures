@@ -34,7 +34,7 @@ const HelloRedirect: React.FC = () => {
     // Seamlessly navigate to contact while preserving query parameters
     navigate(
       {
-        pathname: '/contact',
+        pathname: '/contact/',
         search: location.search || `?src=${src}`,
       },
       { replace: true }
@@ -43,7 +43,7 @@ const HelloRedirect: React.FC = () => {
 
   const searchParams = new URLSearchParams(location.search);
   const src = searchParams.get('src') || 'c1';
-  const targetUrl = `/contact${location.search || `?src=${src}`}`;
+  const targetUrl = `/contact/${location.search || `?src=${src}`}`;
 
   return (
     <div className="min-h-screen w-full bg-[#070b14] flex items-center justify-center p-4 text-slate-200">
@@ -63,7 +63,7 @@ const HelloRedirect: React.FC = () => {
           name="twitter:description"
           content="Get in touch with Yash Yadav. Connect via email, Telegram, or LinkedIn for backend engineering consulting, advisory, or collaboration opportunities."
         />
-        <link rel="canonical" href="https://ohya.sh/contact" />
+        <link rel="canonical" href="https://ohya.sh/contact/" />
         <meta name="robots" content="noindex, follow" />
       </Helmet>
 

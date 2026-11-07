@@ -44,7 +44,7 @@ export const NavigationBreadcrumb: React.FC<NavigationBreadcrumbProps> = ({
                   </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink
-                    href={sectionId === 'home' ? '/' : `/${sectionId}`}
+                    href={sectionId === 'home' ? '/' : `/${sectionId}/`}
                     onClick={(e) => {
                       e.preventDefault();
                       handleNavigation(sectionId);

@@ -94,7 +94,7 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
 
                 {hobby.internalTarget && hobby.targetLabel && (
                   <a
-                    href={`/${hobby.internalTarget}`}
+                    href={`/${hobby.internalTarget}/`}
                     onClick={(e) => {
                       e.preventDefault();
                       onNavigateToSection(hobby.internalTarget!);
@@ -122,7 +122,7 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
           I've been building in my spare time.
         </p>
         <a
-          href="/projects"
+          href="/projects/"
           onClick={(e) => {
             e.preventDefault();
             onNavigateToSection("projects");

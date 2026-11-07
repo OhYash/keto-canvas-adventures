@@ -99,7 +99,7 @@ const WritingSection: React.FC<WritingSectionProps> = ({
           filteredPosts.map((post) => (
             <a
               key={post.slug}
-              href={`/writing/${post.slug}`}
+              href={`/writing/${post.slug}/`}
               onClick={(e) => {
                 e.preventDefault();
                 onSelectArticle(post.slug);

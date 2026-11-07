@@ -107,7 +107,7 @@ const KetoSection: React.FC<KetoSectionProps> = ({
         </div>
 
         <a
-          href="/ataco"
+          href="/ataco/"
           onClick={(e) => {
             e.preventDefault();
             onNavigateToSection?.('ataco');

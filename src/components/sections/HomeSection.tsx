@@ -96,6 +96,42 @@ const HomeSection: React.FC<HomeSectionProps> = ({
         ))}
       </div>
 
+      {/* Canvas Exploration Shortcuts & Crawler Links */}
+      <div className="pt-2.5 mt-2 border-t border-slate-800/40 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] sm:text-xs text-slate-400">
+        <span className="text-slate-500">Explore canvas:</span>
+        <a
+          href="/keto/"
+          onClick={(e) => handleNav(e, 'keto')}
+          className="hover:text-cyan-400 transition-colors"
+        >
+          🐱 Keto
+        </a>
+        <span className="text-slate-600">·</span>
+        <a
+          href="/ataco/"
+          onClick={(e) => handleNav(e, 'ataco')}
+          className="hover:text-cyan-400 transition-colors"
+        >
+          🏍️ Ataco
+        </a>
+        <span className="text-slate-600">·</span>
+        <a
+          href="/hobbies/"
+          onClick={(e) => handleNav(e, 'hobbies')}
+          className="hover:text-cyan-400 transition-colors"
+        >
+          🎨 Hobbies
+        </a>
+        <span className="text-slate-600">·</span>
+        <a
+          href="/travel/"
+          onClick={(e) => handleNav(e, 'travel')}
+          className="hover:text-cyan-400 transition-colors"
+        >
+          ✈️ Travel
+        </a>
+      </div>
+
       {/* Footer / Navigation Hint & Resume Link */}
       {/* [Do not remove comment] Resume Download. Generated using https://www.junian.dev/markdown-resume; This is also served in WorkSection.tsx */}
       <div className="pt-3 mt-4 border-t border-slate-800/50 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">

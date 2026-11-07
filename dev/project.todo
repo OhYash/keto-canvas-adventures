@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-11-01
+Last updated: 2026-11-08
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -8,6 +8,9 @@ Content critiques and research live in dev/research/, referenced from items here
 ---
 
 ## DONE
+
+### SEO & Crawler Indexing Architecture
+- [x] Google Search Console Indexing & Canonical Redirect Loop Resolution — Resolved the 22 non-indexed URL bottleneck (3 redirect errors on `/work`, `/writing`, `/projects`, 3 pages with redirect, and 15 "Discovered – currently not indexed" pages) identified via GSC coverage exports. Standardized canonical URLs, breadcrumb links, and XML sitemap generation on trailing slashes to align with GitHub Pages' native directory serving (eliminating 301 redirect cycles between `/slug` and `/slug/`), converted `TravelStoryCard`'s "Read More" button into semantic `<a href="/travel/:storyId/">` links eliminating orphan travel stories, added direct crawler-accessible exploration links on `HomeSection` for `/keto/`, `/ataco/`, `/hobbies/`, and `/travel/`, and verified 100% crawl graph reachability across all 21 site routes with 28 passing E2E tests.
 
 ### Content & Now Page Updates
 - [x] Update /now page data — Refreshed `src/data/nowData.json` marking return home to Alwar from Balkan travels, focus shifted to laptop/work and active building, gym routine soon to resume; preserved unchanged authentic timestamps for Work (`2026-10-16`) and Writing essays (`2026-08-12`); bumped `now` sitemap `lastmod` to `2026-10-25` in `src/data/sections.ts`.
@@ -120,6 +123,7 @@ Content critiques and research live in dev/research/, referenced from items here
 - Tiered Verification & Efficient Agent Execution: For content, copy, and data updates (`src/data/`), verify via `npx tsc --noEmit && npm run lint && npm run build` (~8s). Do not run the 90s browser E2E test suite (`npm test`) on content edits — reserve E2E strictly for canvas, routing, or interaction logic changes. Never run baseline tests before making edits; verify once after making changes. Do not poll background tasks with `manage_task status` or shell `sleep`/`pgrep` loops; wait for reactive notifications.
 - SEO Meta-description Invariant: All post `summary` fields and section `seo.description` strings must strictly be between **145 and 165 characters**. The SSG test suite (`tests/e2e/suites/ssg.test.js`) automatically fails if descriptions fall outside this range.
 - Sandbox Git Operations: Writing to `.git/` (`git add`, `git commit`) requires `BypassSandbox: true` because the standard security sandbox mounts `.git/` as read-only. Always use bypass directly when staging/committing to prevent `.git/index.lock` failures.
+- GitHub Pages Trailing Slash & Canonical Consistency: GitHub Pages serves directory builds (`dist/work/index.html`) by issuing an HTTP 301 Moved Permanently redirect whenever `/work` without a trailing slash is requested. If canonical tags or XML sitemaps omit the trailing slash (`/work`), search engine crawlers detect a circular redirect-canonical loop (`/work` -> 301 -> `/work/` -> canonical -> `/work`), leading directly to "Redirect error" and "Discovered – currently not indexed" in Google Search Console. Always maintain strict trailing slash consistency across canonical tags, sitemaps, and internal links when deploying static SPAs to GitHub Pages.
 
 ---
 

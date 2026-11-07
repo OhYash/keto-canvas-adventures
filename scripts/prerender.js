@@ -137,7 +137,8 @@ async function prerender() {
       priority: routePath.startsWith('/writing/') ? '0.8' : routePath.startsWith('/travel/') ? '0.6' : '0.7',
       lastmod: '2026-08-13',
     };
-    const loc = routePath === '/' ? 'https://ohya.sh/' : `https://ohya.sh${routePath}`;
+    const normalizedRoute = routePath === '/' ? '/' : (routePath.endsWith('/') ? routePath : `${routePath}/`);
+    const loc = routePath === '/' ? 'https://ohya.sh/' : `https://ohya.sh${normalizedRoute}`;
     const lastmod = postDates[routePath] || config.lastmod || '2026-08-13';
     return `  <url>
     <loc>${loc}</loc>

@@ -21,28 +21,29 @@ const SEO: React.FC<SEOProps> = ({ sectionId, articleSlug, storyId }) => {
     config = {
       title: `${article.title} | OhYa.sh`,
       description: article.summary,
-      path: `/writing/${article.slug}`,
+      path: `/writing/${article.slug}/`,
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Writing & Essays', item: `${SITE_URL}/writing` },
-        { name: article.title, item: `${SITE_URL}/writing/${article.slug}` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Writing & Essays', item: `${SITE_URL}/writing/` },
+        { name: article.title, item: `${SITE_URL}/writing/${article.slug}/` },
       ],
     };
   } else if (travelStory) {
     config = {
       title: `${travelStory.title} – Travel Story | OhYa.sh`,
       description: travelStory.description,
-      path: `/travel/${travelStory.id}`,
+      path: `/travel/${travelStory.id}/`,
       breadcrumbs: [
-        { name: 'Home', item: SITE_URL },
-        { name: 'Personal', item: `${SITE_URL}/personal` },
-        { name: 'Travel', item: `${SITE_URL}/travel` },
-        { name: travelStory.title, item: `${SITE_URL}/travel/${travelStory.id}` },
+        { name: 'Home', item: `${SITE_URL}/` },
+        { name: 'Personal', item: `${SITE_URL}/personal/` },
+        { name: 'Travel', item: `${SITE_URL}/travel/` },
+        { name: travelStory.title, item: `${SITE_URL}/travel/${travelStory.id}/` },
       ],
     };
   }
 
-  const canonicalUrl = `${SITE_URL}${config.path === '/' ? '' : config.path}`;
+  const normalizedPath = config.path.endsWith('/') ? config.path : `${config.path}/`;
+  const canonicalUrl = `${SITE_URL}${normalizedPath === '//' ? '/' : normalizedPath}`;
 
   const personSchema = {
     '@context': 'https://schema.org',
