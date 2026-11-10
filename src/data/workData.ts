@@ -7,6 +7,9 @@ export interface Role {
   period?: string;
   type?: string;
   description?: string;
+  summary?: string;
+  impactBullets?: string[];
+  stack?: string[];
   achievements?: string[];
 }
 
@@ -25,11 +28,19 @@ export interface CompetencyPillar {
 
 export const currentRole: Role = {
   title: "Senior Backend Engineer",
-  company: "Ex-TestGorilla",
+  company: "TestGorilla",
   location: "Remote",
   startDate: "October 2022",
   endDate: "August 2026",
-  type: "Open for Work",
+  type: "Open for work",
+  summary:
+    "Owned core backend systems powering candidate assessments at global scale, taking platform services from architecture to production reliability.",
+  impactBullets: [
+    "Scaled distributed backend services processing 30M+ requests/month at <150ms p95 latency and <0.1% error rate with near-zero on-call burden.",
+    "Architected candidate self-serve assessment flow, scaling to 52K+ candidates at a 78% completion rate with zero post-launch defects.",
+    "Engineered localized PDF and headless rendering pipelines across containerized services, unblocking international market expansion.",
+  ],
+  stack: ["Python", "Django", "PostgreSQL", "Redis", "Docker", "AWS", "Flagsmith"],
   description:
     "Senior Python and Django software engineer based in India, recently wrapped up at TestGorilla after owning core backend systems processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms. 7+ years building high-scale distributed systems and production cloud infrastructure. Available for full-time senior backend roles and technical consulting engagements.",
 };
@@ -171,11 +182,4 @@ export const competencyPillars: CompetencyPillar[] = [
       "Rapid Prototyping (Solo-built ATS Demo in 2 Days)",
     ],
   },
-];
-
-export const dailyTasks: string[] = [
-  "Reviewing a PR and pushing back on a half-baked API contract",
-  "Fixing something I shipped on Friday",
-  "Mentoring an engineer through a tricky refactor",
-  "Drawing boxes and arrows for a system that's about to get bigger",
 ];

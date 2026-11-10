@@ -95,9 +95,25 @@ const WorkSection: React.FC<WorkSectionProps> = ({
       onNavigateHome={onNavigateHome}
     >
       {/* Most Recent Role */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-        <div className="flex items-center gap-3 mb-3">
-          <Building className="w-5 h-5 text-slate-800" />
+      <div className="relative bg-white/90 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-slate-300/50">
+        {/* Corner Status Badge */}
+        {currentRole.type && (
+          <a
+            href="/contact/"
+            onClick={handleOpportunitiesClick}
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 hover:bg-emerald-100 hover:border-emerald-300 transition-colors shadow-2xs touch-manipulation cursor-pointer"
+            title="Available for full-time senior roles & consulting — click to connect"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span>{currentRole.type}</span>
+          </a>
+        )}
+
+        <div className="flex items-center gap-2.5 mb-3 pr-28 sm:pr-32">
+          <Building className="w-5 h-5 text-slate-800 shrink-0" />
           <h3 className="text-lg font-bold text-slate-900">
             Most Recent Role
           </h3>
@@ -114,25 +130,49 @@ const WorkSection: React.FC<WorkSectionProps> = ({
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-slate-600">
-            <div className="flex items-center gap-1">
-              <MapPin className="w-4 h-4" />
-              {currentRole.location}
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-slate-500" />
+              <span>{currentRole.location}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {currentRole.startDate} - {currentRole.endDate}
+            <div className="flex items-center gap-1.5">
+              <Calendar className="w-4 h-4 text-slate-500" />
+              <span>{currentRole.startDate} – {currentRole.endDate}</span>
             </div>
-            <Badge
-              variant="secondary"
-              className="text-xs bg-green-100 text-green-800"
-            >
-              {currentRole.type}
-            </Badge>
           </div>
 
+          {/* Short Opening Sentence */}
           <p className="text-slate-700 text-sm leading-relaxed">
-            {currentRole.description}
+            {currentRole.summary || currentRole.description}
           </p>
+
+          {/* Three Impact Bullets */}
+          {currentRole.impactBullets && currentRole.impactBullets.length > 0 && (
+            <ul className="space-y-1.5 text-sm text-slate-700 pt-0.5">
+              {currentRole.impactBullets.map((bullet, idx) => (
+                <li key={idx} className="flex items-start gap-2">
+                  <span className="text-blue-500 mt-1 shrink-0 font-bold">•</span>
+                  <span className="leading-snug">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Compact Stack Line */}
+          {currentRole.stack && currentRole.stack.length > 0 && (
+            <div className="pt-2.5 border-t border-slate-200/80 flex flex-wrap items-center gap-1.5 text-xs">
+              <span className="font-semibold text-slate-700 mr-0.5">Core stack:</span>
+              <div className="flex flex-wrap items-center gap-1">
+                {currentRole.stack.map((tech, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px] border border-slate-200/80 font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -304,24 +344,6 @@ const WorkSection: React.FC<WorkSectionProps> = ({
             </>
           )}
         </button>
-      </div>
-
-      {/* Daily Responsibilities */}
-      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 border border-slate-300/50">
-        <h3 className="text-lg font-bold text-slate-900 mb-3">
-          On a normal Tuesday
-        </h3>
-        <ul className="space-y-2">
-          {dailyTasks.map((task, index) => (
-            <li
-              key={index}
-              className="flex items-start gap-2 text-sm text-slate-700"
-            >
-              <span className="text-blue-500 mt-1">•</span>
-              {task}
-            </li>
-          ))}
-        </ul>
       </div>
 
       {/* Personal Projects Link */}
