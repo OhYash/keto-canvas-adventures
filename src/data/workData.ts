@@ -40,7 +40,7 @@ export const currentRole: Role = {
     "Architected candidate self-serve assessment flow, scaling to 52K+ candidates at a 78% completion rate with zero post-launch defects.",
     "Engineered localized PDF and headless rendering pipelines across containerized services, unblocking international market expansion.",
   ],
-  stack: ["Python", "Django", "PostgreSQL", "Redis", "Docker", "AWS", "Flagsmith"],
+  stack: ["Python", "Django", "MySQL", "Redis", "Docker", "AWS", "Flagsmith"],
   description:
     "Senior Python and Django software engineer based in India, recently wrapped up at TestGorilla after owning core backend systems processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms. 7+ years building high-scale distributed systems and production cloud infrastructure. Available for full-time senior backend roles and technical consulting engagements.",
 };
@@ -50,6 +50,7 @@ export const careerJourney: Role[] = [
     title: "Senior Backend Engineer",
     company: "TestGorilla",
     period: "October 2022 - August 2026",
+    stack: ["Python", "Django", "MySQL", "Redis", "AWS", "Docker"],
     achievements: [
       "Own a core backend system processing 30M+ requests/month at <0.1% error rate and p95 latency under 150ms, with near-zero on-call burden",
       "Designed the self-serve assessment flow, shifting the platform from customer-initiated to candidate-initiated — scaled to 52K+ candidates at a 78% completion rate with near-zero post-launch defects",
@@ -64,6 +65,7 @@ export const careerJourney: Role[] = [
     title: "Software Engineer",
     company: "Digital Guardian Pvt. Ltd.",
     period: "March 2021 - September 2022",
+    stack: ["C/C++", "FreeBSD", "Linux", "Windows Agent"],
     achievements: [
       "Built performance profiling tool with minimal runtime overhead",
       "Identified 54% performance boost in product",
@@ -78,6 +80,7 @@ export const careerJourney: Role[] = [
     title: "Software Engineer",
     company: "MAQ Software Pvt. Ltd.",
     period: "April 2019 - March 2021",
+    stack: ["C#", "ASP.NET Core", "Azure", "CI/CD", "SQL"],
     achievements: [
       "Developed backend services for microservices-based web applications using Azure cloud-native technologies",
       "Contributed to Microsoft's learning platform modularization initiative, supporting a rebuild-from-scratch architecture",
@@ -89,6 +92,7 @@ export const careerJourney: Role[] = [
     title: "Software Development Intern",
     company: "Odessa Technologies Pvt. Ltd.",
     period: "August 2018 - December 2018",
+    stack: ["C#", ".NET", "SQL Server"],
     achievements: [
       "Improved Odessa Build Platform",
       "Conducted performance profiling for Lease Wave project",

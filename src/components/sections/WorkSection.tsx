@@ -201,6 +201,24 @@ const WorkSection: React.FC<WorkSectionProps> = ({
                     {role.period}
                   </Badge>
                 </div>
+
+                {/* Tech Stack Line */}
+                {role.stack && role.stack.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-1.5 text-xs mb-2">
+                    <span className="font-semibold text-slate-600 text-[11px] mr-0.5">Stack:</span>
+                    <div className="flex flex-wrap items-center gap-1">
+                      {role.stack.map((tech, techIdx) => (
+                        <span
+                          key={techIdx}
+                          className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[10px] border border-slate-200/80 font-medium"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <ul className="space-y-1">
                   {role.achievements?.map((achievement, achIndex) => (
                     <li
