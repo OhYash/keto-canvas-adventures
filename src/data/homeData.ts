@@ -6,6 +6,8 @@ export interface SystemMetric {
 }
 
 export interface RecentRoleHighlight {
+  label: string;
+  sublabel: string;
   role: string;
   company: string;
   period: string;
@@ -13,6 +15,13 @@ export interface RecentRoleHighlight {
   target: string;
   path: string;
   metrics: SystemMetric[];
+}
+
+export interface OpenToWorkConfig {
+  text: string;
+  target: string;
+  path: string;
+  tooltip: string;
 }
 
 export interface NavLinkItem {
@@ -40,6 +49,13 @@ export const homeData = {
   subtitle:
     "Senior backend engineer with 7+ years shipping production infrastructure at scale. I own backend systems end-to-end. Open for senior roles and client engagements.",
 
+  openToWork: {
+    text: "Open to work",
+    target: "contact",
+    path: "/contact/",
+    tooltip: "Available for senior roles & consulting — click to connect",
+  } as OpenToWorkConfig,
+
   canvasHint: "2D canvas: drag or press ↑ ↓ ← →",
 
   workLink: {
@@ -49,10 +65,12 @@ export const homeData = {
   },
 
   recentRole: {
+    label: "Recent Experience",
+    sublabel: "Previous Role",
     role: "Senior Backend Engineer",
     company: "TestGorilla",
     period: "2022 – 2026",
-    summary: "Recent full-time role · Skills profiles platform owned in production:",
+    summary: "Skills profiles platform owned in production:",
     target: "work",
     path: "/work/",
     metrics: [

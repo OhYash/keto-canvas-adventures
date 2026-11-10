@@ -29,55 +29,75 @@ const HomeSection: React.FC<HomeSectionProps> = ({
   };
 
   return (
-    <div className="w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] max-h-[85vh] overflow-y-auto bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200 custom-scrollbar cursor-default">
-      {/* Hero Heading with Entity Semantic Nesting */}
-      <HeadingTag className="mb-3">
-        <span className="block text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
-          {homeData.name}
-        </span>
-        <span className="block text-base sm:text-lg font-semibold text-cyan-400 tracking-wide mt-1.5">
-          {homeData.title}
-        </span>
-      </HeadingTag>
-
-      {/* Hero Description */}
-      <p className="text-slate-300/90 text-sm sm:text-base leading-relaxed mb-5">
-        {homeData.description}
-      </p>
-
-      {/* Recent Full-Time Experience Highlight & Production Metrics */}
+    <div className="relative w-[95vw] sm:w-[90vw] md:w-[500px] max-w-[500px] max-h-[85vh] overflow-y-auto bg-[#0d1322]/95 backdrop-blur-md border border-slate-800/80 shadow-2xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-slate-200 custom-scrollbar cursor-default">
+      {/* Top Right "Open to work" Corner Ribbon */}
       <a
-        href={homeData.recentRole.path}
-        onClick={(e) => handleNav(e, homeData.recentRole.target)}
-        className="group block p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-slate-700/80 transition-all duration-200 mb-5 text-left"
+        href={homeData.openToWork.path}
+        onClick={(e) => handleNav(e, homeData.openToWork.target)}
+        className="absolute top-0 right-0 w-32 h-32 overflow-hidden z-20 group cursor-pointer block pointer-events-none rounded-tr-2xl sm:rounded-tr-3xl"
+        title={homeData.openToWork.tooltip}
+        aria-label={homeData.openToWork.text}
       >
-        <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5 text-xs sm:text-sm font-semibold mb-1">
-          <div className="text-white group-hover:text-cyan-300 transition-colors">
+        <div className="absolute top-[35px] -right-[29px] w-[150px] transform rotate-45 bg-emerald-500 group-hover:bg-emerald-400 text-slate-950 font-bold text-[10px] py-1 text-center shadow-md tracking-wider uppercase transition-colors duration-200 flex items-center justify-center gap-1.5 select-none border-y border-emerald-300/40 pointer-events-auto pr-2.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-950 animate-pulse" />
+          <span>{homeData.openToWork.text}</span>
+        </div>
+      </a>
+
+      {/* Hero Heading with Entity Semantic Nesting */}
+      <HeadingTag className="mb-3 pr-14 sm:pr-16">
+          <span className="block text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            {homeData.name}
+          </span>
+          <span className="block text-base sm:text-lg font-semibold text-cyan-400 tracking-wide mt-1.5">
+            {homeData.title}
+          </span>
+        </HeadingTag>
+
+        {/* Hero Description */}
+        <p className="text-slate-300/90 text-sm sm:text-base leading-relaxed mb-5">
+          {homeData.description}
+        </p>
+
+        {/* Recent Full-Time Experience Highlight & Production Metrics */}
+        <a
+          href={homeData.recentRole.path}
+          onClick={(e) => handleNav(e, homeData.recentRole.target)}
+          className="group block p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-slate-700/80 transition-all duration-200 mb-5 text-left"
+        >
+          <div className="flex items-center justify-between gap-2 mb-1.5">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-cyan-400/90 font-mono">
+                {homeData.recentRole.label}
+              </span>
+            </div>
+            <span className="text-slate-500 font-mono text-[11px] font-normal shrink-0">
+              ({homeData.recentRole.period})
+            </span>
+          </div>
+
+          <div className="text-xs sm:text-sm font-semibold mb-1 text-white group-hover:text-cyan-300 transition-colors">
             <span>{homeData.recentRole.company}</span>
             <span className="text-slate-400 font-normal"> · {homeData.recentRole.role}</span>
           </div>
-          <span className="text-slate-500 font-mono text-[11px] font-normal shrink-0">
-            ({homeData.recentRole.period})
-          </span>
-        </div>
 
-        <p className="text-[11px] sm:text-xs text-slate-400 mb-2.5 leading-snug">
-          {homeData.recentRole.summary}
-        </p>
+          <p className="text-[11px] sm:text-xs text-slate-400 mb-2.5 leading-snug">
+            {homeData.recentRole.summary}
+          </p>
 
-        <div className="grid grid-cols-3 gap-2 pt-2.5 border-t border-slate-800/80">
-          {homeData.recentRole.metrics.map((metric, idx) => (
-            <div key={idx} className="flex flex-col">
-              <span className="text-base sm:text-lg font-bold text-white tracking-tight">
-                {metric.value}
-              </span>
-              <span className="text-[10px] sm:text-[11px] text-slate-400 leading-tight mt-0.5">
-                {metric.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </a>
+          <div className="grid grid-cols-3 gap-2 pt-2.5 border-t border-slate-800/80">
+            {homeData.recentRole.metrics.map((metric, idx) => (
+              <div key={idx} className="flex flex-col">
+                <span className="text-base sm:text-lg font-bold text-white tracking-tight">
+                  {metric.value}
+                </span>
+                <span className="text-[10px] sm:text-[11px] text-slate-400 leading-tight mt-0.5">
+                  {metric.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </a>
 
       {/* Navigation Links */}
       <div className="space-y-1 mb-2">
@@ -117,7 +137,7 @@ const HomeSection: React.FC<HomeSectionProps> = ({
 
       {/* Canvas Exploration Shortcuts & Crawler Links */}
       <div className="pt-2.5 mt-2 border-t border-slate-800/40 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs text-slate-400">
-        <span className="text-slate-500">Explore canvas:</span>
+        <span className="text-slate-500">Further exploration on this 2D Canvas:</span>
         {homeData.exploreLinks.map((link, idx) => (
           <React.Fragment key={link.target}>
             {idx > 0 && <span className="text-slate-600">·</span>}

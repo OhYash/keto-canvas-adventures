@@ -1,7 +1,7 @@
 # Yash Yadav
 
 **Senior Backend Engineer**  
-India | yashyadav.710@outlook.com | +91-81042 71666 | [linkedin.com/in/ohyash/](https://linkedin.com/in/ohyash/) | [ohya.sh/](https://ohya.sh/)
+India | yashyadav.work@outlook.com | +91-81042 71666 | [linkedin.com/in/ohyash/](https://linkedin.com/in/ohyash/) | [ohya.sh/](https://ohya.sh/)
 
 ---
 ## Summary
