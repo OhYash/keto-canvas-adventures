@@ -52,7 +52,7 @@ export const homeData = {
     role: "Senior Backend Engineer",
     company: "TestGorilla",
     period: "2022 – 2026",
-    summary: "Production scale of skills platform owned:",
+    summary: "Recent full-time role · Skills profiles platform owned in production:",
     target: "work",
     path: "/work/",
     metrics: [

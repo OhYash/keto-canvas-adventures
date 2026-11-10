@@ -45,6 +45,40 @@ const HomeSection: React.FC<HomeSectionProps> = ({
         {homeData.description}
       </p>
 
+      {/* Recent Full-Time Experience Highlight & Production Metrics */}
+      <a
+        href={homeData.recentRole.path}
+        onClick={(e) => handleNav(e, homeData.recentRole.target)}
+        className="group block p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-slate-700/80 transition-all duration-200 mb-5 text-left"
+      >
+        <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5 text-xs sm:text-sm font-semibold mb-1">
+          <div className="text-white group-hover:text-cyan-300 transition-colors">
+            <span>{homeData.recentRole.company}</span>
+            <span className="text-slate-400 font-normal"> · {homeData.recentRole.role}</span>
+          </div>
+          <span className="text-slate-500 font-mono text-[11px] font-normal shrink-0">
+            ({homeData.recentRole.period})
+          </span>
+        </div>
+
+        <p className="text-[11px] sm:text-xs text-slate-400 mb-2.5 leading-snug">
+          {homeData.recentRole.summary}
+        </p>
+
+        <div className="grid grid-cols-3 gap-2 pt-2.5 border-t border-slate-800/80">
+          {homeData.recentRole.metrics.map((metric, idx) => (
+            <div key={idx} className="flex flex-col">
+              <span className="text-base sm:text-lg font-bold text-white tracking-tight">
+                {metric.value}
+              </span>
+              <span className="text-[10px] sm:text-[11px] text-slate-400 leading-tight mt-0.5">
+                {metric.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </a>
+
       {/* Navigation Links */}
       <div className="space-y-1 mb-2">
         {/* Work history link */}
@@ -57,37 +91,6 @@ const HomeSection: React.FC<HomeSectionProps> = ({
           <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-slate-200 group-hover:translate-x-1 transition-transform duration-200" />
         </a>
 
-        {/* Most Recent Role Box (slightly tabbed right below Work history) */}
-        <a
-          href={homeData.recentRole.path}
-          onClick={(e) => handleNav(e, homeData.recentRole.target)}
-          className="group block ml-3 sm:ml-4 p-3 sm:p-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-slate-700/80 transition-all duration-200 mb-3 text-left"
-        >
-          <div className="text-xs sm:text-sm font-semibold text-slate-200 mb-0.5">
-            <span className="text-white">{homeData.recentRole.company}</span>
-            <span className="text-slate-400 font-normal"> · {homeData.recentRole.role} </span>
-            <span className="text-slate-500 font-mono text-[11px] font-normal">
-              ({homeData.recentRole.period})
-            </span>
-          </div>
-
-          <p className="text-[11px] sm:text-xs text-slate-400 mb-2 leading-snug">
-            {homeData.recentRole.summary}
-          </p>
-
-          <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800/80">
-            {homeData.recentRole.metrics.map((metric, idx) => (
-              <div key={idx} className="flex flex-col">
-                <span className="text-base sm:text-lg font-bold text-white tracking-tight">
-                  {metric.value}
-                </span>
-                <span className="text-[10px] text-slate-400 leading-tight mt-0.5">
-                  {metric.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </a>
         {/* Secondary / Essential Links */}
         {homeData.navigationLinks.map((link) => (
           <a

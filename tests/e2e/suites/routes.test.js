@@ -6,7 +6,7 @@ export function registerRoutesTests() {
   describe('Direct Route Loading & Deep-Linking', () => {
     // Canonical sections content expectations
     const sectionExpectations = {
-      home: 'I own backend systems end-to-end',
+      home: 'Senior Backend Engineer',
       work: 'Most Recent Role',
       writing: 'Writing & Essays',
       personal: 'About Me',
