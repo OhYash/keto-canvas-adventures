@@ -1,5 +1,5 @@
 # OhYa.sh Portfolio — Development Tracker
-Last updated: 2026-11-08
+Last updated: 2026-11-10
 
 This is the ONLY place for work items (see CLAUDE.md & GEMINI.md). Sections: DONE, PENDING,
 NEEDS INPUT, LEARNINGS, PLANS. Mark completed items [x] and move them to DONE.
@@ -8,6 +8,12 @@ Content critiques and research live in dev/research/, referenced from items here
 ---
 
 ## DONE
+
+### Homepage Content, Hierarchy & Navigation Polish
+- [x] Work History Navigation Link & Tabbed Role Callout — Restored the standard "Work history" navigation link at the top of the essential links list and added an indented sub-box directly beneath it (tabbed right via `ml-3 sm:ml-4`) detailing TestGorilla, tenure (2022–2026), role (Senior Backend Engineer), and production scale (30M+ req/mo, <150ms p95, <0.1% errors).
+- [x] Prune Redundant Canvas Intro Note — Removed the verbose middle explanatory paragraph ("This portfolio is built on an infinite 2D canvas...") from `HomeSection.tsx`, consolidating the hint into a concise bottom footer label ("2D canvas: drag or press ↑ ↓ ← →" in `homeData.ts`) alongside the resume download.
+- [x] Streamline Homepage Intro & Voice Constraints — Removed tech stack mentions (Python & Django) from the homepage description, allowing visitors to infer tech stack from the linked Work history; stripped all em-dashes from the intro and canvas description (`homeData.ts`) for clean, natural human voice.
+- [x] Homepage Hero Typography, Metrics Context & Navigation Simplification — Replaced small uppercase mono badge and slogan headline on `HomeSection.tsx` with prominent name heading (`text-3xl sm:text-4xl`) and title (`Senior Backend Engineer`), removing the standalone pitch banner while naturally integrating "owning systems end-to-end" into the description; enriched production metrics with concrete context from TestGorilla's core assessment engine ("Core candidate assessment backend powering high-stakes tests worldwide with near-zero on-call burden"); streamlined primary navigation links strictly to essentials (Work history, Projects (building paise fit), Blog, and Contact) while relocating personal exploration (About me, Now, Travel, Keto, Ataco, Hobbies) into the semantic "Explore canvas" row, maintaining 100% crawler reachability and passing all SSG & E2E route loading tests.
 
 ### SEO & Crawler Indexing Architecture
 - [x] Google Search Console Indexing & Canonical Redirect Loop Resolution — Resolved the 22 non-indexed URL bottleneck (3 redirect errors on `/work`, `/writing`, `/projects`, 3 pages with redirect, and 15 "Discovered – currently not indexed" pages) identified via GSC coverage exports. Standardized canonical URLs, breadcrumb links, and XML sitemap generation on trailing slashes to align with GitHub Pages' native directory serving (eliminating 301 redirect cycles between `/slug` and `/slug/`), converted `TravelStoryCard`'s "Read More" button into semantic `<a href="/travel/:storyId/">` links eliminating orphan travel stories, added direct crawler-accessible exploration links on `HomeSection` for `/keto/`, `/ataco/`, `/hobbies/`, and `/travel/`, and verified 100% crawl graph reachability across all 21 site routes with 28 passing E2E tests.
